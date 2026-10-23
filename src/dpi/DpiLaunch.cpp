@@ -8,27 +8,11 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QSaveFile>
-#include <QUrl>
 
 #include "include/configs/outbounds/dpi.h"
 
 namespace Dpi {
     namespace {
-        // Punycode, lower case, without a scheme or path; empty lines and # comments are dropped.
-        QStringList dpiLaunchNormalizeHosts(const QStringList &hosts) {
-            QStringList out;
-            for (auto host : hosts) {
-                host = host.section('#', 0, 0).trimmed();
-                if (host.contains(QStringLiteral("://"))) host = QUrl(host).host();
-                host = host.section('/', 0, 0);
-                if (host.isEmpty()) continue;
-                const auto ace = QString::fromLatin1(QUrl::toAce(host));
-                host = (ace.isEmpty() ? host : ace).toLower();
-                if (!out.contains(host)) out << host;
-            }
-            return out;
-        }
-
         bool dpiLaunchWriteList(const QString &path, const QStringList &hosts, QString *error) {
             QSaveFile file(path);
             if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
@@ -62,6 +46,12 @@ namespace Dpi {
         return parts.join(' ');
     }
 
+    QString ListPath(const QString &kind, int profileId) {
+        // A profile not saved yet (editor preview) has no id.
+        const auto id = profileId >= 0 ? QString::number(profileId) : QStringLiteral("new");
+        return QDir::toNativeSeparators(QDir(ListDir()).filePath(QStringLiteral("%1-%2.txt").arg(kind, id)));
+    }
+
     QString ZapretDir() {
         return QDir(QCoreApplication::applicationDirPath()).filePath(QStringLiteral("zapret"));
     }
@@ -75,11 +65,12 @@ namespace Dpi {
         return QDir::current().absoluteFilePath(QStringLiteral("dpi"));
     }
 
-    bool BuildLaunch(const Configs::dpi &config, int profileId, Launch *out, QString *error) {
+    bool BuildLaunch(const Configs::dpi &config, int profileId, Launch *out, QString *error, bool dryRun) {
 #ifndef Q_OS_WIN
         Q_UNUSED(config);
         Q_UNUSED(profileId);
         Q_UNUSED(out);
+        Q_UNUSED(dryRun);
         *error = QCoreApplication::translate("Dpi", "DPI Bypass is only available on Windows for now.");
         return false;
 #else
@@ -95,25 +86,26 @@ namespace Dpi {
         }
 
         const QDir lists(ListDir());
-        if (!lists.mkpath(QStringLiteral("."))) {
+        if (!dryRun && !lists.mkpath(QStringLiteral("."))) {
             *error = QCoreApplication::translate("Dpi", "Cannot create the folder %1.").arg(QDir::toNativeSeparators(lists.path()));
             return false;
         }
-        const auto listPath = [&](const char *kind) {
-            return QDir::toNativeSeparators(lists.filePath(QStringLiteral("%1-%2.txt").arg(QLatin1String(kind)).arg(profileId)));
+        const auto listPath = [&](const char *kind) { return ListPath(QLatin1String(kind), profileId); };
+        const auto writeList = [&](const char *kind, const QStringList &hosts) {
+            return dryRun || dpiLaunchWriteList(listPath(kind), hosts, error);
         };
 
-        const auto hosts = dpiLaunchNormalizeHosts(config.hostlist);
-        const auto excluded = dpiLaunchNormalizeHosts(config.exclude);
+        const auto hosts = Configs::dpi::NormalizeHosts(config.hostlist);
+        const auto excluded = Configs::dpi::NormalizeHosts(config.exclude);
         QStringList split;
         if (config.mode == Configs::dpi::ModeHostlist || (config.mode == Configs::dpi::ModeAutoHostlist && !hosts.isEmpty())) {
-            if (!dpiLaunchWriteList(listPath("hostlist"), hosts, error)) return false;
+            if (!writeList("hostlist", hosts)) return false;
             split << QStringLiteral("--hostlist=") + listPath("hostlist");
         }
         if (config.mode == Configs::dpi::ModeAutoHostlist) {
             // winws adds the hosts it finds blocked to this file, so it is kept between runs.
             const auto autoPath = listPath("autohostlist");
-            if (!QFileInfo::exists(autoPath)) {
+            if (!dryRun && !QFileInfo::exists(autoPath)) {
                 QFile seed(autoPath);
                 if (!seed.open(QIODevice::WriteOnly)) {
                     *error = QCoreApplication::translate("Dpi", "Cannot write the site list %1: %2").arg(autoPath, seed.errorString());
@@ -123,7 +115,7 @@ namespace Dpi {
             split << QStringLiteral("--hostlist-auto=") + autoPath;
         }
         if (!excluded.isEmpty()) {
-            if (!dpiLaunchWriteList(listPath("exclude"), excluded, error)) return false;
+            if (!writeList("exclude", excluded)) return false;
             split << QStringLiteral("--hostlist-exclude=") + listPath("exclude");
         }
 

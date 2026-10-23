@@ -48,6 +48,12 @@ namespace Configs
 
         BuildResult Build() override;
 
+        // A site list line as winws matches it: punycode, lower case, no scheme, path or # comment. Empty for a blank line.
+        static QString NormalizeHost(const QString &line);
+
+        // NormalizeHost over a list, blanks and duplicates dropped.
+        static QStringList NormalizeHosts(const QStringList &lines);
+
         // The strategy as winws arguments, comments dropped; error on unbalanced quotes.
         QStringList StrategyTokens(QString *error = nullptr) const;
     };
@@ -57,5 +63,7 @@ namespace Configs
         QString DpiPorts(const QString &text);
         // The strategy must give winws something to do and must not set what F-Dpi manages (files it writes, lists, debug output).
         QString DpiStrategy(const QString &text);
+        // One site list line: a domain (subdomains match too) or a URL; IP addresses are not matched by winws host lists.
+        QString DpiHost(const QString &line);
     }
 }

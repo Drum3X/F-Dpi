@@ -1,6 +1,10 @@
 #include "include/dpi/DpiPresets.h"
 
 #include <QCoreApplication>
+#include <QDir>
+#include <QFile>
+
+#include "include/dpi/DpiLaunch.h"
 
 namespace Dpi {
     const QList<Preset> &Presets() {
@@ -48,5 +52,47 @@ namespace Dpi {
 
     QString PresetName(const Preset &preset) {
         return QCoreApplication::translate("Dpi", preset.name);
+    }
+
+    const QList<SiteList> &BlockedSiteLists() {
+        static const QList<SiteList> lists = {
+            {QStringLiteral("discord"), QT_TRANSLATE_NOOP("Dpi", "Discord"),
+             {QStringLiteral("discord.com"), QStringLiteral("discord.gg"), QStringLiteral("discordapp.com"), QStringLiteral("discordapp.net"),
+              QStringLiteral("discord.media"), QStringLiteral("discordcdn.com"), QStringLiteral("discord.dev"), QStringLiteral("discord.new"),
+              QStringLiteral("discord.gift"), QStringLiteral("discordstatus.com"), QStringLiteral("dis.gd")},
+             {}},
+            {QStringLiteral("youtube"), QT_TRANSLATE_NOOP("Dpi", "YouTube"), {}, QStringLiteral("list-youtube.txt")},
+        };
+        return lists;
+    }
+
+    const QList<SiteList> &ExcludedSiteLists() {
+        static const QList<SiteList> lists = {
+            {QStringLiteral("games"), QT_TRANSLATE_NOOP("Dpi", "Game launchers and stores"),
+             {QStringLiteral("steampowered.com"), QStringLiteral("steamcommunity.com"), QStringLiteral("steamcontent.com"),
+              QStringLiteral("steamserver.net"), QStringLiteral("epicgames.com"), QStringLiteral("riotgames.com"),
+              QStringLiteral("leagueoflegends.com"), QStringLiteral("battle.net"), QStringLiteral("blizzard.com"), QStringLiteral("ea.com"),
+              QStringLiteral("ubisoft.com"), QStringLiteral("playstation.net"), QStringLiteral("xboxlive.com"), QStringLiteral("rockstargames.com")},
+             {}},
+        };
+        return lists;
+    }
+
+    QString SiteListName(const SiteList &list) {
+        return QCoreApplication::translate("Dpi", list.name);
+    }
+
+    QStringList SiteListHosts(const SiteList &list) {
+        QStringList hosts = list.hosts;
+        if (!list.zapretFile.isEmpty()) {
+            QFile file(QDir(ZapretDir()).filePath(QStringLiteral("files/") + list.zapretFile));
+            if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+                for (const auto &line : QString::fromUtf8(file.readAll()).split('\n')) {
+                    const auto host = line.trimmed();
+                    if (!host.isEmpty() && !host.startsWith('#') && !hosts.contains(host)) hosts << host;
+                }
+            }
+        }
+        return hosts;
     }
 } // namespace Dpi

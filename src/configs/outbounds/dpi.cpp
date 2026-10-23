@@ -4,7 +4,9 @@
 
 #include <QCoreApplication>
 #include <QJsonArray>
+#include <QHostAddress>
 #include <QRegularExpression>
+#include <QUrl>
 
 #include "include/dpi/DpiPresets.h"
 
@@ -101,6 +103,26 @@ namespace Configs {
         return {{}, QCoreApplication::translate("Dpi", "A DPI Bypass profile is not a proxy, so it cannot be used in a chain, a route or a test.")};
     }
 
+    QString dpi::NormalizeHost(const QString &line) {
+        QString host = line.section('#', 0, 0).trimmed();
+        if (host.contains(QStringLiteral("://"))) host = QUrl(host).host();
+        host = host.section('/', 0, 0);
+        if (host.startsWith(QStringLiteral("*."))) host = host.mid(2);
+        if (host.startsWith('.')) host = host.mid(1);
+        if (host.isEmpty()) return {};
+        const auto ace = QString::fromLatin1(QUrl::toAce(host));
+        return (ace.isEmpty() ? host : ace).toLower();
+    }
+
+    QStringList dpi::NormalizeHosts(const QStringList &lines) {
+        QStringList out;
+        for (const auto &line : lines) {
+            const auto host = NormalizeHost(line);
+            if (!host.isEmpty() && !out.contains(host)) out << host;
+        }
+        return out;
+    }
+
     QStringList dpi::StrategyTokens(QString *error) const {
         QStringList tokens;
         QString current;
@@ -151,6 +173,15 @@ namespace Configs {
                 }
             }
             return {};
+        }
+
+        QString DpiHost(const QString &line) {
+            if (line.section('#', 0, 0).trimmed().isEmpty()) return {};
+            const auto host = dpi::NormalizeHost(line);
+            if (QHostAddress(host).protocol() != QAbstractSocket::UnknownNetworkLayerProtocol) {
+                return QCoreApplication::translate("Dpi", "Enter a domain name; site lists do not match IP addresses.");
+            }
+            return Validation::Host(host);
         }
 
         QString DpiStrategy(const QString &text) {

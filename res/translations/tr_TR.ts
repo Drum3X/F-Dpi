@@ -5190,11 +5190,11 @@ https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
     </message>
     <message>
         <source>WinDivert needs administrator rights: start F-Dpi as administrator.</source>
-        <translation>WinDivert yönetici yetkisi gerektirir: F-Dpi'yi yönetici olarak başlatın.</translation>
+        <translation>WinDivert yönetici yetkisi gerektirir: F-Dpi&apos;yi yönetici olarak başlatın.</translation>
     </message>
     <message>
         <source>WinDivert64.sys is missing from the zapret folder; reinstall F-Dpi.</source>
-        <translation>zapret klasöründe WinDivert64.sys yok; F-Dpi'yi yeniden kurun.</translation>
+        <translation>zapret klasöründe WinDivert64.sys yok; F-Dpi&apos;yi yeniden kurun.</translation>
     </message>
     <message>
         <source>WinDivert rejected the capture filter; check the TCP and UDP ports.</source>
@@ -5210,11 +5210,11 @@ https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
     </message>
     <message>
         <source>DPI Bypass cannot run while the kill switch is on: it would block all traffic. Turn the kill switch off first.</source>
-        <translation>Kill switch açıkken DPI Bypass çalışamaz: tüm trafiği engeller. Önce kill switch'i kapatın.</translation>
+        <translation>Kill switch açıkken DPI Bypass çalışamaz: tüm trafiği engeller. Önce kill switch&apos;i kapatın.</translation>
     </message>
     <message>
         <source>[DPI] The system proxy is not used while DPI Bypass runs.</source>
-        <translation>[DPI] DPI Bypass çalışırken sistem proxy'si kullanılmaz.</translation>
+        <translation>[DPI] DPI Bypass çalışırken sistem proxy&apos;si kullanılmaz.</translation>
     </message>
     <message>
         <source>[DPI] DPI Bypass stopped because winws exited: %1</source>
@@ -5226,11 +5226,11 @@ https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
     </message>
     <message>
         <source>DPI Bypass is only available on Windows for now.</source>
-        <translation>DPI Bypass şimdilik yalnızca Windows'ta kullanılabilir.</translation>
+        <translation>DPI Bypass şimdilik yalnızca Windows&apos;ta kullanılabilir.</translation>
     </message>
     <message>
         <source>winws.exe was not found at %1. Reinstall F-Dpi.</source>
-        <translation>winws.exe %1 konumunda bulunamadı. F-Dpi'yi yeniden kurun.</translation>
+        <translation>winws.exe %1 konumunda bulunamadı. F-Dpi&apos;yi yeniden kurun.</translation>
     </message>
     <message>
         <source>Cannot create the folder %1.</source>
@@ -5258,7 +5258,7 @@ https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
     </message>
     <message>
         <source>Add at least one site, or apply the bypass to all sites.</source>
-        <translation>En az bir site ekleyin ya da bypass'ı tüm sitelere uygulayın.</translation>
+        <translation>En az bir site ekleyin ya da bypass&apos;ı tüm sitelere uygulayın.</translation>
     </message>
     <message>
         <source>A DPI Bypass profile is not a proxy, so it cannot be used in a chain, a route or a test.</source>
@@ -5267,6 +5267,10 @@ https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
     <message>
         <source>Write ports or ranges separated by commas, e.g. 80,443 or 50000-50100.</source>
         <translation>Portları veya aralıkları virgülle ayırarak yazın, ör. 80,443 ya da 50000-50100.</translation>
+    </message>
+    <message>
+        <source>Enter a domain name; site lists do not match IP addresses.</source>
+        <translation>Bir alan adı girin; site listeleri IP adresleriyle eşleşmez.</translation>
     </message>
     <message>
         <source>Enter a strategy or choose a preset.</source>
@@ -5291,6 +5295,18 @@ https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
     <message>
         <source>Fake with low TTL</source>
         <translation>Düşük TTL ile fake</translation>
+    </message>
+    <message>
+        <source>Discord</source>
+        <translation>Discord</translation>
+    </message>
+    <message>
+        <source>YouTube</source>
+        <translation>YouTube</translation>
+    </message>
+    <message>
+        <source>Game launchers and stores</source>
+        <translation>Oyun başlatıcıları ve mağazaları</translation>
     </message>
 </context>
 <context>
@@ -6043,7 +6059,7 @@ https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
     </message>
     <message>
         <source>TCP ports winws captures (--wf-tcp). Separate ports and ranges with commas.</source>
-        <translation>winws'in yakaladığı TCP portları (--wf-tcp). Portları ve aralıkları virgülle ayırın.</translation>
+        <translation>winws&apos;in yakaladığı TCP portları (--wf-tcp). Portları ve aralıkları virgülle ayırın.</translation>
     </message>
     <message>
         <source>TCP ports</source>
@@ -6051,7 +6067,7 @@ https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
     </message>
     <message>
         <source>UDP ports winws captures (--wf-udp), e.g. 443 for QUIC. Leave empty to leave UDP alone.</source>
-        <translation>winws'in yakaladığı UDP portları (--wf-udp), ör. QUIC için 443. UDP'ye dokunmamak için boş bırakın.</translation>
+        <translation>winws&apos;in yakaladığı UDP portları (--wf-udp), ör. QUIC için 443. UDP&apos;ye dokunmamak için boş bırakın.</translation>
     </message>
     <message>
         <source>UDP ports</source>
@@ -6066,12 +6082,122 @@ https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
         <translation>Strateji</translation>
     </message>
     <message>
+        <source>Site selection</source>
+        <translation>Site seçimi</translation>
+    </message>
+    <message>
         <source>Proxy and DPI Bypass never run together: starting this profile stops the running proxy.</source>
-        <translation>Proxy ve DPI Bypass asla birlikte çalışmaz: bu profili başlatmak çalışan proxy'yi durdurur.</translation>
+        <translation>Proxy ve DPI Bypass asla birlikte çalışmaz: bu profili başlatmak çalışan proxy&apos;yi durdurur.</translation>
+    </message>
+    <message>
+        <source>Show command line</source>
+        <translation>Komut satırını göster</translation>
+    </message>
+    <message>
+        <source>All sites</source>
+        <translation>Tüm siteler</translation>
+    </message>
+    <message>
+        <source>Only listed sites</source>
+        <translation>Yalnızca listedeki siteler</translation>
+    </message>
+    <message>
+        <source>Automatic: learn blocked sites</source>
+        <translation>Otomatik: engellenen siteleri öğren</translation>
+    </message>
+    <message>
+        <source>Apply bypass to</source>
+        <translation>Bypass uygulanacak</translation>
+    </message>
+    <message>
+        <source>One domain per line; its subdomains match too. # starts a comment.</source>
+        <translation>Her satıra bir alan adı; alt alan adları da eşleşir. # yorum başlatır.</translation>
+    </message>
+    <message>
+        <source>Sites</source>
+        <translation>Siteler</translation>
+    </message>
+    <message>
+        <source>Show</source>
+        <translation>Göster</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Temizle</translation>
+    </message>
+    <message>
+        <source>Learned</source>
+        <translation>Öğrenilen</translation>
+    </message>
+    <message>
+        <source>Never touch</source>
+        <translation>Asla dokunma</translation>
+    </message>
+    <message>
+        <source>Games mostly use UDP on their own ports. With only 443 in the UDP ports, their traffic is never captured; add game launchers to &quot;Never touch&quot; to leave their web traffic alone too.</source>
+        <translation>Oyunlar çoğunlukla kendi portlarında UDP kullanır. UDP portlarında yalnızca 443 varsa oyun trafiği hiç yakalanmaz; web trafiğine de dokunulmaması için oyun başlatıcılarını "Asla dokunma" listesine ekleyin.</translation>
+    </message>
+    <message>
+        <source>Learned sites</source>
+        <translation>Öğrenilen siteler</translation>
+    </message>
+    <message>
+        <source>No site has been learned yet.</source>
+        <translation>Henüz hiçbir site öğrenilmedi.</translation>
+    </message>
+    <message>
+        <source>Add list</source>
+        <translation>Liste ekle</translation>
+    </message>
+    <message>
+        <source>Import from file...</source>
+        <translation>Dosyadan içe aktar...</translation>
+    </message>
+    <message>
+        <source>Import site list</source>
+        <translation>Site listesini içe aktar</translation>
+    </message>
+    <message>
+        <source>Text files (*.txt);;All files (*)</source>
+        <translation>Metin dosyaları (*.txt);;Tüm dosyalar (*)</translation>
     </message>
     <message>
         <source>Enter TCP or UDP ports; with neither, no traffic is captured.</source>
         <translation>TCP veya UDP portu girin; ikisi de boşsa hiçbir trafik yakalanmaz.</translation>
+    </message>
+    <message>
+        <source>Add at least one site, or apply the bypass to all sites.</source>
+        <translation>En az bir site ekleyin ya da bypass'ı tüm sitelere uygulayın.</translation>
+    </message>
+    <message>
+        <source>Every connection on the captured ports is changed. Simplest, but some sites or games may misbehave.</source>
+        <translation>Yakalanan portlardaki her bağlantı değiştirilir. En basit yöntemdir, ancak bazı siteler veya oyunlar sorun çıkarabilir.</translation>
+    </message>
+    <message>
+        <source>winws watches connections and adds a site to the learned list once it looks blocked; only those sites and the ones below are changed.</source>
+        <translation>winws bağlantıları izler ve engellenmiş görünen bir siteyi öğrenilenler listesine ekler; yalnızca bu siteler ve aşağıdakiler değiştirilir.</translation>
+    </message>
+    <message>
+        <source>Only the sites below (and their subdomains) are changed; everything else is left alone.</source>
+        <translation>Yalnızca aşağıdaki siteler (ve alt alan adları) değiştirilir; diğer her şeye dokunulmaz.</translation>
+    </message>
+    <message>
+        <source>Start with</source>
+        <translation>Başlangıç listesi</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n site(s)</source>
+        <translation>
+            <numerusform>%n site</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Available once the profile is saved and run.</source>
+        <translation>Profil kaydedilip çalıştırıldıktan sonra kullanılabilir.</translation>
+    </message>
+    <message>
+        <source>Command line</source>
+        <translation>Komut satırı</translation>
     </message>
 </context>
 <context>

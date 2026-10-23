@@ -105,8 +105,14 @@ Write-Step "runtime: zapret + sing-box"
 $zapretSrc = Join-Path $Root "deps\zapret\zapret-winws"
 if (Test-Path $zapretSrc) {
     $zapretDst = Join-Path $Dest "zapret"
-    New-Item -ItemType Directory -Force $zapretDst | Out-Null
-    Copy-Item -Recurse -Force "$zapretSrc\*" $zapretDst
+    # Only changed files: a loaded WinDivert driver keeps WinDivert64.sys locked after winws exits.
+    Get-ChildItem -Recurse -File $zapretSrc | ForEach-Object {
+        $target = Join-Path $zapretDst $_.FullName.Substring($zapretSrc.Length + 1)
+        $existing = Get-Item $target -ErrorAction SilentlyContinue
+        if ($existing -and $existing.Length -eq $_.Length -and $existing.LastWriteTimeUtc -eq $_.LastWriteTimeUtc) { return }
+        New-Item -ItemType Directory -Force (Split-Path $target) | Out-Null
+        Copy-Item -Force $_.FullName $target
+    }
 } else { Write-Warning "deps\zapret missing - run script\fetch_deps.ps1" }
 $singbox = Join-Path $Root "deps\sing-box\sing-box.exe"
 if (Test-Path $singbox) { Copy-Item -Force $singbox $Dest } else { Write-Warning "deps\sing-box missing" }

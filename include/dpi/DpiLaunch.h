@@ -27,6 +27,10 @@ namespace Dpi {
     // a space is passed quoted (--opt="C:\path"), as zapret's own .cmd presets do. Arguments carry no quotes of their own.
     QString WindowsCommandLine(const QStringList &arguments);
 
+    // A profile's list file: kind is hostlist, exclude or autohostlist.
+    QString ListPath(const QString &kind, int profileId);
+
     // Writes the profile's site lists and builds the winws command line. False with a translated error when it cannot run.
-    bool BuildLaunch(const Configs::dpi &config, int profileId, Launch *out, QString *error);
+    // dryRun builds the same command line without touching any file (editor preview).
+    bool BuildLaunch(const Configs::dpi &config, int profileId, Launch *out, QString *error, bool dryRun = false);
 } // namespace Dpi

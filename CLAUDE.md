@@ -60,8 +60,17 @@ Notlar:
 - Deploy içinde `F-Dpi.exe`, `ThroneCore.exe`, `zapret/` alt dizini (`winws.exe` ve bağımlılıkları) ile `sing-box.exe` bulunur.
 - **Smoke test (yükseltilmemiş shell'den):** `F-Dpi.exe` yönetici ister. UAC istemi çıkmadan pencere ve core'un açıldığını görmek için `$env:__COMPAT_LAYER="RunAsInvoker"` ayarlayıp `Start-Process` ile başlatın. Portable modda veri `deployment\windows-amd64\config\` altına yazılır; günlük dosyası `config\logs\throne.log`.
   - Günlük dosyası tamponludur: satırlar ancak sonraki bir yazımla diske düşer. Anlık durum için pencereyi okuyun.
-  - **GUI'yi sürmek:** PowerShell'de UI Automation (`UIAutomationClient`) pencere metinlerini (durum çubuğu, tablo satırları, diyaloglar) okur. Satırı seçip `SendKeys` ile `{ENTER}` göndermek profili başlatır; `^n` yeni profil diyaloğunu açar. Fare tıklamaları güvenilir değildir. Ekran görüntüsü `System.Drawing` `CopyFromScreen` ile alınır.
-  - **Test verisi:** uygulama kapalıyken `config\throne.db` Node'un yerleşik `node:sqlite` modülüyle düzenlenebilir (`profiles` satırı + `groups.profiles_json`). Ters bölü içeren JSON'u kabuk tırnaklaması yerine bir `.js` dosyasından ve `String.raw` ile yazın.
+  - **GUI'yi sürmek:** PowerShell'de UI Automation (`UIAutomationClient`) pencere metinlerini (durum çubuğu, tablo satırları, diyaloglar) okur.
+    - Satırı seçip `SendKeys` ile `{ENTER}` göndermek profili başlatır; `^n` yeni profil diyaloğunu açar.
+    - Profil diyaloğu ana pencerenin altında görünür; "Düzenle" adıyla ana pencerenin descendant'ları içinde aranır. Pencerenin sınıf adı oturumdan oturuma değişir, bu yüzden başlıkla eşleştirilir.
+    - Qt açılır kutusu ve menüsü UIA `Select`/`Invoke` ile güvenilir çalışmaz; menü açık kalır. Bunun yerine `SetProcessDPIAware()` + `BoundingRectangle` merkezine `mouse_event` tıklaması, ardından `SendKeys` kullanılır. `SetFocus()` Qt odağını taşımaz.
+    - Türkçe metin içeren `.ps1` dosyaları **BOM'lu UTF-8** kaydedilmelidir; PowerShell 5.1 aksi halde ANSI okur ve adlar eşleşmez.
+    - Ekran görüntüsü `System.Drawing` `CopyFromScreen` ile alınır.
+  - **Test verisi:** uygulama kapalıyken `config\throne.db` Node'un yerleşik `node:sqlite` modülüyle düzenlenebilir (`profiles` satırı + `groups.profiles_json`).
+    - Ters bölü içeren JSON'u kabuk tırnaklaması yerine bir `.js` dosyasından ve `String.raw` ile yazın.
+    - Elle eklenen satırların id'si `entity_ids.profile_last_id` sayacının altında kalmalıdır; yoksa uygulama yeni profile aynı id'yi verir ve satırın üzerine yazar.
+  - **UAC tuzağı:** Yönetici olarak çalışan bir oturum `windows_set_admin=true` kaydeder ve sonraki her normal başlatma kendini UAC ile yükseltir (Throne `RelaunchElevatedIfNeeded`). Yükseltilmemiş test öncesinde bu ayar `false` yapılır. Yükseltilmiş bir örnek normal shell'den kapatılamaz ve sürülemez.
+  - **Yönetici testi:** tek UAC onayıyla `Start-Process powershell -Verb RunAs -File <betik>`; betik F-Dpi'yi başlatır (yetki devralınır), UIA ile sürer ve sonucu dosyaya yazar.
   - Yükseltilmemiş testte winws argümanları ve listeleri işler, sonra WinDivert'te exit 5 (erişim reddedildi) ile durur. DPI'nin gerçekten çalışması ve DPI→proxy geçişi ancak yönetici olarak test edilebilir.
 
 ### Çeviriler (Türkçe = `res/translations/tr_TR.ts`)
@@ -208,10 +217,17 @@ Notlar:
   - stdout `[DPI]` önekiyle log paneline gider.
   - Sonradan beklenmedik çıkış `unexpectedExit` sinyalini tetikler; ConnectionManager profili durdurur. `started_id` korunur.
   - `Sys::TieChildToSelf` (`include/sys/ChildProcess.hpp`, Windows'ta job object + `KILL_ON_JOB_CLOSE`) sayesinde F-Dpi çökerse winws de ölür. Açılışta `Sys::KillProcessesByPath` kalmış winws süreçlerini kapatır.
-- **Düzenleme UI'ı (F2 asgari)**: `EditDpi` (`src/ui/profile/edit_dpi.cpp`, kodla kurulmuş form).
-  - Hazır ayar, TCP/UDP portları ve strateji metni içerir.
+- **Düzenleme UI'ı (F3 sonrası)**: `EditDpi` (`src/ui/profile/edit_dpi.cpp`, kodla kurulmuş, `DialogEditProfile` içinde "DPI Bypass" kutusu).
   - Tip listesinde ilk sıradadır; Ctrl+N ile yeni profil varsayılan olarak DPI Bypass açılır.
-  - Split bypass editörleri F3'te gelecek.
+  - **Strateji** sekmesi:
+    - Hazır ayar, TCP/UDP portları ve strateji metni. Elle düzenleme hazır ayarı "Özel" yapar.
+    - "Komut satırını göster": `Dpi::BuildLaunch(..., dryRun=true)` ile dosya yazmadan winws komutunu gösterir. Kaydedilmemiş profilin liste dosyası `*-new.txt` olarak görünür.
+  - **Site seçimi** sekmesi (Split Bypass):
+    - Mod: Tüm siteler / Yalnızca listedeki siteler / Otomatik (engellenenleri öğren).
+    - "Siteler" listesi ve "Asla dokunma" listesi. Her birinde "Liste ekle" menüsü (`Dpi::BlockedSiteLists`: Discord, YouTube (zapret `list-youtube.txt`); `Dpi::ExcludedSiteLists`: oyun başlatıcıları/mağazaları) ve "Dosyadan içe aktar".
+    - Otomatik modda "Öğrenilen: N site" + Göster/Temizle (`autohostlist-<id>.txt`).
+    - Satırlar `Checks::DpiHost` ile doğrulanır (alan adı veya URL; IP reddedilir). Kayıtta `dpi::NormalizeHosts` uygulanır (punycode, küçük harf, tekrarsız).
+    - Liste kutularının yüksekliği sınırlıdır (70–110 px); sekme değişince diyalog yeniden boyutlanır (1080p'de ~720 px).
 
 ### F-Dpi bileşen tasarımı (sonraki fazlar)
 - `dpi` tipi, `DpiSupervisor` ve dışlama: uygulandı (bkz. "DPI motoru (F2 sonrası)" ve "Motorlar ve karşılıklı dışlama").
@@ -253,10 +269,11 @@ Notlar:
     - Bu ağda engelli `discord.com` (DoH ile bile curl exit 35) `general` preset + hostlist ile 200 döndü; `youtube.com` etkilenmedi.
     - DPI→proxy geçişinde winws durdu; proxy→DPI geçişinde yeniden başladı.
     - F-Dpi zorla kapatılınca winws de kapandı (job object) ve Discord yeniden engellendi; sonraki açılış temiz.
-- [ ] **F3 – DPI düzenleme UI'ı:**
-  - `edit_dpi`: preset'ler, manuel argüman editörü, port filtreleri.
-  - Split Bypass: mod seçimi + hostlist / exclude / auto-hostlist editörleri.
-  - `DialogEditProfile` entegrasyonu.
+- [x] **F3 – DPI düzenleme UI'ı:**
+  - `EditDpi` iki sekme: Strateji (preset, portlar, strateji, komut satırı önizlemesi) ve Site seçimi (mod + Siteler / Asla dokunma listeleri, hazır listeler, dosyadan içe aktarma, öğrenilen liste).
+  - `build_windows.ps1` zapret dosyalarını yalnızca değiştiyse kopyalar (yüklü WinDivert sürücüsü `WinDivert64.sys`'i kilitler).
+  - Doğrulandı (yönetici olmadan, UIA + fare): yeni profil → Yalnızca listedeki siteler + Discord + oyun hariç listesi → önizleme → kaydet; DB'de `mode=hostlist`, 11 site, 14 hariç. Otomatik modda winws argümanları WinDivert'e kadar kabul edildi, `autohostlist-1.txt` oluştu. Diyalog 1080p ekrana sığıyor.
+  - Doğrulanmadı: otomatik modda winws'in gerçekten site öğrenmesi (yönetici + engelli site trafiği gerekir); "Dosyadan içe aktar" dosya seçicisi.
 - [ ] **F4 – Genel / Özel config:**
   - `groups.scope` + `network_bindings` şeması ve migrasyonu.
   - İkiye bölünmüş sekme alanı; grup diyaloğunda kapsam seçimi.
