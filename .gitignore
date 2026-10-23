@@ -89,3 +89,7 @@ out
 srslist.h
 .claude
 .qtcreator
+# F-Dpi
+/deps
+/res/dashboard/*
+!/res/dashboard/.gitkeep
