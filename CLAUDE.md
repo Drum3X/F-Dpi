@@ -249,7 +249,10 @@ Notlar:
   - ConnectionManager'da karşılıklı dışlama (`startDpi`, crash-stop/`onCoreStarted` korumaları, `ActiveEngine`); kill switch ve sistem proxy'si kuralları.
   - Log paneline winws çıktısı; asgari `EditDpi` editörü; `tr_TR` çevirileri.
   - Doğrulandı (yönetici olmadan, UI Automation ile): profil yükleme/gösterim, liste dosyaları, winws argümanları, proxy→DPI geçişi (proxy durduruldu), hata mesajı, hatadan sonra proxy'nin yeniden başlaması, editör.
-  - **Doğrulanmadı:** yönetici olarak gerçek DPI çalışması, DPI→proxy geçişi ve çökme sonrası winws'in job object ile kapanması.
+  - Yönetici olarak doğrulandı (2026-10-23, tek UAC onayıyla yükseltilmiş bir PowerShell betiği F-Dpi'yi başlatıp UI Automation ile sürdü; yükseltilmiş pencereye yükseltilmemiş süreçten tuş gönderilemez):
+    - Bu ağda engelli `discord.com` (DoH ile bile curl exit 35) `general` preset + hostlist ile 200 döndü; `youtube.com` etkilenmedi.
+    - DPI→proxy geçişinde winws durdu; proxy→DPI geçişinde yeniden başladı.
+    - F-Dpi zorla kapatılınca winws de kapandı (job object) ve Discord yeniden engellendi; sonraki açılış temiz.
 - [ ] **F3 – DPI düzenleme UI'ı:**
   - `edit_dpi`: preset'ler, manuel argüman editörü, port filtreleri.
   - Split Bypass: mod seçimi + hostlist / exclude / auto-hostlist editörleri.
