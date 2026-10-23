@@ -108,6 +108,9 @@ public:
 
     void refresh_groups();
 
+    // F-Dpi: lists the General or the Custom (per network) groups; offers to create the first one of a section.
+    void show_group_section(bool network);
+
     void updateTabToolTip(int gid);
 
     void refresh_status(const QString &traffic_update = "");

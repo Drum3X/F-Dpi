@@ -600,6 +600,15 @@ set(PROJECT_SOURCES
         src/ui/profile/edit_dpi.cpp
         include/sys/ChildProcess.hpp
         src/sys/ChildProcess.cpp
+        # F-Dpi: Genel / Özel (per network) configs
+        include/database/NetworkScopesRepo.h
+        src/database/NetworkScopesRepo.cpp
+        include/sys/NetworkMonitor.hpp
+        src/sys/NetworkMonitor.cpp
+        include/ui/group/GroupSectionBar.h
+        src/ui/group/GroupSectionBar.cpp
+        include/ui/group/NetworkScopeEditor.h
+        src/ui/group/NetworkScopeEditor.cpp
         include/ui/profile/edit_advanced.h
         src/ui/profile/edit_advanced.cpp
         include/ui/profile/edit_advanced.ui
@@ -761,6 +770,8 @@ set(ENGINE_SOURCES
         src/engine/connection/ConnectionDpi.cpp
         include/engine/dpi/DpiSupervisor.h
         src/engine/dpi/DpiSupervisor.cpp
+        include/engine/network/NetworkSwitcher.h
+        src/engine/network/NetworkSwitcher.cpp
         include/engine/vpn/VpnAuthController.h
         src/engine/vpn/VpnAuthController.cpp
         include/engine/services/Dashboard.h
@@ -850,6 +861,8 @@ if (WIN32)
 endif ()
 set_property(SOURCE "3rdparty/SQLiteCpp/src/sqlite3.c" PROPERTY SKIP_UNITY_BUILD_INCLUSION ON)
 set_property(SOURCE "3rdparty/monocypher/monocypher.c" PROPERTY SKIP_UNITY_BUILD_INCLUSION ON)
+# F-Dpi: winsock2.h must come before any windows.h, which an earlier TU of a unity batch may already have included.
+set_property(SOURCE "src/sys/windows/NetworkMonitor_win.cpp" PROPERTY SKIP_UNITY_BUILD_INCLUSION ON)
 
 # Verified to link. OMIT_VIRTUALTABLE/VIEW/ANALYZE/CTE/WINDOWFUNC/DECLTYPE all break this build.
 target_compile_definitions(Throne PRIVATE

@@ -24,6 +24,7 @@ namespace Engine {
     class TestObserver;
     class TestRunner;
     class VpnAuthController;
+    class NetworkSwitcher;
 
     // Owns and wires every engine object, and is the EngineControl the Throne API drives. Main thread unless noted.
     class EngineHost final : public EngineControl {
@@ -157,6 +158,8 @@ namespace Engine {
         CoreSupervisor *m_coreSupervisor = nullptr;
         ConnectionManager *m_connection = nullptr;
         VpnAuthController *m_vpnAuth = nullptr;
+        // F-Dpi: runs the current network's config.
+        NetworkSwitcher *m_networkSwitcher = nullptr;
         std::unique_ptr<TestRunner> m_tests;
         // After m_tests, so it is destroyed first.
         std::unique_ptr<AutoSelectorController> m_autoSelector;

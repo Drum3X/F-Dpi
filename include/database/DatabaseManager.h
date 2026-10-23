@@ -14,6 +14,7 @@ namespace Configs {
     class IpScansRepo;
     class TrafficStatsRepo;
     class MarkersRepo;
+    class NetworkScopesRepo;
 
     void initDB(const std::string& dbPath);
 
@@ -41,6 +42,8 @@ namespace Configs {
         std::unique_ptr<SettingsRepo> settingsRepo;
         std::unique_ptr<TrafficStatsRepo> trafficStatsRepo;
         std::unique_ptr<MarkersRepo> markersRepo;
+        // F-Dpi
+        std::unique_ptr<NetworkScopesRepo> networkScopesRepo;
         std::unique_ptr<IpListsRepo> ipListsRepo;
         std::unique_ptr<IpScansRepo> ipScansRepo;
 

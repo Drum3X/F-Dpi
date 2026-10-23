@@ -8,6 +8,7 @@
 #include "include/engine/EditLocks.h"
 
 class QComboBox;
+class NetworkScopeEditor;
 
 namespace Validation {
     class Form;
@@ -54,6 +55,9 @@ private:
     QHash<QString, int> proxyNameToId;
 
     Validation::Form *form = nullptr;
+
+    // F-Dpi
+    NetworkScopeEditor *scopeEditor = nullptr;
 
     int resolve_proxy_selection(QComboBox *combo, int fallback) const;
 

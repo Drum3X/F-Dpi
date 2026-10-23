@@ -13,6 +13,7 @@
 #include "include/global/RunningProfiles.hpp"
 #include "include/global/Validation.hpp"
 #include "include/ui/group/dialog_edit_group_advanced.h"
+#include "include/ui/group/NetworkScopeEditor.h"
 #include "include/ui/utils/ValidationForm.h"
 
 
@@ -68,6 +69,10 @@ DialogEditGroup::DialogEditGroup(const std::shared_ptr<Configs::Group> &ent, QWi
     ui->type->setCurrentIndex(ent->url.isEmpty() ? 0 : 1);
     ui->type->currentIndexChanged(ui->type->currentIndex());
     ui->cat_share->setVisible(false);
+    // F-Dpi: General or Custom (per network) scope, after the last section (form->attachStatus wrapped the buttons).
+    scopeEditor = new NetworkScopeEditor(ent, this);
+    ui->verticalLayout->insertWidget(ui->verticalLayout->indexOf(ui->cat_share) + 1, scopeEditor);
+    connect(scopeEditor, &NetworkScopeEditor::layoutChanged, this, [this] { ADJUST_SIZE });
     if (Configs::dataManager->profilesRepo->GetProfile(ent->front_proxy_id) == nullptr) {
         ent->front_proxy_id = -1;
         Configs::dataManager->groupsRepo->Save(ent);
@@ -277,6 +282,7 @@ void DialogEditGroup::accept() {
     ent->endpoint = endpoint;
     ent->front_proxy_id = resolve_proxy_selection(ui->front_proxy, CACHE.front_proxy);
     ent->landing_proxy_id = resolve_proxy_selection(ui->landing_proxy, LANDING.landing_proxy);
+    scopeEditor->store(ent);
     QDialog::accept();
 }
 

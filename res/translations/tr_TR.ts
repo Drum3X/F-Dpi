@@ -6135,7 +6135,7 @@ https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
     </message>
     <message>
         <source>Games mostly use UDP on their own ports. With only 443 in the UDP ports, their traffic is never captured; add game launchers to &quot;Never touch&quot; to leave their web traffic alone too.</source>
-        <translation>Oyunlar çoğunlukla kendi portlarında UDP kullanır. UDP portlarında yalnızca 443 varsa oyun trafiği hiç yakalanmaz; web trafiğine de dokunulmaması için oyun başlatıcılarını "Asla dokunma" listesine ekleyin.</translation>
+        <translation>Oyunlar çoğunlukla kendi portlarında UDP kullanır. UDP portlarında yalnızca 443 varsa oyun trafiği hiç yakalanmaz; web trafiğine de dokunulmaması için oyun başlatıcılarını &quot;Asla dokunma&quot; listesine ekleyin.</translation>
     </message>
     <message>
         <source>Learned sites</source>
@@ -6167,7 +6167,7 @@ https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
     </message>
     <message>
         <source>Add at least one site, or apply the bypass to all sites.</source>
-        <translation>En az bir site ekleyin ya da bypass'ı tüm sitelere uygulayın.</translation>
+        <translation>En az bir site ekleyin ya da bypass&apos;ı tüm sitelere uygulayın.</translation>
     </message>
     <message>
         <source>Every connection on the captured ports is changed. Simplest, but some sites or games may misbehave.</source>
@@ -8679,6 +8679,49 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
 </context>
 <context>
+    <name>GroupSectionBar</name>
+    <message>
+        <source>General</source>
+        <translation>Genel</translation>
+    </message>
+    <message>
+        <source>Configs used on any network without a config of its own.</source>
+        <translation>Kendi config'i olmayan her ağda kullanılan config'ler.</translation>
+    </message>
+    <message>
+        <source>Custom (per network)</source>
+        <translation>Özel (Ağ Bazlı)</translation>
+    </message>
+    <message>
+        <source>Auto switch</source>
+        <translation>Otomatik geçiş</translation>
+    </message>
+    <message>
+        <source>When the network changes, run its own config (Custom groups bound to it), else the last general config.</source>
+        <translation>Ağ değiştiğinde o ağa ait config'i (ağa bağlı Özel gruplar), yoksa son genel config'i çalıştırır.</translation>
+    </message>
+    <message>
+        <source>No network</source>
+        <translation>Ağ yok</translation>
+    </message>
+    <message>
+        <source>Configs bound to a Wi-Fi or Ethernet network. No network is connected now.</source>
+        <translation>Bir Wi-Fi veya Ethernet ağına bağlı config'ler. Şu an bağlı ağ yok.</translation>
+    </message>
+    <message>
+        <source>Wi-Fi</source>
+        <translation>Wi-Fi</translation>
+    </message>
+    <message>
+        <source>Ethernet</source>
+        <translation>Ethernet</translation>
+    </message>
+    <message>
+        <source>Configs bound to a Wi-Fi or Ethernet network. Now connected to %1 %2.</source>
+        <translation>Bir Wi-Fi veya Ethernet ağına bağlı config'ler. Şu an bağlı ağ: %1 %2.</translation>
+    </message>
+</context>
+<context>
     <name>GuiStartup</name>
     <message>
         <source>A background Throne (PID %1) is running on this computer (data directory: %2). Tun mode is unavailable here while it runs; stop it or use thronectl.</source>
@@ -9917,6 +9960,10 @@ Hata: %1</translation>
         <translation>Hata</translation>
     </message>
     <message>
+        <source>My network</source>
+        <translation>Ağım</translation>
+    </message>
+    <message>
         <source>Edit selected Group</source>
         <translation>Seçili Grubu Düzenle</translation>
     </message>
@@ -10360,6 +10407,84 @@ URL: %2</translation>
     <message>
         <source>Custom Multiplex</source>
         <translation>Özel Multiplex</translation>
+    </message>
+</context>
+<context>
+    <name>Network</name>
+    <message>
+        <source>[Network] Connected to %1.</source>
+        <translation>[Ağ] %1 ağına bağlanıldı.</translation>
+    </message>
+    <message>
+        <source>[Network] %1: starting %2.</source>
+        <translation>[Ağ] %1: %2 başlatılıyor.</translation>
+    </message>
+    <message>
+        <source>Wi-Fi &quot;%1&quot;</source>
+        <translation>Wi-Fi "%1"</translation>
+    </message>
+    <message>
+        <source>Ethernet %1</source>
+        <translation>Ethernet %1</translation>
+    </message>
+    <message>
+        <source>[Network] No network connection.</source>
+        <translation>[Ağ] Ağ bağlantısı yok.</translation>
+    </message>
+</context>
+<context>
+    <name>NetworkScopeEditor</name>
+    <message>
+        <source>Scope</source>
+        <translation>Kapsam</translation>
+    </message>
+    <message>
+        <source>General: any network</source>
+        <translation>Genel: her ağda</translation>
+    </message>
+    <message>
+        <source>Custom (per network)</source>
+        <translation>Özel (Ağ Bazlı)</translation>
+    </message>
+    <message>
+        <source>Use on</source>
+        <translation>Kullanım</translation>
+    </message>
+    <message>
+        <source>Add current network</source>
+        <translation>Şu anki ağı ekle</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Kaldır</translation>
+    </message>
+    <message>
+        <source>Networks</source>
+        <translation>Ağlar</translation>
+    </message>
+    <message>
+        <source>First profile of the group</source>
+        <translation>Grubun ilk profili</translation>
+    </message>
+    <message>
+        <source>Run</source>
+        <translation>Çalıştır</translation>
+    </message>
+    <message>
+        <source>No network is connected.</source>
+        <translation>Bağlı ağ yok.</translation>
+    </message>
+    <message>
+        <source>Add the networks this group is for; until then it never runs on its own.</source>
+        <translation>Bu grubun hangi ağlar için olduğunu ekleyin; eklenene kadar kendiliğinden çalışmaz.</translation>
+    </message>
+    <message>
+        <source>Add profiles to the group; its first profile runs on these networks.</source>
+        <translation>Gruba profil ekleyin; bu ağlarda grubun ilk profili çalışır.</translation>
+    </message>
+    <message>
+        <source>On these networks this profile runs automatically; elsewhere the general config runs.</source>
+        <translation>Bu ağlarda bu profil otomatik çalışır; diğer ağlarda genel config çalışır.</translation>
     </message>
 </context>
 <context>

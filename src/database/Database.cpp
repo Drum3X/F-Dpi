@@ -359,7 +359,8 @@ namespace Configs {
 
     namespace {
         // Child-first order: delete order matters once foreign keys are re-enabled.
-        const std::vector<std::string> kProfileTables = {"profiles", "groups_order", "groups"};
+        // network_scopes: F-Dpi (NetworkScopesRepo), backed up with the groups it scopes.
+        const std::vector<std::string> kProfileTables = {"profiles", "groups_order", "groups", "network_scopes"};
         const std::vector<std::string> kRouteTables = {"route_rules", "route_profiles"};
         const std::vector<std::string> kSettingsTables = {"settings", "markers"};
         const std::vector<std::string> kOtpTables = {"otp_profiles"};

@@ -69,6 +69,7 @@ Notlar:
   - **Test verisi:** uygulama kapalıyken `config\throne.db` Node'un yerleşik `node:sqlite` modülüyle düzenlenebilir (`profiles` satırı + `groups.profiles_json`).
     - Ters bölü içeren JSON'u kabuk tırnaklaması yerine bir `.js` dosyasından ve `String.raw` ile yazın.
     - Elle eklenen satırların id'si `entity_ids.profile_last_id` sayacının altında kalmalıdır; yoksa uygulama yeni profile aynı id'yi verir ve satırın üzerine yazar.
+  - Qt düğmelerinde UIA `Toggle`/`Invoke` `clicked` sinyalini tetiklemeyebilir (bölüm düğmeleri); fare tıklaması kullanın. Sekme bağlam menüsü sağ tıkla (`mouse_event` 8/16) açılır.
   - **UAC tuzağı:** Yönetici olarak çalışan bir oturum `windows_set_admin=true` kaydeder ve sonraki her normal başlatma kendini UAC ile yükseltir (Throne `RelaunchElevatedIfNeeded`). Yükseltilmemiş test öncesinde bu ayar `false` yapılır. Yükseltilmiş bir örnek normal shell'den kapatılamaz ve sürülemez.
   - **Yönetici testi:** tek UAC onayıyla `Start-Process powershell -Verb RunAs -File <betik>`; betik F-Dpi'yi başlatır (yetki devralınır), UIA ile sürer ve sonucu dosyaya yazar.
   - Yükseltilmemiş testte winws argümanları ve listeleri işler, sonra WinDivert'te exit 5 (erişim reddedildi) ile durur. DPI'nin gerçekten çalışması ve DPI→proxy geçişi ancak yönetici olarak test edilebilir.
@@ -160,9 +161,7 @@ Notlar:
 - Installer hâlâ `PrivilegesRequired=lowest` (F7).
 
 **Ağ izleme**
-- C++ tarafında yok. Go core'daki `core/internal/netmon` yalnızca core çalışırken RPC ile sorgulanabiliyor.
-- F-Dpi kendi `NetworkMonitor`'ünü yazar.
-- `route_rules.wifi_ssid_json/wifi_bssid_json` (`RoutesRepo`) mevcut SSID eşleme modeli olarak yeniden kullanılabilir.
+- Throne'un C++ tarafında yoktu; Go core'daki `core/internal/netmon` yalnızca core çalışırken kullanılabilir. F-Dpi kendi `Sys::NetworkMonitor`'ünü yazdı (bkz. "Genel / Özel config (F4 sonrası)").
 
 **Markalama (F1 sonrası)**
 - Tek kaynak: `include/global/Branding.hpp`. Şunları tanımlar:
@@ -229,16 +228,47 @@ Notlar:
     - Satırlar `Checks::DpiHost` ile doğrulanır (alan adı veya URL; IP reddedilir). Kayıtta `dpi::NormalizeHosts` uygulanır (punycode, küçük harf, tekrarsız).
     - Liste kutularının yüksekliği sınırlıdır (70–110 px); sekme değişince diyalog yeniden boyutlanır (1080p'de ~720 px).
 
+### Genel / Özel config (F4 sonrası)
+- **Veri:** Throne'un `groups` tablosu değişmedi.
+  - Kapsam ayrı `network_scopes` tablosunda tutulur (`group_id` PK, `scope` = `general|network`, `networks_json`, `profile_id`).
+  - Erişim `Configs::NetworkScopesRepo` (`dataManager->networkScopesRepo`) üzerindendir. Satırı olmayan grup geneldir.
+  - Silinen grupların satırları yok sayılır; grup id'leri yeniden kullanılmaz.
+  - Tablo yedekleme/geri yüklemede `kProfileTables` içindedir.
+  - Diyalog yeni bir grubu id'siz düzenler: `SetPending(group, scope)` kapsamı grup `AddGroup` ile id alınca (sonraki ilk repo çağrısında) kaydeder. Bu sayede gruplar oluşturan 5 Throne çağrı noktasına dokunulmadı.
+- **Ağ kimliği:** `Sys::NetworkMonitor` (`include/sys/NetworkMonitor.hpp`, Windows: `src/sys/windows/NetworkMonitor_win.cpp`, diğer platformlarda stub).
+  - Varsayılan rota fiziksel adaptörün (Wi-Fi/Ethernet, en düşük IPv4 metrik, ağ geçidi olan) ağıdır; Wintun/TAP sayılmaz.
+  - Bir ağın birden çok kimliği (`keys`) vardır, en kararlısı önce gelir:
+    - `nlm:{GUID}`: Windows ağ profili, `INetworkListManager`.
+    - `gw:<ağ geçidi MAC>`: `GetIpNetEntry2`.
+    - `wifi:<SSID>`
+  - Bağlı ağ, kimliklerinden herhangi biri eşleşirse tanınır.
+  - **Windows 11 24H2, konum izni olmayan uygulamaya SSID'yi vermez** (WlanQueryInterface). Bu yüzden SSID'ye güvenilmez; ad olarak Windows ağ adı (NLM) gösterilir.
+  - Değişiklik `NotifyIpInterfaceChange` ile (1,5 sn debounce) ve 20 sn'lik yoklamayla algılanır; algılama UI thread dışında çalışır.
+  - Test kancası `FDPI_NETWORK_OVERRIDE_FILE`: ağı dosyadan okur (`wifi|key1,key2|Ad`). Yalnızca yoklamayla okunur, yani değişiklik ≤20 sn'de yansır.
+- **Otomatik geçiş:** `Engine::NetworkSwitcher` (`src/engine/network/`, EngineHost'ta).
+  - Hedef: ağa bağlı Özel grubun seçili profili (yoksa ilk profili). Bulunamazsa `general_profile_id` (son başlatılan genel profil); o da yoksa ilk genel grubun ilk profili.
+  - Yalnızca kullanıcı bir şey çalışmasını istiyorsa devreye girer: profil çalışıyorsa ya da `started_id >= 0` ise. Elle durdurma `started_id`'yi temizler, bu yüzden ağ değişimi bağlantıyı yeniden açmaz.
+  - Başlatma `ConnectionManager::start` üzerinden yapılır, yani proxy/DPI dışlaması korunur.
+  - Açılışta `EngineHost::init` içinde core başlamadan önce ağ eşzamanlı algılanır. Hatırlanan profil (`remember_id`) bu ağın hedefinden farklıysa hedefle değiştirilir.
+  - Öğrenme: genel gruptan başlatılan profil `general_profile_id` olur. Ağa bağlı Özel gruptan o ağdayken başlatılan profil grubun `profile_id`'si olur.
+  - Ayar: `network_auto_switch` (varsayılan açık).
+- **UI:**
+  - `GroupSectionBar`, grup sekmelerinin sol köşesindedir (`QTabWidget::setCornerWidget`): Genel | Özel (Ağ Bazlı) | Otomatik geçiş | şu anki ağ.
+  - Sekme çubuğu tek bölümü listeler. `MainWindowInternal.h` içindeki `visibleGroupsTabOrder()` / `mw_network_section` `tabIndex2GroupId`/`groupId2TabIndex`'i süzer.
+  - `show_group` diğer bölümden bir grup isterse o bölüme geçer.
+  - Sekme sürükleme diğer bölümün gruplarının yerini korur.
+  - Boş bölüme geçilince ilk grubu oluşturma diyaloğu açılır.
+  - `NetworkScopeEditor`, grup diyaloğundaki "Kapsam" kutusudur: Genel/Özel, ağ listesi (Şu anki ağı ekle / Kaldır) ve "Çalıştır" profili.
+- **Doğrulandı (yönetici olmadan, UIA + fare):**
+  - Gerçek Wi-Fi algılandı: "SUPERBOX_Wi-Fi_0043 2", NLM GUID + ağ geçidi MAC (SSID 24H2'de okunamadı).
+  - Benzetilmiş ağla: genel Socks çalışırken "TestNet"e geçince ağa özel Socks başladı, geri dönünce genel profile dönüldü. Elle durdurduktan sonra ağ değişimi hiçbir şey başlatmadı.
+  - Bölüm düğmeleri sekmeleri doğru süzdü.
+  - Boş Özel bölümünden "Ağım" grubu oluşturuldu ve gerçek ağa bağlandı (DB'de iki anahtar).
+- **Doğrulanmadı:** gerçek bir ağ değişimi (başka Wi-Fi/Ethernet), kablolu ağda MAC/NLM anahtarları, yönetici modunda DPI ↔ ağa özel proxy geçişi.
+
 ### F-Dpi bileşen tasarımı (sonraki fazlar)
 - `dpi` tipi, `DpiSupervisor` ve dışlama: uygulandı (bkz. "DPI motoru (F2 sonrası)" ve "Motorlar ve karşılıklı dışlama").
-- **Genel / Özel**
-  - `groups.scope` kolonu (`general` | `network`).
-  - `network_bindings` tablosu: `network_key` → profile_id; anahtar Wi-Fi SSID(+BSSID opsiyonel) veya Ethernet NLM network GUID / gateway MAC.
-  - Sekme alanı iki bölüm olur: Genel ve Özel (Ağ Bazlı).
-- **`NetworkMonitor`** (`include/sys/NetworkMonitor.hpp` arayüz + `src/sys/windows/NetworkMonitor_win.cpp`)
-  - Windows'ta NLM `INetworkListManager` olayları, `NotifyIpInterfaceChange`, WlanAPI (SSID) kullanılır.
-  - Diğer platformlar için stub.
-  - Ağ değişince eşleşen özel config yoksa genel config başlatılır.
+- Genel / Özel ve `NetworkMonitor`: uygulandı (bkz. "Genel / Özel config (F4 sonrası)").
 - **Blockcheck** (`include/dpi/blockcheck/`): native C++; cygwin script'ine bağlı değildir.
   - Her strateji için winws'i başlatır, hedef domain'lere HTTP / TLS1.2 / TLS1.3 / QUIC denemesi yapar, sonuçları puanlar.
   - Hızlı Tarama ~20 küratörlü strateji dener; Derin Tarama desync × split-pos × fooling × ttl/autottl × repeats kombinasyonlarını üretir.
@@ -274,10 +304,11 @@ Notlar:
   - `build_windows.ps1` zapret dosyalarını yalnızca değiştiyse kopyalar (yüklü WinDivert sürücüsü `WinDivert64.sys`'i kilitler).
   - Doğrulandı (yönetici olmadan, UIA + fare): yeni profil → Yalnızca listedeki siteler + Discord + oyun hariç listesi → önizleme → kaydet; DB'de `mode=hostlist`, 11 site, 14 hariç. Otomatik modda winws argümanları WinDivert'e kadar kabul edildi, `autohostlist-1.txt` oluştu. Diyalog 1080p ekrana sığıyor.
   - Doğrulanmadı: otomatik modda winws'in gerçekten site öğrenmesi (yönetici + engelli site trafiği gerekir); "Dosyadan içe aktar" dosya seçicisi.
-- [ ] **F4 – Genel / Özel config:**
-  - `groups.scope` + `network_bindings` şeması ve migrasyonu.
-  - İkiye bölünmüş sekme alanı; grup diyaloğunda kapsam seçimi.
-  - `NetworkMonitor` (Wi-Fi + Ethernet) ve otomatik geçiş.
+- [x] **F4 – Genel / Özel config:**
+  - `network_scopes` tablosu + `NetworkScopesRepo`; ayarlar `network_auto_switch`, `general_profile_id`.
+  - İkiye bölünmüş sekme alanı (`GroupSectionBar`); grup diyaloğunda kapsam (`NetworkScopeEditor`).
+  - `Sys::NetworkMonitor` (Wi-Fi + Ethernet; NLM/ağ geçidi MAC/SSID) ve `Engine::NetworkSwitcher`.
+  - Ayrıntı ve test sonuçları: "Genel / Özel config (F4 sonrası)".
 - [ ] **F5 – Blockcheck:**
   - Test motoru (strateji × protokol).
   - Hızlı/Derin tarama, ilerleme UI'ı, iptal.

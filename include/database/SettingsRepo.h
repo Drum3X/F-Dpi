@@ -212,6 +212,11 @@ namespace Configs {
         bool windows_set_admin = false;
         QMap<QString, QKeySequence> shortcuts;
 
+        // F-Dpi: start the network's own config (Özel groups) on a network change, else the last general config.
+        bool network_auto_switch = true;
+        // F-Dpi: the last profile started from a general group; what runs on a network with no config of its own.
+        int general_profile_id = NoProfileId;
+
         // Routing
         int current_route_id = 1;
         // Same sign-encoded interval scheme as sub_auto_update.

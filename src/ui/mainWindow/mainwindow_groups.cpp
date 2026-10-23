@@ -11,6 +11,8 @@
 #include "include/database/GroupsRepo.h"
 #include "include/engine/services/GroupService.h"
 #include "include/ui/group/dialog_edit_group.h"
+#include "include/ui/group/GroupSectionBar.h"
+#include "include/ui/group/NetworkScopeEditor.h"
 #include "include/ui/mainWindow/MainWindowInternal.h"
 #include "include/engine/tests/TestRunner.h"
 #include "include/ui/stats/dialog_endpoint_details.h"
@@ -80,6 +82,14 @@ void MainWindow::updateTabToolTip(int gid) {
 
 void MainWindow::show_group(int gid) {
     if (Configs::dataManager->settingsRepo->refreshing_group) return;
+    // F-Dpi: a group of the other section brings that section's tabs up first.
+    if (!Configs::dataManager->settingsRepo->refreshing_group_list && Configs::dataManager->groupsRepo->GetGroup(gid) != nullptr &&
+        groupInNetworkSection(gid) != mw_network_section) {
+        Configs::dataManager->settingsRepo->current_group = gid;
+        Configs::dataManager->settingsRepo->Save();
+        refresh_groups();
+        return;
+    }
     Configs::dataManager->settingsRepo->refreshing_group = true;
 
     const auto group = Configs::dataManager->groupsRepo->GetGroup(gid);
@@ -129,12 +139,20 @@ void MainWindow::show_group(int gid) {
 void MainWindow::refresh_groups() {
     Configs::dataManager->settingsRepo->refreshing_group_list = true;
 
+    // F-Dpi: the section of the current group; also the scope a group added from here starts with.
+    const auto current = Configs::dataManager->groupsRepo->CurrentGroup();
+    mw_network_section = current != nullptr && groupInNetworkSection(current->id);
+    if (auto *sections = qobject_cast<GroupSectionBar *>(ui->tabWidget->cornerWidget(Qt::TopLeftCorner))) {
+        sections->setNetworkSection(mw_network_section);
+    }
+    NetworkScopeEditor::SetDefaultForNew(mw_network_section);
+
     for (int i = ui->tabWidget->count() - 1; i > 0; i--) {
         ui->tabWidget->removeTab(i);
     }
 
     int index = 0;
-    for (const auto &gid: Configs::dataManager->groupsRepo->GetGroupsTabOrder()) {
+    for (const auto &gid: visibleGroupsTabOrder()) {
         const auto group = Configs::dataManager->groupsRepo->GetGroup(gid);
         if (index == 0) {
             ui->tabWidget->setTabText(0, group->name);
@@ -154,7 +172,7 @@ void MainWindow::refresh_groups() {
     if (Configs::dataManager->groupsRepo->CurrentGroup() == nullptr) {
         Configs::dataManager->settingsRepo->current_group = -1;
         ui->tabWidget->setCurrentIndex(groupId2TabIndex(0));
-        const auto tabOrder = Configs::dataManager->groupsRepo->GetGroupsTabOrder();
+        const auto tabOrder = visibleGroupsTabOrder();
         show_group(tabOrder.count() > 0 ? tabOrder.first() : 0);
     } else {
         ui->tabWidget->setCurrentIndex(groupId2TabIndex(Configs::dataManager->settingsRepo->current_group));
@@ -162,6 +180,29 @@ void MainWindow::refresh_groups() {
     }
 
     Configs::dataManager->settingsRepo->refreshing_group_list = false;
+}
+
+void MainWindow::show_group_section(bool network) {
+    for (const int gid : Configs::dataManager->groupsRepo->GetGroupsTabOrder()) {
+        if (groupInNetworkSection(gid) != network) continue;
+        Configs::dataManager->settingsRepo->current_group = gid;
+        Configs::dataManager->settingsRepo->Save();
+        refresh_groups();
+        return;
+    }
+    // The section has no group yet: create its first one.
+    NetworkScopeEditor::SetDefaultForNew(network);
+    auto ent = Configs::dataManager->groupsRepo->NewGroup();
+    if (network) ent->name = tr("My network");
+    auto dialog = new DialogEditGroup(ent, this);
+    const int ret = dialog->exec();
+    dialog->deleteLater();
+    if (ret == QDialog::Accepted && Configs::dataManager->groupsRepo->AddGroup(ent)) {
+        Configs::dataManager->settingsRepo->current_group = ent->id;
+        Configs::dataManager->settingsRepo->Save();
+    }
+    // Back to the current group's section when cancelled.
+    refresh_groups();
 }
 
 // The strip right of the last tab belongs to the tabWidget, not the tab bar.

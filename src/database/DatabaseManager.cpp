@@ -2,6 +2,7 @@
 #include "include/database/IpListsRepo.h"
 #include "include/database/IpScansRepo.h"
 #include "include/database/MarkersRepo.h"
+#include "include/database/NetworkScopesRepo.h"
 #include "include/database/OtpProfilesRepo.h"
 #include "include/database/ProfilesRepo.h"
 #include "include/database/RoutesRepo.h"
@@ -137,6 +138,7 @@ namespace Configs {
         settingsRepo = std::make_unique<SettingsRepo>(db);
         trafficStatsRepo = std::make_unique<TrafficStatsRepo>(statsDb);
         markersRepo = std::make_unique<MarkersRepo>(db);
+        networkScopesRepo = std::make_unique<NetworkScopesRepo>(db);
         ipListsRepo = std::make_unique<IpListsRepo>(scanDb);
         ipScansRepo = std::make_unique<IpScansRepo>(scanDb);
         ipScansRepo->NormalizeInterrupted();

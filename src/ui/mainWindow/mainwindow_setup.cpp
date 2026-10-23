@@ -1,6 +1,7 @@
 #include "include/ui/mainwindow.h"
 
 #include "include/ui/mainWindow/MainWindowInternal.h"
+#include "include/ui/group/GroupSectionBar.h"
 #include "include/engine/EngineHost.h"
 #include "include/engine/app/ExitController.h"
 #include "include/api/RPC.h"
@@ -253,9 +254,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->toolButton_startstop->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(ui->toolButton_startstop, &QWidget::customContextMenuRequested, this, [this] { show_startstop_menu(); });
     connect(ui->tabWidget->tabBar(), &QTabBar::tabMoved, this, [=,this](int from, int to) {
-        QList<int> tabOrder;
+        QList<int> shown;
         for (int i = 0; i < ui->tabWidget->tabBar()->count(); i++) {
-            tabOrder += ui->tabWidget->tabBar()->tabData(i).toInt();
+            shown += ui->tabWidget->tabBar()->tabData(i).toInt();
+        }
+        // F-Dpi: only one section's tabs are listed; the other section's groups keep their places.
+        auto tabOrder = Configs::dataManager->groupsRepo->GetGroupsTabOrder();
+        qsizetype next = 0;
+        for (auto &gid : tabOrder) {
+            if (shown.contains(gid) && next < shown.size()) gid = shown[next++];
         }
         Configs::dataManager->groupsRepo->SetGroupsTabOrder(tabOrder);
         on_tabWidget_currentChanged(ui->tabWidget->tabBar()->currentIndex());
@@ -606,6 +613,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(Subscription::updater(), &Subscription::GroupUpdater::asyncUpdateCallback, this, [this](int gid) {
         if (gid >= 0) updateTabToolTip(gid);
     });
+
+    // F-Dpi: General / Custom (per network) switch left of the group tabs.
+    auto *groupSections = new GroupSectionBar(ui->tabWidget);
+    ui->tabWidget->setCornerWidget(groupSections, Qt::TopLeftCorner);
+    connect(groupSections, &GroupSectionBar::sectionRequested, this, [this](bool network) { show_group_section(network); });
 
     this->refresh_groups();
 
