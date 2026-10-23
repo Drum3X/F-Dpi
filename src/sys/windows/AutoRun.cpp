@@ -1,4 +1,5 @@
 #include "include/sys/AutoRun.hpp"
+#include "include/global/Branding.hpp"
 
 #include <QCoreApplication>
 #include <QCryptographicHash>
@@ -119,7 +120,7 @@ static QString autoRunUserName() {
 
 static QString autoRunTaskName(const QString &seed) {
     const QByteArray hash = QCryptographicHash::hash(seed.toUtf8(), QCryptographicHash::Md5).toHex().left(8);
-    return "Throne AutoRun " + QString::fromLatin1(hash);
+    return QString::fromLatin1(Branding::AutoRunTaskPrefix) + QString::fromLatin1(hash);
 }
 
 static QString autoRunExeKey() {
@@ -136,7 +137,12 @@ static QString userTaskName() {
 }
 
 static bool autoRunElevated() {
+#ifdef FDPI_REQUIRE_ADMIN
+    // requireAdministrator in the manifest: a LeastPrivilege logon task could never start the exe.
+    return true;
+#else
     return Configs::IsAdmin() && !Configs::dataManager->settingsRepo->disable_run_admin;
+#endif
 }
 
 static QString autoRunTaskXml(bool elevated) {

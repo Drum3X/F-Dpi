@@ -826,6 +826,14 @@ set_target_properties(Throne PROPERTIES
 if (WIN32 AND MSVC)
     set_target_properties(Throne PROPERTIES UNITY_BUILD ON)
 endif ()
+
+# F-Dpi: product exe name and mandatory elevation (identity strings: include/global/Branding.hpp)
+if (WIN32)
+    set_target_properties(Throne PROPERTIES OUTPUT_NAME "F-Dpi")
+    target_compile_definitions(Throne PRIVATE FDPI_REQUIRE_ADMIN)
+    # Qt >= 6.9 embeds its own app manifest (and links with /MANIFESTUAC:NO); this sets its execution level.
+    set_target_properties(Throne PROPERTIES QT_WINDOWS_APP_PROJECT_EXECUTION_LEVEL "requireAdministrator")
+endif ()
 set_property(SOURCE "3rdparty/SQLiteCpp/src/sqlite3.c" PROPERTY SKIP_UNITY_BUILD_INCLUSION ON)
 set_property(SOURCE "3rdparty/monocypher/monocypher.c" PROPERTY SKIP_UNITY_BUILD_INCLUSION ON)
 
@@ -857,6 +865,7 @@ set(TS_FILES
         res/translations/zh_CN.ts
         res/translations/fa_IR.ts
         res/translations/ru_RU.ts
+        res/translations/tr_TR.ts
 )
 set(LUPDATE_OPTIONS
         -locations none -no-obsolete

@@ -29,7 +29,7 @@
 
 // Mirrors the language switch in main.cpp; QLocale() alone follows the system, not an explicit setting.
 bool MainWindow::usesTightLabels() const {
-    static const QStringList byLanguageSetting = {"", "en", "zh_CN", "fa_IR", "ru_RU"};
+    static const QStringList byLanguageSetting = {"", "en", "zh_CN", "fa_IR", "ru_RU", "tr_TR"};
     const int language = Configs::dataManager->settingsRepo->language;
     const QString locale = language == 0 ? QLocale().name() : byLanguageSetting.value(language);
     return locale.startsWith("zh") || locale.startsWith("ru");

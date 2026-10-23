@@ -69,7 +69,7 @@ RuntimeStatsWidget::RuntimeStatsWidget(QWidget* parent) : QWidget(parent), ui(ne
     ui->formRunning->setColumnStretch(3, 1);
 
     const QList<LiveChartRow> processRows{
-        LiveChartRow{QStringLiteral("throne"), QStringLiteral("Throne"), {}, kRuntimeThroneColor, 0, true},
+        LiveChartRow{QStringLiteral("throne"), software_name, {}, kRuntimeThroneColor, 0, true},
         LiveChartRow{QStringLiteral("core"), tr("Core"), {}, kRuntimeCoreColor, 0, false},
     };
     cpuChart_ = new LiveChart(LiveChartOptions::sparkline(tr("CPU"), LiveChartAxis::percent()), this);
@@ -81,7 +81,7 @@ RuntimeStatsWidget::RuntimeStatsWidget(QWidget* parent) : QWidget(parent), ui(ne
         ui->chartsRow->addWidget(chart);
     }
     ui->labelThroneName->setText(QStringLiteral("<span style=\"color:%1\">●</span> %2")
-                                     .arg(kRuntimeThroneColor.name(), "Throne"));
+                                     .arg(kRuntimeThroneColor.name(), software_name));
     ui->labelCoreName->setText(QStringLiteral("<span style=\"color:%1\">●</span> %2")
                                    .arg(kRuntimeCoreColor.name(), tr("Core")));
     // A lookup service's answer: as AutoText a tag in it would render as HTML.

@@ -18,6 +18,7 @@
 #include "include/engine/app/InstanceServer.h"
 #include "include/engine/headless/HeadlessInstance.h"
 #include "include/global/Configs.hpp"
+#include "include/global/Branding.hpp"
 #include "include/global/DeviceDetailsHelper.hpp"
 #include "include/global/Logger.hpp"
 #include "include/stats/traffic/TrafficStatsManager.hpp"
@@ -47,7 +48,6 @@
 #include <libproc.h>
 #endif
 
-#define LOCAL_SERVER_PREFIX "throne-"
 
 namespace Engine::Bootstrap {
     namespace {
@@ -184,7 +184,7 @@ namespace Engine::Bootstrap {
     }
 
     void SetSoftwareNames() {
-        software_name = "Throne";
+        software_name = Branding::AppName;
         software_core_name = "sing-box";
     }
 
@@ -201,7 +201,7 @@ namespace Engine::Bootstrap {
 #ifdef NKR_CPP_USE_APPDATA
         res.useAppdata = true;
 #endif
-        QCoreApplication::setApplicationName("Throne");
+        QCoreApplication::setApplicationName(Branding::AppId);
         if (res.useAppdata) {
             if (!res.appdataDir.isEmpty()) {
                 res.wd.setPath(relativeBase.absoluteFilePath(res.appdataDir));
@@ -224,7 +224,7 @@ namespace Engine::Bootstrap {
     QString InstanceServerName(const QDir &wd) {
         QByteArray hashBytes = QCryptographicHash::hash(wd.absolutePath().toUtf8(), QCryptographicHash::Md5).toBase64(QByteArray::OmitTrailingEquals);
         hashBytes.replace('+', '0').replace('/', '1');
-        return LOCAL_SERVER_PREFIX + QString::fromUtf8(hashBytes);
+        return QString::fromLatin1(Branding::InstancePrefix) + QString::fromUtf8(hashBytes);
     }
 
     void AdoptLegacyGeoAssets(const DataDir &dataDir) {

@@ -9,6 +9,7 @@
 .EXAMPLE
     powershell -ExecutionPolicy Bypass -File script\build_windows.ps1
     powershell -ExecutionPolicy Bypass -File script\build_windows.ps1 -SkipCore -BuildType Debug
+    powershell -ExecutionPolicy Bypass -File script\build_windows.ps1 -SkipCore -UpdateTranslations
 #>
 [CmdletBinding()]
 param(
@@ -16,6 +17,7 @@ param(
     [string]$BuildType = "RelWithDebInfo",
     [switch]$SkipCore,
     [switch]$SkipGui,
+    [switch]$UpdateTranslations,   # refresh res/translations/*.ts from the sources before building
     [switch]$Clean
 )
 
@@ -39,6 +41,8 @@ if (-not $vsPath) { throw "No Visual Studio instance with the C++ x64 toolset" }
 
 Write-Step "MSVC environment from $vsPath"
 $vcvars = Join-Path $vsPath "VC\Auxiliary\Build\vcvars64.bat"
+# vcvars looks vswhere up on PATH itself.
+$env:PATH = "$(Split-Path $vswhere);$env:PATH"
 cmd /c "`"$vcvars`" >nul && set" | ForEach-Object {
     if ($_ -match "^([^=]+)=(.*)$") { Set-Item -Path "Env:$($Matches[1])" -Value $Matches[2] }
 }
@@ -55,8 +59,13 @@ $env:GOROOT = "$Toolchain\go"
 $env:CMAKE_PREFIX_PATH = "$Toolchain\Qt\lib\cmake"
 $env:OPENSSL_ROOT_DIR = "$Toolchain\openssl"
 
-$bash = (Get-Command bash.exe -ErrorAction SilentlyContinue).Source
-if (-not $bash -or $bash -like "*\System32\*") { $bash = "$env:ProgramFiles\Git\bin\bash.exe" }
+# Git Bash only: the bash.exe stubs in System32/WindowsApps start WSL, which drops the env vars build_go.sh reads.
+$bash = "$env:ProgramFiles\Git\bin\bash.exe"
+if (-not (Test-Path $bash)) {
+    $git = (Get-Command git.exe -ErrorAction SilentlyContinue).Source
+    if ($git) { $bash = Join-Path (Split-Path (Split-Path $git)) "bin\bash.exe" }
+}
+if (-not (Test-Path $bash)) { throw "Git Bash not found (install Git for Windows)" }
 
 if ($Clean) {
     Write-Step "clean"
@@ -82,6 +91,10 @@ if (-not $SkipGui) {
     if (-not (Test-Path "$BuildDir\srslist.h")) { throw "build\srslist.h missing - run script\fetch_deps.ps1" }
     Write-Step "gui configure ($BuildType)"
     Invoke-Checked { cmake -S $Root -B $BuildDir -G Ninja "-DCMAKE_BUILD_TYPE=$BuildType" } "cmake configure"
+    if ($UpdateTranslations) {
+        Write-Step "lupdate (res/translations/*.ts)"
+        Invoke-Checked { cmake --build $BuildDir --target update_translations } "update_translations"
+    }
     Write-Step "gui build"
     Invoke-Checked { cmake --build $BuildDir } "ninja build"
     Get-ChildItem "$BuildDir\*.exe", "$BuildDir\*.pdb" -ErrorAction SilentlyContinue | Copy-Item -Destination $Dest -Force

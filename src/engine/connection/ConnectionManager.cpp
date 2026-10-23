@@ -274,12 +274,12 @@ namespace Engine {
         };
 
         if (!mu_starting.tryLock()) {
-            failStart(resolved, StartOutcome::Busy, QStringLiteral("Throne"), MainWindowTr::tr("Another profile is starting..."));
+            failStart(resolved, StartOutcome::Busy, software_name, MainWindowTr::tr("Another profile is starting..."));
             return;
         }
         if (!mu_stopping.tryLock()) {
             mu_starting.unlock();
-            failStart(resolved, StartOutcome::Busy, QStringLiteral("Throne"), MainWindowTr::tr("Another profile is stopping..."));
+            failStart(resolved, StartOutcome::Busy, software_name, MainWindowTr::tr("Another profile is stopping..."));
             return;
         }
         mu_stopping.unlock();
@@ -295,7 +295,7 @@ namespace Engine {
         if (!Configs::dataManager->settingsRepo->core_running) {
             if (!m_coreSupervisor->canStartCore()) {
                 mu_starting.unlock();
-                failStart(resolved, StartOutcome::CoreUnavailable, QStringLiteral("Throne"), m_coreSupervisor->lastFailure());
+                failStart(resolved, StartOutcome::CoreUnavailable, software_name, m_coreSupervisor->lastFailure());
                 return;
             }
             deferStartToCore(resolved);

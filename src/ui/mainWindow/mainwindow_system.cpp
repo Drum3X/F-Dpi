@@ -26,6 +26,7 @@
 #include "include/engine/connection/ConnectionManager.h"
 #include "include/engine/services/Dashboard.h"
 #include "include/engine/supervisor/CoreSupervisor.h"
+#include "include/global/Branding.hpp"
 #include "include/global/Configs.hpp"
 #include "include/global/HTTPRequestHelper.hpp"
 #include "include/global/LocalNetwork.hpp"
@@ -417,7 +418,7 @@ void MainWindow::CheckUpdate() {
     // Releases carry no checksum or signature, so TLS is all that vouches for the download URL and the archive.
     HttpGetOptions options;
     options.strictTls = true;
-    auto resp = NetworkRequestHelper::HttpGet("https://api.github.com/repos/throneproj/Throne/releases", options);
+    auto resp = NetworkRequestHelper::HttpGet(QStringLiteral("https://api.github.com/repos/%1/releases").arg(QString::fromLatin1(Branding::UpdateRepo)), options);
     if (!resp.error.isEmpty()) {
         runOnUiThread([=,this] {
             MessageBoxWarning(QObject::tr("Update"), QObject::tr("Requesting update error: %1").arg(resp.error + "\n" + resp.data));
@@ -452,7 +453,7 @@ void MainWindow::CheckUpdate() {
 
     options.headers = {{"Accept", "application/vnd.github.raw+json"}};
     const auto changelog = NetworkRequestHelper::HttpGet(
-        QStringLiteral("https://api.github.com/repos/throneproj/Throne/contents/CHANGELOG.md?ref=") +
+        QStringLiteral("https://api.github.com/repos/%1/contents/CHANGELOG.md?ref=").arg(QString::fromLatin1(Branding::UpdateRepo)) +
             QString::fromLatin1(QUrl::toPercentEncoding(release_tag)), options);
     const auto notes = changelog.error.isEmpty() ? releaseNotes(QString::fromUtf8(changelog.data), release_tag) : QString();
 

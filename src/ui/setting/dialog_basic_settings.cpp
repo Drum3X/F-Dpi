@@ -593,6 +593,10 @@ QList<QWidget *> DialogBasicSettings::UnavailableWidgets(const Ui::DialogBasicSe
 #ifndef Q_OS_WIN
     widgets << ui->proxy_scheme_l << ui->proxy_scheme << ui->windows_no_admin;
 #endif
+#ifdef FDPI_REQUIRE_ADMIN
+    // The manifest always elevates, so "do not start as admin" has nothing to act on.
+    widgets << ui->windows_no_admin;
+#endif
     return widgets;
 }
 
@@ -999,7 +1003,7 @@ void DialogBasicSettings::showWebDavSettings() {
     auto *pass = new QLineEdit(settings.webdav_pass, dlg);
     pass->setEchoMode(QLineEdit::Password);
     auto *folder = new QLineEdit(settings.webdav_path, dlg);
-    folder->setPlaceholderText(QStringLiteral("Throne"));
+    folder->setPlaceholderText(software_name);
     auto *device = new QLineEdit(settings.device_name, dlg);
     device->setPlaceholderText(QSysInfo::machineHostName());
     form->addRow(tr("Server URL"), server);

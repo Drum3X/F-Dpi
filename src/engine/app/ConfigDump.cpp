@@ -24,6 +24,7 @@
 #include "include/engine/app/DataDirLock.h"
 #include "include/engine/app/ExitCodes.h"
 #include "include/engine/app/InstanceServer.h"
+#include "include/global/Branding.hpp"
 #include "include/global/Configs.hpp"
 #include "include/global/Logger.hpp"
 #ifdef Q_OS_LINUX
@@ -300,7 +301,7 @@ namespace Engine {
         }
 #endif
         QCoreApplication app(argc, argv);
-        QCoreApplication::setApplicationName("Throne");
+        QCoreApplication::setApplicationName(Branding::AppId);
         Logging::EnableStdSink(Logging::Level::Info);
 
         QStringList arguments = QCoreApplication::arguments();

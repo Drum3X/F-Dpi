@@ -22,6 +22,7 @@
 #include "include/engine/supervisor/CoreSupervisor.h"
 #include "include/engine/vpn/VpnAuthController.h"
 #include "include/global/PeriodicRunner.hpp"
+#include "include/global/Branding.hpp"
 #include "include/global/Logger.hpp"
 #include "include/scanner/IpListUpdater.h"
 #include "include/scanner/ScanManager.h"
@@ -355,6 +356,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     {
         ui->actionCheck_For_Update->setDisabled(true);
     }
+    // F-Dpi has no release channel yet; Throne's would offer Throne builds.
+    if (QString::fromLatin1(Branding::UpdateRepo).isEmpty()) ui->actionCheck_For_Update->setVisible(false);
 
     setupConnectionList();
     ui->stats_widget->tabBar()->setCurrentIndex(Configs::dataManager->settingsRepo->stats_tab);

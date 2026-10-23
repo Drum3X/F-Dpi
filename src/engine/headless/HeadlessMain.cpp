@@ -25,6 +25,7 @@
 #include "include/engine/RuntimeOptions.h"
 #include "include/engine/app/DataDirLock.h"
 #include "include/engine/app/ExitCodes.h"
+#include "include/global/Branding.hpp"
 #include "include/engine/app/InstanceServer.h"
 #include "include/engine/headless/HeadlessApi.h"
 #include "include/engine/headless/HeadlessCli.h"
@@ -349,7 +350,7 @@ namespace Engine {
         // Declared first so it is released last; the exec restart releases it explicitly.
         DataDirLock lock;
         auto app = std::make_unique<QCoreApplication>(argc, argv);
-        QCoreApplication::setApplicationName("Throne");
+        QCoreApplication::setApplicationName(Branding::AppId);
         QCoreApplication::setApplicationVersion(NKR_VERSION);
         // Now: the cached value survives an in-place upgrade and the working directory moving to <config>.
         const QString exePath = QCoreApplication::applicationFilePath();

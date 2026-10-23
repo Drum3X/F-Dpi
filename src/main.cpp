@@ -17,6 +17,7 @@
 #include <3rdparty/WinCommander.hpp>
 
 
+#include "include/global/Branding.hpp"
 #include "include/global/Configs.hpp"
 #include "include/global/Logger.hpp"
 #include "include/global/Notice.hpp"
@@ -140,7 +141,7 @@ int main(int argc, char* argv[]) {
         const QString text = pid > 0 ? QObject::tr("Throne is running in the background (PID %1). Stop the service or use thronectl.").arg(pid)
                                      : QObject::tr("Throne is running in the background. Stop the service or use thronectl.");
         std::fputs(qPrintable(QString("%1 Data directory: %2\n").arg(text, QDir::toNativeSeparators(wd.absolutePath()))), stderr);
-        if (!arguments.contains("-tray")) QMessageBox::information(nullptr, "Throne", text);
+        if (!arguments.contains("-tray")) QMessageBox::information(nullptr, Branding::AppName, text);
         return 0;
     }
     if (claim.outcome == Engine::Bootstrap::ClaimOutcome::HeldByOther) {
@@ -148,7 +149,7 @@ int main(int argc, char* argv[]) {
         // An autostart must not leave a box behind.
         if (!arguments.contains("-tray")) {
             const QString who = pid > 0 ? QObject::tr("Another Throne instance (PID %1)").arg(pid) : QObject::tr("Another Throne instance");
-            QMessageBox::warning(nullptr, "Throne", QObject::tr("%1 is using this data directory:\n%2").arg(who, QDir::toNativeSeparators(wd.absolutePath())));
+            QMessageBox::warning(nullptr, Branding::AppName, QObject::tr("%1 is using this data directory:\n%2").arg(who, QDir::toNativeSeparators(wd.absolutePath())));
         }
         return 0;
     }
@@ -160,7 +161,7 @@ int main(int argc, char* argv[]) {
         const QString error = QString("Failed to start the instance server %1: %2").arg(serverName, server.errorString());
         std::fputs(qPrintable(error + '\n'), stderr);
         Engine::Bootstrap::WarnDroppedPayload(launchPayload);
-        QMessageBox::critical(nullptr, "Throne", error);
+        QMessageBox::critical(nullptr, Branding::AppName, error);
         return 1;
     }
     // Not before this point: until the data dir is ours there is nothing to tear down, and the default action ends the waits above.

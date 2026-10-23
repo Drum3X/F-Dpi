@@ -1,0 +1,2 @@
+# F-Dpi: shell scripts must keep LF so Git Bash can run them from a Windows (autocrlf) checkout
+*.sh text eol=lf

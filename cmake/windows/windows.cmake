@@ -7,12 +7,12 @@ include(cmake/windows/generate_product_version.cmake)
 generate_product_version(
         QV2RAY_RC
         ICON "${CMAKE_SOURCE_DIR}/res/Throne.ico"
-        NAME "Throne"
-        BUNDLE "Throne"
-        COMPANY_NAME "Throne"
-        COMPANY_COPYRIGHT "Throne"
-        FILE_DESCRIPTION "Throne"
-        ORIGINAL_FILENAME "Throne.exe"
+        NAME "F-Dpi"
+        BUNDLE "F-Dpi"
+        COMPANY_NAME "F-Dpi"
+        COMPANY_COPYRIGHT "F-Dpi (based on Throne, GPL-3.0)"
+        FILE_DESCRIPTION "F-Dpi"
+        ORIGINAL_FILENAME "F-Dpi.exe"
         VERSION_MAJOR ${NKR_VERSION_MAJOR}
         VERSION_MINOR ${NKR_VERSION_MINOR}
         VERSION_PATCH ${NKR_VERSION_PATCH}

@@ -13,16 +13,17 @@
 #include <QVBoxLayout>
 
 #include "NkrVersion.h"
+#include "include/global/Branding.hpp"
 #include "include/global/Configs.hpp"
 
 DialogAbout::DialogAbout(QWidget *parent) : QDialog(parent) {
-    setWindowTitle(tr("About Throne"));
+    setWindowTitle(tr("About %1").arg(software_name));
 
     auto *icon = new QLabel(this);
     icon->setPixmap(QIcon(QStringLiteral(":/Throne/Throne.png")).pixmap(64));
     icon->setAlignment(Qt::AlignTop);
 
-    auto *title = new QLabel(QStringLiteral("Throne"), this);
+    auto *title = new QLabel(software_name, this);
     auto titleFont = title->font();
     titleFont.setBold(true);
     if (titleFont.pointSizeF() > 0) {
@@ -49,7 +50,10 @@ DialogAbout::DialogAbout(QWidget *parent) : QDialog(parent) {
     versions->addRow(QStringLiteral("Qt:"), valueLabel(QString::fromLatin1(qVersion())));
     versions->addRow(QStringLiteral("Go:"), goVersion);
 
-    auto *description = new QLabel(tr("Open-source and cross platform Desktop Proxy management utility developed as a successor to Nekoray."), this);
+    auto *description = new QLabel(tr("Desktop utility for getting around censorship and DPI blocking: a sing-box proxy and a zapret (winws) DPI "
+                                      "bypass, never running at the same time.") +
+                                       "\n\n" + tr("Based on %1 (GPL-3.0).").arg(QString::fromLatin1(Branding::UpstreamName)),
+                                   this);
     description->setWordWrap(true);
     description->setMinimumWidth(fontMetrics().averageCharWidth() * 50);
 
@@ -64,21 +68,18 @@ DialogAbout::DialogAbout(QWidget *parent) : QDialog(parent) {
     top->addWidget(icon);
     top->addLayout(text, 1);
 
-    auto *github = new QPushButton(QStringLiteral("GitHub"), this);
-    github->setAutoDefault(false);
-    connect(github, &QPushButton::clicked, this, [] {
-        QDesktopServices::openUrl(QUrl(QStringLiteral("https://github.com/throneproj/Throne")));
-    });
-    auto *support = new QPushButton(tr("Support Throne"), this);
-    support->setAutoDefault(false);
-    connect(support, &QPushButton::clicked, this, [] {
-        QDesktopServices::openUrl(QUrl(QStringLiteral("https://github.com/throneproj/Throne/blob/dev/.github/donate/Donate.md")));
-    });
-
     auto *buttons = new QHBoxLayout;
     buttons->addStretch();
-    buttons->addWidget(github);
-    buttons->addWidget(support);
+    if (const auto homepage = QString::fromLatin1(Branding::HomepageUrl); !homepage.isEmpty()) {
+        auto *github = new QPushButton(QStringLiteral("GitHub"), this);
+        github->setAutoDefault(false);
+        connect(github, &QPushButton::clicked, this, [homepage] { QDesktopServices::openUrl(QUrl(homepage)); });
+        buttons->addWidget(github);
+    }
+    auto *upstream = new QPushButton(QString::fromLatin1(Branding::UpstreamName), this);
+    upstream->setAutoDefault(false);
+    connect(upstream, &QPushButton::clicked, this, [] { QDesktopServices::openUrl(QUrl(QString::fromLatin1(Branding::UpstreamUrl))); });
+    buttons->addWidget(upstream);
     buttons->addStretch();
 
     auto *layout = new QVBoxLayout(this);

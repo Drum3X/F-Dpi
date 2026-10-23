@@ -57,8 +57,18 @@ powershell -ExecutionPolicy Bypass -File script\build_windows.ps1            # -
 
 Notlar:
 - Go core'u ayrıca derlemek için `script/build_go.sh` kullanılır: Git Bash'te `GOOS=windows GOARCH=amd64 DEST=...` ile çalışır. `DEST`'i siler, bu yüzden `build_windows.ps1` onu `deployment/.core-windows-amd64`'e derleyip kopyalar.
-- Deploy içinde `zapret/` alt dizini (`winws.exe` ve bağımlılıkları) ile `sing-box.exe` bulunur.
-- Çeviriler: `cmake --build build --target update_translations` (bkz. `script/translate.sh`).
+- Deploy içinde `F-Dpi.exe`, `ThroneCore.exe`, `zapret/` alt dizini (`winws.exe` ve bağımlılıkları) ile `sing-box.exe` bulunur.
+- **Smoke test (yükseltilmemiş shell'den):** `F-Dpi.exe` yönetici ister. UAC istemi çıkmadan pencere ve core'un açıldığını görmek için `$env:__COMPAT_LAYER="RunAsInvoker"` ayarlayıp `Start-Process` ile başlatın. Portable modda veri `deployment\windows-amd64\config\` altına yazılır; günlük dosyası `config\logs\throne.log`.
+
+### Çeviriler (Türkçe = `res/translations/tr_TR.ts`)
+1. `build_windows.ps1 -SkipCore -UpdateTranslations` komutu lupdate ile tüm `.ts` dosyalarını kaynaktan yeniler.
+2. **Yalnızca `tr_TR.ts` commit edilir.** zh_CN, fa_IR ve ru_RU dosyaları `git checkout -- res/translations/{zh_CN,fa_IR,ru_RU}.ts` ile geri alınır, çünkü upstream'e aittirler.
+3. Yeni (unfinished) metinler `node script/ts_tool.js export res/translations/tr_TR.ts <dir> [chunks]` ile JSON parçalara bölünür. Çeviriler `<dir>/*.out.json` dosyalarına `{ "<id>": "metin" | ["%n form"] }` biçiminde yazılır ve `node script/ts_tool.js import res/translations/tr_TR.ts <dir>` ile geri yazılır. Durumu `node script/ts_tool.js stats …` gösterir.
+4. Kurallar:
+   - `%1`, `%n`, `%Ln`, `%s`, HTML etiketleri ve `\n` korunur.
+   - Türkçede tek çoğul formu vardır.
+   - Kullanıcıya görünen "Throne" adı Türkçede "F-Dpi" olur. `throne://` ve `thronectl` aynen kalır.
+   - Terim sözlüğü: profil, grup, yönlendirme, çekirdek, abonelik, kural seti, giden/gelen, TUN modu, sistem proxy'si, kill switch.
 
 ## Mimari
 
@@ -125,31 +135,47 @@ Notlar:
 - Ayarlar: `SettingsRepo` (`remote_dns`, `direct_dns`, `use_dns_object`).
 - UI: `RouteDnsEditor`.
 
-**Yetki**
-- Bugün manifest yok; uygulama asInvoker olarak çalışıyor.
-- İsteğe bağlı elevated relaunch: `GuiStartup.cpp::RelaunchElevatedIfNeeded`, `WinCommander::runProcessElevated`.
-- Servis modu: `ServiceManager_win.cpp`, `dist/windows/install-service.bat`.
-- Installer `PrivilegesRequired=lowest`.
+**Yetki (F1 sonrası)**
+- Windows'ta `F-Dpi.exe` **requireAdministrator** manifest'iyle derlenir. Qt ≥ 6.9 kendi manifest'ini gömüp `/MANIFESTUAC:NO` ile linkler, bu yüzden linker bayrağı işe yaramaz. Seviye `QT_WINDOWS_APP_PROJECT_EXECUTION_LEVEL` hedef özelliğiyle verilir (`CMakeLists.txt` içindeki "F-Dpi" bloğu).
+- `FDPI_REQUIRE_ADMIN` derleme tanımı şunları yapar:
+  - "Her Zaman Standart Kullanıcı Olarak Başlat" (`windows_no_admin`) ayarını gizler.
+  - Autorun zamanlanmış görevini her zaman `HighestAvailable` yapar (`AutoRun.cpp::autoRunElevated`).
+- Throne'un elevated relaunch'ı (`GuiStartup.cpp::RelaunchElevatedIfNeeded`) ve servis modu (`ServiceManager_win.cpp`) kodda durur. Süreç zaten yönetici olduğu için devreye girmezler.
+- Installer hâlâ `PrivilegesRequired=lowest` (F7).
 
 **Ağ izleme**
 - C++ tarafında yok. Go core'daki `core/internal/netmon` yalnızca core çalışırken RPC ile sorgulanabiliyor.
 - F-Dpi kendi `NetworkMonitor`'ünü yazar.
 - `route_rules.wifi_ssid_json/wifi_bssid_json` (`RoutesRepo`) mevcut SSID eşleme modeli olarak yeniden kullanılabilir.
 
-**Markalama**
-- Görünen ad: `Bootstrap.cpp` içinde `software_name`, `setApplicationName` (veri dizinini belirler).
-- Exe adı: `CMakeLists.txt` → `project(Throne)`, `qt_add_executable(Throne`.
-- Diğer yerler:
-  - `cmake/windows/windows.cmake`
-  - `mainwindow.ui` başlığı
-  - `dialog_about.cpp`
-  - `mainwindow_system.cpp` update checker (throneproj API'sine bakıyor)
-  - `script/windows_installer.iss`
-- İç tanımlayıcılara dokunulmaz: `throne.db`, `throneIPC`, `throne-tun`, `ThroneCore`, `:/Throne` kaynak öneki, Go modülü. `throne://` link'leri içe aktarılmaya devam eder.
+**Markalama (F1 sonrası)**
+- Tek kaynak: `include/global/Branding.hpp`. Şunları tanımlar:
+  - `AppName` (görünen ad)
+  - `AppId` (`setApplicationName`, veri dizinini belirler)
+  - `InstancePrefix` (`fdpi-`)
+  - `AutoRunTaskPrefix`
+  - `HomepageUrl`
+  - `UpdateRepo` (boşsa "Güncellemeleri Denetle" gizlenir)
+  - upstream atfı (About'ta "Throne tabanlı").
+- Exe adı: CMake hedefi hâlâ `Throne` (upstream merge kolaylığı için), Windows'ta `OUTPUT_NAME "F-Dpi"`. Go core'daki `parentcheck.go` Windows'ta ebeveyn olarak `F-Dpi.exe` bekler. Exe adı değişirse burası da değişmeli.
+- Sürüm kaynağı (`cmake/windows/windows.cmake`) ve pencere başlığı F-Dpi. WebDAV varsayılan klasörü `F-Dpi`.
+- Bilerek değiştirilmeyen iç tanımlayıcılar:
+  - Veri ve süreç adları: `throne.db`, `throne.log`, `throneIPC`, `throne-tun`, `ThroneCore.exe`
+  - Kaynak ve kod: `:/Throne` kaynak öneki, Go modülü `ThroneCore`
+  - Bağlantılar: `throne://` (içe aktarma ve URL scheme kaydı), `thronectl`
+- Hâlâ Throne adını taşıyan, Throne ile yan yana kurulumda çakışabilecek tanımlayıcılar (F7):
+  - Kill switch WFP sağlayıcısı (`core/internal/guard/backend_windows.go`)
+  - Headless servis adları (`HostPresence_win.cpp`, `ServiceManager_win.cpp`)
+  - URL scheme ProgId (`UrlScheme.cpp`)
+  - Installer (`script/windows_installer.iss`)
+  - İkonlar (`res/Throne.ico`, `res/public/Throne.png`)
+- İngilizce kaynak metinlerdeki "Throne" ifadelerine dokunulmaz, çünkü upstream çevirileri bozulur. Kullanıcıya görünen ad Türkçe çeviride "F-Dpi" olarak verilir.
+- ⚠ Bu makinede `%APPDATA%\F-Dpi` ve `%LOCALAPPDATA%\F-Dpi` dizinleri bu repodan önce başka bir F-Dpi uygulaması tarafından oluşturulmuş (`profiles.json`, `settings.ini`, `fdpi.log`). Bizim uygulama portable modda bunlara dokunmaz. appdata modunda (`-appdata` / installer) aynı kök dizini paylaşır, ama dosya adları çakışmaz.
 
 **Çeviriler**
-- `res/translations/{zh_CN,fa_IR,ru_RU}.ts`; Türkçe yok.
-- `tr_TR` eklemek 6 dokunuş gerektirir: `TS_FILES`, `translations.qrc`, `dialog_basic_settings.ui` dil combo'su, `GuiStartup.cpp::LoadTranslator`, `mainwindow_view.cpp::byLanguageSetting`.
+- `res/translations/{zh_CN,fa_IR,ru_RU}.ts` upstream'e aittir.
+- `tr_TR.ts` F-Dpi'ye aittir ve 3595 metnin tamamı çevrilidir.
+- Dil seçimi: `dialog_basic_settings.ui` combo'sundaki 5. indeks; yükleyici `GuiStartup.cpp::LoadTranslator`. "Sistem" seçiliyken Türkçe Windows otomatik olarak `tr_TR` yükler.
 
 ### F-Dpi bileşen tasarımı
 - **`dpi` profil tipi** (`include/configs/outbounds/dpi.h`)
@@ -181,18 +207,16 @@ Notlar:
   - Uygulama iki moda göre farklıdır:
     - Proxy modunda `RouteDns`/`remote_dns` üzerine yazılır.
     - DPI modunda (sing-box çalışmaz) Windows yerel DoH kullanılır: `netsh dns add encryption` + adaptör DNS'i. Durdurulunca orijinal ayarlar geri yüklenir; kalıcı yedek tutulur, çökme sonrası da geri yüklenir.
-- **Yönetici**
-  - MSVC'de `/MANIFESTUAC:level='requireAdministrator'` kullanılır.
-  - `RelaunchElevatedIfNeeded` ve RestartElevated yolları Windows'ta etkisizleşir.
-  - Installer'da `PrivilegesRequired=admin` olur.
+- **Yönetici:** Uygulandı (F1); bkz. "Yetki (F1 sonrası)".
 
 ## Geliştirme fazları
 - [x] **F0 – Kurulum:** Throne klonu (`upstream`), `fetch_deps.ps1`, `build_windows.ps1`, ilk derleme, bu dosya.
-- [ ] **F1 – Markalama + Yönetici:**
-  - `branding.h`/CMake değişkenleri: `F-Dpi` adı, ikon, veri dizini, exe adı.
-  - `requireAdministrator` manifest'i.
-  - Elevated relaunch ve servis yollarının sadeleştirilmesi; update checker'ın kapatılması.
-  - `tr_TR` çevirisinin eklenmesi.
+- [x] **F1 – Markalama + Yönetici:**
+  - `Branding.hpp`, `F-Dpi.exe`, `requireAdministrator`.
+  - Admin opt-out gizlendi; update checker kapatıldı; About yenilendi.
+  - `tr_TR` (tam çeviri) ve `ts_tool.js`.
+  - `.gitattributes` ile `*.sh` LF'e sabitlendi.
+  - Kalan iş: ikon tasarımı ve installer (F7'ye kaydırıldı).
 - [ ] **F2 – DPI motoru:**
   - `dpi` profil tipi ve `DpiSupervisor`.
   - `EngineArbiter` (karşılıklı dışlama, auto-resume yollarının korunması).
