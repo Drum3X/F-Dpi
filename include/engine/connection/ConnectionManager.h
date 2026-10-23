@@ -78,6 +78,12 @@ namespace Engine {
 
         static bool IsDpiProfile(const std::shared_ptr<Configs::Profile> &profile);
 
+        // F-Dpi, main thread. While a task owns the network (Blockcheck runs winws itself), every start is refused with this
+        // translated reason; empty to release.
+        void setExclusiveTask(const QString &reason);
+
+        [[nodiscard]] QString exclusiveTask() const { return m_exclusiveTask; }
+
         int resolveLastProfile() const;
 
         int lastProfileId() const;
@@ -150,6 +156,9 @@ namespace Engine {
 
         void onDpiExited(const QString &reason);
 
+        // True (after reporting it) when an exclusive task refuses this start.
+        bool refuseForExclusiveTask(const StartRequest &request);
+
         // tun: the running config carries a tun inbound (generated Tun or a custom config's).
         void setRunning(std::shared_ptr<Configs::Profile> profile, bool tun = false);
 
@@ -174,6 +183,7 @@ namespace Engine {
         EnginePolicy *m_policy;
         CoreSupervisor *m_coreSupervisor;
         DpiSupervisor *m_dpi = nullptr;
+        QString m_exclusiveTask;
         StatsService *m_stats;
         TestRunner *m_tests = nullptr;
         AutoSelectorController *m_autoSelector = nullptr;

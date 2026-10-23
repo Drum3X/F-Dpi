@@ -246,7 +246,7 @@ Notlar:
   - Değişiklik `NotifyIpInterfaceChange` ile (1,5 sn debounce) ve 20 sn'lik yoklamayla algılanır; algılama UI thread dışında çalışır.
   - Test kancası `FDPI_NETWORK_OVERRIDE_FILE`: ağı dosyadan okur (`wifi|key1,key2|Ad`). Yalnızca yoklamayla okunur, yani değişiklik ≤20 sn'de yansır.
 - **Otomatik geçiş:** `Engine::NetworkSwitcher` (`src/engine/network/`, EngineHost'ta).
-  - Hedef: ağa bağlı Özel grubun seçili profili (yoksa ilk profili). Bulunamazsa `general_profile_id` (son başlatılan genel profil); o da yoksa ilk genel grubun ilk profili.
+  - Hedef (`targetProfile(current)`): ağa bağlı Özel grubun seçili profili (yoksa ilk profili). Ağa bağlı grup yoksa ve çalışan/hatırlanan profil genel bir gruptaysa o profil kalır. Bu kural F5'te düzeltildi: önceden açılışta hatırlanan DPI profili son genel Socks ile değiştiriliyordu. Aksi halde `general_profile_id` (son başlatılan genel profil), o da yoksa ilk genel grubun ilk profili.
   - Yalnızca kullanıcı bir şey çalışmasını istiyorsa devreye girer: profil çalışıyorsa ya da `started_id >= 0` ise. Elle durdurma `started_id`'yi temizler, bu yüzden ağ değişimi bağlantıyı yeniden açmaz.
   - Başlatma `ConnectionManager::start` üzerinden yapılır, yani proxy/DPI dışlaması korunur.
   - Açılışta `EngineHost::init` içinde core başlamadan önce ağ eşzamanlı algılanır. Hatırlanan profil (`remember_id`) bu ağın hedefinden farklıysa hedefle değiştirilir.
@@ -266,14 +266,41 @@ Notlar:
   - Boş Özel bölümünden "Ağım" grubu oluşturuldu ve gerçek ağa bağlandı (DB'de iki anahtar).
 - **Doğrulanmadı:** gerçek bir ağ değişimi (başka Wi-Fi/Ethernet), kablolu ağda MAC/NLM anahtarları, yönetici modunda DPI ↔ ağa özel proxy geçişi.
 
+### Blockcheck (F5 sonrası)
+- **Motor:** `Engine::Blockcheck` (`src/engine/dpi/Blockcheck.cpp`). Native C++; zapret'in cygwin `blockcheck.cmd` script'ini kullanmaz. Worker thread'de çalışır, sinyaller ana thread'e gelir.
+  1. Alan adları DoH ile çözülür: `https://1.1.1.1/dns-query` JSON API, proxy'siz QNAM. Olmazsa sistem DNS'i kullanılır. Böylece zehirli DNS sahte engel üretmez. Çözümleme, winws başlamadan yapılır.
+  2. Taban ölçüm winws olmadan yapılır:
+     - HTTP (80): `GET /`. Yanıt yoksa ya da başka bir siteye 3xx yönlendirmesi varsa engelli sayılır.
+     - TLS 1.2 ve TLS 1.3 (443): `QSslSocket::connectToHostEncrypted(ip, 443, domain)` (SNI = alan adı), sertifika doğrulamalı. ISP'nin araya girdiği sayfa doğrulamadan geçemez.
+     - QUIC test edilemez: Qt ve sistem curl HTTP/3 desteklemiyor.
+  3. Yalnızca engelli çıkan hedefler (HTTP ve/veya TLS) için her strateji ayrı bir winws ile denenir: `--wf-tcp=<port> --filter-tcp=<port> <strateji>`, 500 ms grace. Puan = açılan engelli probe sayısı.
+     - Hızlı: `Dpi::Blockcheck::QuickStrategies` (HTTP 7, TLS 17; basitten karmaşığa), tüm probe'ları açan ilk stratejide durur.
+     - Derin: `DeepStrategies` (HTTP ~165, TLS ~199 kombinasyon), en yüksek puanlı ilk stratejiyi seçer.
+  4. Sonuç `ComposeStrategy` ile oluşturulur: `--filter-tcp=80 <http>` / `--filter-tcp=443 <tls>` + standart QUIC fake bloğu, `wf_tcp`, `wf_udp=443`.
+- **Dışlama ve güvenlik:**
+  - Başlarken çalışan profil durdurulur (manual değil, `started_id` korunur) ve tarama bitince yeniden başlatılır.
+  - Tarama süresince `ConnectionManager::setExclusiveTask` her `start()`'ı reddeder; NetworkSwitcher de buna dahildir.
+  - Kill switch açıkken çalışmaz.
+  - WinDivert açılamazsa (yönetici yok, sürücü engelli) tarama hemen anlaşılır bir hatayla biter.
+  - Kendi `DpiSupervisor`'ı vardır (`killStrays=false`, `setQuiet(true)`: yüzlerce winws çalıştırması log'a yazılmaz).
+- **UI:** `DialogBlockcheck` (`src/ui/dpi/`).
+  - İçerik: siteler, Hızlı/Derin seçimi, protokoller, ilerleme, sonuç tablosu (Hedef/Strateji/Açılan), tarama günlüğü, özet.
+  - Araçlar → Blockcheck… sonucu yeni DPI profili olarak kaydeder: ad "Blockcheck dd.MM HH:mm", genel bir gruba, mod "Tüm siteler".
+  - DPI editöründeki Strateji → Blockcheck… sonucu açık profile uygular; profilin site listesini hedef olarak kullanır.
+  - Pencere kapatılırsa tarama iptal edilir ve pencere temizlik bitince kapanır.
+- **Doğrulandı:**
+  - Yönetici olmadan: DoH çözümlemesi, taban ölçüm (discord.com HTTP/TLS1.2/TLS1.3 engelli, youtube.com açık), WinDivert hata mesajı, çalışan Socks'un durdurulup yeniden başlatılması.
+  - Yönetici olarak (2026-10-23): Hızlı tarama ~10 sn'de `--dpi-desync=fake --dpi-desync-fooling=md5sig` buldu (TLS 2/2, HTTP 1/1). Sonuç DB'ye profil olarak kaydedildi.
+  - Kaydedilen profil açılışta başlatıldığında winws çalıştı ve `discord.com` 200 döndü (öncesinde curl exit 35). `youtube.com` etkilenmedi; F-Dpi kapatılınca engel geri geldi.
+- **UIA notları:**
+  - Araçlar düğmesinin menüsü ok kısmına tıklanınca açılır.
+  - Qt menü öğeleri UIA'ya görünmez; klavyeyle seçilir.
+  - Blockcheck penceresi ana pencerenin UIA çocuğudur.
+
 ### F-Dpi bileşen tasarımı (sonraki fazlar)
 - `dpi` tipi, `DpiSupervisor` ve dışlama: uygulandı (bkz. "DPI motoru (F2 sonrası)" ve "Motorlar ve karşılıklı dışlama").
 - Genel / Özel ve `NetworkMonitor`: uygulandı (bkz. "Genel / Özel config (F4 sonrası)").
-- **Blockcheck** (`include/dpi/blockcheck/`): native C++; cygwin script'ine bağlı değildir.
-  - Her strateji için winws'i başlatır, hedef domain'lere HTTP / TLS1.2 / TLS1.3 / QUIC denemesi yapar, sonuçları puanlar.
-  - Hızlı Tarama ~20 küratörlü strateji dener; Derin Tarama desync × split-pos × fooling × ttl/autottl × repeats kombinasyonlarını üretir.
-  - Çalışırken proxy motorunu durdurur (EngineArbiter üzerinden).
-  - Bulunan sonuç tek tıkla bir `dpi` profiline uygulanır.
+- Blockcheck: uygulandı (bkz. "Blockcheck (F5 sonrası)").
 - **Otomatik DNS** (`include/dns/AutoDns.h`)
   - Adaylar: DoH/DoT sunucuları (Cloudflare, Google, Quad9, AdGuard, ...). Paralel gecikme testi yapılır.
   - Zehirlenme tespiti için bilinen engelli domain'lerin sistem DNS'i ve DoH cevapları karşılaştırılır.
@@ -309,10 +336,7 @@ Notlar:
   - İkiye bölünmüş sekme alanı (`GroupSectionBar`); grup diyaloğunda kapsam (`NetworkScopeEditor`).
   - `Sys::NetworkMonitor` (Wi-Fi + Ethernet; NLM/ağ geçidi MAC/SSID) ve `Engine::NetworkSwitcher`.
   - Ayrıntı ve test sonuçları: "Genel / Özel config (F4 sonrası)".
-- [ ] **F5 – Blockcheck:**
-  - Test motoru (strateji × protokol).
-  - Hızlı/Derin tarama, ilerleme UI'ı, iptal.
-  - Sonucu profile uygulama.
+- [x] **F5 – Blockcheck:** `Engine::Blockcheck`, `Dpi::Blockcheck` stratejileri, `DialogBlockcheck` (Araçlar menüsü + DPI editörü), `ConnectionManager::setExclusiveTask`, `DpiSupervisor` quiet/grace/killStrays. Ayrıntı: "Blockcheck (F5 sonrası)".
 - [ ] **F6 – Otomatik DNS:**
   - Benchmark + zehirlenme tespiti.
   - Proxy modu (sing-box DNS) ve DPI modu (Windows DoH) uygulaması; geri yükleme/çökme kurtarma.

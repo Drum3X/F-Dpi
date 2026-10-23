@@ -19,6 +19,7 @@
 #include "include/dpi/DpiLaunch.h"
 #include "include/dpi/DpiPresets.h"
 #include "include/global/Utils.hpp"
+#include "include/ui/dpi/dialog_blockcheck.h"
 #include "include/ui/utils/NativeFileDialog.h"
 #include "include/ui/utils/ValidationForm.h"
 
@@ -63,7 +64,15 @@ QWidget *EditDpi::buildStrategyTab() {
 
     auto *preview = new QPushButton(tr("Show command line"), page);
     connect(preview, &QPushButton::clicked, this, [this] { showCommandLine(); });
-    layout->addRow(QString(), preview);
+    auto *blockcheck = new QPushButton(tr("Blockcheck..."), page);
+    blockcheck->setToolTip(tr("Find a strategy that opens this profile's sites on this network."));
+    connect(blockcheck, &QPushButton::clicked, this, [this] { runBlockcheck(); });
+    auto *actions = new QWidget(page);
+    auto *actionsLayout = new QHBoxLayout(actions);
+    actionsLayout->setContentsMargins(0, 0, 0, 0);
+    actionsLayout->addWidget(blockcheck);
+    actionsLayout->addWidget(preview);
+    layout->addRow(QString(), actions);
 
     auto *hint = new QLabel(tr("Proxy and DPI Bypass never run together: starting this profile stops the running proxy."), page);
     hint->setWordWrap(true);
@@ -297,6 +306,18 @@ void EditDpi::showCommandLine() {
         return;
     }
     MessageBoxScrollable(tr("Command line"), QDir::toNativeSeparators(launch.program) + QLatin1Char(' ') + Dpi::WindowsCommandLine(launch.arguments));
+}
+
+void EditDpi::runBlockcheck() {
+    DialogBlockcheck dialog(Configs::dpi::NormalizeHosts(lines(m_hostlist)), true, this);
+    if (dialog.exec() != QDialog::Accepted || !dialog.result().found()) return;
+    const auto &result = dialog.result();
+    m_loading = true;
+    m_wfTcp->setText(result.wfTcp);
+    m_wfUdp->setText(result.wfUdp);
+    m_strategy->setPlainText(result.strategy);
+    m_loading = false;
+    markCustom();
 }
 
 void EditDpi::appendHosts(QPlainTextEdit *edit, const QStringList &hosts) {

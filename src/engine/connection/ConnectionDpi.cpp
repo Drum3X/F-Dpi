@@ -119,6 +119,17 @@ namespace Engine {
         });
     }
 
+    void ConnectionManager::setExclusiveTask(const QString &reason) {
+        ENGINE_CHECK_MAIN_THREAD();
+        m_exclusiveTask = reason;
+    }
+
+    bool ConnectionManager::refuseForExclusiveTask(const StartRequest &request) {
+        if (m_exclusiveTask.isEmpty()) return false;
+        failStart(request, StartOutcome::Busy, software_name, m_exclusiveTask);
+        return true;
+    }
+
     void ConnectionManager::onDpiExited(const QString &reason) {
         ENGINE_CHECK_MAIN_THREAD();
         const auto running = runningSnapshot();

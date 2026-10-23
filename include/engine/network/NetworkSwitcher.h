@@ -29,8 +29,10 @@ namespace Engine {
         // swaps it for the one this network calls for. Then follows Sys::NetworkMonitor.
         void start();
 
-        // Main thread. The profile the current network calls for; -1 when none.
-        int targetProfile() const;
+        // Main thread. The profile the current network calls for, given the one running (or about to resume): the bound group's
+        // profile; else current itself when it is a general profile (any general config is fine on an unbound network);
+        // else the general config. -1 when none.
+        int targetProfile(int current) const;
 
     private:
         void onNetworkChanged(const Sys::NetworkIdentity &network);

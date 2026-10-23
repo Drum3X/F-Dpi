@@ -609,6 +609,11 @@ set(PROJECT_SOURCES
         src/ui/group/GroupSectionBar.cpp
         include/ui/group/NetworkScopeEditor.h
         src/ui/group/NetworkScopeEditor.cpp
+        # F-Dpi: Blockcheck
+        include/dpi/BlockcheckStrategies.h
+        src/dpi/BlockcheckStrategies.cpp
+        include/ui/dpi/dialog_blockcheck.h
+        src/ui/dpi/dialog_blockcheck.cpp
         include/ui/profile/edit_advanced.h
         src/ui/profile/edit_advanced.cpp
         include/ui/profile/edit_advanced.ui
@@ -772,6 +777,8 @@ set(ENGINE_SOURCES
         src/engine/dpi/DpiSupervisor.cpp
         include/engine/network/NetworkSwitcher.h
         src/engine/network/NetworkSwitcher.cpp
+        include/engine/dpi/Blockcheck.h
+        src/engine/dpi/Blockcheck.cpp
         include/engine/vpn/VpnAuthController.h
         src/engine/vpn/VpnAuthController.cpp
         include/engine/services/Dashboard.h

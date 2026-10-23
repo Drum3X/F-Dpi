@@ -56,19 +56,22 @@ namespace Engine {
         }
         auto &settings = Configs::dataManager->settingsRepo;
         if (!settings->network_auto_switch || !settings->remember_enable || settings->remember_id < 0) return;
-        if (const int target = targetProfile(); target >= 0 && target != settings->remember_id) {
+        if (const int target = targetProfile(settings->remember_id); target >= 0 && target != settings->remember_id) {
             MW_show_log(QCoreApplication::translate("Network", "[Network] %1: starting %2.").arg(network.name, networkSwitcherProfileName(target)));
             settings->remember_id = target;
         }
     }
 
-    int NetworkSwitcher::targetProfile() const {
+    int NetworkSwitcher::targetProfile(int current) const {
         auto &scopes = Configs::dataManager->networkScopesRepo;
         const auto network = Sys::NetworkMonitor::instance()->current();
         if (network.connected()) {
             if (const auto scope = scopes->ForNetwork(network.keys); scope.groupId >= 0) {
                 if (const int id = networkSwitcherGroupProfile(scope.groupId, scope.profileId); id >= 0) return id;
             }
+        }
+        if (const auto profile = Configs::dataManager->profilesRepo->GetProfile(current); profile != nullptr && !scopes->Get(profile->gid).network) {
+            return current;
         }
         const auto &settings = Configs::dataManager->settingsRepo;
         if (const auto profile = Configs::dataManager->profilesRepo->GetProfile(settings->general_profile_id); profile != nullptr) {
@@ -102,7 +105,7 @@ namespace Engine {
         // A manual stop clears started_id: the user turned the connection off, so a network change must not turn it on.
         const auto running = m_connection->runningSnapshot();
         if (running == nullptr && settings->started_id < 0) return;
-        const int target = targetProfile();
+        const int target = targetProfile(running != nullptr ? running->id : settings->started_id);
         if (target < 0 || (running != nullptr && running->id == target)) return;
         if (m_connection->connectionState() == ConnectionState::Connecting) return;
         MW_show_log(QCoreApplication::translate("Network", "[Network] %1: starting %2.").arg(why, networkSwitcherProfileName(target)));

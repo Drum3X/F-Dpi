@@ -24,12 +24,17 @@ namespace Engine {
         static constexpr int kStopWaitMs = 5000;
 
         // Main thread. Kills a winws left running by a crashed earlier run.
-        explicit DpiSupervisor(QObject *parent = nullptr);
+        // killStrays: kill winws processes of this installation that are already running (true for the profile engine; a
+        // second supervisor, such as Blockcheck's, is created while the first one has nothing running).
+        explicit DpiSupervisor(QObject *parent = nullptr, bool killStrays = true);
         ~DpiSupervisor() override;
 
         // Worker threads only, never the main thread: blocks for up to kStartupGraceMs. Stops a running winws first. False with
         // a translated error when winws did not start or exited within the grace period.
-        bool start(const Dpi::Launch &launch, QString *error);
+        bool start(const Dpi::Launch &launch, QString *error, int graceMs = kStartupGraceMs);
+
+        // Any thread. Quiet: winws output and start/stop lines stay out of the log (kept for exitReason only).
+        void setQuiet(bool quiet) { m_quiet = quiet; }
 
         // Any thread; blocks until winws is gone. A no-op when it is not running.
         void stop();
@@ -54,6 +59,7 @@ namespace Engine {
         QProcess *m_process = nullptr;
         QByteArray m_partialLine;
         bool m_stopping = false;
+        std::atomic<bool> m_quiet{false};
 
         std::atomic<bool> m_running{false};
         // Set once start() passed the grace period; an exit before that is reported by start() itself.

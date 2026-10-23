@@ -2,6 +2,65 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="tr_TR">
 <context>
+    <name>Blockcheck</name>
+    <message>
+        <source>timed out</source>
+        <translation>zaman aşımı</translation>
+    </message>
+    <message>
+        <source>no answer</source>
+        <translation>yanıt yok</translation>
+    </message>
+    <message>
+        <source>not an HTTP answer</source>
+        <translation>HTTP yanıtı değil</translation>
+    </message>
+    <message>
+        <source>redirected to %1</source>
+        <translation>%1 adresine yönlendirildi</translation>
+    </message>
+    <message>
+        <source>Turn the kill switch off first: with it on, nothing reaches the sites without a proxy.</source>
+        <translation>Önce kill switch'i kapatın: açıkken proxy olmadan hiçbir siteye ulaşılamaz.</translation>
+    </message>
+    <message>
+        <source>Blockcheck is running; profiles start again when it ends.</source>
+        <translation>Blockcheck çalışıyor; profiller tarama bitince yeniden başlar.</translation>
+    </message>
+    <message>
+        <source>Stopping %1 for the scan; it starts again afterwards.</source>
+        <translation>Tarama için %1 durduruluyor; ardından yeniden başlatılacak.</translation>
+    </message>
+    <message>
+        <source>system DNS</source>
+        <translation>sistem DNS'i</translation>
+    </message>
+    <message>
+        <source>%1: cannot resolve, skipped.</source>
+        <translation>%1: çözümlenemedi, atlandı.</translation>
+    </message>
+    <message>
+        <source>%1 → %2 (%3)</source>
+        <translation>%1 → %2 (%3)</translation>
+    </message>
+    <message>
+        <source>No site could be resolved; check the names and the connection.</source>
+        <translation>Hiçbir site çözümlenemedi; adları ve bağlantıyı kontrol edin.</translation>
+    </message>
+    <message>
+        <source>%1 %2: works without bypass</source>
+        <translation>%1 %2: bypass olmadan çalışıyor</translation>
+    </message>
+    <message>
+        <source>%1 %2: blocked (%3)</source>
+        <translation>%1 %2: engelli (%3)</translation>
+    </message>
+    <message>
+        <source>Nothing is blocked on these sites; no bypass is needed.</source>
+        <translation>Bu sitelerde engel yok; bypass gerekmiyor.</translation>
+    </message>
+</context>
+<context>
     <name>CommandPalette</name>
     <message>
         <source>Search Settings</source>
@@ -1452,6 +1511,129 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     <message>
         <source>Backup deleted, but the backup list could not be updated: %1</source>
         <translation>Yedek silindi, ancak yedek listesi güncellenemedi: %1</translation>
+    </message>
+</context>
+<context>
+    <name>DialogBlockcheck</name>
+    <message>
+        <source>Blockcheck</source>
+        <translation>Blockcheck</translation>
+    </message>
+    <message>
+        <source>Finds a DPI bypass strategy that opens the sites below on this network. Profiles are stopped during the scan and started again afterwards.</source>
+        <translation>Bu ağda aşağıdaki siteleri açan bir DPI bypass stratejisi arar. Tarama sırasında profiller durdurulur ve sonra yeniden başlatılır.</translation>
+    </message>
+    <message>
+        <source>Blocked sites to test, one per line. A few are enough; each one adds probes to every strategy.</source>
+        <translation>Test edilecek engelli siteler, her satıra bir tane. Birkaç site yeterli; her site her stratejiye yeni denemeler ekler.</translation>
+    </message>
+    <message>
+        <source>Sites</source>
+        <translation>Siteler</translation>
+    </message>
+    <message>
+        <source>Quick scan: common strategies, stops at the first that works</source>
+        <translation>Hızlı Tarama: yaygın stratejiler, ilk çalışanda durur</translation>
+    </message>
+    <message>
+        <source>Deep scan: every combination (can take 30 minutes)</source>
+        <translation>Derin Tarama: tüm kombinasyonlar (30 dakika sürebilir)</translation>
+    </message>
+    <message>
+        <source>Scan</source>
+        <translation>Tarama</translation>
+    </message>
+    <message>
+        <source>QUIC: not testable, a standard QUIC bypass is added</source>
+        <translation>QUIC: test edilemiyor, standart bir QUIC bypass'ı eklenir</translation>
+    </message>
+    <message>
+        <source>Protocols</source>
+        <translation>Protokoller</translation>
+    </message>
+    <message>
+        <source>Start</source>
+        <translation>Başlat</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Durdur</translation>
+    </message>
+    <message>
+        <source>Target</source>
+        <translation>Hedef</translation>
+    </message>
+    <message>
+        <source>Strategy</source>
+        <translation>Strateji</translation>
+    </message>
+    <message>
+        <source>Opened</source>
+        <translation>Açılan</translation>
+    </message>
+    <message>
+        <source>Use in this profile</source>
+        <translation>Bu profilde kullan</translation>
+    </message>
+    <message>
+        <source>Save as new DPI profile</source>
+        <translation>Yeni DPI profili olarak kaydet</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Kapat</translation>
+    </message>
+    <message>
+        <source>winws refused</source>
+        <translation>winws reddetti</translation>
+    </message>
+    <message>
+        <source>Enter at least one blocked site.</source>
+        <translation>En az bir engelli site girin.</translation>
+    </message>
+    <message>
+        <source>Choose at least one protocol.</source>
+        <translation>En az bir protokol seçin.</translation>
+    </message>
+    <message>
+        <source>Blockcheck could not run: %1</source>
+        <translation>Blockcheck çalışamadı: %1</translation>
+    </message>
+    <message>
+        <source>These sites are not blocked on this network; no bypass is needed.</source>
+        <translation>Bu siteler bu ağda engelli değil; bypass gerekmiyor.</translation>
+    </message>
+    <message>
+        <source>Stopped before a working strategy was found.</source>
+        <translation>Çalışan bir strateji bulunamadan durduruldu.</translation>
+    </message>
+    <message>
+        <source>No strategy opened these sites. Try the deep scan, or a proxy profile instead.</source>
+        <translation>Hiçbir strateji bu siteleri açmadı. Derin Tarama'yı ya da bir proxy profilini deneyin.</translation>
+    </message>
+    <message>
+        <source>HTTP: %1 (%2/%3)</source>
+        <translation>HTTP: %1 (%2/%3)</translation>
+    </message>
+    <message>
+        <source>TLS: %1 (%2/%3)</source>
+        <translation>TLS: %1 (%2/%3)</translation>
+    </message>
+    <message>
+        <source>Best found before stopping:</source>
+        <translation>Durmadan önce bulunan en iyi:</translation>
+    </message>
+    <message>
+        <source>Best strategy:</source>
+        <translation>En iyi strateji:</translation>
+    </message>
+    <message>
+        <source>Blockcheck %1</source>
+        <translation>Blockcheck %1</translation>
+    </message>
+    <message>
+        <source>Saved as the DPI profile &quot;%1&quot;. Start it from the profile list.</source>
+        <translation>"%1" DPI profili olarak kaydedildi. Profil listesinden başlatabilirsiniz.</translation>
     </message>
 </context>
 <context>
@@ -6138,6 +6320,14 @@ https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
         <translation>Oyunlar çoğunlukla kendi portlarında UDP kullanır. UDP portlarında yalnızca 443 varsa oyun trafiği hiç yakalanmaz; web trafiğine de dokunulmaması için oyun başlatıcılarını &quot;Asla dokunma&quot; listesine ekleyin.</translation>
     </message>
     <message>
+        <source>Blockcheck...</source>
+        <translation>Blockcheck...</translation>
+    </message>
+    <message>
+        <source>Find a strategy that opens this profile&apos;s sites on this network.</source>
+        <translation>Bu profilin sitelerini bu ağda açan bir strateji bul.</translation>
+    </message>
+    <message>
         <source>Learned sites</source>
         <translation>Öğrenilen siteler</translation>
     </message>
@@ -8686,7 +8876,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>Configs used on any network without a config of its own.</source>
-        <translation>Kendi config'i olmayan her ağda kullanılan config'ler.</translation>
+        <translation>Kendi config&apos;i olmayan her ağda kullanılan config&apos;ler.</translation>
     </message>
     <message>
         <source>Custom (per network)</source>
@@ -8698,7 +8888,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>When the network changes, run its own config (Custom groups bound to it), else the last general config.</source>
-        <translation>Ağ değiştiğinde o ağa ait config'i (ağa bağlı Özel gruplar), yoksa son genel config'i çalıştırır.</translation>
+        <translation>Ağ değiştiğinde o ağa ait config&apos;i (ağa bağlı Özel gruplar), yoksa son genel config&apos;i çalıştırır.</translation>
     </message>
     <message>
         <source>No network</source>
@@ -8706,7 +8896,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>Configs bound to a Wi-Fi or Ethernet network. No network is connected now.</source>
-        <translation>Bir Wi-Fi veya Ethernet ağına bağlı config'ler. Şu an bağlı ağ yok.</translation>
+        <translation>Bir Wi-Fi veya Ethernet ağına bağlı config&apos;ler. Şu an bağlı ağ yok.</translation>
     </message>
     <message>
         <source>Wi-Fi</source>
@@ -8718,7 +8908,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>Configs bound to a Wi-Fi or Ethernet network. Now connected to %1 %2.</source>
-        <translation>Bir Wi-Fi veya Ethernet ağına bağlı config'ler. Şu an bağlı ağ: %1 %2.</translation>
+        <translation>Bir Wi-Fi veya Ethernet ağına bağlı config&apos;ler. Şu an bağlı ağ: %1 %2.</translation>
     </message>
 </context>
 <context>
@@ -9777,6 +9967,10 @@ Hata: %1</translation>
         <source>Please Enter your password in the opened terminal, then try again</source>
         <translation>Lütfen açılan terminalde parolanızı girin, ardından yeniden deneyin</translation>
     </message>
+    <message>
+        <source>Blockcheck...</source>
+        <translation>Blockcheck...</translation>
+    </message>
     <message numerus="yes">
         <source>%n remote rule-set(s) refreshed</source>
         <translation>
@@ -10421,7 +10615,7 @@ URL: %2</translation>
     </message>
     <message>
         <source>Wi-Fi &quot;%1&quot;</source>
-        <translation>Wi-Fi "%1"</translation>
+        <translation>Wi-Fi &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Ethernet %1</source>

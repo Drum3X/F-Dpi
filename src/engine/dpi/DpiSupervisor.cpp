@@ -17,12 +17,12 @@ namespace Engine {
         constexpr int kDpiSupervisorMaxLineChars = 400;
     } // namespace
 
-    DpiSupervisor::DpiSupervisor(QObject *parent) : QObject(parent) {
+    DpiSupervisor::DpiSupervisor(QObject *parent, bool killStrays) : QObject(parent) {
         m_thread = new QThread;
         m_thread->setObjectName(QStringLiteral("DS_dpi"));
         m_thread->start();
         // A crashed run's winws outlives it only when the job object could not be set up; it would still bend traffic.
-        if (const int killed = Sys::KillProcessesByPath(Dpi::WinwsPath()); killed > 0) {
+        if (const int killed = killStrays ? Sys::KillProcessesByPath(Dpi::WinwsPath()) : 0; killed > 0) {
             MW_show_log(QStringLiteral("[DPI] Stopped %1 winws process(es) left over from an earlier run.").arg(killed));
         }
     }
@@ -34,7 +34,7 @@ namespace Engine {
         delete m_thread;
     }
 
-    bool DpiSupervisor::start(const Dpi::Launch &launch, QString *error) {
+    bool DpiSupervisor::start(const Dpi::Launch &launch, QString *error, int graceMs) {
         Q_ASSERT(QThread::currentThread() != QCoreApplication::instance()->thread());
         QString startError;
         runOnThread([&] {
@@ -68,7 +68,7 @@ namespace Engine {
                 onFinished(generation);
             });
 
-            MW_show_log(QStringLiteral("[DPI] %1 %2").arg(QDir::toNativeSeparators(launch.program), Dpi::WindowsCommandLine(launch.arguments)));
+            if (!m_quiet) MW_show_log(QStringLiteral("[DPI] %1 %2").arg(QDir::toNativeSeparators(launch.program), Dpi::WindowsCommandLine(launch.arguments)));
             m_process->start();
             if (!m_process->waitForStarted(5000)) {
                 startError = QCoreApplication::translate("Dpi", "winws could not be started: %1").arg(m_process->errorString());
@@ -90,7 +90,7 @@ namespace Engine {
 
         QElapsedTimer grace;
         grace.start();
-        while (m_running.load() && grace.elapsed() < kStartupGraceMs) QThread::msleep(50);
+        while (m_running.load() && grace.elapsed() < graceMs) QThread::msleep(50);
         // Announce first: an exit right after the check below is then reported by the finished handler.
         m_announceExit = true;
         if (!m_running.load()) {
@@ -108,7 +108,7 @@ namespace Engine {
             return;
         }
         runOnThread([this] { stopOnThread(); }, m_thread, true);
-        MW_show_log(QStringLiteral("[DPI] winws stopped."));
+        if (!m_quiet) MW_show_log(QStringLiteral("[DPI] winws stopped."));
     }
 
     void DpiSupervisor::stopOnThread() {
@@ -140,7 +140,7 @@ namespace Engine {
                 m_tail << line;
                 while (m_tail.size() > kDpiSupervisorTailLines) m_tail.removeFirst();
             }
-            MW_show_log(QStringLiteral("[DPI] ") + line);
+            if (!m_quiet) MW_show_log(QStringLiteral("[DPI] ") + line);
         }
     }
 

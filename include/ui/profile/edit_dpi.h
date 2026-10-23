@@ -36,6 +36,7 @@ private:
     void updateModeRows();
     void updateLearned();
     void showCommandLine();
+    void runBlockcheck();
 
     // Saves the form into config (also used by the preview).
     void storeInto(Configs::dpi *config) const;

@@ -90,6 +90,8 @@ namespace Engine {
             emit startFinished(request.serial, request.profileId, StartOutcome::Exiting, {});
             return;
         }
+        // F-Dpi: Blockcheck owns the network while it runs.
+        if (refuseForExclusiveTask(request)) return;
 
         std::shared_ptr<Configs::Profile> ent = nullptr;
         if (request.profileId >= 0) {
