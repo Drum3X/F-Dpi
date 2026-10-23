@@ -20,6 +20,7 @@
 #include "include/engine/autoselector/AutoSelectorController.h"
 #include "include/engine/connection/ConnectionManager.h"
 #include "include/engine/network/NetworkSwitcher.h"
+#include "include/engine/dns/AutoDnsService.h"
 #include "include/engine/headless/HeadlessPolicy.h"
 #include "include/engine/services/AssetUpdates.h"
 #include "include/engine/services/Dashboard.h"
@@ -193,6 +194,7 @@ namespace Engine {
         m_tests.reset();
         delete m_exit;
         delete m_networkSwitcher;
+        delete m_autoDns;
         delete m_vpnAuth;
         delete m_connection;
         delete m_coreSupervisor;
@@ -227,6 +229,7 @@ namespace Engine {
         connect(m_connection, &ConnectionManager::connectionStateChanged, this, &EngineControl::connectionStateChanged, Qt::DirectConnection);
         m_vpnAuth = new VpnAuthController(policy(), this, this);
         m_networkSwitcher = new NetworkSwitcher(m_connection, this);
+        m_autoDns = new AutoDnsService(m_connection, this);
         Lifecycle::SetStopHandler([c = m_connection](bool crash, bool block, bool manual, bool interactive) { c->stop({crash, block, manual, interactive}); });
         m_tests = std::make_unique<TestRunner>(policy(), m_observer.get(), [c = m_connection] { return c->runningSnapshot(); });
         m_autoSelector = std::make_unique<AutoSelectorController>(this, m_tests.get());
@@ -307,8 +310,11 @@ namespace Engine {
         // Must precede the first coreStarted, or a remembered profile would start before the guard is even arming.
         Sys::KillSwitch::instance()->apply();
 
-        // F-Dpi: before the resume below, which it may point at the current network's config.
+        // F-Dpi: before the resume below, which it may point at the current network's config; a DPI profile resuming applies
+        // Otomatik DNS again, so a crashed run's Windows DNS is put back first.
+        m_autoDns->recoverAtBoot();
         m_networkSwitcher->start();
+        m_autoDns->start();
 
         if (bootStart) {
             if (bootStart->profileId >= 0) m_connection->setBootStart(StartRequest{bootStart->profileId, false, bootStart->serial});

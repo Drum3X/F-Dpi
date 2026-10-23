@@ -24,6 +24,7 @@
 #ifdef Q_OS_LINUX
 #include "include/sys/linux/systemChecks.h"
 #endif
+#include "include/dns/AutoDns.h"
 
 #include <algorithm>
 #include <optional>
@@ -711,6 +712,7 @@ namespace Configs {
             ctx.isResolvedUsed = isSystemdResolvedDefaultResolver();
 #endif
             ctx.dns = RouteDns::Current(&ctx.routeOwnsDns);
+            Dns::ApplyToRouteDns(&ctx.dns, ctx.routeOwnsDns); // F-Dpi: Otomatik DNS
             auto &preReqs = ctx.prerequisites;
 
             auto routeChain = dataManager->routesRepo->GetRouteProfile(settings.current_route_id);
@@ -3052,6 +3054,7 @@ namespace Configs {
         ctx.isResolvedUsed = isSystemdResolvedDefaultResolver();
 #endif
         ctx.dns = RouteDns::Current(&ctx.routeOwnsDns);
+        Dns::ApplyToRouteDns(&ctx.dns, ctx.routeOwnsDns); // F-Dpi: Otomatik DNS
 
         for (const auto &item : profiles) {
             if (item == nullptr) continue;

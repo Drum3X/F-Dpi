@@ -12,6 +12,8 @@
 #include "include/engine/ThreadCheck.h"
 #include "include/engine/autoselector/AutoSelectorController.h"
 #include "include/engine/dpi/DpiSupervisor.h"
+#include "include/engine/dns/AutoDnsService.h"
+#include "include/engine/EngineHost.h"
 #include "include/engine/services/AssetUpdates.h"
 #include "include/engine/services/StatsService.h"
 #include "include/engine/supervisor/CoreSupervisor.h"
@@ -384,6 +386,7 @@ namespace Engine {
         auto profile_stop_stage2 = [=,this](const Engine::SlowOperation &slowStop) {
             if (dpi) {
                 m_dpi->stop();
+                if (const auto *engineHost = host(); engineHost != nullptr && engineHost->autoDns() != nullptr) engineHost->autoDns()->dpiStopped();
                 runOnUiThread([slowStop] { slowStop.dismiss(); });
                 return true;
             }

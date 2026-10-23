@@ -25,6 +25,7 @@ namespace Engine {
     class TestRunner;
     class VpnAuthController;
     class NetworkSwitcher;
+    class AutoDnsService;
 
     // Owns and wires every engine object, and is the EngineControl the Throne API drives. Main thread unless noted.
     class EngineHost final : public EngineControl {
@@ -77,6 +78,9 @@ namespace Engine {
         TestRunner *tests() const { return m_tests.get(); }
 
         AutoSelectorController *autoSelector() const { return m_autoSelector.get(); }
+
+        // F-Dpi: Otomatik DNS.
+        AutoDnsService *autoDns() const { return m_autoDns; }
 
         VpnAuthController *vpnAuth() const { return m_vpnAuth; }
 
@@ -160,6 +164,7 @@ namespace Engine {
         VpnAuthController *m_vpnAuth = nullptr;
         // F-Dpi: runs the current network's config.
         NetworkSwitcher *m_networkSwitcher = nullptr;
+        AutoDnsService *m_autoDns = nullptr;
         std::unique_ptr<TestRunner> m_tests;
         // After m_tests, so it is destroyed first.
         std::unique_ptr<AutoSelectorController> m_autoSelector;

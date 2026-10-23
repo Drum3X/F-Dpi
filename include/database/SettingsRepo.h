@@ -216,6 +216,15 @@ namespace Configs {
         bool network_auto_switch = true;
         // F-Dpi: the last profile started from a general group; what runs on a network with no config of its own.
         int general_profile_id = NoProfileId;
+        // F-Dpi Otomatik DNS (include/dns/AutoDns.h): "auto", "off" or a provider id; where it applies; the benchmark's pick.
+        QString auto_dns_mode = "auto";
+        bool auto_dns_proxy = true;
+        bool auto_dns_system = true;
+        QString auto_dns_server = "";
+        int auto_dns_latency = -1;
+        QString auto_dns_network = "";
+        // Epoch seconds, as text.
+        QString auto_dns_checked = "";
 
         // Routing
         int current_route_id = 1;

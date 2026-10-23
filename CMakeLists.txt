@@ -614,6 +614,15 @@ set(PROJECT_SOURCES
         src/dpi/BlockcheckStrategies.cpp
         include/ui/dpi/dialog_blockcheck.h
         src/ui/dpi/dialog_blockcheck.cpp
+        # F-Dpi: Otomatik DNS
+        include/dns/DnsWire.h
+        src/dns/DnsWire.cpp
+        include/dns/AutoDns.h
+        src/dns/AutoDns.cpp
+        include/sys/SystemDns.hpp
+        src/sys/SystemDns.cpp
+        include/ui/dns/dialog_auto_dns.h
+        src/ui/dns/dialog_auto_dns.cpp
         include/ui/profile/edit_advanced.h
         src/ui/profile/edit_advanced.cpp
         include/ui/profile/edit_advanced.ui
@@ -779,6 +788,10 @@ set(ENGINE_SOURCES
         src/engine/network/NetworkSwitcher.cpp
         include/engine/dpi/Blockcheck.h
         src/engine/dpi/Blockcheck.cpp
+        include/engine/dns/DnsBenchmark.h
+        src/engine/dns/DnsBenchmark.cpp
+        include/engine/dns/AutoDnsService.h
+        src/engine/dns/AutoDnsService.cpp
         include/engine/vpn/VpnAuthController.h
         src/engine/vpn/VpnAuthController.cpp
         include/engine/services/Dashboard.h
@@ -870,6 +883,7 @@ set_property(SOURCE "3rdparty/SQLiteCpp/src/sqlite3.c" PROPERTY SKIP_UNITY_BUILD
 set_property(SOURCE "3rdparty/monocypher/monocypher.c" PROPERTY SKIP_UNITY_BUILD_INCLUSION ON)
 # F-Dpi: winsock2.h must come before any windows.h, which an earlier TU of a unity batch may already have included.
 set_property(SOURCE "src/sys/windows/NetworkMonitor_win.cpp" PROPERTY SKIP_UNITY_BUILD_INCLUSION ON)
+set_property(SOURCE "src/sys/windows/SystemDns_win.cpp" PROPERTY SKIP_UNITY_BUILD_INCLUSION ON)
 
 # Verified to link. OMIT_VIRTUALTABLE/VIEW/ANALYZE/CTE/WINDOWFUNC/DECLTYPE all break this build.
 target_compile_definitions(Throne PRIVATE

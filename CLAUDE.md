@@ -73,6 +73,10 @@ Notlar:
   - **UAC tuzağı:** Yönetici olarak çalışan bir oturum `windows_set_admin=true` kaydeder ve sonraki her normal başlatma kendini UAC ile yükseltir (Throne `RelaunchElevatedIfNeeded`). Yükseltilmemiş test öncesinde bu ayar `false` yapılır. Yükseltilmiş bir örnek normal shell'den kapatılamaz ve sürülemez.
   - **Yönetici testi:** tek UAC onayıyla `Start-Process powershell -Verb RunAs -File <betik>`; betik F-Dpi'yi başlatır (yetki devralınır), UIA ile sürer ve sonucu dosyaya yazar.
   - Yükseltilmemiş testte winws argümanları ve listeleri işler, sonra WinDivert'te exit 5 (erişim reddedildi) ile durur. DPI'nin gerçekten çalışması ve DPI→proxy geçişi ancak yönetici olarak test edilebilir.
+  - **Test betikleri bağımsız ve kendini temizleyen süreçler olmalı** (`Start-Process powershell -WindowStyle Hidden -File …`, yönetici için `-Verb RunAs`). Uygulama testi sırasında kullanıcının bağlantısı gidebilir ve Claude oturumu kesilebilir. Betik sonucu bir log dosyasına yazar, sonunda "== done" basar ve `finally` içinde süreçleri kapatıp proxy/DNS'i geri getirir; oturum log'u yoklayarak bekler.
+  - Tuşlar (`SendKeys`) yalnızca F-Dpi penceresi öndeyken gönderilir (`GetForegroundWindow` + `GetWindowThreadProcessId`). Önde başka pencere varsa tuş oraya gider ve **ESC Claude'un çalışmasını keser**: ESC hiç kullanılmaz, diyaloglar kendi düğmeleriyle kapatılır.
+  - Arka plandaki betik `SetForegroundWindow` ile pencereyi öne alamayabilir; gerçek bir fare tıklaması alır.
+  - PowerShell'de `Kill` gibi yerleşik takma adlarla aynı adda fonksiyon yazılmaz: takma ad fonksiyondan önceliklidir. `Kill` = `Stop-Process` parametresiz kalıp gizli pencerede girdi bekler ve betik takılır.
 
 ### Çeviriler (Türkçe = `res/translations/tr_TR.ts`)
 1. `build_windows.ps1 -SkipCore -UpdateTranslations` komutu lupdate ile tüm `.ts` dosyalarını kaynaktan yeniler.
@@ -297,16 +301,57 @@ Notlar:
   - Qt menü öğeleri UIA'ya görünmez; klavyeyle seçilir.
   - Blockcheck penceresi ana pencerenin UIA çocuğudur.
 
+### Otomatik DNS (F6 sonrası)
+- **Sağlayıcılar ve ayarlar:** `include/dns/AutoDns.h`.
+  - `Dns::Providers()`: Cloudflare, Google, Quad9, AdGuard (filtresiz), OpenDNS, Mullvad. Hepsi filtresizdir. URL IP'ye sabitlenmiştir (`https://1.1.1.1/dns-query`), böylece çözümleyici gerekmez; Windows için ayrıca alan adlı DoH şablonu tutulur.
+  - Ayarlar:
+    - `auto_dns_mode`: `auto` = en hızlı, `off` ya da sağlayıcı id'si.
+    - `auto_dns_proxy`, `auto_dns_system` (ikisi de varsayılan açık).
+    - Benchmark'ın seçimi: `auto_dns_server`, `auto_dns_latency`, `auto_dns_network` (ağ anahtarı), `auto_dns_checked` (epoch sn, metin).
+  - `Dns::ActiveProvider()`: elle seçilen sağlayıcı, yoksa benchmark seçimi, o da yoksa Cloudflare; kapalıysa `nullptr`.
+  - `include/dns/DnsWire.h`: RFC 1035 sorgu ve yanıt (A/AAAA), DoH (RFC 8484 POST) ve düz UDP için.
+- **Benchmark:** `Engine::DnsBenchmark` (`src/engine/dns/`).
+  - Her sağlayıcı kendi thread'inde, proxy'siz QNAM ile ölçülür. İlk sorgu "bağlantı" süresidir (TLS dahil); sonraki popüler alan adları + test alan adları üzerinden medyan alınır.
+  - Elenenler: yanıt vermeyenler (ağ DoH'u engelliyor olabilir), test alan adına bogon adres verenler (filtreliyor) ve sorguların yarısından azını yanıtlayanlar.
+  - Zehirlenme testi, engelli siteler için üç yanıtı karşılaştırır: sistem DNS'i (adaptörün sunucusuna düz UDP; F-Dpi DNS'i değiştirdiyse yedekteki asıl sunucu), düz UDP ile 1.1.1.1 ve şifreli yanıtların birleşimi.
+  - Kararlar: bogon adres ya da birden çok sitenin aynı adrese gitmesi (engel sayfası) → ZEHİRLİ; yanıt yok → engelli; şifreli yanıtla kesişim yok → farklı (CDN olabilir).
+- **Proxy modu:** `generate.cpp` içinde `RouteDns::Current` sonrasına (iki yerde: normal ve test config'i) `Dns::ApplyToRouteDns` kancası eklendi.
+  - Yalnızca **doğrudan DNS** değişir; uzak DNS zaten proxy'den geçer.
+  - Dokunulmayan durumlar: yönlendirme profilinin kendi DNS'i varsa, `use_dns_object` açıksa, `auto_dns_proxy` kapalıysa.
+  - Seçim değişirse çalışan proxy profili için `noteRestartNeeded(Settings)` çağrılır.
+- **DPI modu (Windows DNS'i):** `Sys::SystemDns` (`src/sys/windows/SystemDns_win.cpp`, iphlpapi `Get/SetInterfaceDnsSettings` çalışma zamanında yüklenir, `DNS_INTERFACE_SETTINGS3`).
+  - DPI başlayınca bağlı fiziksel adaptörlere (Wi-Fi/Ethernet, ağ geçidi olan) seçilen sunucunun IPv4/IPv6 adresleri yazılır: adaptör seviyesi `NameServer` + DoH özelliği (`DNS_DOH_SERVER_SETTINGS_ENABLE`, şablon, UDP'ye geri düşme yok). Ardından `DnsFlushResolverCache` çağrılır.
+  - Ölçüldü: adaptör seviyesi `NameServer`, Windows 11'in ağ profili DNS'inden (`ProfileNameServer`, Ayarlar > Wi-Fi > DNS ataması) önceliklidir.
+  - **Kullanıcının Windows'ta o ağ için ayarladığı DNS varsa (`ProfileNameServer` dolu) o adaptöre dokunulmaz**; log'a yazılır. `FDPI_SYSTEM_DNS_FORCE` ortam değişkeni (test) bu kuralı atlar.
+  - Yedek `<config>/dpi/dns-backup.json` dosyasındadır: adaptör başına orijinal `NameServer` + DoH özellikleri (index/şablon/bayrak), yazılan değer (`set_v4/v6`) ve öncesindeki etkin sunucular (`effective`, zehirlenme testi için).
+  - Geri yükleme yalnızca adaptörün şu anki sunucuları hâlâ F-Dpi'nin yazdığıysa yapılır; kullanıcı değiştirdiyse dokunulmaz.
+  - Kancalar: `ConnectionDpi.cpp` (winws başladıktan sonra `dpiStarted`), `ConnectionManager::stop` stage2 (`m_dpi->stop()` sonrası `dpiStopped`). Uygulamadan çıkış da bu yoldan geçer.
+  - Çökme sonrası: `EngineHost::init` içinde `AutoDnsService::recoverAtBoot()` (NetworkSwitcher ve profil devamından önce) yedeği geri yükler.
+  - Ağ değişince DPI çalışıyorsa yeni bağlanan adaptöre de uygulanır.
+- **`Engine::AutoDnsService`** (EngineHost, `Engine::host()->autoDns()`):
+  - `auto` modunda açılıştan 8 sn sonra ve ağ değişince 5 sn sonra arka planda benchmark yapar (zehirlenme testi olmadan). Koşullar: seçim yoksa, başka ağda yapılmışsa ya da 7 günden eskiyse. TUN'lu proxy çalışırken ölçmez.
+  - `adopt()` seçimi kaydeder; seçim değişince `settingsChanged()` çalışan DPI'nin Windows DNS'ini yeniler.
+- **UI:** `DialogAutoDns` (`src/ui/dns/`, Araçlar → Otomatik DNS…).
+  - Ayarlar: sunucu (Otomatik / sağlayıcılar / Kapalı) ve iki onay kutusu; "Şu an" satırı.
+  - Test: siteler, sunucu tablosu (Bağlantı/Sorgu/Durum), zehirlenme tablosu (Sistem DNS'i / Düz DNS / Şifreli DNS) ve özet. Testin seçimi `adopt()` ile kaydedilir.
+- **Doğrulandı (2026-10-24):**
+  - Yönetici olmadan:
+    - Açılışta arka planda Google seçildi (113 ms). Pencerede Cloudflare, Google, Quad9, AdGuard ve OpenDNS çalışıyor göründü (100–200 ms); Mullvad satırı tablonun görünür alanının dışındaydı.
+    - Zehirlenme testi: bu makinenin sistem DNS'i zaten 1.1.1.1 (DoH) olduğu için "doğru".
+    - Dışa aktarılan proxy config'inde `dns-direct` = `https 8.8.8.8` (öncesinde `local`).
+  - Yönetici olarak, bağımsız betikle:
+    - Elle DoH ayarlı Wi-Fi'ye dokunulmadı; DPI çalıştı (discord.com 200).
+    - Zorla modda adaptör Google DoH'a geçti (DohFlags=2); `o-o.myaddr.l.google.com` yanıtı Google çözümleyicisine döndü.
+    - Zorla kapatmadan sonra değişiklik kaldı; sonraki açılış geri yükledi.
+    - DPI çalışırken Program → Çıkış geri yükledi.
+    - Her durumda kayıt defteri başlangıçla aynı kaldı (`DohInterfaceSettings` altında boş anahtarlar kalabilir; zararsız).
+- **Doğrulanmadı:** DHCP DNS'li (zehirli ISS) bir ağda gerçek kullanım; Ethernet; DPI çalışırken ağ değişimi; QUIC/HTTP3 DNS'i (Chrome kendi DoH'unu kullanabilir).
+
 ### F-Dpi bileşen tasarımı (sonraki fazlar)
 - `dpi` tipi, `DpiSupervisor` ve dışlama: uygulandı (bkz. "DPI motoru (F2 sonrası)" ve "Motorlar ve karşılıklı dışlama").
 - Genel / Özel ve `NetworkMonitor`: uygulandı (bkz. "Genel / Özel config (F4 sonrası)").
 - Blockcheck: uygulandı (bkz. "Blockcheck (F5 sonrası)").
-- **Otomatik DNS** (`include/dns/AutoDns.h`)
-  - Adaylar: DoH/DoT sunucuları (Cloudflare, Google, Quad9, AdGuard, ...). Paralel gecikme testi yapılır.
-  - Zehirlenme tespiti için bilinen engelli domain'lerin sistem DNS'i ve DoH cevapları karşılaştırılır.
-  - Uygulama iki moda göre farklıdır:
-    - Proxy modunda `RouteDns`/`remote_dns` üzerine yazılır.
-    - DPI modunda (sing-box çalışmaz) Windows yerel DoH kullanılır: `netsh dns add encryption` + adaptör DNS'i. Durdurulunca orijinal ayarlar geri yüklenir; kalıcı yedek tutulur, çökme sonrası da geri yüklenir.
+- Otomatik DNS: uygulandı (bkz. "Otomatik DNS (F6 sonrası)").
 - **Yönetici:** Uygulandı (F1); bkz. "Yetki (F1 sonrası)".
 
 ## Geliştirme fazları
@@ -337,11 +382,9 @@ Notlar:
   - `Sys::NetworkMonitor` (Wi-Fi + Ethernet; NLM/ağ geçidi MAC/SSID) ve `Engine::NetworkSwitcher`.
   - Ayrıntı ve test sonuçları: "Genel / Özel config (F4 sonrası)".
 - [x] **F5 – Blockcheck:** `Engine::Blockcheck`, `Dpi::Blockcheck` stratejileri, `DialogBlockcheck` (Araçlar menüsü + DPI editörü), `ConnectionManager::setExclusiveTask`, `DpiSupervisor` quiet/grace/killStrays. Ayrıntı: "Blockcheck (F5 sonrası)".
-- [ ] **F6 – Otomatik DNS:**
-  - Benchmark + zehirlenme tespiti.
-  - Proxy modu (sing-box DNS) ve DPI modu (Windows DoH) uygulaması; geri yükleme/çökme kurtarma.
+- [x] **F6 – Otomatik DNS:** `Dns::Providers`/`DnsWire`, `Engine::DnsBenchmark` (hız + zehirlenme testi), `Engine::AutoDnsService` (arka plan seçimi, DPI sırasında Windows DoH, yedek/geri yükleme/çökme kurtarma), `Sys::SystemDns`, proxy doğrudan DNS kancası, `DialogAutoDns`. Ayrıntı: "Otomatik DNS (F6 sonrası)".
 - [ ] **F7 – Sertleştirme ve paketleme:**
-  - Çökme sonrası WinDivert/DNS temizliği.
+  - Çökme sonrası WinDivert temizliği (DNS'inki F6'da yapıldı).
   - Installer (`windows_installer.iss` yeniden markalanmış).
   - Smoke testleri, `RefusedForeignType`/yedekleme kenar durumları.
 

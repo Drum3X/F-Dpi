@@ -2,6 +2,93 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="tr_TR">
 <context>
+    <name>AutoDns</name>
+    <message>
+        <source>timed out</source>
+        <translation>zaman aşımı</translation>
+    </message>
+    <message>
+        <source>answers %1 with %2</source>
+        <translation>%1 için %2 döndürüyor</translation>
+    </message>
+    <message>
+        <source>answered %1 of %2</source>
+        <translation>%2 sorgunun %1 tanesini yanıtladı</translation>
+    </message>
+    <message>
+        <source>not checked</source>
+        <translation>denetlenmedi</translation>
+    </message>
+    <message>
+        <source>correct</source>
+        <translation>doğru</translation>
+    </message>
+    <message>
+        <source>different (CDN or redirected)</source>
+        <translation>farklı (CDN ya da yönlendirme)</translation>
+    </message>
+    <message>
+        <source>POISONED</source>
+        <translation>ZEHİRLİ</translation>
+    </message>
+    <message>
+        <source>no answer (blocked)</source>
+        <translation>yanıt yok (engelli)</translation>
+    </message>
+    <message>
+        <source>Timing %1 encrypted DNS servers...</source>
+        <translation>%1 şifreli DNS sunucusu ölçülüyor...</translation>
+    </message>
+    <message>
+        <source>No encrypted DNS server answered. The network may block DNS-over-HTTPS, or there is no internet connection.</source>
+        <translation>Hiçbir şifreli DNS sunucusu yanıt vermedi. Ağ DNS-over-HTTPS&apos;i engelliyor olabilir ya da internet bağlantısı yok.</translation>
+    </message>
+    <message>
+        <source>Checking for DNS poisoning (the system DNS server is unknown)...</source>
+        <translation>DNS zehirlenmesi denetleniyor (sistem DNS sunucusu bilinmiyor)...</translation>
+    </message>
+    <message>
+        <source>Checking for DNS poisoning: system DNS %1 and plain DNS %2 against encrypted DNS...</source>
+        <translation>DNS zehirlenmesi denetleniyor: sistem DNS&apos;i %1 ve düz DNS %2, şifreli DNS ile karşılaştırılıyor...</translation>
+    </message>
+    <message>
+        <source>[DNS] Automatic DNS: %1</source>
+        <translation>[DNS] Otomatik DNS: %1</translation>
+    </message>
+    <message>
+        <source>[DNS] Restored the Windows DNS settings F-Dpi had changed before it last closed.</source>
+        <translation>[DNS] F-Dpi&apos;nin son kapanışından önce değiştirdiği Windows DNS ayarları geri yüklendi.</translation>
+    </message>
+    <message>
+        <source>[DNS] Could not restore the Windows DNS settings: %1</source>
+        <translation>[DNS] Windows DNS ayarları geri yüklenemedi: %1</translation>
+    </message>
+    <message>
+        <source>[DNS] Could not set the Windows DNS: %1</source>
+        <translation>[DNS] Windows DNS&apos;i ayarlanamadı: %1</translation>
+    </message>
+    <message>
+        <source>[DNS] Automatic DNS: %1, the fastest encrypted DNS here (%2 ms).</source>
+        <translation>[DNS] Otomatik DNS: %1, bu ağdaki en hızlı şifreli DNS (%2 ms).</translation>
+    </message>
+    <message>
+        <source>[DNS] Left alone, DNS servers are set for this network in Windows: %1</source>
+        <translation>[DNS] Bu ağ için Windows'ta DNS sunucuları ayarlı olduğundan dokunulmadı: %1</translation>
+    </message>
+    <message>
+        <source>[DNS] Windows now resolves through %1 over DNS-over-HTTPS while DPI Bypass runs.</source>
+        <translation>[DNS] DPI Bypass çalıştığı sürece Windows DNS-over-HTTPS ile %1 üzerinden çözümlüyor.</translation>
+    </message>
+    <message>
+        <source>[DNS] Windows DNS settings restored.</source>
+        <translation>[DNS] Windows DNS ayarları geri yüklendi.</translation>
+    </message>
+    <message>
+        <source>cannot save the backup of the current settings to %1</source>
+        <translation>mevcut ayarların yedeği %1 dosyasına kaydedilemiyor</translation>
+    </message>
+</context>
+<context>
     <name>Blockcheck</name>
     <message>
         <source>timed out</source>
@@ -21,7 +108,7 @@
     </message>
     <message>
         <source>Turn the kill switch off first: with it on, nothing reaches the sites without a proxy.</source>
-        <translation>Önce kill switch'i kapatın: açıkken proxy olmadan hiçbir siteye ulaşılamaz.</translation>
+        <translation>Önce kill switch&apos;i kapatın: açıkken proxy olmadan hiçbir siteye ulaşılamaz.</translation>
     </message>
     <message>
         <source>Blockcheck is running; profiles start again when it ends.</source>
@@ -33,7 +120,7 @@
     </message>
     <message>
         <source>system DNS</source>
-        <translation>sistem DNS'i</translation>
+        <translation>sistem DNS&apos;i</translation>
     </message>
     <message>
         <source>%1: cannot resolve, skipped.</source>
@@ -289,6 +376,177 @@ Giden: %4</translation>
     <message>
         <source>Unknown</source>
         <translation>Bilinmiyor</translation>
+    </message>
+</context>
+<context>
+    <name>DialogAutoDns</name>
+    <message>
+        <source>Automatic DNS</source>
+        <translation>Otomatik DNS</translation>
+    </message>
+    <message>
+        <source>Many networks answer DNS queries for blocked sites with a wrong address (DNS poisoning). Automatic DNS uses a fast encrypted (DNS-over-HTTPS) server instead, which the network cannot read or change.</source>
+        <translation>Birçok ağ, engelli sitelerin DNS sorgularını yanlış bir adresle yanıtlar (DNS zehirlenmesi). Otomatik DNS bunun yerine hızlı ve şifreli (DNS-over-HTTPS) bir sunucu kullanır; ağ bu sorguları okuyamaz ve değiştiremez.</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation>Ayarlar</translation>
+    </message>
+    <message>
+        <source>Automatic: the fastest on this network</source>
+        <translation>Otomatik: bu ağdaki en hızlı sunucu</translation>
+    </message>
+    <message>
+        <source>Off: use the DNS settings as they are</source>
+        <translation>Kapalı: DNS ayarları olduğu gibi kullanılır</translation>
+    </message>
+    <message>
+        <source>Server</source>
+        <translation>Sunucu</translation>
+    </message>
+    <message>
+        <source>Proxy profiles: use it as the direct DNS</source>
+        <translation>Proxy profilleri: doğrudan DNS olarak kullan</translation>
+    </message>
+    <message>
+        <source>Replaces the direct DNS of the DNS settings, unless the routing profile has its own DNS. The remote DNS already goes through the proxy.</source>
+        <translation>DNS ayarlarındaki doğrudan DNS&apos;in yerini alır; yönlendirme profilinin kendi DNS&apos;i varsa dokunulmaz. Uzak DNS zaten proxy üzerinden gider.</translation>
+    </message>
+    <message>
+        <source>DPI Bypass: point Windows&apos; DNS at it while DPI Bypass runs (DNS-over-HTTPS required)</source>
+        <translation>DPI Bypass: çalıştığı sürece Windows DNS&apos;ini bu sunucuya çevir (DNS-over-HTTPS zorunlu)</translation>
+    </message>
+    <message>
+        <source>winws does not touch DNS. The network adapters&apos; DNS settings are saved first and put back when DPI Bypass stops, and at the next start if F-Dpi was closed abruptly. A network whose DNS servers you set in Windows is left as it is.</source>
+        <translation>winws DNS'e dokunmaz. Ağ adaptörlerinin DNS ayarları önce kaydedilir; DPI Bypass durunca, F-Dpi beklenmedik biçimde kapandıysa da sonraki açılışta geri yüklenir. DNS sunucularını Windows'ta kendiniz ayarladığınız bir ağa dokunulmaz.</translation>
+    </message>
+    <message>
+        <source>Needs Windows 11.</source>
+        <translation>Windows 11 gerekir.</translation>
+    </message>
+    <message>
+        <source>Now</source>
+        <translation>Şu an</translation>
+    </message>
+    <message>
+        <source>Test</source>
+        <translation>Test</translation>
+    </message>
+    <message>
+        <source>Sites that may be blocked here; the poisoning test compares their answers.</source>
+        <translation>Bu ağda engelli olabilecek siteler; zehirlenme testi bunların yanıtlarını karşılaştırır.</translation>
+    </message>
+    <message>
+        <source>Sites</source>
+        <translation>Siteler</translation>
+    </message>
+    <message>
+        <source>Test now</source>
+        <translation>Şimdi test et</translation>
+    </message>
+    <message>
+        <source>Connect</source>
+        <translation>Bağlantı</translation>
+    </message>
+    <message>
+        <source>Query</source>
+        <translation>Sorgu</translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation>Durum</translation>
+    </message>
+    <message>
+        <source>Site</source>
+        <translation>Site</translation>
+    </message>
+    <message>
+        <source>System DNS</source>
+        <translation>Sistem DNS&apos;i</translation>
+    </message>
+    <message>
+        <source>Plain DNS (1.1.1.1)</source>
+        <translation>Düz DNS (1.1.1.1)</translation>
+    </message>
+    <message>
+        <source>Encrypted DNS</source>
+        <translation>Şifreli DNS</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Kaydet</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Kapat</translation>
+    </message>
+    <message>
+        <source>%1 ms</source>
+        <translation>%1 ms</translation>
+    </message>
+    <message>
+        <source>unreachable (blocked?): %1</source>
+        <translation>erişilemiyor (engelli?): %1</translation>
+    </message>
+    <message>
+        <source>filters: %1</source>
+        <translation>filtreliyor: %1</translation>
+    </message>
+    <message>
+        <source>works</source>
+        <translation>çalışıyor</translation>
+    </message>
+    <message>
+        <source>Off.</source>
+        <translation>Kapalı.</translation>
+    </message>
+    <message>
+        <source>%1, picked automatically (%2 ms, measured %3).</source>
+        <translation>%1, otomatik seçildi (%2 ms, ölçüm: %3).</translation>
+    </message>
+    <message>
+        <source>%1 until a test picks the fastest server.</source>
+        <translation>Bir test en hızlı sunucuyu seçene kadar %1.</translation>
+    </message>
+    <message>
+        <source>%1, chosen by hand.</source>
+        <translation>%1, elle seçildi.</translation>
+    </message>
+    <message>
+        <source>Windows&apos; DNS is changed by F-Dpi while DPI Bypass runs (it was %1).</source>
+        <translation>DPI Bypass çalıştığı sürece Windows DNS&apos;i F-Dpi tarafından değiştirildi (önceki: %1).</translation>
+    </message>
+    <message>
+        <source>unknown</source>
+        <translation>bilinmiyor</translation>
+    </message>
+    <message>
+        <source>no answer</source>
+        <translation>yanıt yok</translation>
+    </message>
+    <message>
+        <source>System DNS (%1)</source>
+        <translation>Sistem DNS&apos;i (%1)</translation>
+    </message>
+    <message>
+        <source>Fastest: %1 (%2 ms).</source>
+        <translation>En hızlı: %1 (%2 ms).</translation>
+    </message>
+    <message>
+        <source>This network&apos;s DNS poisons or blocks some of these sites: use Automatic DNS.</source>
+        <translation>Bu ağın DNS&apos;i bu sitelerin bazılarını zehirliyor ya da engelliyor: Otomatik DNS&apos;i kullanın.</translation>
+    </message>
+    <message>
+        <source>The system DNS answered these sites correctly.</source>
+        <translation>Sistem DNS&apos;i bu siteleri doğru yanıtladı.</translation>
+    </message>
+    <message>
+        <source>Plain DNS to public servers is tampered with on the way too: only encrypted DNS is safe here.</source>
+        <translation>Genel sunuculara giden düz DNS de yolda değiştiriliyor: burada yalnızca şifreli DNS güvenli.</translation>
+    </message>
+    <message>
+        <source>Stopped.</source>
+        <translation>Durduruldu.</translation>
     </message>
 </context>
 <context>
@@ -1545,7 +1803,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>QUIC: not testable, a standard QUIC bypass is added</source>
-        <translation>QUIC: test edilemiyor, standart bir QUIC bypass'ı eklenir</translation>
+        <translation>QUIC: test edilemiyor, standart bir QUIC bypass&apos;ı eklenir</translation>
     </message>
     <message>
         <source>Protocols</source>
@@ -1609,7 +1867,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>No strategy opened these sites. Try the deep scan, or a proxy profile instead.</source>
-        <translation>Hiçbir strateji bu siteleri açmadı. Derin Tarama'yı ya da bir proxy profilini deneyin.</translation>
+        <translation>Hiçbir strateji bu siteleri açmadı. Derin Tarama&apos;yı ya da bir proxy profilini deneyin.</translation>
     </message>
     <message>
         <source>HTTP: %1 (%2/%3)</source>
@@ -1633,7 +1891,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>Saved as the DPI profile &quot;%1&quot;. Start it from the profile list.</source>
-        <translation>"%1" DPI profili olarak kaydedildi. Profil listesinden başlatabilirsiniz.</translation>
+        <translation>&quot;%1&quot; DPI profili olarak kaydedildi. Profil listesinden başlatabilirsiniz.</translation>
     </message>
 </context>
 <context>
@@ -9970,6 +10228,10 @@ Hata: %1</translation>
     <message>
         <source>Blockcheck...</source>
         <translation>Blockcheck...</translation>
+    </message>
+    <message>
+        <source>Automatic DNS...</source>
+        <translation>Otomatik DNS...</translation>
     </message>
     <message numerus="yes">
         <source>%n remote rule-set(s) refreshed</source>

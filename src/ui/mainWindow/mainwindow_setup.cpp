@@ -3,6 +3,7 @@
 #include "include/ui/mainWindow/MainWindowInternal.h"
 #include "include/ui/group/GroupSectionBar.h"
 #include "include/ui/dpi/dialog_blockcheck.h"
+#include "include/ui/dns/dialog_auto_dns.h"
 #include "include/engine/EngineHost.h"
 #include "include/engine/app/ExitController.h"
 #include "include/api/RPC.h"
@@ -309,7 +310,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->menuRouting_Menu->installEventFilter(this);
     ui->toolButton_testing->setMenu(ui->menuTesting);
     ui->toolButton_tools->setMenu(ui->menuTools);
-    // F-Dpi: Blockcheck first in Tools; it tests the running DPI profile's sites when there is one.
+    // F-Dpi: Blockcheck and Automatic DNS first in Tools; Blockcheck tests the running DPI profile's sites when there is one.
     {
         auto *blockcheck = new QAction(tr("Blockcheck..."), this);
         ui->menuTools->insertAction(ui->menuTools->actions().value(0), blockcheck);
@@ -318,6 +319,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
             if (const auto running = runningSnapshot(); running != nullptr && running->Dpi() != nullptr) domains = running->Dpi()->hostlist;
             (new DialogBlockcheck(domains, false, this))->show();
         });
+        auto *autoDns = new QAction(tr("Automatic DNS..."), this);
+        ui->menuTools->insertAction(ui->menuTools->actions().value(1), autoDns);
+        connect(autoDns, &QAction::triggered, this, [this] { (new DialogAutoDns(this))->show(); });
     }
     ui->toolButton_program->installEventFilter(this);
 

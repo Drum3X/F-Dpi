@@ -10,7 +10,9 @@
 #include "include/engine/EnginePolicy.h"
 #include "include/engine/EngineTr.h"
 #include "include/engine/ThreadCheck.h"
+#include "include/engine/EngineHost.h"
 #include "include/engine/autoselector/AutoSelectorController.h"
+#include "include/engine/dns/AutoDnsService.h"
 #include "include/engine/dpi/DpiSupervisor.h"
 #include "include/engine/vpn/VpnAuthController.h"
 #include "include/global/Logger.hpp"
@@ -86,6 +88,8 @@ namespace Engine {
                     applySystemProxy(false);
                     MW_show_log(QCoreApplication::translate("Dpi", "[DPI] The system proxy is not used while DPI Bypass runs."));
                 }
+                // winws leaves DNS alone; Otomatik DNS keeps a poisoning ISP resolver out of the way meanwhile.
+                if (const auto *engineHost = host(); engineHost != nullptr && engineHost->autoDns() != nullptr) engineHost->autoDns()->dpiStarted();
                 Configs::dataManager->settingsRepo->UpdateStartedId(ent->id);
                 Configs::SetRunningProfiles({ent->id});
                 setRunning(ent, false);
