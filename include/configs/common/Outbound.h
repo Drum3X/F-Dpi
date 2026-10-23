@@ -134,6 +134,9 @@ namespace Configs
 
         virtual bool IsExtraCore() { return false; }
 
+        // F-Dpi: runs winws instead of a proxy (configs/outbounds/dpi.h).
+        virtual bool IsDpi() { return false; }
+
         virtual bool IsXrayFullConfig() { return false; }
 
         virtual bool HasMux() { return false; }

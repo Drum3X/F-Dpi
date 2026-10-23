@@ -11,6 +11,7 @@
 #include "include/engine/EngineTr.h"
 #include "include/engine/ThreadCheck.h"
 #include "include/engine/autoselector/AutoSelectorController.h"
+#include "include/engine/dpi/DpiSupervisor.h"
 #include "include/engine/services/AssetUpdates.h"
 #include "include/engine/services/StatsService.h"
 #include "include/engine/supervisor/CoreSupervisor.h"
@@ -71,6 +72,8 @@ namespace Engine {
         : QObject(parent), m_policy(policy), m_coreSupervisor(coreSupervisor), m_stats(stats), m_options(options) {
         connect(m_coreSupervisor, &CoreSupervisor::coreStarted, this, &ConnectionManager::onCoreStarted);
         connect(m_coreSupervisor, &CoreSupervisor::coreGaveUp, this, &ConnectionManager::onCoreGaveUp);
+        m_dpi = new DpiSupervisor(this);
+        connect(m_dpi, &DpiSupervisor::unexpectedExit, this, &ConnectionManager::onDpiExited);
         m_lastProfileId = Configs::dataManager->settingsRepo->remember_id;
     }
 
@@ -109,6 +112,12 @@ namespace Engine {
 
         StartRequest resolved = request;
         resolved.profileId = ent->id;
+
+        // F-Dpi: winws instead of the core; it shares the locks and the single running profile below.
+        if (IsDpiProfile(ent)) {
+            startDpi(resolved, ent);
+            return;
+        }
 
         auto *killSwitch = Sys::KillSwitch::instance();
         if (killSwitch->state() == Sys::KillSwitch::State::Arming) {
@@ -366,8 +375,16 @@ namespace Engine {
             return;
         }
         const auto id = current->id;
+        // F-Dpi: a core crash or core restart leaves winws running; it does not depend on the core.
+        const bool dpi = IsDpiProfile(current);
+        if (dpi && crash) return;
 
         auto profile_stop_stage2 = [=,this](const Engine::SlowOperation &slowStop) {
+            if (dpi) {
+                m_dpi->stop();
+                runOnUiThread([slowStop] { slowStop.dismiss(); });
+                return true;
+            }
             if (!skipTests && m_tests->isTestingCurrent()) {
                 bool ok;
                 API::defaultClient->StopTests(&ok);
@@ -531,6 +548,9 @@ namespace Engine {
                     emit startFinished(next.serial, id, StartOutcome::TunFailed,
                                        QStringLiteral("Tun could not be restored (%1); the profile was not started without it.")
                                            .arg(tunHoldWhy));
+                } else if (const auto running = runningSnapshot(); IsDpiProfile(running) && running->id == id) {
+                    // F-Dpi: a restarted core resumes the started profile, but winws kept running through the restart.
+                    if (request.profileId == id) emit startFinished(request.serial, id, StartOutcome::Started, {});
                 } else {
                     start(next);
                 }

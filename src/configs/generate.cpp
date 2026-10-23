@@ -499,7 +499,7 @@ namespace Configs {
             if (profile == nullptr || profile->outbound == nullptr) return GenerateServerless::Missing;
             const auto &type = profile->type;
             if (type == "chain" || type == "custom" || type == "extracore" || type == "tailscale" ||
-                type == "autoselector" || type == "direct" || profile->outbound->IsExtraCore() ||
+                type == "autoselector" || type == "direct" || profile->outbound->IsExtraCore() || profile->outbound->IsDpi() ||
                 profile->outbound->IsXrayFullConfig())
                 return GenerateServerless::NoServer;
             if (const auto *hy = profile->Hysteria(); hy != nullptr && hy->RealmActive())

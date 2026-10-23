@@ -60,7 +60,8 @@ void MainWindow::on_profilesTableView_doubleClicked(const QModelIndex &index) {
 }
 
 void MainWindow::on_menu_add_from_input_triggered() {
-    auto dialog = new DialogEditProfile("autoselector", Configs::dataManager->settingsRepo->current_group, this);
+    // F-Dpi: a new profile starts as DPI Bypass.
+    auto dialog = new DialogEditProfile("dpi", Configs::dataManager->settingsRepo->current_group, this);
     connect(dialog, &QDialog::finished, dialog, &QDialog::deleteLater);
 }
 

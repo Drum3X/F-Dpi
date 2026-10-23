@@ -158,7 +158,7 @@ Giden: %4</translation>
     </message>
     <message>
         <source>Records where goroutines wait on locks and channels.</source>
-        <translation>Goroutine'lerin kilitlerde ve kanallarda nerede beklediğini kaydeder.</translation>
+        <translation>Goroutine&apos;lerin kilitlerde ve kanallarda nerede beklediğini kaydeder.</translation>
     </message>
     <message>
         <source>Lock contention</source>
@@ -221,7 +221,7 @@ Giden: %4</translation>
     </message>
     <message>
         <source>Desktop utility for getting around censorship and DPI blocking: a sing-box proxy and a zapret (winws) DPI bypass, never running at the same time.</source>
-        <translation>Sansürü ve DPI engellemesini aşmak için masaüstü aracı: bir sing-box proxy'si ve bir zapret (winws) DPI bypass'ı; ikisi asla aynı anda çalışmaz.</translation>
+        <translation>Sansürü ve DPI engellemesini aşmak için masaüstü aracı: bir sing-box proxy&apos;si ve bir zapret (winws) DPI bypass&apos;ı; ikisi asla aynı anda çalışmaz.</translation>
     </message>
     <message>
         <source>Based on %1 (GPL-3.0).</source>
@@ -475,19 +475,19 @@ Bu bir kilit değil, tercihtir: o profil çalışmayı bırakırsa seçici yine 
     </message>
     <message>
         <source>Simple Download URL</source>
-        <translation>Basit İndirme URL'si</translation>
+        <translation>Basit İndirme URL&apos;si</translation>
     </message>
     <message>
         <source>Latency Test URL</source>
-        <translation>Gecikme Testi URL'si</translation>
+        <translation>Gecikme Testi URL&apos;si</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Fetched &lt;span style=&quot; font-weight:600;&quot;&gt;without&lt;/span&gt; any proxy, so features that must tell a dead internet connection apart from dead servers — such as the auto selector — can check the connection itself, and notice the moment it comes back.&lt;/p&gt;&lt;p&gt;Only put a URL here that is reachable &lt;span style=&quot; font-weight:600;&quot;&gt;directly&lt;/span&gt; on your network. Leave it empty to rely on the operating system&apos;s network state instead.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Herhangi bir proxy &lt;span style=" font-weight:600;"&gt;olmadan&lt;/span&gt; alınır; böylece kopmuş bir internet bağlantısını çalışmayan sunuculardan ayırt etmesi gereken özellikler (ör. otomatik seçici) bağlantının kendisini denetleyebilir ve bağlantı geri geldiği anı fark edebilir.&lt;/p&gt;&lt;p&gt;Buraya yalnızca ağınızda &lt;span style=" font-weight:600;"&gt;doğrudan&lt;/span&gt; erişilebilen bir URL yazın. İşletim sisteminin ağ durumuna güvenmek için boş bırakın.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Herhangi bir proxy &lt;span style=&quot; font-weight:600;&quot;&gt;olmadan&lt;/span&gt; alınır; böylece kopmuş bir internet bağlantısını çalışmayan sunuculardan ayırt etmesi gereken özellikler (ör. otomatik seçici) bağlantının kendisini denetleyebilir ve bağlantı geri geldiği anı fark edebilir.&lt;/p&gt;&lt;p&gt;Buraya yalnızca ağınızda &lt;span style=&quot; font-weight:600;&quot;&gt;doğrudan&lt;/span&gt; erişilebilen bir URL yazın. İşletim sisteminin ağ durumuna güvenmek için boş bırakın.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Direct Test URL</source>
-        <translation>Doğrudan Test URL'si</translation>
+        <translation>Doğrudan Test URL&apos;si</translation>
     </message>
     <message>
         <source>optional — use the OS network state</source>
@@ -511,7 +511,7 @@ Bu bir kilit değil, tercihtir: o profil çalışmayı bırakırsa seçici yine 
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Timeout for URLtest in ms&lt;br/&gt;Note that muxed connections take a much longer time for their initial request, and setting this value too low will cause the test to falsely report that the config is not working&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;URL testi için ms cinsinden zaman aşımı&lt;br/&gt;Mux'lu bağlantıların ilk istekleri çok daha uzun sürer; bu değeri çok düşük ayarlamak, testin yapılandırmanın çalışmadığını yanlışlıkla bildirmesine yol açar&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;URL testi için ms cinsinden zaman aşımı&lt;br/&gt;Mux&apos;lu bağlantıların ilk istekleri çok daha uzun sürer; bu değeri çok düşük ayarlamak, testin yapılandırmanın çalışmadığını yanlışlıkla bildirmesine yol açar&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Links and Files</source>
@@ -519,7 +519,7 @@ Bu bir kilit değil, tercihtir: o profil çalışmayı bırakırsa seçici yine 
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Registers Throne as the handler for throne:// links, re-applying the registration whenever the install is moved.&lt;/p&gt;&lt;p&gt;Turning this off does not undo an existing registration: use Uninstall for that.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;F-Dpi'yi throne:// bağlantılarının işleyicisi olarak kaydeder; kurulum taşındığında kaydı yeniden uygular.&lt;/p&gt;&lt;p&gt;Bunu kapatmak mevcut kaydı geri almaz: bunun için Kaldır'ı kullanın.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;F-Dpi&apos;yi throne:// bağlantılarının işleyicisi olarak kaydeder; kurulum taşındığında kaydı yeniden uygular.&lt;/p&gt;&lt;p&gt;Bunu kapatmak mevcut kaydı geri almaz: bunun için Kaldır&apos;ı kullanın.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Register throne:// links at startup</source>
@@ -535,7 +535,7 @@ Bu bir kilit değil, tercihtir: o profil çalışmayı bırakırsa seçici yine 
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Removes the throne:// handler Throne wrote. Entries owned by other applications are left alone.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;F-Dpi'nin yazdığı throne:// işleyicisini kaldırır. Diğer uygulamalara ait girdilere dokunulmaz.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;F-Dpi&apos;nin yazdığı throne:// işleyicisini kaldırır. Diğer uygulamalara ait girdilere dokunulmaz.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Uninstall</source>
@@ -543,7 +543,7 @@ Bu bir kilit değil, tercihtir: o profil çalışmayı bırakırsa seçici yine 
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adds Throne to the &quot;Open with&quot; list for config files such as JSON and YAML, re-applying the registration whenever the install is moved.&lt;/p&gt;&lt;p&gt;Turning this off does not undo an existing registration: use Uninstall for that.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;F-Dpi'yi JSON ve YAML gibi yapılandırma dosyaları için "Birlikte aç" listesine ekler; kurulum taşındığında kaydı yeniden uygular.&lt;/p&gt;&lt;p&gt;Bunu kapatmak mevcut kaydı geri almaz: bunun için Kaldır'ı kullanın.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;F-Dpi&apos;yi JSON ve YAML gibi yapılandırma dosyaları için &quot;Birlikte aç&quot; listesine ekler; kurulum taşındığında kaydı yeniden uygular.&lt;/p&gt;&lt;p&gt;Bunu kapatmak mevcut kaydı geri almaz: bunun için Kaldır&apos;ı kullanın.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Register config files at startup</source>
@@ -555,7 +555,7 @@ Bu bir kilit değil, tercihtir: o profil çalışmayı bırakırsa seçici yine 
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Removes every config file association Throne wrote, including those added by older versions. Associations owned by other applications are left alone.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;F-Dpi'nin yazdığı tüm yapılandırma dosyası ilişkilendirmelerini, eski sürümlerin eklediklerini de içerecek şekilde kaldırır. Diğer uygulamalara ait ilişkilendirmelere dokunulmaz.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;F-Dpi&apos;nin yazdığı tüm yapılandırma dosyası ilişkilendirmelerini, eski sürümlerin eklediklerini de içerecek şekilde kaldırır. Diğer uygulamalara ait ilişkilendirmelere dokunulmaz.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Logging</source>
@@ -583,7 +583,7 @@ Bu bir kilit değil, tercihtir: o profil çalışmayı bırakırsa seçici yine 
     </message>
     <message>
         <source>Include Regex</source>
-        <translation>Dahil Etme Regex'i</translation>
+        <translation>Dahil Etme Regex&apos;i</translation>
     </message>
     <message>
         <source>Enable Include Rules</source>
@@ -599,7 +599,7 @@ Bu bir kilit değil, tercihtir: o profil çalışmayı bırakırsa seçici yine 
     </message>
     <message>
         <source>Exclude Regex</source>
-        <translation>Hariç Tutma Regex'i</translation>
+        <translation>Hariç Tutma Regex&apos;i</translation>
     </message>
     <message>
         <source>Style</source>
@@ -643,7 +643,7 @@ Bu bir kilit değil, tercihtir: o profil çalışmayı bırakırsa seçici yine 
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Show each config&apos;s security next to its type in the proxy list, e.g. &quot;Trojan (WebSocket+TLS)&quot;. Insecure configs are marked with a warning sign.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Proxy listesinde her yapılandırmanın güvenliğini türünün yanında gösterir, ör. "Trojan (WebSocket+TLS)". Güvensiz yapılandırmalar bir uyarı işaretiyle belirtilir.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Proxy listesinde her yapılandırmanın güvenliğini türünün yanında gösterir, ör. &quot;Trojan (WebSocket+TLS)&quot;. Güvensiz yapılandırmalar bir uyarı işaretiyle belirtilir.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Show Config Security</source>
@@ -715,7 +715,7 @@ Bu bir kilit değil, tercihtir: o profil çalışmayı bırakırsa seçici yine 
     </message>
     <message>
         <source>Interval (minute, invalid if less than 30)</source>
-        <translation>Aralık (dakika, 30'dan azsa geçersiz)</translation>
+        <translation>Aralık (dakika, 30&apos;dan azsa geçersiz)</translation>
     </message>
     <message>
         <source>Subscriptions whose server sends an update interval (profile-update-interval) follow it; the interval above applies when a server sends none. Groups can override this in their Advanced settings.</source>
@@ -819,7 +819,7 @@ Bu bir kilit değil, tercihtir: o profil çalışmayı bırakırsa seçici yine 
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When to choose Xray when importing vless profiles&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;vless profilleri içe aktarılırken Xray'in ne zaman seçileceği&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;vless profilleri içe aktarılırken Xray&apos;in ne zaman seçileceği&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Xray VLESS Preference</source>
@@ -843,7 +843,7 @@ Bu bir kilit değil, tercihtir: o profil çalışmayı bırakırsa seçici yine 
     </message>
     <message>
         <source>Restart Proxy On System Proxy Disable</source>
-        <translation>Sistem Proxy'si Kapatıldığında Proxy'yi Yeniden Başlat</translation>
+        <translation>Sistem Proxy&apos;si Kapatıldığında Proxy&apos;yi Yeniden Başlat</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use proxy for subscription request, update request etc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -871,7 +871,7 @@ Bu bir kilit değil, tercihtir: o profil çalışmayı bırakırsa seçici yine 
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Settings for the sing-box&apos;s built-in NTP client&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;sing-box'ın yerleşik NTP istemcisi ayarları&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;sing-box&apos;ın yerleşik NTP istemcisi ayarları&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>NTP Settings</source>
@@ -911,11 +911,11 @@ Bu bir kilit değil, tercihtir: o profil çalışmayı bırakırsa seçici yine 
     </message>
     <message>
         <source>GeoIP Asset URL</source>
-        <translation>GeoIP Veri URL'si</translation>
+        <translation>GeoIP Veri URL&apos;si</translation>
     </message>
     <message>
         <source>Download geoip.dat now from the URL on the left</source>
-        <translation>geoip.dat dosyasını soldaki URL'den şimdi indir</translation>
+        <translation>geoip.dat dosyasını soldaki URL&apos;den şimdi indir</translation>
     </message>
     <message>
         <source>Download</source>
@@ -927,11 +927,11 @@ Bu bir kilit değil, tercihtir: o profil çalışmayı bırakırsa seçici yine 
     </message>
     <message>
         <source>GeoSite Asset URL</source>
-        <translation>GeoSite Veri URL'si</translation>
+        <translation>GeoSite Veri URL&apos;si</translation>
     </message>
     <message>
         <source>Download geosite.dat now from the URL on the left</source>
-        <translation>geosite.dat dosyasını soldaki URL'den şimdi indir</translation>
+        <translation>geosite.dat dosyasını soldaki URL&apos;den şimdi indir</translation>
     </message>
     <message>
         <source>Backup and Restore</source>
@@ -947,7 +947,7 @@ Bu bir kilit değil, tercihtir: o profil çalışmayı bırakırsa seçici yine 
     </message>
     <message>
         <source>Profiles (groups and proxies)</source>
-        <translation>Profiller (gruplar ve proxy'ler)</translation>
+        <translation>Profiller (gruplar ve proxy&apos;ler)</translation>
     </message>
     <message>
         <source>Routing profiles</source>
@@ -999,11 +999,11 @@ Bu bir kilit değil, tercihtir: o profil çalışmayı bırakırsa seçici yine 
     </message>
     <message>
         <source>Upload to WebDAV</source>
-        <translation>WebDAV'a Yükle</translation>
+        <translation>WebDAV&apos;a Yükle</translation>
     </message>
     <message>
         <source>Restore from WebDAV...</source>
-        <translation>WebDAV'dan Geri Yükle...</translation>
+        <translation>WebDAV&apos;dan Geri Yükle...</translation>
     </message>
     <message>
         <source>Security</source>
@@ -1013,7 +1013,7 @@ Bu bir kilit değil, tercihtir: o profil çalışmayı bırakırsa seçici yine 
         <source>While Throne is running, block all traffic that does not go through Throne, including when no profile is running.
 The local network stays reachable unless Private Range Bypass is turned off in Tun Settings.</source>
         <translation>F-Dpi çalışırken, hiçbir profil çalışmıyorken bile, F-Dpi üzerinden geçmeyen tüm trafiği engelle.
-Tun Ayarları'nda Özel Aralık Atlama kapatılmadıkça yerel ağa erişilebilir kalır.</translation>
+Tun Ayarları&apos;nda Özel Aralık Atlama kapatılmadıkça yerel ağa erişilebilir kalır.</translation>
     </message>
     <message>
         <source>Kill Switch</source>
@@ -1033,7 +1033,7 @@ Tun Ayarları'nda Özel Aralık Atlama kapatılmadıkça yerel ağa erişilebili
     </message>
     <message>
         <source>Trust System Certificates in Xray</source>
-        <translation>Xray'de Sistem Sertifikalarına Güven</translation>
+        <translation>Xray&apos;de Sistem Sertifikalarına Güven</translation>
     </message>
     <message>
         <source>Skip TLS certificate authentication by default (allowInsecure)</source>
@@ -1061,7 +1061,7 @@ Tun Ayarları'nda Özel Aralık Atlama kapatılmadıkça yerel ağa erişilebili
     </message>
     <message>
         <source>Unknown or malformed parameter &quot;%1&quot;. Use hwid=…, os=…, osVersion=…, model=… separated by commas.</source>
-        <translation>Bilinmeyen veya hatalı parametre "%1". Virgülle ayrılmış hwid=…, os=…, osVersion=…, model=… kullanın.</translation>
+        <translation>Bilinmeyen veya hatalı parametre &quot;%1&quot;. Virgülle ayrılmış hwid=…, os=…, osVersion=…, model=… kullanın.</translation>
     </message>
     <message>
         <source>Failed to create database snapshot: %1</source>
@@ -1274,7 +1274,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     <message numerus="yes">
         <source>Skipped %n routing rule(s) that use conditions this version of Throne does not support.</source>
         <translation>
-            <numerusform>F-Dpi'nin bu sürümünün desteklemediği koşulları kullanan %n yönlendirme kuralı atlandı.</numerusform>
+            <numerusform>F-Dpi&apos;nin bu sürümünün desteklemediği koşulları kullanan %n yönlendirme kuralı atlandı.</numerusform>
         </translation>
     </message>
     <message>
@@ -1283,7 +1283,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>Enter your WebDAV server in WebDAV Settings first.</source>
-        <translation>Önce WebDAV Ayarları'nda WebDAV sunucunuzu girin.</translation>
+        <translation>Önce WebDAV Ayarları&apos;nda WebDAV sunucunuzu girin.</translation>
     </message>
     <message>
         <source>WebDAV Settings</source>
@@ -1291,7 +1291,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>Server URL</source>
-        <translation>Sunucu URL'si</translation>
+        <translation>Sunucu URL&apos;si</translation>
     </message>
     <message>
         <source>Username</source>
@@ -1333,7 +1333,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>The server URL must start with http:// or https://.</source>
-        <translation>Sunucu URL'si http:// veya https:// ile başlamalıdır.</translation>
+        <translation>Sunucu URL&apos;si http:// veya https:// ile başlamalıdır.</translation>
     </message>
     <message>
         <source>Uploading the backup...</source>
@@ -1357,7 +1357,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>Restore from WebDAV</source>
-        <translation>WebDAV'dan Geri Yükle</translation>
+        <translation>WebDAV&apos;dan Geri Yükle</translation>
     </message>
     <message>
         <source>Loading the backup list...</source>
@@ -1478,7 +1478,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>Landing Proxy</source>
-        <translation>Çıkış Proxy'si</translation>
+        <translation>Çıkış Proxy&apos;si</translation>
     </message>
     <message>
         <source>Type</source>
@@ -1518,7 +1518,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>No profile named &quot;%1&quot;. Pick one from the list.</source>
-        <translation>"%1" adında bir profil yok. Listeden birini seçin.</translation>
+        <translation>&quot;%1&quot; adında bir profil yok. Listeden birini seçin.</translation>
     </message>
     <message>
         <source>Copied</source>
@@ -1814,7 +1814,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>Enter an http(s) URL.</source>
-        <translation>Bir http(s) URL'si girin.</translation>
+        <translation>Bir http(s) URL&apos;si girin.</translation>
     </message>
     <message>
         <source>Choose a rule-set.</source>
@@ -1822,7 +1822,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>Unknown rule-set &quot;%1&quot;. Pick a geoip-* name from the list or enter a rule-set URL.</source>
-        <translation>Bilinmeyen kural seti "%1". Listeden bir geoip-* adı seçin veya bir kural seti URL'si girin.</translation>
+        <translation>Bilinmeyen kural seti &quot;%1&quot;. Listeden bir geoip-* adı seçin veya bir kural seti URL&apos;si girin.</translation>
     </message>
     <message>
         <source>IP list</source>
@@ -1842,7 +1842,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>geoip-ir, or a rule-set URL</source>
-        <translation>geoip-ir veya bir kural seti URL'si</translation>
+        <translation>geoip-ir veya bir kural seti URL&apos;si</translation>
     </message>
     <message>
         <source>Fetching…</source>
@@ -1884,7 +1884,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>The entries are fetched when you press Fetch now or OK.</source>
-        <translation>Girdiler, Şimdi al veya Tamam'a bastığınızda alınır.</translation>
+        <translation>Girdiler, Şimdi al veya Tamam&apos;a bastığınızda alınır.</translation>
     </message>
     <message>
         <source>updated %1</source>
@@ -1939,7 +1939,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>How you will refer to this OTP</source>
-        <translation>Bu OTP'ye nasıl atıfta bulunacağınız</translation>
+        <translation>Bu OTP&apos;ye nasıl atıfta bulunacağınız</translation>
     </message>
     <message>
         <source>Secret</source>
@@ -2214,11 +2214,11 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>Colon-separated TLS 1.2 cipher suite names. A uTLS fingerprint ignores them; use the &quot;unsafe&quot; fingerprint (Go&apos;s own TLS stack) to apply them.</source>
-        <translation>İki nokta ile ayrılmış TLS 1.2 şifre takımı adları. Bir uTLS parmak izi bunları yok sayar; uygulamak için "unsafe" parmak izini (Go'nun kendi TLS yığını) kullanın.</translation>
+        <translation>İki nokta ile ayrılmış TLS 1.2 şifre takımı adları. Bir uTLS parmak izi bunları yok sayar; uygulamak için &quot;unsafe&quot; parmak izini (Go&apos;nun kendi TLS yığını) kullanın.</translation>
     </message>
     <message>
         <source>Reality public key. If not empty, turn TLS into REALITY.</source>
-        <translation>Reality açık anahtarı. Boş değilse TLS'yi REALITY'ye dönüştürür.</translation>
+        <translation>Reality açık anahtarı. Boş değilse TLS&apos;yi REALITY&apos;ye dönüştürür.</translation>
     </message>
     <message>
         <source>Reality short id. Accept only one value.</source>
@@ -2250,7 +2250,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>pinnedPeerCertSha256: hex SHA256 of the peer certificate (comma-separated for multiple). Replacement for allowInsecure.</source>
-        <translation>pinnedPeerCertSha256: karşı taraf sertifikasının onaltılık SHA256 değeri (birden fazlası için virgülle ayrılır). allowInsecure'un yerine geçer.</translation>
+        <translation>pinnedPeerCertSha256: karşı taraf sertifikasının onaltılık SHA256 değeri (birden fazlası için virgülle ayrılır). allowInsecure&apos;un yerine geçer.</translation>
     </message>
     <message>
         <source>Verify Cert Name</source>
@@ -2266,11 +2266,11 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>echConfigList: a base64 ECHConfigList, or &quot;domain+https://dns/dns-query&quot; to let Xray fetch it over DoH (e.g. cloudflare-ech.com+https://8.8.8.8/dns-query).</source>
-        <translation>echConfigList: base64 bir ECHConfigList veya Xray'in DoH üzerinden alması için "domain+https://dns/dns-query" (ör. cloudflare-ech.com+https://8.8.8.8/dns-query).</translation>
+        <translation>echConfigList: base64 bir ECHConfigList veya Xray&apos;in DoH üzerinden alması için &quot;domain+https://dns/dns-query&quot; (ör. cloudflare-ech.com+https://8.8.8.8/dns-query).</translation>
     </message>
     <message>
         <source>cipherSuites: colon-separated TLS 1.2 cipher suite names, including Go&apos;s insecure ones. Only applied with the &quot;unsafe&quot; fingerprint.</source>
-        <translation>cipherSuites: Go'nun güvensiz olanları dahil, iki nokta ile ayrılmış TLS 1.2 şifre takımı adları. Yalnızca "unsafe" parmak iziyle uygulanır.</translation>
+        <translation>cipherSuites: Go&apos;nun güvensiz olanları dahil, iki nokta ile ayrılmış TLS 1.2 şifre takımı adları. Yalnızca &quot;unsafe&quot; parmak iziyle uygulanır.</translation>
     </message>
     <message>
         <source>Reality Pbk</source>
@@ -2600,7 +2600,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>Where X-Padding is sent: queryInHeader, cookie, header, or query. Default: queryInHeader.</source>
-        <translation>X-Padding'in gönderildiği yer: queryInHeader, cookie, header veya query. Varsayılan: queryInHeader.</translation>
+        <translation>X-Padding&apos;in gönderildiği yer: queryInHeader, cookie, header veya query. Varsayılan: queryInHeader.</translation>
     </message>
     <message>
         <source>Padding Key</source>
@@ -2632,7 +2632,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>Packet-up client interval between upload POST requests per proxied connection, in milliseconds. Default: 30.</source>
-        <translation>Proxy'lenen her bağlantı için packet-up istemcisinin yükleme POST istekleri arasındaki aralık, milisaniye. Varsayılan: 30.</translation>
+        <translation>Proxy&apos;lenen her bağlantı için packet-up istemcisinin yükleme POST istekleri arasındaki aralık, milisaniye. Varsayılan: 30.</translation>
     </message>
     <message>
         <source>Max Buffered Posts</source>
@@ -2640,7 +2640,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>Packet-up server upload queue size per proxied connection. Default: 30.</source>
-        <translation>Proxy'lenen her bağlantı için packet-up sunucu yükleme kuyruğu boyutu. Varsayılan: 30.</translation>
+        <translation>Proxy&apos;lenen her bağlantı için packet-up sunucu yükleme kuyruğu boyutu. Varsayılan: 30.</translation>
     </message>
     <message>
         <source>Uplink HTTP Method</source>
@@ -2672,7 +2672,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>Packet-up header/cookie payload chunk size range. Defaults: cookie 2-3 KiB, header 3-4 KB, otherwise scMaxEachPostBytes. Values below 64 are clamped.</source>
-        <translation>Packet-up header/cookie yük parçası boyut aralığı. Varsayılanlar: cookie 2-3 KiB, header 3-4 KB, aksi hâlde scMaxEachPostBytes. 64'ün altındaki değerler sınırlanır.</translation>
+        <translation>Packet-up header/cookie yük parçası boyut aralığı. Varsayılanlar: cookie 2-3 KiB, header 3-4 KB, aksi hâlde scMaxEachPostBytes. 64&apos;ün altındaki değerler sınırlanır.</translation>
     </message>
     <message>
         <source>No GRPC Headers</source>
@@ -2728,7 +2728,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>Length range of the generated session id, e.g. 8-16. Only used together with sessionIDTable; &quot;from&quot; must be greater than 0.</source>
-        <translation>Üretilen oturum kimliğinin uzunluk aralığı, ör. 8-16. Yalnızca sessionIDTable ile birlikte kullanılır; "from" 0'dan büyük olmalıdır.</translation>
+        <translation>Üretilen oturum kimliğinin uzunluk aralığı, ör. 8-16. Yalnızca sessionIDTable ile birlikte kullanılır; &quot;from&quot; 0&apos;dan büyük olmalıdır.</translation>
     </message>
     <message>
         <source>Sequence Placement</source>
@@ -2752,7 +2752,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>Client-side H2/H3 xmux limit: maximum concurrent uses per underlying connection. Cannot be used together with maxConnections. Empty xmux defaults to 1-1.</source>
-        <translation>İstemci tarafı H2/H3 xmux sınırı: alttaki bağlantı başına en fazla eşzamanlı kullanım. maxConnections ile birlikte kullanılamaz. Boş xmux varsayılanı 1-1'dir.</translation>
+        <translation>İstemci tarafı H2/H3 xmux sınırı: alttaki bağlantı başına en fazla eşzamanlı kullanım. maxConnections ile birlikte kullanılamaz. Boş xmux varsayılanı 1-1&apos;dir.</translation>
     </message>
     <message>
         <source>Max Connections</source>
@@ -2776,7 +2776,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>Client-side H2/H3 xmux limit: maximum upload/download requests per underlying connection. Empty xmux defaults to 600-900.</source>
-        <translation>İstemci tarafı H2/H3 xmux sınırı: alttaki bağlantı başına en fazla yükleme/indirme isteği. Boş xmux varsayılanı 600-900'dür.</translation>
+        <translation>İstemci tarafı H2/H3 xmux sınırı: alttaki bağlantı başına en fazla yükleme/indirme isteği. Boş xmux varsayılanı 600-900&apos;dür.</translation>
     </message>
     <message>
         <source>Max Reusable Secs</source>
@@ -2784,7 +2784,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>Client-side H2/H3 xmux limit: maximum seconds an underlying connection stays reusable. Empty xmux defaults to 1800-3000.</source>
-        <translation>İstemci tarafı H2/H3 xmux sınırı: alttaki bir bağlantının yeniden kullanılabilir kaldığı en fazla saniye. Boş xmux varsayılanı 1800-3000'dir.</translation>
+        <translation>İstemci tarafı H2/H3 xmux sınırı: alttaki bir bağlantının yeniden kullanılabilir kaldığı en fazla saniye. Boş xmux varsayılanı 1800-3000&apos;dir.</translation>
     </message>
     <message>
         <source>Keep Alive Period</source>
@@ -2792,11 +2792,11 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>Client-side H2/H3 keepalive interval for underlying connections, in seconds. 0 uses Xray defaults; negative values disable keepalive where supported.</source>
-        <translation>Alttaki bağlantılar için istemci tarafı H2/H3 keepalive aralığı, saniye. 0 Xray varsayılanlarını kullanır; negatif değerler desteklendiği yerde keepalive'ı kapatır.</translation>
+        <translation>Alttaki bağlantılar için istemci tarafı H2/H3 keepalive aralığı, saniye. 0 Xray varsayılanlarını kullanır; negatif değerler desteklendiği yerde keepalive&apos;ı kapatır.</translation>
     </message>
     <message>
         <source>Client-only downstream streamSettings, including address and port, for an independent download path. Not allowed in stream-one and removed when saving stream-one mode.</source>
-        <translation>Bağımsız bir indirme yolu için adres ve port dahil, yalnızca istemciye ait downstream streamSettings. stream-one'da izin verilmez ve stream-one modu kaydedilirken kaldırılır.</translation>
+        <translation>Bağımsız bir indirme yolu için adres ve port dahil, yalnızca istemciye ait downstream streamSettings. stream-one&apos;da izin verilmez ve stream-one modu kaydedilirken kaldırılır.</translation>
     </message>
     <message>
         <source>The padding method or placement is not supported, and Xray refuses it even with obfuscation off. Turn this on and fix the value, or clear it.</source>
@@ -2804,7 +2804,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>Where both ends exchange the stream: google-drive uses a Google Drive folder, template any HTTP storage API described by Template, local a folder on this machine.</source>
-        <translation>İki ucun akışı paylaştığı yer: google-drive bir Google Drive klasörü, template Template ile tanımlanan herhangi bir HTTP depolama API'si, local bu makinedeki bir klasör kullanır.</translation>
+        <translation>İki ucun akışı paylaştığı yer: google-drive bir Google Drive klasörü, template Template ile tanımlanan herhangi bir HTTP depolama API&apos;si, local bu makinedeki bir klasör kullanır.</translation>
     </message>
     <message>
         <source>google-drive: the folder ID. local: a directory path. template: read as {folder}.</source>
@@ -2828,11 +2828,11 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>The storage API&apos;s auth, put, get, list and delete operations, as JSON.</source>
-        <translation>Depolama API'sinin auth, put, get, list ve delete işlemleri, JSON olarak.</translation>
+        <translation>Depolama API&apos;sinin auth, put, get, list ve delete işlemleri, JSON olarak.</translation>
     </message>
     <message>
         <source>Optional domain front: the storage API is dialed at this address while TLS still names the API host.</source>
-        <translation>İsteğe bağlı domain fronting: TLS hâlâ API ana makinesini adlandırırken depolama API'sine bu adresten bağlanılır.</translation>
+        <translation>İsteğe bağlı domain fronting: TLS hâlâ API ana makinesini adlandırırken depolama API&apos;sine bu adresten bağlanılır.</translation>
     </message>
     <message>
         <source>Port of the front address. Default: 443.</source>
@@ -2978,7 +2978,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>Toggle System Proxy</source>
-        <translation>Sistem Proxy'sini Aç/Kapat</translation>
+        <translation>Sistem Proxy&apos;sini Aç/Kapat</translation>
     </message>
     <message>
         <source>Start/Stop Profile</source>
@@ -2998,7 +2998,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>Enable the Throne API</source>
-        <translation>F-Dpi API'yi etkinleştir</translation>
+        <translation>F-Dpi API&apos;yi etkinleştir</translation>
     </message>
     <message>
         <source>Listen on</source>
@@ -3058,7 +3058,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>Devices on your network can control Throne with this key. Your firewall may ask to allow Throne.</source>
-        <translation>Ağınızdaki cihazlar F-Dpi'yi bu anahtarla kontrol edebilir. Güvenlik duvarınız F-Dpi'ye izin vermenizi isteyebilir.</translation>
+        <translation>Ağınızdaki cihazlar F-Dpi&apos;yi bu anahtarla kontrol edebilir. Güvenlik duvarınız F-Dpi&apos;ye izin vermenizi isteyebilir.</translation>
     </message>
     <message>
         <source>Global hotkeys can only be a single key combination.</source>
@@ -3066,7 +3066,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>&quot;%1&quot; needs Ctrl, Alt or Meta, otherwise it would block typing in other applications.</source>
-        <translation>"%1" için Ctrl, Alt veya Meta gerekir; aksi hâlde diğer uygulamalarda yazmayı engeller.</translation>
+        <translation>&quot;%1&quot; için Ctrl, Alt veya Meta gerekir; aksi hâlde diğer uygulamalarda yazmayı engeller.</translation>
     </message>
     <message>
         <source>Enter an IP address or a range such as 192.168.1.0/24 or fd00::/8.</source>
@@ -3074,7 +3074,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>&quot;%1&quot; is also assigned to &quot;%2&quot;.</source>
-        <translation>"%1" ayrıca "%2" için de atanmış.</translation>
+        <translation>&quot;%1&quot; ayrıca &quot;%2&quot; için de atanmış.</translation>
     </message>
     <message>
         <source>Scripts connect with thronectl or the Throne API library.</source>
@@ -3143,7 +3143,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>From URL…</source>
-        <translation>URL'den…</translation>
+        <translation>URL&apos;den…</translation>
     </message>
     <message>
         <source>From rule-set…</source>
@@ -3167,19 +3167,19 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>&quot;%1&quot; is being refreshed. Delete it when the refresh has finished.</source>
-        <translation>"%1" yenileniyor. Yenileme bittiğinde silin.</translation>
+        <translation>&quot;%1&quot; yenileniyor. Yenileme bittiğinde silin.</translation>
     </message>
     <message>
         <source>Delete the IP list &quot;%1&quot;?</source>
-        <translation>"%1" IP listesi silinsin mi?</translation>
+        <translation>&quot;%1&quot; IP listesi silinsin mi?</translation>
     </message>
     <message>
         <source>Scan &quot;%1&quot; is running and stores its results in this list. Pause it first.</source>
-        <translation>"%1" taraması çalışıyor ve sonuçlarını bu listede saklıyor. Önce duraklatın.</translation>
+        <translation>&quot;%1&quot; taraması çalışıyor ve sonuçlarını bu listede saklıyor. Önce duraklatın.</translation>
     </message>
     <message>
         <source>It holds the results of scan &quot;%1&quot;, which creates a new result list the next time it runs.</source>
-        <translation>"%1" taramasının sonuçlarını tutuyor; tarama bir sonraki çalıştığında yeni bir sonuç listesi oluşturur.</translation>
+        <translation>&quot;%1&quot; taramasının sonuçlarını tutuyor; tarama bir sonraki çalıştığında yeni bir sonuç listesi oluşturur.</translation>
     </message>
     <message>
         <source>These scans use it as their targets: %1</source>
@@ -3235,7 +3235,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>%1: larger than 50 MB, skipped</source>
-        <translation>%1: 50 MB'tan büyük, atlandı</translation>
+        <translation>%1: 50 MB&apos;tan büyük, atlandı</translation>
     </message>
     <message>
         <source>%1: no addresses found</source>
@@ -3355,15 +3355,15 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables the following config to be used as egress, useful for bypassing services restrciting non-warp VPNs&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Aşağıdaki yapılandırmanın çıkış olarak kullanılmasını sağlar; Warp dışı VPN'leri kısıtlayan hizmetleri aşmak için kullanışlıdır&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Aşağıdaki yapılandırmanın çıkış olarak kullanılmasını sağlar; Warp dışı VPN&apos;leri kısıtlayan hizmetleri aşmak için kullanışlıdır&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Enable Warp</source>
-        <translation>Warp'ı Etkinleştir</translation>
+        <translation>Warp&apos;ı Etkinleştir</translation>
     </message>
     <message>
         <source>WireGuard runs over UDP. MASQUE tunnels over HTTP/3 or HTTP/2 and passes networks that block WireGuard.</source>
-        <translation>WireGuard UDP üzerinde çalışır. MASQUE, HTTP/3 veya HTTP/2 üzerinden tünel kurar ve WireGuard'ı engelleyen ağlardan geçer.</translation>
+        <translation>WireGuard UDP üzerinde çalışır. MASQUE, HTTP/3 veya HTTP/2 üzerinden tünel kurar ve WireGuard&apos;ı engelleyen ağlardan geçer.</translation>
     </message>
     <message>
         <source>Mode</source>
@@ -3391,7 +3391,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>Base64 DER of the server&apos;s public key. When set, it pins the server certificate.</source>
-        <translation>Sunucunun açık anahtarının Base64 DER'i. Ayarlandığında sunucu sertifikasını sabitler.</translation>
+        <translation>Sunucunun açık anahtarının Base64 DER&apos;i. Ayarlandığında sunucu sertifikasını sabitler.</translation>
     </message>
     <message>
         <source>Peer Public Key</source>
@@ -3399,7 +3399,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>HTTP/3 runs over UDP; HTTP/2 runs over TLS on TCP and works where UDP is blocked.</source>
-        <translation>HTTP/3 UDP üzerinde çalışır; HTTP/2 TCP üzerinde TLS ile çalışır ve UDP'nin engellendiği yerlerde işe yarar.</translation>
+        <translation>HTTP/3 UDP üzerinde çalışır; HTTP/2 TCP üzerinde TLS ile çalışır ve UDP&apos;nin engellendiği yerlerde işe yarar.</translation>
     </message>
     <message>
         <source>HTTP Version</source>
@@ -3407,7 +3407,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>HTTP/3 (fallback to HTTP/2)</source>
-        <translation>HTTP/3 (HTTP/2'ye geri dönüşlü)</translation>
+        <translation>HTTP/3 (HTTP/2&apos;ye geri dönüşlü)</translation>
     </message>
     <message>
         <source>HTTP/3 only</source>
@@ -3415,7 +3415,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gets a new config from cloudflare API&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cloudflare API'sinden yeni bir yapılandırma alır&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cloudflare API&apos;sinden yeni bir yapılandırma alır&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Generate Warp Config</source>
@@ -3439,7 +3439,7 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Local DNS can not be used in some configurations, you will have to set an ip here to be used as local dns in such situations&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bazı yapılandırmalarda yerel DNS kullanılamaz; bu durumlarda yerel DNS olarak kullanılacak bir IP'yi burada ayarlamanız gerekir&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bazı yapılandırmalarda yerel DNS kullanılamaz; bu durumlarda yerel DNS olarak kullanılacak bir IP&apos;yi burada ayarlamanız gerekir&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Local Override</source>
@@ -3479,15 +3479,15 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     </message>
     <message>
         <source>Disable IPv6</source>
-        <translation>IPv6'yı Devre Dışı Bırak</translation>
+        <translation>IPv6&apos;yı Devre Dışı Bırak</translation>
     </message>
     <message>
         <source>This is especially important and it is recommended to use the default value of &quot;localhost&quot;.
 If the default value does not work, try changing it to &quot;223.5.5.5&quot;.
 For more information, see the document &quot;Configuration/DNS&quot;.</source>
-        <translation>Bu özellikle önemlidir ve varsayılan "localhost" değerinin kullanılması önerilir.
-Varsayılan değer çalışmazsa "223.5.5.5" olarak değiştirmeyi deneyin.
-Daha fazla bilgi için "Configuration/DNS" belgesine bakın.</translation>
+        <translation>Bu özellikle önemlidir ve varsayılan &quot;localhost&quot; değerinin kullanılması önerilir.
+Varsayılan değer çalışmazsa &quot;223.5.5.5&quot; olarak değiştirmeyi deneyin.
+Daha fazla bilgi için &quot;Configuration/DNS&quot; belgesine bakın.</translation>
     </message>
     <message>
         <source>Direct DNS</source>
@@ -3499,7 +3499,7 @@ Daha fazla bilgi için "Configuration/DNS" belgesine bakın.</translation>
     </message>
     <message>
         <source>Enable FakeIP</source>
-        <translation>FakeIP'yi Etkinleştir</translation>
+        <translation>FakeIP&apos;yi Etkinleştir</translation>
     </message>
     <message>
         <source>Hand out no fake IPv6 addresses; AAAA queries are answered empty.</source>
@@ -3507,7 +3507,7 @@ Daha fazla bilgi için "Configuration/DNS" belgesine bakın.</translation>
     </message>
     <message>
         <source>FakeIP Disable IPv6</source>
-        <translation>FakeIP IPv6'yı Devre Dışı Bırak</translation>
+        <translation>FakeIP IPv6&apos;yı Devre Dışı Bırak</translation>
     </message>
     <message>
         <source>Advanced</source>
@@ -3583,7 +3583,7 @@ Daha fazla bilgi için "Configuration/DNS" belgesine bakın.</translation>
     </message>
     <message>
         <source>&quot;%1&quot; is not an IP address.</source>
-        <translation>"%1" bir IP adresi değil.</translation>
+        <translation>&quot;%1&quot; bir IP adresi değil.</translation>
     </message>
     <message>
         <source>Add at least one host name after the address, for example 10.0.0.5 nas.lan.</source>
@@ -3591,11 +3591,11 @@ Daha fazla bilgi için "Configuration/DNS" belgesine bakın.</translation>
     </message>
     <message>
         <source>&quot;%1&quot; is not a host name.</source>
-        <translation>"%1" bir ana makine adı değil.</translation>
+        <translation>&quot;%1&quot; bir ana makine adı değil.</translation>
     </message>
     <message>
         <source>Line %1: &quot;%2&quot; never matches: %3</source>
-        <translation>Satır %1: "%2" hiçbir zaman eşleşmez: %3</translation>
+        <translation>Satır %1: &quot;%2&quot; hiçbir zaman eşleşmez: %3</translation>
     </message>
     <message>
         <source>WARP Registration Domains</source>
@@ -3699,7 +3699,7 @@ Yalnızca tek bir adres ailesiyle listelenen bir alan adı diğer aile için NXD
     </message>
     <message>
         <source>The core raises values below 1024 to 1024.</source>
-        <translation>Çekirdek 1024'ün altındaki değerleri 1024'e yükseltir.</translation>
+        <translation>Çekirdek 1024&apos;ün altındaki değerleri 1024&apos;e yükseltir.</translation>
     </message>
     <message>
         <source>DNS Object</source>
@@ -3723,15 +3723,15 @@ Yalnızca tek bir adres ailesiyle listelenen bir alan adı diğer aile için NXD
     </message>
     <message>
         <source>It is on but empty: click Edit DNS Object to write one, or turn it off.</source>
-        <translation>Açık ama boş: bir tane yazmak için DNS Nesnesini Düzenle'ye tıklayın ya da kapatın.</translation>
+        <translation>Açık ama boş: bir tane yazmak için DNS Nesnesini Düzenle&apos;ye tıklayın ya da kapatın.</translation>
     </message>
     <message>
         <source>The object is empty: add at least its &quot;servers&quot;, or turn it off.</source>
-        <translation>Nesne boş: en azından "servers" alanını ekleyin ya da kapatın.</translation>
+        <translation>Nesne boş: en azından &quot;servers&quot; alanını ekleyin ya da kapatın.</translation>
     </message>
     <message>
         <source>Required while WARP is on: click Generate Warp Config, or fill it in.</source>
-        <translation>WARP açıkken gereklidir: Warp Yapılandırması Oluştur'a tıklayın ya da doldurun.</translation>
+        <translation>WARP açıkken gereklidir: Warp Yapılandırması Oluştur&apos;a tıklayın ya da doldurun.</translation>
     </message>
     <message>
         <source>Generating config...</source>
@@ -3803,7 +3803,7 @@ Yalnızca tek bir adres ailesiyle listelenen bir alan adı diğer aile için NXD
     </message>
     <message>
         <source>routing profile &quot;%1&quot;</source>
-        <translation>"%1" yönlendirme profili</translation>
+        <translation>&quot;%1&quot; yönlendirme profili</translation>
     </message>
     <message>
         <source>Import %1 from the clipboard?</source>
@@ -3993,7 +3993,7 @@ Yalnızca tek bir adres ailesiyle listelenen bir alan adı diğer aile için NXD
     </message>
     <message>
         <source>Delete &quot;%1&quot;? Its secret cannot be recovered.</source>
-        <translation>"%1" silinsin mi? Gizli anahtarı kurtarılamaz.</translation>
+        <translation>&quot;%1&quot; silinsin mi? Gizli anahtarı kurtarılamaz.</translation>
     </message>
     <message>
         <source>Failed to store the OTP profile.</source>
@@ -4057,7 +4057,7 @@ Yalnızca tek bir adres ailesiyle listelenen bir alan adı diğer aile için NXD
     </message>
     <message>
         <source>%1: larger than 50 MB, skipped</source>
-        <translation>%1: 50 MB'tan büyük, atlandı</translation>
+        <translation>%1: 50 MB&apos;tan büyük, atlandı</translation>
     </message>
     <message>
         <source>%1: no QR code found</source>
@@ -4170,7 +4170,7 @@ Yalnızca tek bir adres ailesiyle listelenen bir alan adı diğer aile için NXD
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable mixed-case SNI for profiles whose TLS Tricks setting is left on &amp;quot;Keep Default&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;TLS Hileleri ayarı &amp;quot;Varsayılanı Koru&amp;quot; olarak bırakılan profiller için karışık harfli SNI'yi etkinleştir.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;TLS Hileleri ayarı &amp;quot;Varsayılanı Koru&amp;quot; olarak bırakılan profiller için karışık harfli SNI&apos;yi etkinleştir.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Default Fingerprint</source>
@@ -4182,7 +4182,7 @@ Yalnızca tek bir adres ailesiyle listelenen bir alan adı diğer aile için NXD
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Inject a forged TLS ClientHello carrying this SNI before the real one, to pass SNI filtering that allows specific hostnames. Profiles that set their own Spoof SNI override this one.&lt;/p&gt;&lt;p&gt;Client only. Requires elevated privileges (root on macOS, CAP_NET_RAW and CAP_NET_ADMIN on Linux, Administrator on Windows for the WinDivert driver). Not supported on Windows ARM64. &amp;quot;wrong-timestamp&amp;quot; is not supported on macOS.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Belirli ana makine adlarına izin veren SNI filtrelemesini geçmek için, gerçeğinden önce bu SNI'yi taşıyan sahte bir TLS ClientHello enjekte et. Kendi Sahte SNI'sini ayarlayan profiller bunu geçersiz kılar.&lt;/p&gt;&lt;p&gt;Yalnızca istemci. Yükseltilmiş yetki gerektirir (macOS'ta root, Linux'ta CAP_NET_RAW ve CAP_NET_ADMIN, Windows'ta WinDivert sürücüsü için Yönetici). Windows ARM64'te desteklenmez. &amp;quot;wrong-timestamp&amp;quot; macOS'ta desteklenmez.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Belirli ana makine adlarına izin veren SNI filtrelemesini geçmek için, gerçeğinden önce bu SNI&apos;yi taşıyan sahte bir TLS ClientHello enjekte et. Kendi Sahte SNI&apos;sini ayarlayan profiller bunu geçersiz kılar.&lt;/p&gt;&lt;p&gt;Yalnızca istemci. Yükseltilmiş yetki gerektirir (macOS&apos;ta root, Linux&apos;ta CAP_NET_RAW ve CAP_NET_ADMIN, Windows&apos;ta WinDivert sürücüsü için Yönetici). Windows ARM64&apos;te desteklenmez. &amp;quot;wrong-timestamp&amp;quot; macOS&apos;ta desteklenmez.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Spoof SNI</source>
@@ -4198,7 +4198,7 @@ Yalnızca tek bir adres ailesiyle listelenen bir alan adı diğer aile için NXD
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;How the forged ClientHello is made invalid for the server, so only the filter acts on it. Empty keeps the core&apos;s default.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sahte ClientHello'nun sunucu için nasıl geçersiz kılınacağı; böylece yalnızca filtre ona tepki verir. Boş bırakılırsa çekirdeğin varsayılanı korunur.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sahte ClientHello&apos;nun sunucu için nasıl geçersiz kılınacağı; böylece yalnızca filtre ona tepki verir. Boş bırakılırsa çekirdeğin varsayılanı korunur.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Spoof profiles whose TLS Spoof setting is left on &amp;quot;Keep Default&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -4389,11 +4389,11 @@ Yalnızca tek bir adres ailesiyle listelenen bir alan adı diğer aile için NXD
     </message>
     <message>
         <source>HTTP/2 needs &quot;h2&quot; in the ALPN list; add it or leave ALPN empty.</source>
-        <translation>HTTP/2, ALPN listesinde "h2" gerektirir; ekleyin ya da ALPN'yi boş bırakın.</translation>
+        <translation>HTTP/2, ALPN listesinde &quot;h2&quot; gerektirir; ekleyin ya da ALPN&apos;yi boş bırakın.</translation>
     </message>
     <message>
         <source>The method &quot;None&quot; only checks the TLS handshake, so it needs TLS.</source>
-        <translation>"Hiçbiri" yöntemi yalnızca TLS el sıkışmasını denetler, bu yüzden TLS gerektirir.</translation>
+        <translation>&quot;Hiçbiri&quot; yöntemi yalnızca TLS el sıkışmasını denetler, bu yüzden TLS gerektirir.</translation>
     </message>
     <message>
         <source>HTTP/3 needs TLS.</source>
@@ -4517,7 +4517,7 @@ Yalnızca tek bir adres ailesiyle listelenen bir alan adı diğer aile için NXD
     </message>
     <message>
         <source>Disable SNI</source>
-        <translation>SNI'yi devre dışı bırak</translation>
+        <translation>SNI&apos;yi devre dışı bırak</translation>
     </message>
     <message>
         <source>Fragment the TLS handshake</source>
@@ -4549,7 +4549,7 @@ Yalnızca tek bir adres ailesiyle listelenen bir alan adı diğer aile için NXD
     </message>
     <message>
         <source>Test URL</source>
-        <translation>Test URL'si</translation>
+        <translation>Test URL&apos;si</translation>
     </message>
     <message>
         <source>Report warm latency (two requests per target)</source>
@@ -4561,7 +4561,7 @@ Yalnızca tek bir adres ailesiyle listelenen bir alan adı diğer aile için NXD
     </message>
     <message>
         <source>Candidates that pass the probes are tested by connecting to WARP through them.</source>
-        <translation>Yoklamaları geçen adaylar, üzerlerinden WARP'a bağlanılarak test edilir.</translation>
+        <translation>Yoklamaları geçen adaylar, üzerlerinden WARP&apos;a bağlanılarak test edilir.</translation>
     </message>
     <message>
         <source>Mode</source>
@@ -4569,7 +4569,7 @@ Yalnızca tek bir adres ailesiyle listelenen bir alan adı diğer aile için NXD
     </message>
     <message>
         <source>HTTP/3, falling back to HTTP/2</source>
-        <translation>HTTP/3, HTTP/2'ye geri dönüşlü</translation>
+        <translation>HTTP/3, HTTP/2&apos;ye geri dönüşlü</translation>
     </message>
     <message>
         <source>HTTP/3 only</source>
@@ -4625,11 +4625,11 @@ Yalnızca tek bir adres ailesiyle listelenen bir alan adı diğer aile için NXD
     </message>
     <message>
         <source>&quot;%1&quot; is not a valid port (1-65535).</source>
-        <translation>"%1" geçerli bir port değil (1-65535).</translation>
+        <translation>&quot;%1&quot; geçerli bir port değil (1-65535).</translation>
     </message>
     <message>
         <source>Jmin must not be larger than Jmax.</source>
-        <translation>Jmin, Jmax'tan büyük olmamalıdır.</translation>
+        <translation>Jmin, Jmax&apos;tan büyük olmamalıdır.</translation>
     </message>
     <message>
         <source>WARP scan</source>
@@ -4709,7 +4709,7 @@ Yalnızca tek bir adres ailesiyle listelenen bir alan adı diğer aile için NXD
     </message>
     <message>
         <source>WARP test: Jmin must not be larger than Jmax.</source>
-        <translation>WARP testi: Jmin, Jmax'tan büyük olmamalıdır.</translation>
+        <translation>WARP testi: Jmin, Jmax&apos;tan büyük olmamalıdır.</translation>
     </message>
     <message>
         <source>Pause the scan before changing its settings.</source>
@@ -4826,7 +4826,7 @@ Kaydetmeden kapatılsın mı?</translation>
     <message numerus="yes">
         <source>Saved %n entries to the IP list &quot;%1&quot;.</source>
         <translation>
-            <numerusform>%n girdi "%1" IP listesine kaydedildi.</numerusform>
+            <numerusform>%n girdi &quot;%1&quot; IP listesine kaydedildi.</numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -4864,7 +4864,7 @@ Kaydetmeden kapatılsın mı?</translation>
     </message>
     <message>
         <source>No scans yet. Create one with &quot;New scan&quot;.</source>
-        <translation>Henüz tarama yok. "Yeni tarama" ile bir tane oluşturun.</translation>
+        <translation>Henüz tarama yok. &quot;Yeni tarama&quot; ile bir tane oluşturun.</translation>
     </message>
     <message>
         <source>New scan</source>
@@ -4884,7 +4884,7 @@ Kaydetmeden kapatılsın mı?</translation>
     </message>
     <message>
         <source>Delete the scan &quot;%1&quot;?</source>
-        <translation>"%1" taraması silinsin mi?</translation>
+        <translation>&quot;%1&quot; taraması silinsin mi?</translation>
     </message>
     <message>
         <source>Also delete its result list</source>
@@ -5014,7 +5014,7 @@ Kaydetmeden kapatılsın mı?</translation>
     </message>
     <message>
         <source>Tun Enable IPv6</source>
-        <translation>Tun IPv6'yı Etkinleştir</translation>
+        <translation>Tun IPv6&apos;yı Etkinleştir</translation>
     </message>
     <message>
         <source>Strict Route</source>
@@ -5022,7 +5022,7 @@ Kaydetmeden kapatılsın mı?</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When enabled, Direct IP CIDRs and rule sets will also be added to the Tun setting to be excluded at OS routing level. IMPORTANT: Large rule sets have been reported to cause massive CPU usage in windows, please enable this option with caution.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Etkinleştirildiğinde, Doğrudan IP CIDR'ları ve kural setleri işletim sistemi yönlendirme düzeyinde hariç tutulmak üzere Tun ayarına da eklenir. ÖNEMLİ: Büyük kural setlerinin Windows'ta aşırı CPU kullanımına yol açtığı bildirildi, lütfen bu seçeneği dikkatli etkinleştirin.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Etkinleştirildiğinde, Doğrudan IP CIDR&apos;ları ve kural setleri işletim sistemi yönlendirme düzeyinde hariç tutulmak üzere Tun ayarına da eklenir. ÖNEMLİ: Büyük kural setlerinin Windows&apos;ta aşırı CPU kullanımına yol açtığı bildirildi, lütfen bu seçeneği dikkatli etkinleştirin.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Enable Tun Routing</source>
@@ -5038,7 +5038,7 @@ Kaydetmeden kapatılsın mı?</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Forwards bypassed traffic straight out of the network interface instead of rebuilding it as a new connection, which is faster and keeps NAT intact for games and P2P. Applies to UDP and ICMP only; TCP still needs to be sniffed and keeps taking the normal direct path.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Atlanan trafiği yeni bir bağlantı olarak yeniden oluşturmak yerine doğrudan ağ arayüzünden dışarı iletir; bu daha hızlıdır ve oyunlar ile P2P için NAT'ı bozmaz. Yalnızca UDP ve ICMP için geçerlidir; TCP yine de koklanmalıdır ve normal doğrudan yolu kullanmaya devam eder.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Atlanan trafiği yeni bir bağlantı olarak yeniden oluşturmak yerine doğrudan ağ arayüzünden dışarı iletir; bu daha hızlıdır ve oyunlar ile P2P için NAT&apos;ı bozmaz. Yalnızca UDP ve ICMP için geçerlidir; TCP yine de koklanmalıdır ve normal doğrudan yolu kullanmaya devam eder.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>L3 Bridge Bypass</source>
@@ -5078,18 +5078,18 @@ Kaydetmeden kapatılsın mı?</translation>
     </message>
     <message>
         <source>IPv6 needs an MTU of at least %1; below that the system may drop IPv6 from the Tun.</source>
-        <translation>IPv6 en az %1 MTU gerektirir; bunun altında sistem Tun'dan IPv6'yı düşürebilir.</translation>
+        <translation>IPv6 en az %1 MTU gerektirir; bunun altında sistem Tun&apos;dan IPv6&apos;yı düşürebilir.</translation>
     </message>
     <message>
         <source>This covers every address, which would stop Tun from routing anything.</source>
-        <translation>Bu her adresi kapsar; bu da Tun'un hiçbir şeyi yönlendirmemesine yol açar.</translation>
+        <translation>Bu her adresi kapsar; bu da Tun&apos;un hiçbir şeyi yönlendirmemesine yol açar.</translation>
     </message>
     <message>
         <source>If you have trouble starting VPN, you can force reset Core process here.
 
 If still not working, see documentation for more information.
 https://matsuridayo.github.io/n-configuration/#vpn-tun</source>
-        <translation>VPN'i başlatırken sorun yaşıyorsanız, Çekirdek sürecini buradan zorla sıfırlayabilirsiniz.
+        <translation>VPN&apos;i başlatırken sorun yaşıyorsanız, Çekirdek sürecini buradan zorla sıfırlayabilirsiniz.
 
 Hâlâ çalışmıyorsa daha fazla bilgi için belgelere bakın.
 https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
@@ -5164,6 +5164,133 @@ https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
     <message>
         <source>Submitting...</source>
         <translation>Gönderiliyor...</translation>
+    </message>
+</context>
+<context>
+    <name>Dpi</name>
+    <message>
+        <source>winws could not be started: %1</source>
+        <translation>winws başlatılamadı: %1</translation>
+    </message>
+    <message>
+        <source>winws stopped right after it started.
+
+%1</source>
+        <translation>winws başlar başlamaz durdu.
+
+%1</translation>
+    </message>
+    <message>
+        <source>it crashed</source>
+        <translation>çöktü</translation>
+    </message>
+    <message>
+        <source>exit code %1</source>
+        <translation>çıkış kodu %1</translation>
+    </message>
+    <message>
+        <source>WinDivert needs administrator rights: start F-Dpi as administrator.</source>
+        <translation>WinDivert yönetici yetkisi gerektirir: F-Dpi'yi yönetici olarak başlatın.</translation>
+    </message>
+    <message>
+        <source>WinDivert64.sys is missing from the zapret folder; reinstall F-Dpi.</source>
+        <translation>zapret klasöründe WinDivert64.sys yok; F-Dpi'yi yeniden kurun.</translation>
+    </message>
+    <message>
+        <source>WinDivert rejected the capture filter; check the TCP and UDP ports.</source>
+        <translation>WinDivert yakalama filtresini reddetti; TCP ve UDP portlarını kontrol edin.</translation>
+    </message>
+    <message>
+        <source>Windows blocked the WinDivert driver (driver signature policy or antivirus).</source>
+        <translation>Windows, WinDivert sürücüsünü engelledi (sürücü imza ilkesi veya antivirüs).</translation>
+    </message>
+    <message>
+        <source>DPI Bypass</source>
+        <translation>DPI Bypass</translation>
+    </message>
+    <message>
+        <source>DPI Bypass cannot run while the kill switch is on: it would block all traffic. Turn the kill switch off first.</source>
+        <translation>Kill switch açıkken DPI Bypass çalışamaz: tüm trafiği engeller. Önce kill switch'i kapatın.</translation>
+    </message>
+    <message>
+        <source>[DPI] The system proxy is not used while DPI Bypass runs.</source>
+        <translation>[DPI] DPI Bypass çalışırken sistem proxy'si kullanılmaz.</translation>
+    </message>
+    <message>
+        <source>[DPI] DPI Bypass stopped because winws exited: %1</source>
+        <translation>[DPI] winws kapandığı için DPI Bypass durdu: %1</translation>
+    </message>
+    <message>
+        <source>Cannot write the site list %1: %2</source>
+        <translation>%1 site listesi yazılamıyor: %2</translation>
+    </message>
+    <message>
+        <source>DPI Bypass is only available on Windows for now.</source>
+        <translation>DPI Bypass şimdilik yalnızca Windows'ta kullanılabilir.</translation>
+    </message>
+    <message>
+        <source>winws.exe was not found at %1. Reinstall F-Dpi.</source>
+        <translation>winws.exe %1 konumunda bulunamadı. F-Dpi'yi yeniden kurun.</translation>
+    </message>
+    <message>
+        <source>Cannot create the folder %1.</source>
+        <translation>%1 klasörü oluşturulamıyor.</translation>
+    </message>
+    <message>
+        <source>Custom strategy</source>
+        <translation>Özel strateji</translation>
+    </message>
+    <message>
+        <source>%1, listed sites only</source>
+        <translation>%1, yalnızca listedeki siteler</translation>
+    </message>
+    <message>
+        <source>%1, automatic list</source>
+        <translation>%1, otomatik liste</translation>
+    </message>
+    <message>
+        <source>Enter TCP or UDP ports; with neither, no traffic is captured.</source>
+        <translation>TCP veya UDP portu girin; ikisi de boşsa hiçbir trafik yakalanmaz.</translation>
+    </message>
+    <message>
+        <source>Unknown site selection mode.</source>
+        <translation>Bilinmeyen site seçim modu.</translation>
+    </message>
+    <message>
+        <source>Add at least one site, or apply the bypass to all sites.</source>
+        <translation>En az bir site ekleyin ya da bypass'ı tüm sitelere uygulayın.</translation>
+    </message>
+    <message>
+        <source>A DPI Bypass profile is not a proxy, so it cannot be used in a chain, a route or a test.</source>
+        <translation>DPI Bypass profili bir proxy değildir; zincirde, yönlendirmede veya testte kullanılamaz.</translation>
+    </message>
+    <message>
+        <source>Write ports or ranges separated by commas, e.g. 80,443 or 50000-50100.</source>
+        <translation>Portları veya aralıkları virgülle ayırarak yazın, ör. 80,443 ya da 50000-50100.</translation>
+    </message>
+    <message>
+        <source>Enter a strategy or choose a preset.</source>
+        <translation>Bir strateji girin ya da hazır ayar seçin.</translation>
+    </message>
+    <message>
+        <source>%1 is not allowed here: F-Dpi manages site lists and files itself.</source>
+        <translation>%1 burada kullanılamaz: site listelerini ve dosyaları F-Dpi kendisi yönetir.</translation>
+    </message>
+    <message>
+        <source>The strategy sets no --dpi-desync method, so winws would change nothing.</source>
+        <translation>Strateji hiçbir --dpi-desync yöntemi belirtmiyor; winws hiçbir şeyi değiştirmez.</translation>
+    </message>
+    <message>
+        <source>General (fake + multidisorder)</source>
+        <translation>Genel (fake + multidisorder)</translation>
+    </message>
+    <message>
+        <source>Light (multisplit, no fake packets)</source>
+        <translation>Hafif (multisplit, sahte paket yok)</translation>
+    </message>
+    <message>
+        <source>Fake with low TTL</source>
+        <translation>Düşük TTL ile fake</translation>
     </message>
 </context>
 <context>
@@ -5274,11 +5401,11 @@ https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
     </message>
     <message>
         <source>Disable SNI</source>
-        <translation>SNI'yi Devre Dışı Bırak</translation>
+        <translation>SNI&apos;yi Devre Dışı Bırak</translation>
     </message>
     <message>
         <source>Enable ECH</source>
-        <translation>ECH'yi Etkinleştir</translation>
+        <translation>ECH&apos;yi Etkinleştir</translation>
     </message>
     <message>
         <source>TLS Min Version</source>
@@ -5290,7 +5417,7 @@ https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Whether this profile injects a forged ClientHello. &amp;quot;Keep Default&amp;quot; follows Preset Settings, unless a Spoof SNI is set below.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bu profilin sahte bir ClientHello enjekte edip etmeyeceği. Aşağıda bir Sahte SNI ayarlanmadıkça &amp;quot;Varsayılanı Koru&amp;quot; Ön Ayar Ayarları'nı izler.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bu profilin sahte bir ClientHello enjekte edip etmeyeceği. Aşağıda bir Sahte SNI ayarlanmadıkça &amp;quot;Varsayılanı Koru&amp;quot; Ön Ayar Ayarları&apos;nı izler.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>TLS Spoof</source>
@@ -5310,7 +5437,7 @@ https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Inject a forged TLS ClientHello carrying this SNI before the real one, to pass SNI filtering that allows specific hostnames.&lt;/p&gt;&lt;p&gt;Client only. Requires elevated privileges (root / Administrator). Not supported on Windows ARM64. &amp;quot;wrong-timestamp&amp;quot; is not supported on macOS.&lt;/p&gt;&lt;p&gt;Leave empty to inherit the global value from Preset Settings.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Belirli ana makine adlarına izin veren SNI filtrelemesini geçmek için, gerçeğinden önce bu SNI'yi taşıyan sahte bir TLS ClientHello enjekte et.&lt;/p&gt;&lt;p&gt;Yalnızca istemci. Yükseltilmiş yetki gerektirir (root / Yönetici). Windows ARM64'te desteklenmez. &amp;quot;wrong-timestamp&amp;quot; macOS'ta desteklenmez.&lt;/p&gt;&lt;p&gt;Ön Ayar Ayarları'ndaki genel değeri devralmak için boş bırakın.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Belirli ana makine adlarına izin veren SNI filtrelemesini geçmek için, gerçeğinden önce bu SNI&apos;yi taşıyan sahte bir TLS ClientHello enjekte et.&lt;/p&gt;&lt;p&gt;Yalnızca istemci. Yükseltilmiş yetki gerektirir (root / Yönetici). Windows ARM64&apos;te desteklenmez. &amp;quot;wrong-timestamp&amp;quot; macOS&apos;ta desteklenmez.&lt;/p&gt;&lt;p&gt;Ön Ayar Ayarları&apos;ndaki genel değeri devralmak için boş bırakın.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Spoof SNI</source>
@@ -5326,7 +5453,7 @@ https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;h4 style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a name=&quot;query_server_name&quot;/&gt;&lt;span style=&quot; font-size:medium; font-weight:700;&quot;&gt;q&lt;/span&gt;&lt;span style=&quot; font-size:medium; font-weight:700;&quot;&gt;uery_server_name in sing-box&lt;/span&gt;&lt;/h4&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;h4 style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"&gt;&lt;a name="query_server_name"/&gt;&lt;span style=" font-size:medium; font-weight:700;"&gt;s&lt;/span&gt;&lt;span style=" font-size:medium; font-weight:700;"&gt;ing-box'ta query_server_name&lt;/span&gt;&lt;/h4&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;h4 style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a name=&quot;query_server_name&quot;/&gt;&lt;span style=&quot; font-size:medium; font-weight:700;&quot;&gt;s&lt;/span&gt;&lt;span style=&quot; font-size:medium; font-weight:700;&quot;&gt;ing-box&apos;ta query_server_name&lt;/span&gt;&lt;/h4&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>ECH Query Name / Resolver</source>
@@ -5374,7 +5501,7 @@ https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
     </message>
     <message>
         <source>Empty fields fall back to the global values in Preset Settings.</source>
-        <translation>Boş alanlar Ön Ayar Ayarları'ndaki genel değerlere döner.</translation>
+        <translation>Boş alanlar Ön Ayar Ayarları&apos;ndaki genel değerlere döner.</translation>
     </message>
     <message>
         <source>Idle Timeout</source>
@@ -5406,7 +5533,7 @@ https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
     </message>
     <message>
         <source>AnyTLS does not support TCP Fast Open, so it is turned off when the profile starts.</source>
-        <translation>AnyTLS, TCP Fast Open'ı desteklemez; bu yüzden profil başladığında kapatılır.</translation>
+        <translation>AnyTLS, TCP Fast Open&apos;ı desteklemez; bu yüzden profil başladığında kapatılır.</translation>
     </message>
     <message>
         <source>TCP Fast Open is ignored while the custom TLS fragment is on.</source>
@@ -5472,7 +5599,7 @@ https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
     </message>
     <message>
         <source>The groups whose profiles this selector picks from. Profiles from every checked group are pooled together, and each one is still wrapped in its own group&apos;s front and landing proxy, so it behaves as if started on its own. New servers added by a subscription update join automatically — you never have to edit this profile again.</source>
-        <translation>Bu seçicinin profil seçtiği gruplar. İşaretlenen tüm grupların profilleri bir havuzda toplanır ve her biri yine kendi grubunun ön ve çıkış proxy'siyle sarılır; böylece tek başına başlatılmış gibi davranır. Abonelik güncellemesiyle eklenen yeni sunucular otomatik olarak katılır — bu profili bir daha düzenlemeniz gerekmez.</translation>
+        <translation>Bu seçicinin profil seçtiği gruplar. İşaretlenen tüm grupların profilleri bir havuzda toplanır ve her biri yine kendi grubunun ön ve çıkış proxy&apos;siyle sarılır; böylece tek başına başlatılmış gibi davranır. Abonelik güncellemesiyle eklenen yeni sunucular otomatik olarak katılır — bu profili bir daha düzenlemeniz gerekmez.</translation>
     </message>
     <message>
         <source>Only names matching</source>
@@ -5700,11 +5827,11 @@ https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
     </message>
     <message>
         <source>Test URL</source>
-        <translation>Test URL'si</translation>
+        <translation>Test URL&apos;si</translation>
     </message>
     <message>
         <source>empty = use the global latency test URL</source>
-        <translation>boş = genel gecikme testi URL'sini kullan</translation>
+        <translation>boş = genel gecikme testi URL&apos;sini kullan</translation>
     </message>
     <message>
         <source>Fetched through each profile to measure it.</source>
@@ -5712,15 +5839,15 @@ https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
     </message>
     <message>
         <source>Connectivity URL</source>
-        <translation>Bağlantı URL'si</translation>
+        <translation>Bağlantı URL&apos;si</translation>
     </message>
     <message>
         <source>optional — inherits the Direct Test URL</source>
-        <translation>isteğe bağlı — Doğrudan Test URL'sini devralır</translation>
+        <translation>isteğe bağlı — Doğrudan Test URL&apos;sini devralır</translation>
     </message>
     <message>
         <source>Fetched WITHOUT the proxy to tell a dead internet connection apart from dead servers, and to notice the moment it comes back. Leave empty to inherit the Direct Test URL from Basic Settings, and empty there too to rely on the operating system&apos;s network state. A URL that turns out to be blocked can only delay a resume by a few minutes; it can never keep the selector paused.</source>
-        <translation>Kopmuş bir internet bağlantısını çalışmayan sunuculardan ayırt etmek ve bağlantının geri geldiği anı fark etmek için proxy OLMADAN alınır. Temel Ayarlar'daki Doğrudan Test URL'sini devralmak için boş bırakın; orası da boşsa işletim sisteminin ağ durumuna güvenilir. Engelli olduğu anlaşılan bir URL devam etmeyi yalnızca birkaç dakika geciktirebilir; seçiciyi asla duraklatılmış hâlde tutamaz.</translation>
+        <translation>Kopmuş bir internet bağlantısını çalışmayan sunuculardan ayırt etmek ve bağlantının geri geldiği anı fark etmek için proxy OLMADAN alınır. Temel Ayarlar&apos;daki Doğrudan Test URL&apos;sini devralmak için boş bırakın; orası da boşsa işletim sisteminin ağ durumuna güvenilir. Engelli olduğu anlaşılan bir URL devam etmeyi yalnızca birkaç dakika geciktirebilir; seçiciyi asla duraklatılmış hâlde tutamaz.</translation>
     </message>
     <message>
         <source>Rotate on a timer (keeps sessions stable)</source>
@@ -5756,7 +5883,7 @@ https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
     </message>
     <message>
         <source>Every new connection may take a different profile. Widest spread, but your exit IP changes mid-session and per-profile traffic becomes approximate.</source>
-        <translation>Her yeni bağlantı farklı bir profil kullanabilir. En geniş dağılım; ancak çıkış IP'niz oturum ortasında değişir ve profil başına trafik yaklaşık olur.</translation>
+        <translation>Her yeni bağlantı farklı bir profil kullanabilir. En geniş dağılım; ancak çıkış IP&apos;niz oturum ortasında değişir ve profil başına trafik yaklaşık olur.</translation>
     </message>
     <message>
         <source>%1 of %2 profiles in the checked groups can be used; %3 would run.</source>
@@ -5874,11 +6001,11 @@ https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
     </message>
     <message>
         <source>Outbound JSON, please read the documentation.</source>
-        <translation>Giden JSON'u, lütfen belgeleri okuyun.</translation>
+        <translation>Giden JSON&apos;u, lütfen belgeleri okuyun.</translation>
     </message>
     <message>
         <source>Xray outbound JSON, please read the Xray documentation.</source>
-        <translation>Xray giden JSON'u, lütfen Xray belgelerini okuyun.</translation>
+        <translation>Xray giden JSON&apos;u, lütfen Xray belgelerini okuyun.</translation>
     </message>
     <message>
         <source>Xray full config (Throne adds a socks inbound and uses sing-box for tun/routing).</source>
@@ -5902,6 +6029,49 @@ https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
     <message>
         <source>Use the Advanced section to specify bind options</source>
         <translation>Bağlama seçeneklerini belirtmek için Gelişmiş bölümünü kullanın</translation>
+    </message>
+</context>
+<context>
+    <name>EditDpi</name>
+    <message>
+        <source>Custom</source>
+        <translation>Özel</translation>
+    </message>
+    <message>
+        <source>Preset</source>
+        <translation>Hazır ayar</translation>
+    </message>
+    <message>
+        <source>TCP ports winws captures (--wf-tcp). Separate ports and ranges with commas.</source>
+        <translation>winws'in yakaladığı TCP portları (--wf-tcp). Portları ve aralıkları virgülle ayırın.</translation>
+    </message>
+    <message>
+        <source>TCP ports</source>
+        <translation>TCP portları</translation>
+    </message>
+    <message>
+        <source>UDP ports winws captures (--wf-udp), e.g. 443 for QUIC. Leave empty to leave UDP alone.</source>
+        <translation>winws'in yakaladığı UDP portları (--wf-udp), ör. QUIC için 443. UDP'ye dokunmamak için boş bırakın.</translation>
+    </message>
+    <message>
+        <source>UDP ports</source>
+        <translation>UDP portları</translation>
+    </message>
+    <message>
+        <source>winws options. Separate profiles with --new; # starts a comment; %ZAPRET% is the winws folder.</source>
+        <translation>winws seçenekleri. Profilleri --new ile ayırın; # yorum başlatır; %ZAPRET% winws klasörüdür.</translation>
+    </message>
+    <message>
+        <source>Strategy</source>
+        <translation>Strateji</translation>
+    </message>
+    <message>
+        <source>Proxy and DPI Bypass never run together: starting this profile stops the running proxy.</source>
+        <translation>Proxy ve DPI Bypass asla birlikte çalışmaz: bu profili başlatmak çalışan proxy'yi durdurur.</translation>
+    </message>
+    <message>
+        <source>Enter TCP or UDP ports; with neither, no traffic is captured.</source>
+        <translation>TCP veya UDP portu girin; ikisi de boşsa hiçbir trafik yakalanmaz.</translation>
     </message>
 </context>
 <context>
@@ -6048,7 +6218,7 @@ https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
         <source>Parroting makes the QUIC handshake look like Chrome&apos;s. On by default.
 It overrides idle timeout, max concurrent streams,
 initial packet size and the initial receive windows.</source>
-        <translation>Taklit, QUIC el sıkışmasını Chrome'unkine benzetir. Varsayılan olarak açıktır.
+        <translation>Taklit, QUIC el sıkışmasını Chrome&apos;unkine benzetir. Varsayılan olarak açıktır.
 Boşta kalma zaman aşımını, en fazla eşzamanlı akışı,
 ilk paket boyutunu ve ilk alma pencerelerini geçersiz kılar.</translation>
     </message>
@@ -6087,7 +6257,7 @@ buluşma hizmeti üzerinden ulaşın. Sunucu adresinin ve portunun yerini alır.
     </message>
     <message>
         <source>Realm URL</source>
-        <translation>Realm URL'si</translation>
+        <translation>Realm URL&apos;si</translation>
     </message>
     <message>
         <source>Realm ID</source>
@@ -6147,7 +6317,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     <name>EditMasque</name>
     <message>
         <source>Base64 DER of the enrolled ECDSA P-256 key; it signs the TLS client certificate.</source>
-        <translation>Kaydedilmiş ECDSA P-256 anahtarının Base64 DER'i; TLS istemci sertifikasını imzalar.</translation>
+        <translation>Kaydedilmiş ECDSA P-256 anahtarının Base64 DER&apos;i; TLS istemci sertifikasını imzalar.</translation>
     </message>
     <message>
         <source>Private Key</source>
@@ -6155,7 +6325,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>Base64 DER of the server&apos;s public key. When set, it pins the server certificate, even with Allow insecure.</source>
-        <translation>Sunucunun açık anahtarının Base64 DER'i. Ayarlandığında, Güvensize izin ver açık olsa bile sunucu sertifikasını sabitler.</translation>
+        <translation>Sunucunun açık anahtarının Base64 DER&apos;i. Ayarlandığında, Güvensize izin ver açık olsa bile sunucu sertifikasını sabitler.</translation>
     </message>
     <message>
         <source>Peer Public Key</source>
@@ -6175,7 +6345,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>HTTP/3 runs over UDP; HTTP/2 runs over TLS on TCP and works where UDP is blocked.</source>
-        <translation>HTTP/3 UDP üzerinde çalışır; HTTP/2 TCP üzerinde TLS ile çalışır ve UDP'nin engellendiği yerlerde işe yarar.</translation>
+        <translation>HTTP/3 UDP üzerinde çalışır; HTTP/2 TCP üzerinde TLS ile çalışır ve UDP&apos;nin engellendiği yerlerde işe yarar.</translation>
     </message>
     <message>
         <source>HTTP Version</source>
@@ -6183,7 +6353,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>HTTP/3 (fallback to HTTP/2)</source>
-        <translation>HTTP/3 (HTTP/2'ye geri dönüşlü)</translation>
+        <translation>HTTP/3 (HTTP/2&apos;ye geri dönüşlü)</translation>
     </message>
     <message>
         <source>HTTP/3 only</source>
@@ -6265,7 +6435,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>Headers sent to the proxy server, e.g. X-Username=&quot;user&quot; X-Password=&quot;pass&quot;</source>
-        <translation>Proxy sunucusuna gönderilen başlıklar, ör. X-Username="user" X-Password="pass"</translation>
+        <translation>Proxy sunucusuna gönderilen başlıklar, ör. X-Username=&quot;user&quot; X-Password=&quot;pass&quot;</translation>
     </message>
     <message>
         <source>Insecure Concurrency</source>
@@ -6312,7 +6482,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Path part of the server URL, appended to the address above. Load-bearing on gp, f5 and fortinet portals.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sunucu URL'sinin yol kısmı, yukarıdaki adrese eklenir. gp, f5 ve fortinet portallarında gereklidir.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sunucu URL&apos;sinin yol kısmı, yukarıdaki adrese eklenir. gp, f5 ve fortinet portallarında gereklidir.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Server Path</source>
@@ -6320,7 +6490,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Preferred tunnel MTU. Values below 576 are treated as 576; the maximum is 65535.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Tercih edilen tünel MTU'su. 576'nın altındaki değerler 576 kabul edilir; en fazla 65535.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Tercih edilen tünel MTU&apos;su. 576&apos;nın altındaki değerler 576 kabul edilir; en fazla 65535.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>MTU</source>
@@ -6340,11 +6510,11 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;How DNS uses the resolvers the VPN server pushes when this profile is started.&lt;/p&gt;&lt;p&gt;None: ignore them. Use this if the server claims every domain and breaks public DNS.&lt;br/&gt;Prefer: resolve the names the server claims - its split-DNS suffixes and search domains - through them, and everything else as usual.&lt;br/&gt;Strict: also send every remote DNS query to them instead of the remote DNS server, and fail the lookups they cannot answer. Direct lookups are unchanged.&lt;/p&gt;&lt;p&gt;As an endpoint in a routing profile, Prefer and Strict both resolve only the names the server claims.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bu profil başlatıldığında DNS'in VPN sunucusunun gönderdiği çözümleyicileri nasıl kullanacağı.&lt;/p&gt;&lt;p&gt;Hiçbiri: bunları yok say. Sunucu tüm alan adlarını sahiplenip genel DNS'i bozuyorsa bunu kullanın.&lt;br/&gt;Tercih Et: sunucunun sahiplendiği adları - bölünmüş DNS sonekleri ve arama etki alanları - bunlar üzerinden, geri kalan her şeyi her zamanki gibi çözümle.&lt;br/&gt;Katı: ayrıca her uzak DNS sorgusunu uzak DNS sunucusu yerine bunlara gönder ve yanıtlayamadıkları sorguları başarısız say. Doğrudan sorgular değişmez.&lt;/p&gt;&lt;p&gt;Bir yönlendirme profilinde uç nokta olarak, Tercih Et ve Katı yalnızca sunucunun sahiplendiği adları çözümler.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bu profil başlatıldığında DNS&apos;in VPN sunucusunun gönderdiği çözümleyicileri nasıl kullanacağı.&lt;/p&gt;&lt;p&gt;Hiçbiri: bunları yok say. Sunucu tüm alan adlarını sahiplenip genel DNS&apos;i bozuyorsa bunu kullanın.&lt;br/&gt;Tercih Et: sunucunun sahiplendiği adları - bölünmüş DNS sonekleri ve arama etki alanları - bunlar üzerinden, geri kalan her şeyi her zamanki gibi çözümle.&lt;br/&gt;Katı: ayrıca her uzak DNS sorgusunu uzak DNS sunucusu yerine bunlara gönder ve yanıtlayamadıkları sorguları başarısız say. Doğrudan sorgular değişmez.&lt;/p&gt;&lt;p&gt;Bir yönlendirme profilinde uç nokta olarak, Tercih Et ve Katı yalnızca sunucunun sahiplendiği adları çözümler.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Tunnel DNS</source>
-        <translation>Tünel DNS'i</translation>
+        <translation>Tünel DNS&apos;i</translation>
     </message>
     <message>
         <source>Advanced</source>
@@ -6424,7 +6594,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>This protocol does not accept the reported OS &quot;%1&quot; set under Advanced.</source>
-        <translation>Bu protokol, Gelişmiş altında ayarlanan "%1" bildirilen işletim sistemini kabul etmiyor.</translation>
+        <translation>Bu protokol, Gelişmiş altında ayarlanan &quot;%1&quot; bildirilen işletim sistemini kabul etmiyor.</translation>
     </message>
     <message>
         <source>The token or form entries under Advanced use %1; select an authenticator entry.</source>
@@ -6467,7 +6637,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Client version reported separately from the user agent. Currently used by AnyConnect XML authentication.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;User agent'tan ayrı olarak bildirilen istemci sürümü. Şu anda AnyConnect XML kimlik doğrulamasında kullanılır.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;User agent&apos;tan ayrı olarak bildirilen istemci sürümü. Şu anda AnyConnect XML kimlik doğrulamasında kullanılır.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Version</source>
@@ -6503,7 +6673,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A Base32 secret, a base32: prefixed secret or an otpauth:// URI for totp and hotp; the encoded CTF content for stoken; the access token for oidc. Conflicts with the secret path.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;totp ve hotp için Base32 bir gizli anahtar, base32: önekli bir gizli anahtar veya bir otpauth:// URI'si; stoken için kodlanmış CTF içeriği; oidc için erişim belirteci. Gizli anahtar yoluyla çakışır.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;totp ve hotp için Base32 bir gizli anahtar, base32: önekli bir gizli anahtar veya bir otpauth:// URI&apos;si; stoken için kodlanmış CTF içeriği; oidc için erişim belirteci. Gizli anahtar yoluyla çakışır.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Secret</source>
@@ -6519,7 +6689,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;RSA SecurID PIN for stoken mode.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;stoken modu için RSA SecurID PIN'i.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;stoken modu için RSA SecurID PIN&apos;i.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>PIN</source>
@@ -6543,7 +6713,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Initial counter for hotp mode. Empty uses the counter from an otpauth:// URI, otherwise zero.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;hotp modu için başlangıç sayacı. Boşsa bir otpauth:// URI'sindeki sayaç, yoksa sıfır kullanılır.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;hotp modu için başlangıç sayacı. Boşsa bir otpauth:// URI&apos;sindeki sayaç, yoksa sıfır kullanılır.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Counter</source>
@@ -6691,7 +6861,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Fortinet hostcheck result string, conventionally security-status,os-version such as 0100,10.0.19042. An empty value disables hostcheck.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Fortinet hostcheck sonuç dizesi, geleneksel olarak 0100,10.0.19042 gibi güvenlik-durumu,işletim-sistemi-sürümü. Boş değer hostcheck'i devre dışı bırakır.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Fortinet hostcheck sonuç dizesi, geleneksel olarak 0100,10.0.19042 gibi güvenlik-durumu,işletim-sistemi-sürümü. Boş değer hostcheck&apos;i devre dışı bırakır.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Fortinet Hostcheck</source>
@@ -6863,7 +7033,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>Enable TCP keep alive</source>
-        <translation>TCP keep alive'ı etkinleştir</translation>
+        <translation>TCP keep alive&apos;ı etkinleştir</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For TLS 1.2 and earlier. Disabled by default for servers that require RSA key exchange.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -6883,7 +7053,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Base path MTU used to calculate the tunnel MTU after outer IP, transport and protocol overhead. Values below 1280 are treated as 1280.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dış IP, aktarım ve protokol ek yükünden sonra tünel MTU'sunu hesaplamak için kullanılan temel yol MTU'su. 1280'in altındaki değerler 1280 kabul edilir.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dış IP, aktarım ve protokol ek yükünden sonra tünel MTU&apos;sunu hesaplamak için kullanılan temel yol MTU&apos;su. 1280&apos;in altındaki değerler 1280 kabul edilir.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Base MTU</source>
@@ -6895,7 +7065,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Overrides the dead peer detection interval. Positive values below 2s are treated as 2s.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ölü karşı taraf algılama aralığını geçersiz kılar. 2 sn'nin altındaki pozitif değerler 2 sn kabul edilir.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ölü karşı taraf algılama aralığını geçersiz kılar. 2 sn&apos;nin altındaki pozitif değerler 2 sn kabul edilir.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>DPD Interval</source>
@@ -6986,7 +7156,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Tunnel MTU. Empty uses 1500 until the server pushes a value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Tünel MTU'su. Boşsa sunucu bir değer gönderene kadar 1500 kullanılır.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Tünel MTU&apos;su. Boşsa sunucu bir değer gönderene kadar 1500 kullanılır.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>MTU</source>
@@ -7006,11 +7176,11 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;How DNS uses the resolvers the VPN server pushes when this profile is started.&lt;/p&gt;&lt;p&gt;None: ignore them. Use this if the server claims every domain and breaks public DNS.&lt;br/&gt;Prefer: resolve the names the server claims - its split-DNS suffixes and search domains - through them, and everything else as usual.&lt;br/&gt;Strict: also send every remote DNS query to them instead of the remote DNS server, and fail the lookups they cannot answer. Direct lookups are unchanged.&lt;/p&gt;&lt;p&gt;As an endpoint in a routing profile, Prefer and Strict both resolve only the names the server claims.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bu profil başlatıldığında DNS'in VPN sunucusunun gönderdiği çözümleyicileri nasıl kullanacağı.&lt;/p&gt;&lt;p&gt;Hiçbiri: bunları yok say. Sunucu tüm alan adlarını sahiplenip genel DNS'i bozuyorsa bunu kullanın.&lt;br/&gt;Tercih Et: sunucunun sahiplendiği adları - bölünmüş DNS sonekleri ve arama etki alanları - bunlar üzerinden, geri kalan her şeyi her zamanki gibi çözümle.&lt;br/&gt;Katı: ayrıca her uzak DNS sorgusunu uzak DNS sunucusu yerine bunlara gönder ve yanıtlayamadıkları sorguları başarısız say. Doğrudan sorgular değişmez.&lt;/p&gt;&lt;p&gt;Bir yönlendirme profilinde uç nokta olarak, Tercih Et ve Katı yalnızca sunucunun sahiplendiği adları çözümler.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bu profil başlatıldığında DNS&apos;in VPN sunucusunun gönderdiği çözümleyicileri nasıl kullanacağı.&lt;/p&gt;&lt;p&gt;Hiçbiri: bunları yok say. Sunucu tüm alan adlarını sahiplenip genel DNS&apos;i bozuyorsa bunu kullanın.&lt;br/&gt;Tercih Et: sunucunun sahiplendiği adları - bölünmüş DNS sonekleri ve arama etki alanları - bunlar üzerinden, geri kalan her şeyi her zamanki gibi çözümle.&lt;br/&gt;Katı: ayrıca her uzak DNS sorgusunu uzak DNS sunucusu yerine bunlara gönder ve yanıtlayamadıkları sorguları başarısız say. Doğrudan sorgular değişmez.&lt;/p&gt;&lt;p&gt;Bir yönlendirme profilinde uç nokta olarak, Tercih Et ve Katı yalnızca sunucunun sahiplendiği adları çözümler.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Tunnel DNS</source>
-        <translation>Tünel DNS'i</translation>
+        <translation>Tünel DNS&apos;i</translation>
     </message>
     <message>
         <source>Advanced</source>
@@ -7341,7 +7511,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Deprecated Netscape certificate type check. Prefer Remote Certificate TLS.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kullanımdan kaldırılmış Netscape sertifika türü denetimi. Uzak Sertifika TLS'yi tercih edin.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kullanımdan kaldırılmış Netscape sertifika türü denetimi. Uzak Sertifika TLS&apos;yi tercih edin.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>NS Certificate Type</source>
@@ -7405,7 +7575,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Data channel authentication digest. SHA1 is used by default and only applies to non-AEAD ciphers and tls_auth.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Veri kanalı kimlik doğrulama özeti. Varsayılan olarak SHA1 kullanılır ve yalnızca AEAD olmayan şifrelere ve tls_auth'a uygulanır.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Veri kanalı kimlik doğrulama özeti. Varsayılan olarak SHA1 kullanılır ve yalnızca AEAD olmayan şifrelere ve tls_auth&apos;a uygulanır.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Auth Digest</source>
@@ -7413,7 +7583,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum UDP packet size used to clamp the MSS of TCP connections sent through the tunnel.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Tünelden gönderilen TCP bağlantılarının MSS'ini sınırlamak için kullanılan en büyük UDP paket boyutu.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Tünelden gönderilen TCP bağlantılarının MSS&apos;ini sınırlamak için kullanılan en büyük UDP paket boyutu.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>MSS Fix</source>
@@ -7429,7 +7599,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;mtu also accounts for the outer IP and transport headers; fixed treats MSS Fix as an inner IPv4 packet size. Requires MSS Fix.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;mtu dış IP ve aktarım başlıklarını da hesaba katar; fixed, MSS Düzeltme'yi iç IPv4 paket boyutu olarak ele alır. MSS Düzeltme gerektirir.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;mtu dış IP ve aktarım başlıklarını da hesaba katar; fixed, MSS Düzeltme&apos;yi iç IPv4 paket boyutu olarak ele alır. MSS Düzeltme gerektirir.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>MSS Fix Mode</source>
@@ -7445,7 +7615,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;UDP replay window size. 64 is used by default and the maximum is 65536.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;UDP tekrar penceresi boyutu. Varsayılan olarak 64 kullanılır ve en fazla 65536'dır.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;UDP tekrar penceresi boyutu. Varsayılan olarak 64 kullanılır ve en fazla 65536&apos;dır.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Replay Window</source>
@@ -7493,7 +7663,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ignores routes, DNS, route metrics, redirect-gateway, redirect-private and block-ipv6 pushed by the server.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sunucunun gönderdiği rotaları, DNS'i, rota metriklerini, redirect-gateway, redirect-private ve block-ipv6 seçeneklerini yok sayar.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sunucunun gönderdiği rotaları, DNS&apos;i, rota metriklerini, redirect-gateway, redirect-private ve block-ipv6 seçeneklerini yok sayar.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Ignore pushed routes, DNS and gateway options</source>
@@ -7565,7 +7735,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Whole seconds of silence before a data channel ping is sent. A server-pushed value overrides it.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bir veri kanalı ping'i gönderilmeden önceki sessizlik süresi, tam saniye. Sunucunun gönderdiği değer bunu geçersiz kılar.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bir veri kanalı ping&apos;i gönderilmeden önceki sessizlik süresi, tam saniye. Sunucunun gönderdiği değer bunu geçersiz kılar.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Ping Interval</source>
@@ -7669,11 +7839,11 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>Row %1 has no host, so it is not saved.</source>
-        <translation>Satır %1'de ana makine yok, bu yüzden kaydedilmiyor.</translation>
+        <translation>Satır %1&apos;de ana makine yok, bu yüzden kaydedilmiyor.</translation>
     </message>
     <message>
         <source>Row %1 has no text, so it is not saved.</source>
-        <translation>Satır %1'de metin yok, bu yüzden kaydedilmiyor.</translation>
+        <translation>Satır %1&apos;de metin yok, bu yüzden kaydedilmiyor.</translation>
     </message>
     <message>
         <source>Pull Filters</source>
@@ -7793,7 +7963,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Traffic shaping used by Snell v6. &quot;unsafe-raw&quot; disables padding and is faster but easier to fingerprint.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Snell v6'nın kullandığı trafik şekillendirme. "unsafe-raw" dolguyu kapatır; daha hızlıdır ama parmak izi çıkarmak daha kolaydır.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Snell v6&apos;nın kullandığı trafik şekillendirme. &quot;unsafe-raw&quot; dolguyu kapatır; daha hızlıdır ama parmak izi çıkarmak daha kolaydır.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Mode</source>
@@ -7847,7 +8017,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>Control URL</source>
-        <translation>Denetim URL'si</translation>
+        <translation>Denetim URL&apos;si</translation>
     </message>
     <message>
         <source>Hostname</source>
@@ -7883,7 +8053,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;use tailscale dns as the remote dns&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;uzak DNS olarak tailscale DNS'ini kullan&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;uzak DNS olarak tailscale DNS&apos;ini kullan&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Global DNS</source>
@@ -7909,7 +8079,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>Server name sent in the TLS ClientHello instead of the TLS server name, which is still used to verify the certificate; not compatible with ECH or REALITY</source>
-        <translation>TLS ClientHello'da, sertifikayı doğrulamak için hâlâ kullanılan TLS sunucu adı yerine gönderilen sunucu adı; ECH veya REALITY ile uyumlu değildir</translation>
+        <translation>TLS ClientHello&apos;da, sertifikayı doğrulamak için hâlâ kullanılan TLS sunucu adı yerine gönderilen sunucu adı; ECH veya REALITY ile uyumlu değildir</translation>
     </message>
     <message>
         <source>optional, e.g. cdn.example.net</source>
@@ -8065,7 +8235,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>Enable Amnezia</source>
-        <translation>Amnezia'yı Etkinleştir</translation>
+        <translation>Amnezia&apos;yı Etkinleştir</translation>
     </message>
     <message>
         <source>Edit the AmneziaWG obfuscation parameters (junk packets, magic headers, signatures).</source>
@@ -8097,7 +8267,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>Open Amnezia Options and fix %1: %2</source>
-        <translation>Amnezia Seçenekleri'ni açın ve %1 düzeltin: %2</translation>
+        <translation>Amnezia Seçenekleri&apos;ni açın ve %1 düzeltin: %2</translation>
     </message>
 </context>
 <context>
@@ -8172,7 +8342,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Fills the signature packets with the first QUIC packets Chrome would send to the given domain, so the handshake starts like an HTTP/3 connection to it. Generated locally; nothing is sent. Replaces I1-I5.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;İmza paketlerini Chrome'un verilen alan adına göndereceği ilk QUIC paketleriyle doldurur; böylece el sıkışma ona yapılan bir HTTP/3 bağlantısı gibi başlar. Yerel olarak üretilir; hiçbir şey gönderilmez. I1-I5'in yerini alır.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;İmza paketlerini Chrome&apos;un verilen alan adına göndereceği ilk QUIC paketleriyle doldurur; böylece el sıkışma ona yapılan bir HTTP/3 bağlantısı gibi başlar. Yerel olarak üretilir; hiçbir şey gönderilmez. I1-I5&apos;in yerini alır.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Generate QUIC Signature...</source>
@@ -8180,7 +8350,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;AmneziaWG 3.0. Base64 key. Requires S1-S4 to be at least 12.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;AmneziaWG 3.0. Base64 anahtar. S1-S4'ün en az 12 olmasını gerektirir.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;AmneziaWG 3.0. Base64 anahtar. S1-S4&apos;ün en az 12 olmasını gerektirir.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Header Protection Key</source>
@@ -8290,7 +8460,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     <name>Engine::ConnectionManager</name>
     <message>
         <source>A background Throne (PID %1) owns Tun on this computer; stop it or use thronectl.</source>
-        <translation>Arka planda çalışan bir F-Dpi (PID %1) bu bilgisayarda Tun'u kullanıyor; onu durdurun veya thronectl kullanın.</translation>
+        <translation>Arka planda çalışan bir F-Dpi (PID %1) bu bilgisayarda Tun&apos;u kullanıyor; onu durdurun veya thronectl kullanın.</translation>
     </message>
 </context>
 <context>
@@ -8309,7 +8479,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>The core keeps exiting, so it is no longer restarted. Use Restart Core to try again.</source>
-        <translation>Çekirdek sürekli kapandığı için artık yeniden başlatılmıyor. Yeniden denemek için Çekirdeği Yeniden Başlat'ı kullanın.</translation>
+        <translation>Çekirdek sürekli kapandığı için artık yeniden başlatılmıyor. Yeniden denemek için Çekirdeği Yeniden Başlat&apos;ı kullanın.</translation>
     </message>
 </context>
 <context>
@@ -8324,7 +8494,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>&quot;%1&quot; already uses it.</source>
-        <translation>"%1" bunu zaten kullanıyor.</translation>
+        <translation>&quot;%1&quot; bunu zaten kullanıyor.</translation>
     </message>
     <message>
         <source>Registration failed: %1</source>
@@ -8533,7 +8703,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>peak of %1 s</source>
-        <translation>%1 sn'lik tepe</translation>
+        <translation>%1 sn&apos;lik tepe</translation>
     </message>
     <message>
         <source>Not running</source>
@@ -8592,7 +8762,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>System Proxy</source>
-        <translation>Sistem Proxy'si</translation>
+        <translation>Sistem Proxy&apos;si</translation>
     </message>
     <message>
         <source>Logs</source>
@@ -8864,7 +9034,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>Resolve out IP for group</source>
-        <translation>Grup için çıkış IP'sini çözümle</translation>
+        <translation>Grup için çıkış IP&apos;sini çözümle</translation>
     </message>
     <message>
         <source>Add new Group</source>
@@ -8884,7 +9054,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>Resolve Selected Out IP</source>
-        <translation>Seçililerin Çıkış IP'sini Çözümle</translation>
+        <translation>Seçililerin Çıkış IP&apos;sini Çözümle</translation>
     </message>
     <message>
         <source>Refresh Column Widths</source>
@@ -8968,11 +9138,11 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>System proxy: %1</source>
-        <translation>Sistem proxy'si: %1</translation>
+        <translation>Sistem proxy&apos;si: %1</translation>
     </message>
     <message>
         <source>[Kill switch] Restarting the core so that its own traffic passes the kill switch...</source>
-        <translation>[Kill switch] Kendi trafiğinin kill switch'ten geçmesi için çekirdek yeniden başlatılıyor...</translation>
+        <translation>[Kill switch] Kendi trafiğinin kill switch&apos;ten geçmesi için çekirdek yeniden başlatılıyor...</translation>
     </message>
     <message>
         <source>[VPN] %1: %2</source>
@@ -9020,7 +9190,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>Restart Tun to take effect.</source>
-        <translation>Geçerli olması için Tun'u yeniden başlatın.</translation>
+        <translation>Geçerli olması için Tun&apos;u yeniden başlatın.</translation>
     </message>
     <message>
         <source>Settings changed</source>
@@ -9040,11 +9210,11 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>The Xray config &quot;%1&quot; needs &quot;%2&quot;, but the installed %3 does not contain it.</source>
-        <translation>"%1" Xray yapılandırması "%2" gerektiriyor, ancak yüklü %3 bunu içermiyor.</translation>
+        <translation>&quot;%1&quot; Xray yapılandırması &quot;%2&quot; gerektiriyor, ancak yüklü %3 bunu içermiyor.</translation>
     </message>
     <message>
         <source>The Xray config &quot;%1&quot; needs geo data files that are not installed: %2. Download them under Basic Settings &gt; Miscellaneous &gt; Xray Geo Assets.</source>
-        <translation>"%1" Xray yapılandırması yüklü olmayan coğrafi veri dosyalarına ihtiyaç duyuyor: %2. Bunları Temel Ayarlar &gt; Çeşitli &gt; Xray Coğrafi Verileri altından indirin.</translation>
+        <translation>&quot;%1&quot; Xray yapılandırması yüklü olmayan coğrafi veri dosyalarına ihtiyaç duyuyor: %2. Bunları Temel Ayarlar &gt; Çeşitli &gt; Xray Coğrafi Verileri altından indirin.</translation>
     </message>
     <message>
         <source>Downloaded Xray geo asset files.</source>
@@ -9176,11 +9346,11 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>Disable Kill Switch</source>
-        <translation>Kill Switch'i Devre Dışı Bırak</translation>
+        <translation>Kill Switch&apos;i Devre Dışı Bırak</translation>
     </message>
     <message>
         <source>Disable kill switch</source>
-        <translation>Kill switch'i devre dışı bırak</translation>
+        <translation>Kill switch&apos;i devre dışı bırak</translation>
     </message>
     <message>
         <source>Turn off the kill switch? Traffic that does not go through Throne will no longer be blocked.</source>
@@ -9272,7 +9442,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>Toggle System Proxy</source>
-        <translation>Sistem Proxy'sini Aç/Kapat</translation>
+        <translation>Sistem Proxy&apos;sini Aç/Kapat</translation>
     </message>
     <message>
         <source>Start/Stop Profile</source>
@@ -9296,7 +9466,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>close &quot;%1&quot; first</source>
-        <translation>önce "%1" penceresini kapatın</translation>
+        <translation>önce &quot;%1&quot; penceresini kapatın</translation>
     </message>
     <message>
         <source>Geo asset missing category</source>
@@ -9306,9 +9476,9 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
         <source>The Xray config &quot;%1&quot; needs &quot;%2&quot;, but the installed %3 does not contain it.
 
 Re-downloading from the same source will not fix this — the data file does not include that category. Set the GeoIP/GeoSite asset URL in Settings to a source that provides &quot;%2&quot;, then delete %3 from the app folder and download it again.</source>
-        <translation>"%1" Xray yapılandırması "%2" gerektiriyor, ancak yüklü %3 bunu içermiyor.
+        <translation>&quot;%1&quot; Xray yapılandırması &quot;%2&quot; gerektiriyor, ancak yüklü %3 bunu içermiyor.
 
-Aynı kaynaktan yeniden indirmek bunu düzeltmez — veri dosyası o kategoriyi içermiyor. Ayarlar'da GeoIP/GeoSite veri URL'sini "%2" sağlayan bir kaynağa ayarlayın, ardından %3 dosyasını uygulama klasöründen silip yeniden indirin.</translation>
+Aynı kaynaktan yeniden indirmek bunu düzeltmez — veri dosyası o kategoriyi içermiyor. Ayarlar&apos;da GeoIP/GeoSite veri URL&apos;sini &quot;%2&quot; sağlayan bir kaynağa ayarlayın, ardından %3 dosyasını uygulama klasöründen silip yeniden indirin.</translation>
     </message>
     <message>
         <source>Geo asset files required</source>
@@ -9318,7 +9488,7 @@ Aynı kaynaktan yeniden indirmek bunu düzeltmez — veri dosyası o kategoriyi 
         <source>The Xray config &quot;%1&quot; uses geoip/geosite routing rules, but the required data files (geoip.dat / geosite.dat) are not installed.
 
 Download them now?</source>
-        <translation>"%1" Xray yapılandırması geoip/geosite yönlendirme kuralları kullanıyor, ancak gerekli veri dosyaları (geoip.dat / geosite.dat) yüklü değil.
+        <translation>&quot;%1&quot; Xray yapılandırması geoip/geosite yönlendirme kuralları kullanıyor, ancak gerekli veri dosyaları (geoip.dat / geosite.dat) yüklü değil.
 
 Şimdi indirilsin mi?</translation>
     </message>
@@ -9376,9 +9546,9 @@ Lütfen yeniden deneyin.</translation>
 Disabling Strict Route may cause DNS leaks.
 
 Error: %1</source>
-        <translation>Windows katı yönlendirmeyi etkinleştiremedi. Tun Ayarları'nı açın, Katı Yönlendirme'yi devre dışı bırakın ve profili yeniden başlatın.
+        <translation>Windows katı yönlendirmeyi etkinleştiremedi. Tun Ayarları&apos;nı açın, Katı Yönlendirme&apos;yi devre dışı bırakın ve profili yeniden başlatın.
 
-Katı Yönlendirme'yi devre dışı bırakmak DNS sızıntılarına neden olabilir.
+Katı Yönlendirme&apos;yi devre dışı bırakmak DNS sızıntılarına neden olabilir.
 
 Hata: %1</translation>
     </message>
@@ -9388,7 +9558,7 @@ Hata: %1</translation>
     </message>
     <message>
         <source>If you have trouble starting VPN, you can force reset Core process here and then try starting the profile again. The error is %1</source>
-        <translation>VPN'i başlatırken sorun yaşıyorsanız Çekirdek sürecini burada zorla sıfırlayıp profili yeniden başlatmayı deneyebilirsiniz. Hata: %1</translation>
+        <translation>VPN&apos;i başlatırken sorun yaşıyorsanız Çekirdek sürecini burada zorla sıfırlayıp profili yeniden başlatmayı deneyebilirsiniz. Hata: %1</translation>
     </message>
     <message>
         <source>Reset</source>
@@ -9406,7 +9576,7 @@ Hata: %1</translation>
         <source>Windows was still holding the Tun adapter from an earlier session that did not close cleanly. Starting the profile again usually works; if it keeps failing, restart Windows.
 
 Error: %1</source>
-        <translation>Windows, düzgün kapanmayan önceki bir oturumdan kalan Tun bağdaştırıcısını hâlâ tutuyordu. Profili yeniden başlatmak genellikle işe yarar; sürekli başarısız olursa Windows'u yeniden başlatın.
+        <translation>Windows, düzgün kapanmayan önceki bir oturumdan kalan Tun bağdaştırıcısını hâlâ tutuyordu. Profili yeniden başlatmak genellikle işe yarar; sürekli başarısız olursa Windows&apos;u yeniden başlatın.
 
 Hata: %1</translation>
     </message>
@@ -9428,7 +9598,7 @@ Hata: %1</translation>
     </message>
     <message>
         <source>Please run Throne as admin</source>
-        <translation>Lütfen F-Dpi'yi yönetici olarak çalıştırın</translation>
+        <translation>Lütfen F-Dpi&apos;yi yönetici olarak çalıştırın</translation>
     </message>
     <message>
         <source>Requesting permission</source>
@@ -9466,7 +9636,7 @@ Hata: %1</translation>
     </message>
     <message>
         <source>Out IP</source>
-        <translation>Çıkış IP'si</translation>
+        <translation>Çıkış IP&apos;si</translation>
     </message>
     <message>
         <source>Speed</source>
@@ -9486,7 +9656,7 @@ Hata: %1</translation>
     </message>
     <message>
         <source>IP Out</source>
-        <translation>Çıkış IP'si</translation>
+        <translation>Çıkış IP&apos;si</translation>
     </message>
     <message>
         <source>Total</source>
@@ -9538,11 +9708,11 @@ Hata: %1</translation>
     </message>
     <message>
         <source>Enable AdBlock</source>
-        <translation>AdBlock'u Etkinleştir</translation>
+        <translation>AdBlock&apos;u Etkinleştir</translation>
     </message>
     <message>
         <source>Enable Warp</source>
-        <translation>Warp'ı Etkinleştir</translation>
+        <translation>Warp&apos;ı Etkinleştir</translation>
     </message>
     <message>
         <source> Test result(s) copied to clipboard!</source>
@@ -9658,7 +9828,7 @@ Hata: %1</translation>
     </message>
     <message>
         <source>Select mode, double-click or press Enter to select a profile, press ESC to exit.</source>
-        <translation>Seçim modu; bir profil seçmek için çift tıklayın veya Enter'a basın, çıkmak için ESC'ye basın.</translation>
+        <translation>Seçim modu; bir profil seçmek için çift tıklayın veya Enter&apos;a basın, çıkmak için ESC&apos;ye basın.</translation>
     </message>
     <message>
         <source>Kill switch: not active</source>
@@ -9726,11 +9896,11 @@ Hata: %1</translation>
     </message>
     <message>
         <source>The current routing profile auto-updates from a URL.</source>
-        <translation>Mevcut yönlendirme profili bir URL'den otomatik güncelleniyor.</translation>
+        <translation>Mevcut yönlendirme profili bir URL&apos;den otomatik güncelleniyor.</translation>
     </message>
     <message>
         <source>Removed %1 from the %2 rules of &quot;%3&quot;</source>
-        <translation>%1, "%3" profilinin %2 kurallarından kaldırıldı</translation>
+        <translation>%1, &quot;%3&quot; profilinin %2 kurallarından kaldırıldı</translation>
     </message>
     <message>
         <source>Failed to add routing rule: %1</source>
@@ -9738,11 +9908,11 @@ Hata: %1</translation>
     </message>
     <message>
         <source>Appended %1 to the %2 rules of &quot;%3&quot;</source>
-        <translation>%1, "%3" profilinin %2 kurallarına eklendi</translation>
+        <translation>%1, &quot;%3&quot; profilinin %2 kurallarına eklendi</translation>
     </message>
     <message>
         <source>Moved %1 from the %2 to the %3 rules of &quot;%4&quot;</source>
-        <translation>%1, "%4" profilinin %2 kurallarından %3 kurallarına taşındı</translation>
+        <translation>%1, &quot;%4&quot; profilinin %2 kurallarından %3 kurallarına taşındı</translation>
     </message>
     <message>
         <source>Failed to save routing rule: %1</source>
@@ -9758,7 +9928,7 @@ Hata: %1</translation>
     </message>
     <message>
         <source>Modify rules in &quot;%1&quot;</source>
-        <translation>"%1" içindeki kuralları değiştir</translation>
+        <translation>&quot;%1&quot; içindeki kuralları değiştir</translation>
     </message>
     <message>
         <source>Modify rules</source>
@@ -9786,11 +9956,11 @@ Hata: %1</translation>
     </message>
     <message>
         <source>Routing profile &quot;%1&quot;. Checked targets go %2; unchecking one removes its rule.</source>
-        <translation>"%1" yönlendirme profili. İşaretli hedefler %2 gider; birinin işaretini kaldırmak kuralını kaldırır.</translation>
+        <translation>&quot;%1&quot; yönlendirme profili. İşaretli hedefler %2 gider; birinin işaretini kaldırmak kuralını kaldırır.</translation>
     </message>
     <message>
         <source>Routing profile &quot;%1&quot;. Checked targets go through the chosen server; unchecking one removes its rule.</source>
-        <translation>"%1" yönlendirme profili. İşaretli hedefler seçilen sunucu üzerinden gider; birinin işaretini kaldırmak kuralını kaldırır.</translation>
+        <translation>&quot;%1&quot; yönlendirme profili. İşaretli hedefler seçilen sunucu üzerinden gider; birinin işaretini kaldırmak kuralını kaldırır.</translation>
     </message>
     <message>
         <source>Server (type part of its name to search):</source>
@@ -9868,7 +10038,7 @@ Hata: %1</translation>
     </message>
     <message>
         <source>Close all connections for &quot;%1&quot; (%2)</source>
-        <translation>"%1" için tüm bağlantıları kapat (%2)</translation>
+        <translation>&quot;%1&quot; için tüm bağlantıları kapat (%2)</translation>
     </message>
     <message>
         <source>Clone %1 item(s)</source>
@@ -9924,7 +10094,7 @@ Hata: %1</translation>
     </message>
     <message>
         <source>Replace domain server addresses with their resolved IPs?</source>
-        <translation>Alan adı sunucu adresleri çözümlenen IP'leriyle değiştirilsin mi?</translation>
+        <translation>Alan adı sunucu adresleri çözümlenen IP&apos;leriyle değiştirilsin mi?</translation>
     </message>
     <message>
         <source>Remove %1 Unavailable item(s) ?</source>
@@ -9936,7 +10106,7 @@ Hata: %1</translation>
     </message>
     <message>
         <source>%1: larger than 50 MB, skipped</source>
-        <translation>%1: 50 MB'tan büyük, atlandı</translation>
+        <translation>%1: 50 MB&apos;tan büyük, atlandı</translation>
     </message>
     <message>
         <source>%1: no QR code found</source>
@@ -10002,7 +10172,7 @@ Ad: %1</translation>
     </message>
     <message>
         <source>The link did not contain a subscription URL.</source>
-        <translation>Bağlantı bir abonelik URL'si içermiyordu.</translation>
+        <translation>Bağlantı bir abonelik URL&apos;si içermiyordu.</translation>
     </message>
     <message>
         <source>Add this subscription?
@@ -10112,7 +10282,7 @@ URL: %2</translation>
     <name>ProfilesTableModel</name>
     <message>
         <source>Certificate checks are turned off by the &quot;Skip TLS certificate authentication&quot; setting.</source>
-        <translation>Sertifika denetimleri "TLS sertifika doğrulamasını atla" ayarıyla kapatıldı.</translation>
+        <translation>Sertifika denetimleri &quot;TLS sertifika doğrulamasını atla&quot; ayarıyla kapatıldı.</translation>
     </message>
     <message>
         <source>This config&apos;s traffic is not properly protected.</source>
@@ -10176,11 +10346,11 @@ URL: %2</translation>
 Windows then ignores the adapter binding that keeps Throne&apos;s own connections out of the Tun, so they loop back into it and fail.
 
 To fix this, share the hotspot from the throne-tun adapter instead of &quot;%1&quot; (Settings &gt; Mobile hotspot &gt; Share my internet connection from), or turn the hotspot off while using Tun mode.</source>
-        <translation>"%1" ağ bağdaştırıcısında IPv4 yönlendirme açık; bu genellikle Mobil Etkin Nokta veya İnternet Bağlantısı Paylaşımı onu paylaştığı içindir.
+        <translation>&quot;%1&quot; ağ bağdaştırıcısında IPv4 yönlendirme açık; bu genellikle Mobil Etkin Nokta veya İnternet Bağlantısı Paylaşımı onu paylaştığı içindir.
 
-Windows bu durumda F-Dpi'nin kendi bağlantılarını Tun dışında tutan bağdaştırıcı bağlamasını yok sayar; bu yüzden bağlantılar Tun'a geri döner ve başarısız olur.
+Windows bu durumda F-Dpi&apos;nin kendi bağlantılarını Tun dışında tutan bağdaştırıcı bağlamasını yok sayar; bu yüzden bağlantılar Tun&apos;a geri döner ve başarısız olur.
 
-Bunu düzeltmek için etkin noktayı "%1" yerine throne-tun bağdaştırıcısından paylaşın (Ayarlar &gt; Mobil etkin nokta &gt; İnternet bağlantımı şuradan paylaş) veya Tun modunu kullanırken etkin noktayı kapatın.</translation>
+Bunu düzeltmek için etkin noktayı &quot;%1&quot; yerine throne-tun bağdaştırıcısından paylaşın (Ayarlar &gt; Mobil etkin nokta &gt; İnternet bağlantımı şuradan paylaş) veya Tun modunu kullanırken etkin noktayı kapatın.</translation>
     </message>
     <message>
         <source>Restarting the core ...</source>
@@ -10196,15 +10366,15 @@ Bunu düzeltmek için etkin noktayı "%1" yerine throne-tun bağdaştırıcısı
     </message>
     <message>
         <source>Enter the WebDAV server URL in the WebDAV settings.</source>
-        <translation>WebDAV ayarlarında WebDAV sunucu URL'sini girin.</translation>
+        <translation>WebDAV ayarlarında WebDAV sunucu URL&apos;sini girin.</translation>
     </message>
     <message>
         <source>The WebDAV server URL must start with http:// or https://.</source>
-        <translation>WebDAV sunucu URL'si http:// veya https:// ile başlamalıdır.</translation>
+        <translation>WebDAV sunucu URL&apos;si http:// veya https:// ile başlamalıdır.</translation>
     </message>
     <message>
         <source>The server sent more than %1 MB.</source>
-        <translation>Sunucu %1 MB'tan fazla veri gönderdi.</translation>
+        <translation>Sunucu %1 MB&apos;tan fazla veri gönderdi.</translation>
     </message>
     <message>
         <source>Could not write the downloaded backup: %1</source>
@@ -10220,11 +10390,11 @@ Bunu düzeltmek için etkin noktayı "%1" yerine throne-tun bağdaştırıcısı
     </message>
     <message>
         <source>The server answered with a redirect (HTTP %1); check the server URL.</source>
-        <translation>Sunucu bir yönlendirmeyle yanıt verdi (HTTP %1); sunucu URL'sini kontrol edin.</translation>
+        <translation>Sunucu bir yönlendirmeyle yanıt verdi (HTTP %1); sunucu URL&apos;sini kontrol edin.</translation>
     </message>
     <message>
         <source>The server redirected to %1; check the server URL.</source>
-        <translation>Sunucu %1 adresine yönlendirdi; sunucu URL'sini kontrol edin.</translation>
+        <translation>Sunucu %1 adresine yönlendirdi; sunucu URL&apos;sini kontrol edin.</translation>
     </message>
     <message>
         <source>Wrong username or password.</source>
@@ -10320,7 +10490,7 @@ Bunu düzeltmek için etkin noktayı "%1" yerine throne-tun bağdaştırıcısı
     </message>
     <message>
         <source>Generating a WARP identity registers a new device with Cloudflare.&lt;br&gt;&lt;br&gt;Do you accept the &lt;a href=&quot;%1&quot;&gt;Cloudflare WARP terms of service&lt;/a&gt;?</source>
-        <translation>Bir WARP kimliği oluşturmak Cloudflare'de yeni bir cihaz kaydeder.&lt;br&gt;&lt;br&gt;&lt;a href="%1"&gt;Cloudflare WARP hizmet koşullarını&lt;/a&gt; kabul ediyor musunuz?</translation>
+        <translation>Bir WARP kimliği oluşturmak Cloudflare&apos;de yeni bir cihaz kaydeder.&lt;br&gt;&lt;br&gt;&lt;a href=&quot;%1&quot;&gt;Cloudflare WARP hizmet koşullarını&lt;/a&gt; kabul ediyor musunuz?</translation>
     </message>
     <message>
         <source>Encrypted</source>
@@ -10384,23 +10554,23 @@ Bunu düzeltmek için etkin noktayı "%1" yerine throne-tun bağdaştırıcısı
     </message>
     <message>
         <source>Skipped the Tun private range &quot;%1&quot;: it is not a valid IP address or CIDR.</source>
-        <translation>"%1" Tun özel aralığı atlandı: geçerli bir IP adresi veya CIDR değil.</translation>
+        <translation>&quot;%1&quot; Tun özel aralığı atlandı: geçerli bir IP adresi veya CIDR değil.</translation>
     </message>
     <message>
         <source>DNS address &quot;%1&quot; is invalid: %2</source>
-        <translation>"%1" DNS adresi geçersiz: %2</translation>
+        <translation>&quot;%1&quot; DNS adresi geçersiz: %2</translation>
     </message>
     <message>
         <source>Chain &quot;%1&quot; has a hop (profile id %2) that no longer exists, edit the chain to remove it</source>
-        <translation>"%1" zincirinde artık mevcut olmayan bir atlama (profil kimliği %2) var, kaldırmak için zinciri düzenleyin</translation>
+        <translation>&quot;%1&quot; zincirinde artık mevcut olmayan bir atlama (profil kimliği %2) var, kaldırmak için zinciri düzenleyin</translation>
     </message>
     <message>
         <source>Group &quot;%1&quot; has a front proxy that has been deleted.</source>
-        <translation>"%1" grubunun silinmiş bir ön proxy'si var.</translation>
+        <translation>&quot;%1&quot; grubunun silinmiş bir ön proxy&apos;si var.</translation>
     </message>
     <message>
         <source>Group &quot;%1&quot; has a landing proxy that has been deleted.</source>
-        <translation>"%1" grubunun silinmiş bir çıkış proxy'si var.</translation>
+        <translation>&quot;%1&quot; grubunun silinmiş bir çıkış proxy&apos;si var.</translation>
     </message>
     <message>
         <source>A proxy in the chain can no longer be found.</source>
@@ -10444,11 +10614,11 @@ Bunu düzeltmek için etkin noktayı "%1" yerine throne-tun bağdaştırıcısı
     </message>
     <message>
         <source>IP list &quot;%1&quot;</source>
-        <translation>"%1" IP listesi</translation>
+        <translation>&quot;%1&quot; IP listesi</translation>
     </message>
     <message>
         <source>The IP list &quot;%1&quot; is empty</source>
-        <translation>"%1" IP listesi boş</translation>
+        <translation>&quot;%1&quot; IP listesi boş</translation>
     </message>
     <message>
         <source>%1 profiles have no single server address to replace</source>
@@ -10499,6 +10669,10 @@ Bunu düzeltmek için etkin noktayı "%1" yerine throne-tun bağdaştırıcısı
         <translation>ek çekirdek profili</translation>
     </message>
     <message>
+        <source>DPI Bypass profile</source>
+        <translation>DPI Bypass profili</translation>
+    </message>
+    <message>
         <source>full config profile</source>
         <translation>tam yapılandırma profili</translation>
     </message>
@@ -10528,7 +10702,7 @@ Bunu düzeltmek için etkin noktayı "%1" yerine throne-tun bağdaştırıcısı
     </message>
     <message>
         <source>Xray full config cannot be combined with the group&apos;s proxies</source>
-        <translation>Xray tam yapılandırması grubun proxy'leriyle birleştirilemez</translation>
+        <translation>Xray tam yapılandırması grubun proxy&apos;leriyle birleştirilemez</translation>
     </message>
     <message>
         <source>never</source>
@@ -10950,7 +11124,7 @@ Bunu düzeltmek için etkin noktayı "%1" yerine throne-tun bağdaştırıcısı
     </message>
     <message>
         <source>&quot;%1&quot; is not in the expected format</source>
-        <translation>"%1" beklenen biçimde değil</translation>
+        <translation>&quot;%1&quot; beklenen biçimde değil</translation>
     </message>
     <message>
         <source>Value must be at least %1</source>
@@ -10962,11 +11136,11 @@ Bunu düzeltmek için etkin noktayı "%1" yerine throne-tun bağdaştırıcısı
     </message>
     <message>
         <source>Unknown field &quot;%1&quot;</source>
-        <translation>Bilinmeyen alan "%1"</translation>
+        <translation>Bilinmeyen alan &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Missing required field &quot;%1&quot;</source>
-        <translation>Gerekli alan eksik "%1"</translation>
+        <translation>Gerekli alan eksik &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Unknown %1 %2 (expected: %3)</source>
@@ -11232,7 +11406,7 @@ Nasıl güncellensin?</translation>
     </message>
     <message>
         <source>Raised %1 %2 to 2s, the shortest interval the endpoint uses.</source>
-        <translation>%1 %2 değeri, uç noktanın kullandığı en kısa aralık olan 2 sn'ye yükseltildi.</translation>
+        <translation>%1 %2 değeri, uç noktanın kullandığı en kısa aralık olan 2 sn&apos;ye yükseltildi.</translation>
     </message>
     <message>
         <source>Unknown reported OS, ignored: %1</source>
@@ -11248,7 +11422,7 @@ Nasıl güncellensin?</translation>
     </message>
     <message>
         <source>Configure a proxy through Throne&apos;s chain instead, ignored: %1</source>
-        <translation>Bunun yerine F-Dpi'nin zinciri üzerinden bir proxy yapılandırın, yok sayıldı: %1</translation>
+        <translation>Bunun yerine F-Dpi&apos;nin zinciri üzerinden bir proxy yapılandırın, yok sayıldı: %1</translation>
     </message>
     <message>
         <source>Unknown OpenConnect option, ignored: %1</source>
@@ -11276,7 +11450,7 @@ Nasıl güncellensin?</translation>
     </message>
     <message>
         <source>Skipped &quot;%1&quot;: IKEv2/IPsec is not spoken by the OpenConnect endpoint.</source>
-        <translation>"%1" atlandı: OpenConnect uç noktası IKEv2/IPsec konuşmaz.</translation>
+        <translation>&quot;%1&quot; atlandı: OpenConnect uç noktası IKEv2/IPsec konuşmaz.</translation>
     </message>
     <message>
         <source>Skipped an unreadable host address: %1</source>
@@ -11352,7 +11526,7 @@ Nasıl güncellensin?</translation>
     </message>
     <message>
         <source>The URL of %1 changed during the update, so the result was discarded.</source>
-        <translation>%1 URL'si güncelleme sırasında değişti, bu yüzden sonuç atıldı.</translation>
+        <translation>%1 URL&apos;si güncelleme sırasında değişti, bu yüzden sonuç atıldı.</translation>
     </message>
     <message>
         <source>The server returned a web page instead of a subscription. If it is a CAPTCHA or a bot check, try another TLS version, HTTP version or User Agent in the group&apos;s Advanced settings.</source>
@@ -11470,7 +11644,7 @@ Deleted %5 Profiles:
     </message>
     <message>
         <source>Response larger than %1 MB</source>
-        <translation>Yanıt %1 MB'tan büyük</translation>
+        <translation>Yanıt %1 MB&apos;tan büyük</translation>
     </message>
     <message>
         <source>Download stalled: no data arrived for %1 seconds.</source>
@@ -11649,7 +11823,7 @@ gidenler ve diğer F-Dpi özellikleri bozulabilir. Yalnızca ileri düzey kullan
     </message>
     <message>
         <source>Format JSON</source>
-        <translation>JSON'u Biçimlendir</translation>
+        <translation>JSON&apos;u Biçimlendir</translation>
     </message>
     <message>
         <source>Raw route</source>
@@ -11829,7 +12003,7 @@ gidenler ve diğer F-Dpi özellikleri bozulabilir. Yalnızca ileri düzey kullan
     </message>
     <message>
         <source>Disable IPv6</source>
-        <translation>IPv6'yı Devre Dışı Bırak</translation>
+        <translation>IPv6&apos;yı Devre Dışı Bırak</translation>
     </message>
     <message>
         <source>Answer AAAA queries sent to this server with an empty result.</source>
@@ -11853,11 +12027,11 @@ gidenler ve diğer F-Dpi özellikleri bozulabilir. Yalnızca ileri düzey kullan
     </message>
     <message>
         <source>Enable FakeIP</source>
-        <translation>FakeIP'yi Etkinleştir</translation>
+        <translation>FakeIP&apos;yi Etkinleştir</translation>
     </message>
     <message>
         <source>FakeIP Disable IPv6</source>
-        <translation>FakeIP IPv6'yı Devre Dışı Bırak</translation>
+        <translation>FakeIP IPv6&apos;yı Devre Dışı Bırak</translation>
     </message>
     <message>
         <source>Hand out no fake IPv6 addresses; AAAA queries are answered empty.</source>
@@ -11901,7 +12075,7 @@ gidenler ve diğer F-Dpi özellikleri bozulabilir. Yalnızca ileri düzey kullan
     <message>
         <source>Re-fetch this profile from the URL when subscriptions auto-update.
 Your local edits are overwritten on each update.</source>
-        <translation>Abonelikler otomatik güncellendiğinde bu profili URL'den yeniden al.
+        <translation>Abonelikler otomatik güncellendiğinde bu profili URL&apos;den yeniden al.
 Yerel düzenlemeleriniz her güncellemede üzerine yazılır.</translation>
     </message>
     <message>
@@ -11910,7 +12084,7 @@ Yerel düzenlemeleriniz her güncellemede üzerine yazılır.</translation>
     </message>
     <message>
         <source>Fetch the URL and show the routing profile without changing the current rules.</source>
-        <translation>URL'yi al ve mevcut kuralları değiştirmeden yönlendirme profilini göster.</translation>
+        <translation>URL&apos;yi al ve mevcut kuralları değiştirmeden yönlendirme profilini göster.</translation>
     </message>
     <message>
         <source>Preview</source>
@@ -11918,7 +12092,7 @@ Yerel düzenlemeleriniz her güncellemede üzerine yazılır.</translation>
     </message>
     <message>
         <source>Fetch the URL and replace the current rules with the fetched ones.</source>
-        <translation>URL'yi al ve mevcut kuralları alınanlarla değiştir.</translation>
+        <translation>URL&apos;yi al ve mevcut kuralları alınanlarla değiştir.</translation>
     </message>
     <message>
         <source>Fetch</source>
@@ -12028,7 +12202,7 @@ Yerel düzenlemeleriniz her güncellemede üzerine yazılır.</translation>
     </message>
     <message>
         <source>Enter a valid http(s) URL first.</source>
-        <translation>Önce geçerli bir http(s) URL'si girin.</translation>
+        <translation>Önce geçerli bir http(s) URL&apos;si girin.</translation>
     </message>
     <message>
         <source>Fetch from remote</source>
@@ -12036,7 +12210,7 @@ Yerel düzenlemeleriniz her güncellemede üzerine yazılır.</translation>
     </message>
     <message>
         <source>This will replace the current rules with the ones fetched from the URL. Continue?</source>
-        <translation>Bu, mevcut kuralları URL'den alınanlarla değiştirecek. Devam edilsin mi?</translation>
+        <translation>Bu, mevcut kuralları URL&apos;den alınanlarla değiştirecek. Devam edilsin mi?</translation>
     </message>
     <message>
         <source>Fetching...</source>
@@ -12048,7 +12222,7 @@ Yerel düzenlemeleriniz her güncellemede üzerine yazılır.</translation>
     </message>
     <message>
         <source>Loaded %1 rule(s) from the remote URL.</source>
-        <translation>Uzak URL'den %1 kural yüklendi.</translation>
+        <translation>Uzak URL&apos;den %1 kural yüklendi.</translation>
     </message>
     <message>
         <source>Fetched</source>
@@ -12114,7 +12288,7 @@ Yerel düzenlemeleriniz her güncellemede üzerine yazılır.</translation>
     </message>
     <message>
         <source>Rule &quot;%1&quot; › %2</source>
-        <translation>"%1" kuralı › %2</translation>
+        <translation>&quot;%1&quot; kuralı › %2</translation>
     </message>
     <message>
         <source>Check attributes to show as tabs; unchecking clears their values.</source>
@@ -12122,7 +12296,7 @@ Yerel düzenlemeleriniz her güncellemede üzerine yazılır.</translation>
     </message>
     <message>
         <source>This rule installs a &apos;preferred by&apos; rule so that the networks advertised by the endpoint %1 get routed into the endpoint tunnel.</source>
-        <translation>Bu kural, %1 uç noktasının duyurduğu ağların uç nokta tüneline yönlendirilmesi için bir 'tercih eden' kuralı kurar.</translation>
+        <translation>Bu kural, %1 uç noktasının duyurduğu ağların uç nokta tüneline yönlendirilmesi için bir &apos;tercih eden&apos; kuralı kurar.</translation>
     </message>
     <message>
         <source>Endpoint rule</source>
@@ -12132,7 +12306,7 @@ Yerel düzenlemeleriniz her güncellemede üzerine yazılır.</translation>
         <source>This rule belongs to &quot;%1&quot;, an inner hop of the endpoint &quot;%2&quot;.
 
 Stop routing to that endpoint&apos;s inner hops?</source>
-        <translation>Bu kural, "%2" uç noktasının iç atlaması olan "%1" profiline ait.
+        <translation>Bu kural, &quot;%2&quot; uç noktasının iç atlaması olan &quot;%1&quot; profiline ait.
 
 O uç noktanın iç atlamalarına yönlendirme durdurulsun mu?</translation>
     </message>
@@ -12140,7 +12314,7 @@ O uç noktanın iç atlamalarına yönlendirme durdurulsun mu?</translation>
         <source>This rule belongs to the endpoint &quot;%1&quot; and cannot be deleted on its own.
 
 Remove that endpoint from this routing profile as well?</source>
-        <translation>Bu kural "%1" uç noktasına ait ve tek başına silinemez.
+        <translation>Bu kural &quot;%1&quot; uç noktasına ait ve tek başına silinemez.
 
 O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
@@ -12169,7 +12343,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Out IP</source>
-        <translation>Çıkış IP'si</translation>
+        <translation>Çıkış IP&apos;si</translation>
     </message>
     <message>
         <source>Ping</source>
@@ -12415,7 +12589,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>The source must be an http(s) URL</source>
-        <translation>Kaynak bir http(s) URL'si olmalıdır</translation>
+        <translation>Kaynak bir http(s) URL&apos;si olmalıdır</translation>
     </message>
     <message>
         <source>The core is not running</source>
@@ -12458,11 +12632,11 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>A TLS handshake check needs TLS turned on</source>
-        <translation>TLS el sıkışma denetimi TLS'nin açık olmasını gerektirir</translation>
+        <translation>TLS el sıkışma denetimi TLS&apos;nin açık olmasını gerektirir</translation>
     </message>
     <message>
         <source>HTTP/3 needs TLS turned on</source>
-        <translation>HTTP/3, TLS'nin açık olmasını gerektirir</translation>
+        <translation>HTTP/3, TLS&apos;nin açık olmasını gerektirir</translation>
     </message>
     <message>
         <source>The profile for the config test cannot be used</source>
@@ -12506,7 +12680,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>%1 replied to ping (%2 ms)</source>
-        <translation>%1 ping'e yanıt verdi (%2 ms)</translation>
+        <translation>%1 ping&apos;e yanıt verdi (%2 ms)</translation>
     </message>
     <message>
         <source>TLS handshake with %1 succeeded (%2 ms)</source>
@@ -12600,7 +12774,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>IPv6 is unreachable from this network; scan paused (turn off IPv6 scanning to go on)</source>
-        <translation>Bu ağdan IPv6'ya ulaşılamıyor; tarama duraklatıldı (devam etmek için IPv6 taramayı kapatın)</translation>
+        <translation>Bu ağdan IPv6&apos;ya ulaşılamıyor; tarama duraklatıldı (devam etmek için IPv6 taramayı kapatın)</translation>
     </message>
     <message>
         <source>Network appears to be down; scan paused</source>
@@ -12612,11 +12786,11 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>IPv4 is unreachable from this network; IPv4 results were kept</source>
-        <translation>Bu ağdan IPv4'e ulaşılamıyor; IPv4 sonuçları korundu</translation>
+        <translation>Bu ağdan IPv4&apos;e ulaşılamıyor; IPv4 sonuçları korundu</translation>
     </message>
     <message>
         <source>IPv6 is unreachable from this network; IPv6 results were kept</source>
-        <translation>Bu ağdan IPv6'ya ulaşılamıyor; IPv6 sonuçları korundu</translation>
+        <translation>Bu ağdan IPv6&apos;ya ulaşılamıyor; IPv6 sonuçları korundu</translation>
     </message>
     <message>
         <source>The core ended the scan session early</source>
@@ -12711,7 +12885,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Kill switch: on — traffic only flows through Throne&apos;s Tun</source>
-        <translation>Kill switch: açık — trafik yalnızca F-Dpi'nin Tun'u üzerinden akar</translation>
+        <translation>Kill switch: açık — trafik yalnızca F-Dpi&apos;nin Tun&apos;u üzerinden akar</translation>
     </message>
     <message>
         <source>Kill switch is blocking traffic</source>
@@ -12778,7 +12952,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Global interval from Settings</source>
-        <translation>Ayarlar'daki genel aralık</translation>
+        <translation>Ayarlar&apos;daki genel aralık</translation>
     </message>
     <message numerus="yes">
         <source>Server suggests every %n hour(s)</source>
@@ -12846,7 +13020,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     <name>Sys::KillSwitch</name>
     <message>
         <source>The kill switch needs Throne to run as administrator.</source>
-        <translation>Kill switch, F-Dpi'nin yönetici olarak çalışmasını gerektirir.</translation>
+        <translation>Kill switch, F-Dpi&apos;nin yönetici olarak çalışmasını gerektirir.</translation>
     </message>
     <message>
         <source>The kill switch needs the core to have root privileges.</source>
@@ -13029,7 +13203,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>A domain has no port or &apos;:&apos; in it, so this never matches; match ports and IP addresses with conditions of their own.</source>
-        <translation>Bir alan adında port veya ':' olmaz, bu yüzden bu hiçbir zaman eşleşmez; portları ve IP adreslerini kendi koşullarıyla eşleştirin.</translation>
+        <translation>Bir alan adında port veya &apos;:&apos; olmaz, bu yüzden bu hiçbir zaman eşleşmez; portları ve IP adreslerini kendi koşullarıyla eşleştirin.</translation>
     </message>
     <message>
         <source>The core compares lowercase host names, so this never matches; write it in lowercase.</source>
@@ -13037,11 +13211,11 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Write an IPv6 address as 2001:db8::1 or [2001:db8::1]; a port goes in override_port.</source>
-        <translation>Bir IPv6 adresini 2001:db8::1 veya [2001:db8::1] olarak yazın; port override_port'a yazılır.</translation>
+        <translation>Bir IPv6 adresini 2001:db8::1 veya [2001:db8::1] olarak yazın; port override_port&apos;a yazılır.</translation>
     </message>
     <message>
         <source>Put the port in override_port and only the address here, such as 1.2.3.4 or example.com.</source>
-        <translation>Portu override_port'a, buraya yalnızca 1.2.3.4 veya example.com gibi adresi yazın.</translation>
+        <translation>Portu override_port&apos;a, buraya yalnızca 1.2.3.4 veya example.com gibi adresi yazın.</translation>
     </message>
     <message>
         <source>An IP address sends no server name; use a host name such as www.example.com.</source>
@@ -13061,15 +13235,15 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Routing rules cannot use &quot;%1&quot;: extra core profiles and full configs are not supported. Pick another outbound.</source>
-        <translation>Yönlendirme kuralları "%1" kullanamaz: ek çekirdek profilleri ve tam yapılandırmalar desteklenmez. Başka bir giden seçin.</translation>
+        <translation>Yönlendirme kuralları &quot;%1&quot; kullanamaz: ek çekirdek profilleri ve tam yapılandırmalar desteklenmez. Başka bir giden seçin.</translation>
     </message>
     <message>
         <source>The chain &quot;%1&quot; has no hops; pick another outbound.</source>
-        <translation>"%1" zincirinde atlama yok; başka bir giden seçin.</translation>
+        <translation>&quot;%1&quot; zincirinde atlama yok; başka bir giden seçin.</translation>
     </message>
     <message>
         <source>Routing rules cannot use the chain &quot;%1&quot;: a hop of it is missing, another chain, an extra core profile or a full config. Pick another outbound.</source>
-        <translation>Yönlendirme kuralları "%1" zincirini kullanamaz: bir atlaması eksik, başka bir zincir, bir ek çekirdek profili veya bir tam yapılandırma. Başka bir giden seçin.</translation>
+        <translation>Yönlendirme kuralları &quot;%1&quot; zincirini kullanamaz: bir atlaması eksik, başka bir zincir, bir ek çekirdek profili veya bir tam yapılandırma. Başka bir giden seçin.</translation>
     </message>
     <message>
         <source>A range goes in port_range, written like 1000:2000.</source>
@@ -13089,11 +13263,11 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Unknown rule-set. Use a built-in name such as geosite-google, or an http(s) URL of a binary .srs file.</source>
-        <translation>Bilinmeyen kural seti. geosite-google gibi yerleşik bir ad veya ikili bir .srs dosyasının http(s) URL'sini kullanın.</translation>
+        <translation>Bilinmeyen kural seti. geosite-google gibi yerleşik bir ad veya ikili bir .srs dosyasının http(s) URL&apos;sini kullanın.</translation>
     </message>
     <message>
         <source>A route-options rule cannot turn on both tls_fragment and tls_record_fragment; keep one, or use a route rule, which accepts both.</source>
-        <translation>Bir route-options kuralı hem tls_fragment hem de tls_record_fragment'ı açamaz; birini tutun ya da ikisini de kabul eden bir route kuralı kullanın.</translation>
+        <translation>Bir route-options kuralı hem tls_fragment hem de tls_record_fragment&apos;ı açamaz; birini tutun ya da ikisini de kabul eden bir route kuralı kullanın.</translation>
     </message>
     <message>
         <source>A route-options rule must set at least one option: override_address, override_port, tls_fragment, tls_record_fragment or tls_spoof.</source>
@@ -13121,15 +13295,15 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>The download leg must use XHTTP too: write &quot;network&quot;: &quot;xhttp&quot;.</source>
-        <translation>İndirme ayağı da XHTTP kullanmalıdır: "network": "xhttp" yazın.</translation>
+        <translation>İndirme ayağı da XHTTP kullanmalıdır: &quot;network&quot;: &quot;xhttp&quot; yazın.</translation>
     </message>
     <message>
         <source>Add the download server&apos;s address, for example &quot;address&quot;: &quot;dl.example.com&quot;.</source>
-        <translation>İndirme sunucusunun adresini ekleyin, örneğin "address": "dl.example.com".</translation>
+        <translation>İndirme sunucusunun adresini ekleyin, örneğin &quot;address&quot;: &quot;dl.example.com&quot;.</translation>
     </message>
     <message>
         <source>Must be a port number from 1 to 65535, written without quotes, for example &quot;port&quot;: 443.</source>
-        <translation>1 ile 65535 arasında, tırnaksız yazılmış bir port numarası olmalıdır, örneğin "port": 443.</translation>
+        <translation>1 ile 65535 arasında, tırnaksız yazılmış bir port numarası olmalıdır, örneğin &quot;port&quot;: 443.</translation>
     </message>
     <message>
         <source>The headers must alternate names and values separated by |, for example User-Agent|curl, so they were ignored.</source>
@@ -13149,15 +13323,15 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>XDRIVE has no share-link format. Import the server&apos;s JSON configuration instead.</source>
-        <translation>XDRIVE'ın paylaşım bağlantısı biçimi yok. Bunun yerine sunucunun JSON yapılandırmasını içe aktarın.</translation>
+        <translation>XDRIVE&apos;ın paylaşım bağlantısı biçimi yok. Bunun yerine sunucunun JSON yapılandırmasını içe aktarın.</translation>
     </message>
     <message>
         <source>Throne does not support the Xray transport &quot;%1&quot;. Use raw, xhttp, ws, httpupgrade, grpc or xdrive.</source>
-        <translation>F-Dpi "%1" Xray aktarımını desteklemiyor. raw, xhttp, ws, httpupgrade, grpc veya xdrive kullanın.</translation>
+        <translation>F-Dpi &quot;%1&quot; Xray aktarımını desteklemiyor. raw, xhttp, ws, httpupgrade, grpc veya xdrive kullanın.</translation>
     </message>
     <message>
         <source>Xray does not support the security &quot;%1&quot;. Use none, tls or reality.</source>
-        <translation>Xray "%1" güvenliğini desteklemiyor. none, tls veya reality kullanın.</translation>
+        <translation>Xray &quot;%1&quot; güvenliğini desteklemiyor. none, tls veya reality kullanın.</translation>
     </message>
     <message>
         <source>REALITY works only with the raw, xhttp or grpc transport.</source>
@@ -13169,11 +13343,11 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Xray does not know the fingerprint &quot;%1&quot;. Use chrome, firefox, safari, ios, android, edge, 360, qq, random, randomized or unsafe.</source>
-        <translation>Xray "%1" parmak izini tanımıyor. chrome, firefox, safari, ios, android, edge, 360, qq, random, randomized veya unsafe kullanın.</translation>
+        <translation>Xray &quot;%1&quot; parmak izini tanımıyor. chrome, firefox, safari, ios, android, edge, 360, qq, random, randomized veya unsafe kullanın.</translation>
     </message>
     <message>
         <source>Xray ignores the unknown cipher suite &quot;%1&quot;.</source>
-        <translation>Xray bilinmeyen "%1" şifre takımını yok sayar.</translation>
+        <translation>Xray bilinmeyen &quot;%1&quot; şifre takımını yok sayar.</translation>
     </message>
     <message>
         <source>Cipher suites only take effect with the unsafe fingerprint.</source>
@@ -13189,7 +13363,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Fetching ECH over DNS needs a domain SNI; otherwise write it as domain+https://dns/dns-query.</source>
-        <translation>ECH'yi DNS üzerinden almak bir alan adı SNI'si gerektirir; aksi hâlde domain+https://dns/dns-query olarak yazın.</translation>
+        <translation>ECH&apos;yi DNS üzerinden almak bir alan adı SNI&apos;si gerektirir; aksi hâlde domain+https://dns/dns-query olarak yazın.</translation>
     </message>
     <message>
         <source>Must start with /, for example /search?q=1.</source>
@@ -13201,7 +13375,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Both bounds must be greater than 0, for example 100-1000.</source>
-        <translation>Her iki sınır da 0'dan büyük olmalıdır, örneğin 100-1000.</translation>
+        <translation>Her iki sınır da 0&apos;dan büyük olmalıdır, örneğin 100-1000.</translation>
     </message>
     <message>
         <source>Cookie and header placement need the packet-up mode.</source>
@@ -13213,7 +13387,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Set a session ID length that starts above 0, for example 8-16.</source>
-        <translation>0'ın üzerinde başlayan bir oturum kimliği uzunluğu ayarlayın, örneğin 8-16.</translation>
+        <translation>0&apos;ın üzerinde başlayan bir oturum kimliği uzunluğu ayarlayın, örneğin 8-16.</translation>
     </message>
     <message>
         <source>The table and length allow too few session IDs; use a longer length (for example 8-16) or a larger table.</source>
@@ -13225,7 +13399,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Set either Max Connections or Max Concurrency, not both.</source>
-        <translation>En Fazla Bağlantı veya En Fazla Eşzamanlılık'tan yalnızca birini ayarlayın, ikisini birden değil.</translation>
+        <translation>En Fazla Bağlantı veya En Fazla Eşzamanlılık&apos;tan yalnızca birini ayarlayın, ikisini birden değil.</translation>
     </message>
     <message>
         <source>Must be google-drive, template or local.</source>
@@ -13245,7 +13419,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>The template service needs a template describing the storage API.</source>
-        <translation>template hizmeti depolama API'sini tanımlayan bir şablon gerektirir.</translation>
+        <translation>template hizmeti depolama API&apos;sini tanımlayan bir şablon gerektirir.</translation>
     </message>
     <message>
         <source>The front port is used only together with a front address.</source>
@@ -13261,7 +13435,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>The part after mlkem768x25519plus must be native, xorpub or random.</source>
-        <translation>mlkem768x25519plus'tan sonraki kısım native, xorpub veya random olmalıdır.</translation>
+        <translation>mlkem768x25519plus&apos;tan sonraki kısım native, xorpub veya random olmalıdır.</translation>
     </message>
     <message>
         <source>The part after the mode must be 1rtt or 0rtt.</source>
@@ -13289,15 +13463,15 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Remote DNS &quot;%1&quot;: %2</source>
-        <translation>Uzak DNS "%1": %2</translation>
+        <translation>Uzak DNS &quot;%1&quot;: %2</translation>
     </message>
     <message>
         <source>Direct DNS &quot;%1&quot;: %2</source>
-        <translation>Doğrudan DNS "%1": %2</translation>
+        <translation>Doğrudan DNS &quot;%1&quot;: %2</translation>
     </message>
     <message>
         <source>The default DNS server must be remote or direct, not &quot;%1&quot;.</source>
-        <translation>Varsayılan DNS sunucusu "%1" değil, remote veya direct olmalıdır.</translation>
+        <translation>Varsayılan DNS sunucusu &quot;%1&quot; değil, remote veya direct olmalıdır.</translation>
     </message>
     <message>
         <source>The profile&apos;s own DNS settings were dropped, so it uses the global ones: %1</source>
@@ -13309,43 +13483,43 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>%1 (&quot;%2&quot;): %3</source>
-        <translation>%1 ("%2"): %3</translation>
+        <translation>%1 (&quot;%2&quot;): %3</translation>
     </message>
     <message>
         <source>Rule &quot;%1&quot;: %2</source>
-        <translation>"%1" kuralı: %2</translation>
+        <translation>&quot;%1&quot; kuralı: %2</translation>
     </message>
     <message>
         <source>Rule &quot;%1&quot; was dropped: %2</source>
-        <translation>"%1" kuralı bırakıldı: %2</translation>
+        <translation>&quot;%1&quot; kuralı bırakıldı: %2</translation>
     </message>
     <message>
         <source>Rule &quot;%1&quot;: removed the item %2</source>
-        <translation>"%1" kuralı: %2 öğesi kaldırıldı</translation>
+        <translation>&quot;%1&quot; kuralı: %2 öğesi kaldırıldı</translation>
     </message>
     <message>
         <source>Rule &quot;%1&quot; now uses the proxy outbound: %2</source>
-        <translation>"%1" kuralı artık proxy gidenini kullanıyor: %2</translation>
+        <translation>&quot;%1&quot; kuralı artık proxy gidenini kullanıyor: %2</translation>
     </message>
     <message>
         <source>Rule &quot;%1&quot;: %2 was cleared: %3</source>
-        <translation>"%1" kuralı: %2 temizlendi: %3</translation>
+        <translation>&quot;%1&quot; kuralı: %2 temizlendi: %3</translation>
     </message>
     <message>
         <source>Rule &quot;%1&quot;: the outbound is neither a profile name nor an id, so it uses proxy.</source>
-        <translation>"%1" kuralı: giden ne bir profil adı ne de bir kimlik, bu yüzden proxy kullanılıyor.</translation>
+        <translation>&quot;%1&quot; kuralı: giden ne bir profil adı ne de bir kimlik, bu yüzden proxy kullanılıyor.</translation>
     </message>
     <message>
         <source>Rule &quot;%1&quot; was dropped: %2 holds something other than text, numbers or booleans.</source>
-        <translation>"%1" kuralı bırakıldı: %2 metin, sayı veya mantıksal değer dışında bir şey içeriyor.</translation>
+        <translation>&quot;%1&quot; kuralı bırakıldı: %2 metin, sayı veya mantıksal değer dışında bir şey içeriyor.</translation>
     </message>
     <message>
         <source>Rule &quot;%1&quot;: %2 holds something other than text, numbers or booleans, so it was ignored.</source>
-        <translation>"%1" kuralı: %2 metin, sayı veya mantıksal değer dışında bir şey içeriyor, bu yüzden yok sayıldı.</translation>
+        <translation>&quot;%1&quot; kuralı: %2 metin, sayı veya mantıksal değer dışında bir şey içeriyor, bu yüzden yok sayıldı.</translation>
     </message>
     <message>
         <source>Rule &quot;%1&quot;: %2 takes one value, so only &quot;%3&quot; was kept.</source>
-        <translation>"%1" kuralı: %2 tek bir değer alır, bu yüzden yalnızca "%3" tutuldu.</translation>
+        <translation>&quot;%1&quot; kuralı: %2 tek bir değer alır, bu yüzden yalnızca &quot;%3&quot; tutuldu.</translation>
     </message>
     <message>
         <source>Could not be parsed.</source>
@@ -13365,7 +13539,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>The default outbound &quot;%1&quot; is unknown, so proxy is used.</source>
-        <translation>"%1" varsayılan gideni bilinmiyor, bu yüzden proxy kullanılıyor.</translation>
+        <translation>&quot;%1&quot; varsayılan gideni bilinmiyor, bu yüzden proxy kullanılıyor.</translation>
     </message>
     <message>
         <source>Rule #%1 is not a JSON object and was skipped.</source>
@@ -13373,7 +13547,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Line %1 of the %2 rules (&quot;%3&quot;): %4</source>
-        <translation>%2 kurallarının %1. satırı ("%3"): %4</translation>
+        <translation>%2 kurallarının %1. satırı (&quot;%3&quot;): %4</translation>
     </message>
     <message>
         <source>Start the line with domain:, suffix:, keyword:, regex:, ruleset:, ip:, processName: or processPath:.</source>
@@ -13381,7 +13555,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Add a value after &quot;%1:&quot;.</source>
-        <translation>"%1:" ifadesinden sonra bir değer ekleyin.</translation>
+        <translation>&quot;%1:&quot; ifadesinden sonra bir değer ekleyin.</translation>
     </message>
     <message>
         <source>Start the line with domain:, suffix:, keyword:, regex:, ruleset: or ip:.</source>
@@ -13401,11 +13575,11 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>&quot;%1&quot; is not a valid interface name.</source>
-        <translation>"%1" geçerli bir arayüz adı değil.</translation>
+        <translation>&quot;%1&quot; geçerli bir arayüz adı değil.</translation>
     </message>
     <message>
         <source>&quot;%1&quot; is not a supported DNS scheme; use udp, tcp, tls, quic, https, h3, dhcp or local.</source>
-        <translation>"%1" desteklenen bir DNS şeması değil; udp, tcp, tls, quic, https, h3, dhcp veya local kullanın.</translation>
+        <translation>&quot;%1&quot; desteklenen bir DNS şeması değil; udp, tcp, tls, quic, https, h3, dhcp veya local kullanın.</translation>
     </message>
     <message>
         <source>Only https:// and h3:// DNS addresses take a path.</source>
@@ -13421,11 +13595,11 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>&quot;%1&quot; is not a valid IPv6 address.</source>
-        <translation>"%1" geçerli bir IPv6 adresi değil.</translation>
+        <translation>&quot;%1&quot; geçerli bir IPv6 adresi değil.</translation>
     </message>
     <message>
         <source>&quot;%1&quot; is not a valid IPv6 address; put it in brackets to add a port.</source>
-        <translation>"%1" geçerli bir IPv6 adresi değil; port eklemek için köşeli parantez içine alın.</translation>
+        <translation>&quot;%1&quot; geçerli bir IPv6 adresi değil; port eklemek için köşeli parantez içine alın.</translation>
     </message>
     <message>
         <source>The DNS server address is missing.</source>
@@ -13433,11 +13607,11 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>&quot;%1&quot; is not a valid IPv4 address.</source>
-        <translation>"%1" geçerli bir IPv4 adresi değil.</translation>
+        <translation>&quot;%1&quot; geçerli bir IPv4 adresi değil.</translation>
     </message>
     <message>
         <source>&quot;%1&quot; is not a valid IP address or host name.</source>
-        <translation>"%1" geçerli bir IP adresi veya ana makine adı değil.</translation>
+        <translation>&quot;%1&quot; geçerli bir IP adresi veya ana makine adı değil.</translation>
     </message>
     <message>
         <source>The port is missing after the colon.</source>
@@ -13445,7 +13619,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>&quot;%1&quot; is not a valid port; use a number from 1 to 65535.</source>
-        <translation>"%1" geçerli bir port değil; 1 ile 65535 arasında bir sayı kullanın.</translation>
+        <translation>&quot;%1&quot; geçerli bir port değil; 1 ile 65535 arasında bir sayı kullanın.</translation>
     </message>
     <message>
         <source>%1 The value was ignored.</source>
@@ -13461,11 +13635,11 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Must not contain &quot;|&quot;, which separates headers in share links.</source>
-        <translation>Paylaşım bağlantılarında başlıkları ayıran "|" karakterini içermemelidir.</translation>
+        <translation>Paylaşım bağlantılarında başlıkları ayıran &quot;|&quot; karakterini içermemelidir.</translation>
     </message>
     <message>
         <source>Write Name=value pairs separated by spaces, quoting values that contain spaces, for example User-Agent=&quot;Mozilla/5.0&quot; X-Token=abc.</source>
-        <translation>Boşlukla ayrılmış Ad=değer çiftleri yazın; boşluk içeren değerleri tırnak içine alın, örneğin User-Agent="Mozilla/5.0" X-Token=abc.</translation>
+        <translation>Boşlukla ayrılmış Ad=değer çiftleri yazın; boşluk içeren değerleri tırnak içine alın, örneğin User-Agent=&quot;Mozilla/5.0&quot; X-Token=abc.</translation>
     </message>
     <message>
         <source>Enter only the domain name, without a port.</source>
@@ -13509,11 +13683,11 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>sing-box does not support xtls-rprx-vision-udp443; use xtls-rprx-vision, or the Xray VLESS type.</source>
-        <translation>sing-box xtls-rprx-vision-udp443'ü desteklemez; xtls-rprx-vision veya Xray VLESS türünü kullanın.</translation>
+        <translation>sing-box xtls-rprx-vision-udp443&apos;ü desteklemez; xtls-rprx-vision veya Xray VLESS türünü kullanın.</translation>
     </message>
     <message>
         <source>XTLS Vision works only with TLS or REALITY directly over TCP: turn on TLS and set the network to tcp, or clear the flow.</source>
-        <translation>XTLS Vision yalnızca doğrudan TCP üzerinde TLS veya REALITY ile çalışır: TLS'yi açın ve ağı tcp yapın ya da akışı temizleyin.</translation>
+        <translation>XTLS Vision yalnızca doğrudan TCP üzerinde TLS veya REALITY ile çalışır: TLS&apos;yi açın ve ağı tcp yapın ya da akışı temizleyin.</translation>
     </message>
     <message>
         <source>Unknown security, so auto was used. Use auto, none, zero, aes-128-gcm, chacha20-poly1305 or aes-128-cfb.</source>
@@ -13529,15 +13703,15 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>H%1 and H%2 overlap; each magic header needs its own number or range (unset ones are 1, 2, 3 and 4).</source>
-        <translation>H%1 ve H%2 çakışıyor; her sihirli başlığın kendi sayısı veya aralığı olmalıdır (ayarlanmamış olanlar 1, 2, 3 ve 4'tür).</translation>
+        <translation>H%1 ve H%2 çakışıyor; her sihirli başlığın kendi sayısı veya aralığı olmalıdır (ayarlanmamış olanlar 1, 2, 3 ve 4&apos;tür).</translation>
     </message>
     <message>
         <source>Header protection needs S1 to S4 of at least 12 each; S%1 is %2.</source>
-        <translation>Başlık koruması S1 ile S4'ün her birinin en az 12 olmasını gerektirir; S%1 değeri %2.</translation>
+        <translation>Başlık koruması S1 ile S4&apos;ün her birinin en az 12 olmasını gerektirir; S%1 değeri %2.</translation>
     </message>
     <message>
         <source>Jmin is larger than Jmax, so every junk packet will be Jmin bytes.</source>
-        <translation>Jmin, Jmax'tan büyük; bu yüzden her gereksiz paket Jmin bayt olacak.</translation>
+        <translation>Jmin, Jmax&apos;tan büyük; bu yüzden her gereksiz paket Jmin bayt olacak.</translation>
     </message>
     <message>
         <source>A tag is missing its closing &gt;.</source>
@@ -13621,11 +13795,11 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>&quot;%1&quot; is not a TLS 1.2 cipher suite the core supports, for example ECDHE-RSA-AES256-GCM-SHA384.</source>
-        <translation>"%1" çekirdeğin desteklediği bir TLS 1.2 şifre takımı değil, örneğin ECDHE-RSA-AES256-GCM-SHA384.</translation>
+        <translation>&quot;%1&quot; çekirdeğin desteklediği bir TLS 1.2 şifre takımı değil, örneğin ECDHE-RSA-AES256-GCM-SHA384.</translation>
     </message>
     <message>
         <source>&quot;%1&quot; is not a TLS group the core supports. Use X25519, P-256, P-384 or P-521, separated by colons.</source>
-        <translation>"%1" çekirdeğin desteklediği bir TLS grubu değil. İki nokta ile ayrılmış X25519, P-256, P-384 veya P-521 kullanın.</translation>
+        <translation>&quot;%1&quot; çekirdeğin desteklediği bir TLS grubu değil. İki nokta ile ayrılmış X25519, P-256, P-384 veya P-521 kullanın.</translation>
     </message>
     <message>
         <source>Must be 0 (off) or at least 68.</source>
@@ -13637,7 +13811,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Static key mode does not use this setting; clear it or switch the mode to TLS.</source>
-        <translation>Statik anahtar modu bu ayarı kullanmaz; temizleyin veya modu TLS'ye çevirin.</translation>
+        <translation>Statik anahtar modu bu ayarı kullanmaz; temizleyin veya modu TLS&apos;ye çevirin.</translation>
     </message>
     <message>
         <source>Only static key mode uses Cipher; in TLS mode list the cipher under Data Ciphers.</source>
@@ -13649,7 +13823,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Only static key mode uses a static key; clear it or switch the mode to static_key.</source>
-        <translation>Yalnızca statik anahtar modu statik anahtar kullanır; temizleyin veya modu static_key'e çevirin.</translation>
+        <translation>Yalnızca statik anahtar modu statik anahtar kullanır; temizleyin veya modu static_key&apos;e çevirin.</translation>
     </message>
     <message>
         <source>Static key mode needs the static key, pasted or as a file.</source>
@@ -13661,7 +13835,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Static key mode supports only the CBC ciphers, such as AES-256-CBC, and NONE.</source>
-        <translation>Statik anahtar modu yalnızca AES-256-CBC gibi CBC şifrelerini ve NONE'u destekler.</translation>
+        <translation>Statik anahtar modu yalnızca AES-256-CBC gibi CBC şifrelerini ve NONE&apos;u destekler.</translation>
     </message>
     <message>
         <source>Static key mode needs the tunnel address, for example 10.8.0.2/24.</source>
@@ -13713,11 +13887,11 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>The key direction applies only to tls_auth.</source>
-        <translation>Anahtar yönü yalnızca tls_auth'a uygulanır.</translation>
+        <translation>Anahtar yönü yalnızca tls_auth&apos;a uygulanır.</translation>
     </message>
     <message>
         <source>Use either the remote certificate EKU or the remote certificate TLS role, not both.</source>
-        <translation>Uzak sertifika EKU'sunu veya uzak sertifika TLS rolünü kullanın, ikisini birden değil.</translation>
+        <translation>Uzak sertifika EKU&apos;sunu veya uzak sertifika TLS rolünü kullanın, ikisini birden değil.</translation>
     </message>
     <message>
         <source>The maximum TLS version is below the minimum, which is 1.2 unless set.</source>
@@ -13761,7 +13935,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>The core raises values below 576 to 576.</source>
-        <translation>Çekirdek 576'nın altındaki değerleri 576'ya yükseltir.</translation>
+        <translation>Çekirdek 576&apos;nın altındaki değerleri 576&apos;ya yükseltir.</translation>
     </message>
     <message>
         <source>Write the fingerprint without colons between the bytes, or as sha1:, sha256: or pin-sha256:.</source>
@@ -13777,7 +13951,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>The core raises values below 2s to 2s.</source>
-        <translation>Çekirdek 2s'nin altındaki değerleri 2s'ye yükseltir.</translation>
+        <translation>Çekirdek 2s&apos;nin altındaki değerleri 2s&apos;ye yükseltir.</translation>
     </message>
     <message>
         <source>Add the key that belongs to this certificate.</source>
@@ -13837,7 +14011,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Removed the Tor command-line arguments from the imported configuration: they can make Tor start other programs.</source>
-        <translation>Tor komut satırı argümanları içe aktarılan yapılandırmadan kaldırıldı: Tor'un başka programları başlatmasına yol açabilirler.</translation>
+        <translation>Tor komut satırı argümanları içe aktarılan yapılandırmadan kaldırıldı: Tor&apos;un başka programları başlatmasına yol açabilirler.</translation>
     </message>
     <message>
         <source>Removed the Tor data directory from the imported configuration: Tor reads its torrc file from there, which can make it start other programs.</source>
@@ -13849,7 +14023,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Removed the Tor option %1 from the imported configuration: it makes Tor start a program on this computer.</source>
-        <translation>%1 Tor seçeneği içe aktarılan yapılandırmadan kaldırıldı: Tor'un bu bilgisayarda bir program başlatmasına yol açar.</translation>
+        <translation>%1 Tor seçeneği içe aktarılan yapılandırmadan kaldırıldı: Tor&apos;un bu bilgisayarda bir program başlatmasına yol açar.</translation>
     </message>
     <message>
         <source>Removed the %1 wrapper path from the imported configuration; add it back only if you trust that program.</source>
@@ -13857,11 +14031,11 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Removed the Tailscale SSH server from the imported configuration: it would let devices on that tailnet open a shell on this computer.</source>
-        <translation>Tailscale SSH sunucusu içe aktarılan yapılandırmadan kaldırıldı: o tailnet'teki cihazların bu bilgisayarda bir kabuk açmasına izin verirdi.</translation>
+        <translation>Tailscale SSH sunucusu içe aktarılan yapılandırmadan kaldırıldı: o tailnet&apos;teki cihazların bu bilgisayarda bir kabuk açmasına izin verirdi.</translation>
     </message>
     <message>
         <source>Removed the Taildrop folder from the imported configuration: devices on that tailnet could place files there. Received files now go to the default folder.</source>
-        <translation>Taildrop klasörü içe aktarılan yapılandırmadan kaldırıldı: o tailnet'teki cihazlar oraya dosya koyabilirdi. Alınan dosyalar artık varsayılan klasöre gider.</translation>
+        <translation>Taildrop klasörü içe aktarılan yapılandırmadan kaldırıldı: o tailnet&apos;teki cihazlar oraya dosya koyabilirdi. Alınan dosyalar artık varsayılan klasöre gider.</translation>
     </message>
     <message>
         <source>Removed from the imported configuration: it would open a port on this computer that other devices could reach.</source>
@@ -13877,7 +14051,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Removed this inbound from the imported configuration: it could let other devices connect through this computer. Only tun inbounds and local proxies that listen on 127.0.0.1 or ::1 are kept.</source>
-        <translation>Bu gelen içe aktarılan yapılandırmadan kaldırıldı: diğer cihazların bu bilgisayar üzerinden bağlanmasına izin verebilirdi. Yalnızca tun gelenleri ve 127.0.0.1 veya ::1 dinleyen yerel proxy'ler tutulur.</translation>
+        <translation>Bu gelen içe aktarılan yapılandırmadan kaldırıldı: diğer cihazların bu bilgisayar üzerinden bağlanmasına izin verebilirdi. Yalnızca tun gelenleri ve 127.0.0.1 veya ::1 dinleyen yerel proxy&apos;ler tutulur.</translation>
     </message>
     <message>
         <source>Removed the Clash API from the imported configuration: web pages and programs on this computer could use it to control the core, and its external_ui setting downloads files.</source>
@@ -13885,7 +14059,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Removed the V2Ray API from the imported configuration: Throne&apos;s core is built without it and would not start, and it would open a statistics port on this computer.</source>
-        <translation>V2Ray API içe aktarılan yapılandırmadan kaldırıldı: F-Dpi'nin çekirdeği onsuz derlenmiştir ve başlamaz; ayrıca bu bilgisayarda bir istatistik portu açardı.</translation>
+        <translation>V2Ray API içe aktarılan yapılandırmadan kaldırıldı: F-Dpi&apos;nin çekirdeği onsuz derlenmiştir ve başlamaz; ayrıca bu bilgisayarda bir istatistik portu açardı.</translation>
     </message>
     <message>
         <source>Removed the inbounds from the imported configuration: Throne adds its own local inbound, and these could let other devices connect through this computer.</source>
@@ -13893,11 +14067,11 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Removed the environment variables from the imported configuration: they would apply to Throne&apos;s core and to the programs it starts.</source>
-        <translation>Ortam değişkenleri içe aktarılan yapılandırmadan kaldırıldı: F-Dpi'nin çekirdeğine ve başlattığı programlara uygulanırlardı.</translation>
+        <translation>Ortam değişkenleri içe aktarılan yapılandırmadan kaldırıldı: F-Dpi&apos;nin çekirdeğine ve başlattığı programlara uygulanırlardı.</translation>
     </message>
     <message>
         <source>Removed the geodata updater from the imported configuration: it would download files from addresses the sender chose and replace files in Throne&apos;s folder.</source>
-        <translation>Coğrafi veri güncelleyicisi içe aktarılan yapılandırmadan kaldırıldı: gönderenin seçtiği adreslerden dosya indirir ve F-Dpi'nin klasöründeki dosyaları değiştirirdi.</translation>
+        <translation>Coğrafi veri güncelleyicisi içe aktarılan yapılandırmadan kaldırıldı: gönderenin seçtiği adreslerden dosya indirir ve F-Dpi&apos;nin klasöründeki dosyaları değiştirirdi.</translation>
     </message>
     <message>
         <source>Removed the webhook from this routing rule: it would send the details of every matching connection to an address the sender chose.</source>
@@ -13909,15 +14083,15 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Add the outbound type, for example &quot;type&quot;: &quot;socks&quot;.</source>
-        <translation>Giden türünü ekleyin, örneğin "type": "socks".</translation>
+        <translation>Giden türünü ekleyin, örneğin &quot;type&quot;: &quot;socks&quot;.</translation>
     </message>
     <message>
         <source>Add the protocol, for example &quot;protocol&quot;: &quot;vless&quot;.</source>
-        <translation>Protokolü ekleyin, örneğin "protocol": "vless".</translation>
+        <translation>Protokolü ekleyin, örneğin &quot;protocol&quot;: &quot;vless&quot;.</translation>
     </message>
     <message>
         <source>&quot;outbounds&quot; must be a list, for example &quot;outbounds&quot;: [].</source>
-        <translation>"outbounds" bir liste olmalıdır, örneğin "outbounds": [].</translation>
+        <translation>&quot;outbounds&quot; bir liste olmalıdır, örneğin &quot;outbounds&quot;: [].</translation>
     </message>
     <message>
         <source>Must not contain spaces.</source>
@@ -13953,7 +14127,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Use the server&apos;s public key line, for example ssh-ed25519 AAAAC3Nza... as printed by ssh-keyscan.</source>
-        <translation>Sunucunun açık anahtar satırını kullanın, örneğin ssh-keyscan'in yazdırdığı gibi ssh-ed25519 AAAAC3Nza...</translation>
+        <translation>Sunucunun açık anahtar satırını kullanın, örneğin ssh-keyscan&apos;in yazdırdığı gibi ssh-ed25519 AAAAC3Nza...</translation>
     </message>
     <message>
         <source>Servers expect a version starting with SSH-2.0-, for example SSH-2.0-OpenSSH_9.6.</source>
@@ -13969,11 +14143,11 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Do not advertise the default route; tick Advertise exit node instead.</source>
-        <translation>Varsayılan rotayı duyurmayın; bunun yerine Çıkış düğümü olarak duyur'u işaretleyin.</translation>
+        <translation>Varsayılan rotayı duyurmayın; bunun yerine Çıkış düğümü olarak duyur&apos;u işaretleyin.</translation>
     </message>
     <message>
         <source>A node that advertises itself as an exit node cannot use another one; clear the exit node or untick Advertise exit node.</source>
-        <translation>Kendini çıkış düğümü olarak duyuran bir düğüm başka bir çıkış düğümü kullanamaz; çıkış düğümünü temizleyin veya Çıkış düğümü olarak duyur'un işaretini kaldırın.</translation>
+        <translation>Kendini çıkış düğümü olarak duyuran bir düğüm başka bir çıkış düğümü kullanamaz; çıkış düğümünü temizleyin veya Çıkış düğümü olarak duyur&apos;un işaretini kaldırın.</translation>
     </message>
     <message>
         <source>The link sets neither security nor sni, so the profile connects without TLS, which most Trojan servers refuse.</source>
@@ -14001,7 +14175,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Custom SNI cannot be combined with Disable SNI.</source>
-        <translation>Özel SNI, SNI'yi Devre Dışı Bırak ile birleştirilemez.</translation>
+        <translation>Özel SNI, SNI&apos;yi Devre Dışı Bırak ile birleştirilemez.</translation>
     </message>
     <message>
         <source>Client random and custom SNI cannot be combined with REALITY.</source>
@@ -14019,11 +14193,11 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Write each header as Name=&quot;value&quot;, for example X-Username=&quot;user&quot; X-Password=&quot;pass&quot;.</source>
-        <translation>Her başlığı Ad="değer" olarak yazın, örneğin X-Username="user" X-Password="pass".</translation>
+        <translation>Her başlığı Ad=&quot;değer&quot; olarak yazın, örneğin X-Username=&quot;user&quot; X-Password=&quot;pass&quot;.</translation>
     </message>
     <message>
         <source>Header name &quot;%1&quot;: %2</source>
-        <translation>Başlık adı "%1": %2</translation>
+        <translation>Başlık adı &quot;%1&quot;: %2</translation>
     </message>
     <message>
         <source>A header line without a name and a colon was ignored; write each line as Name: value.</source>
@@ -14039,11 +14213,11 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>The TLS fragment size &quot;%1&quot; in Preset Settings &gt; TLS is invalid. %2</source>
-        <translation>Ön Ayar Ayarları &gt; TLS içindeki "%1" TLS parça boyutu geçersiz. %2</translation>
+        <translation>Ön Ayar Ayarları &gt; TLS içindeki &quot;%1&quot; TLS parça boyutu geçersiz. %2</translation>
     </message>
     <message>
         <source>The TLS fragment sleep &quot;%1&quot; in Preset Settings &gt; TLS is invalid. %2</source>
-        <translation>Ön Ayar Ayarları &gt; TLS içindeki "%1" TLS parça beklemesi geçersiz. %2</translation>
+        <translation>Ön Ayar Ayarları &gt; TLS içindeki &quot;%1&quot; TLS parça beklemesi geçersiz. %2</translation>
     </message>
     <message>
         <source>The server address is missing.</source>
@@ -14052,6 +14226,10 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     <message>
         <source>The server port is missing.</source>
         <translation>Sunucu portu eksik.</translation>
+    </message>
+    <message>
+        <source>Refused to import a DPI Bypass profile: it would run winws with options from another installation.</source>
+        <translation>DPI Bypass profili içe aktarılmadı: başka bir kurulumdan gelen seçeneklerle winws çalıştırırdı.</translation>
     </message>
     <message>
         <source>Refused to import an Extra Core profile: it would run a program on this computer.</source>
@@ -14067,7 +14245,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>AnyTLS does not support TCP Fast Open, so it was turned off.</source>
-        <translation>AnyTLS, TCP Fast Open'ı desteklemez, bu yüzden kapatıldı.</translation>
+        <translation>AnyTLS, TCP Fast Open&apos;ı desteklemez, bu yüzden kapatıldı.</translation>
     </message>
     <message>
         <source>Ports must be from 1 to 65535.</source>
@@ -14099,7 +14277,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Snell v6 has no obfuscation, so these settings are ignored.</source>
-        <translation>Snell v6'da gizleme yoktur, bu yüzden bu ayarlar yok sayılır.</translation>
+        <translation>Snell v6&apos;da gizleme yoktur, bu yüzden bu ayarlar yok sayılır.</translation>
     </message>
     <message>
         <source>The obfuscation host is used only with http or tls obfuscation, so it is ignored.</source>
@@ -14119,11 +14297,11 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Needs a Hop Interval above 0 as well, for example 30s with a maximum of 60s.</source>
-        <translation>Ayrıca 0'ın üzerinde bir Atlama Aralığı gerektirir, örneğin en fazla 60s ile 30s.</translation>
+        <translation>Ayrıca 0&apos;ın üzerinde bir Atlama Aralığı gerektirir, örneğin en fazla 60s ile 30s.</translation>
     </message>
     <message>
         <source>Must not be shorter than Hop Interval.</source>
-        <translation>Atlama Aralığı'ndan kısa olmamalıdır.</translation>
+        <translation>Atlama Aralığı&apos;ndan kısa olmamalıdır.</translation>
     </message>
     <message>
         <source>Ignored without a Hop Interval; set one as well, for example 30s with a maximum of 60s.</source>
@@ -14155,7 +14333,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Realm URL: %1</source>
-        <translation>Realm URL'si: %1</translation>
+        <translation>Realm URL&apos;si: %1</translation>
     </message>
     <message>
         <source>STUN Servers: %1</source>
@@ -14191,7 +14369,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Item %1 (&quot;%2&quot;): %3</source>
-        <translation>Öğe %1 ("%2"): %3</translation>
+        <translation>Öğe %1 (&quot;%2&quot;): %3</translation>
     </message>
     <message>
         <source>A backslash at the end has nothing to escape.</source>
@@ -14211,11 +14389,11 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Unknown obfs mode &quot;%1&quot;. Use obfs=http or obfs=tls.</source>
-        <translation>Bilinmeyen obfs modu "%1". obfs=http veya obfs=tls kullanın.</translation>
+        <translation>Bilinmeyen obfs modu &quot;%1&quot;. obfs=http veya obfs=tls kullanın.</translation>
     </message>
     <message>
         <source>Unknown mode &quot;%1&quot;. Use mode=websocket or mode=quic.</source>
-        <translation>Bilinmeyen mod "%1". mode=websocket veya mode=quic kullanın.</translation>
+        <translation>Bilinmeyen mod &quot;%1&quot;. mode=websocket veya mode=quic kullanın.</translation>
     </message>
     <message>
         <source>mux must be a whole number, for example mux=1.</source>
@@ -14267,7 +14445,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Unknown cipher suite. Use Go&apos;s names, for example TLS_AES_128_GCM_SHA256.</source>
-        <translation>Bilinmeyen şifre takımı. Go'nun adlarını kullanın, örneğin TLS_AES_128_GCM_SHA256.</translation>
+        <translation>Bilinmeyen şifre takımı. Go&apos;nun adlarını kullanın, örneğin TLS_AES_128_GCM_SHA256.</translation>
     </message>
     <message>
         <source>The trailing = padding was removed from the REALITY public key.</source>
@@ -14275,7 +14453,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Unknown fingerprint &quot;%1&quot;. Use chrome, firefox, safari, ios, android, edge, 360, qq, random, randomized or unsafe.</source>
-        <translation>Bilinmeyen parmak izi "%1". chrome, firefox, safari, ios, android, edge, 360, qq, random, randomized veya unsafe kullanın.</translation>
+        <translation>Bilinmeyen parmak izi &quot;%1&quot;. chrome, firefox, safari, ios, android, edge, 360, qq, random, randomized veya unsafe kullanın.</translation>
     </message>
     <message>
         <source>The minimum TLS version is above the maximum.</source>
@@ -14283,7 +14461,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>REALITY needs the server&apos;s public key (43 characters, as printed by xray x25519).</source>
-        <translation>REALITY, sunucunun açık anahtarını gerektirir (xray x25519'un yazdırdığı gibi 43 karakter).</translation>
+        <translation>REALITY, sunucunun açık anahtarını gerektirir (xray x25519&apos;un yazdırdığı gibi 43 karakter).</translation>
     </message>
     <message>
         <source>Remove the trailing = padding.</source>
@@ -14307,15 +14485,15 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Reality cannot be combined with ECH. Turn off ECH in Advanced, or clear the Reality public key.</source>
-        <translation>Reality, ECH ile birleştirilemez. Gelişmiş'te ECH'yi kapatın veya Reality açık anahtarını temizleyin.</translation>
+        <translation>Reality, ECH ile birleştirilemez. Gelişmiş&apos;te ECH&apos;yi kapatın veya Reality açık anahtarını temizleyin.</translation>
     </message>
     <message>
         <source>Reality cannot be used with Disable SNI. Turn off Disable SNI in Advanced.</source>
-        <translation>Reality, SNI'yi Devre Dışı Bırak ile kullanılamaz. Gelişmiş'te SNI'yi Devre Dışı Bırak'ı kapatın.</translation>
+        <translation>Reality, SNI&apos;yi Devre Dışı Bırak ile kullanılamaz. Gelişmiş&apos;te SNI&apos;yi Devre Dışı Bırak&apos;ı kapatın.</translation>
     </message>
     <message>
         <source>Reality cannot be combined with TLS spoof. Set TLS Spoof to Off in Advanced.</source>
-        <translation>Reality, TLS sahteleme ile birleştirilemez. Gelişmiş'te TLS Sahteleme'yi Kapalı yapın.</translation>
+        <translation>Reality, TLS sahteleme ile birleştirilemez. Gelişmiş&apos;te TLS Sahteleme&apos;yi Kapalı yapın.</translation>
     </message>
     <message>
         <source>A custom certificate cannot be combined with certificate pins; keep only one of them.</source>
@@ -14327,15 +14505,15 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>TLS spoof needs an SNI. Turn off Disable SNI, or set TLS Spoof to Off.</source>
-        <translation>TLS sahteleme bir SNI gerektirir. SNI'yi Devre Dışı Bırak'ı kapatın veya TLS Sahteleme'yi Kapalı yapın.</translation>
+        <translation>TLS sahteleme bir SNI gerektirir. SNI&apos;yi Devre Dışı Bırak&apos;ı kapatın veya TLS Sahteleme&apos;yi Kapalı yapın.</translation>
     </message>
     <message>
         <source>TLS spoof needs a domain name as the SNI. Enter one in SNI, or set TLS Spoof to Off.</source>
-        <translation>TLS sahteleme SNI olarak bir alan adı gerektirir. SNI'ye bir tane girin veya TLS Sahteleme'yi Kapalı yapın.</translation>
+        <translation>TLS sahteleme SNI olarak bir alan adı gerektirir. SNI&apos;ye bir tane girin veya TLS Sahteleme&apos;yi Kapalı yapın.</translation>
     </message>
     <message>
         <source>The spoof SNI must differ from the real SNI.</source>
-        <translation>Sahte SNI gerçek SNI'den farklı olmalıdır.</translation>
+        <translation>Sahte SNI gerçek SNI&apos;den farklı olmalıdır.</translation>
     </message>
     <message>
         <source>TLS spoof is skipped while TLS fragment or record fragment is on with a uTLS fingerprint.</source>
@@ -14351,7 +14529,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>TCP Brutal only works with a custom multiplex. Set Multiplex to Custom.</source>
-        <translation>TCP Brutal yalnızca özel bir multiplex ile çalışır. Multiplex'i Özel olarak ayarlayın.</translation>
+        <translation>TCP Brutal yalnızca özel bir multiplex ile çalışır. Multiplex&apos;i Özel olarak ayarlayın.</translation>
     </message>
     <message>
         <source>TCP Brutal needs both speeds; a missing one is sent as 1 Mbps.</source>
@@ -14359,11 +14537,11 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>sing-box does not support the transport &quot;%1&quot;. Use ws, httpupgrade, http, grpc or quic.</source>
-        <translation>sing-box "%1" aktarımını desteklemez. ws, httpupgrade, http, grpc veya quic kullanın.</translation>
+        <translation>sing-box &quot;%1&quot; aktarımını desteklemez. ws, httpupgrade, http, grpc veya quic kullanın.</translation>
     </message>
     <message>
         <source>The QUIC transport needs TLS. Set Security to tls.</source>
-        <translation>QUIC aktarımı TLS gerektirir. Güvenlik'i tls olarak ayarlayın.</translation>
+        <translation>QUIC aktarımı TLS gerektirir. Güvenlik&apos;i tls olarak ayarlayın.</translation>
     </message>
     <message>
         <source>Reality does not work with the QUIC transport. Clear the Reality key, or choose another transport.</source>
@@ -14375,7 +14553,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Line %1 (&quot;%2&quot;): %3</source>
-        <translation>Satır %1 ("%2"): %3</translation>
+        <translation>Satır %1 (&quot;%2&quot;): %3</translation>
     </message>
     <message numerus="yes">
         <source>%n more line(s) have problems.</source>
@@ -14449,7 +14627,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>sing-box endpoint &quot;%1&quot;</source>
-        <translation>sing-box uç noktası "%1"</translation>
+        <translation>sing-box uç noktası &quot;%1&quot;</translation>
     </message>
     <message>
         <source>sing-box outbound #%1</source>
@@ -14457,7 +14635,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>sing-box outbound &quot;%1&quot;</source>
-        <translation>sing-box gideni "%1"</translation>
+        <translation>sing-box gideni &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Xray outbound #%1</source>
@@ -14465,7 +14643,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Xray outbound &quot;%1&quot;</source>
-        <translation>Xray gideni "%1"</translation>
+        <translation>Xray gideni &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Xray config #%1</source>
@@ -14473,15 +14651,15 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Xray config &quot;%1&quot;</source>
-        <translation>Xray yapılandırması "%1"</translation>
+        <translation>Xray yapılandırması &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Clash proxy #%1</source>
-        <translation>Clash proxy'si #%1</translation>
+        <translation>Clash proxy&apos;si #%1</translation>
     </message>
     <message>
         <source>Clash proxy &quot;%1&quot;</source>
-        <translation>Clash proxy'si "%1"</translation>
+        <translation>Clash proxy&apos;si &quot;%1&quot;</translation>
     </message>
     <message numerus="yes">
         <source>Only the first server of %n was imported.</source>
@@ -14501,11 +14679,11 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Rename this key to &quot;%1&quot;: Throne reads only that spelling, and dropping its value would weaken the connection&apos;s security.</source>
-        <translation>Bu anahtarı "%1" olarak yeniden adlandırın: F-Dpi yalnızca bu yazımı okur ve değerini bırakmak bağlantının güvenliğini zayıflatır.</translation>
+        <translation>Bu anahtarı &quot;%1&quot; olarak yeniden adlandırın: F-Dpi yalnızca bu yazımı okur ve değerini bırakmak bağlantının güvenliğini zayıflatır.</translation>
     </message>
     <message>
         <source>Rename this key to &quot;%1&quot;: Throne reads only that spelling, so its value was ignored.</source>
-        <translation>Bu anahtarı "%1" olarak yeniden adlandırın: F-Dpi yalnızca bu yazımı okur, bu yüzden değeri yok sayıldı.</translation>
+        <translation>Bu anahtarı &quot;%1&quot; olarak yeniden adlandırın: F-Dpi yalnızca bu yazımı okur, bu yüzden değeri yok sayıldı.</translation>
     </message>
     <message>
         <source>Not valid JSON: %1 at line %2, column %3.</source>
@@ -14517,11 +14695,11 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Missing &quot;type&quot;.</source>
-        <translation>"type" eksik.</translation>
+        <translation>&quot;type&quot; eksik.</translation>
     </message>
     <message>
         <source>Unsupported sing-box type &quot;%1&quot;.</source>
-        <translation>Desteklenmeyen sing-box türü "%1".</translation>
+        <translation>Desteklenmeyen sing-box türü &quot;%1&quot;.</translation>
     </message>
     <message>
         <source>Imported as a custom Xray outbound to keep %1, which a VLESS profile would drop.</source>
@@ -14537,7 +14715,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>This Clash config only lists proxy-providers, which are not downloaded. Add each provider&apos;s URL as a subscription instead.</source>
-        <translation>Bu Clash yapılandırması yalnızca indirilmeyen proxy-providers listeliyor. Bunun yerine her sağlayıcının URL'sini abonelik olarak ekleyin.</translation>
+        <translation>Bu Clash yapılandırması yalnızca indirilmeyen proxy-providers listeliyor. Bunun yerine her sağlayıcının URL&apos;sini abonelik olarak ekleyin.</translation>
     </message>
     <message>
         <source>This Clash config has no proxies list.</source>
@@ -14561,7 +14739,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Unsupported Clash type &quot;%1&quot;.</source>
-        <translation>Desteklenmeyen Clash türü "%1".</translation>
+        <translation>Desteklenmeyen Clash türü &quot;%1&quot;.</translation>
     </message>
     <message>
         <source>The [Interface] section has no PrivateKey.</source>
@@ -14585,11 +14763,11 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Write the link type in lower case: &quot;%1://&quot;, not &quot;%2://&quot;.</source>
-        <translation>Bağlantı türünü küçük harfle yazın: "%2://" değil, "%1://".</translation>
+        <translation>Bağlantı türünü küçük harfle yazın: &quot;%2://&quot; değil, &quot;%1://&quot;.</translation>
     </message>
     <message>
         <source>Unsupported link type &quot;%1://&quot;.</source>
-        <translation>Desteklenmeyen bağlantı türü "%1://".</translation>
+        <translation>Desteklenmeyen bağlantı türü &quot;%1://&quot;.</translation>
     </message>
     <message>
         <source>The link is damaged: it is not a valid URL.</source>
@@ -14605,7 +14783,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Unsupported profile type &quot;%1&quot;.</source>
-        <translation>Desteklenmeyen profil türü "%1".</translation>
+        <translation>Desteklenmeyen profil türü &quot;%1&quot;.</translation>
     </message>
     <message>
         <source>The vpn:// link could not be decoded.</source>
@@ -14671,7 +14849,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>%1: algorithm &quot;%2&quot; is not supported (only SHA1, SHA256 and SHA512), so its codes would be wrong.</source>
-        <translation>%1: "%2" algoritması desteklenmiyor (yalnızca SHA1, SHA256 ve SHA512), bu yüzden kodları yanlış olurdu.</translation>
+        <translation>%1: &quot;%2&quot; algoritması desteklenmiyor (yalnızca SHA1, SHA256 ve SHA512), bu yüzden kodları yanlış olurdu.</translation>
     </message>
     <message>
         <source>%1: %2 digits are not supported (use %3 to %4).</source>
@@ -14679,15 +14857,15 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>%1: a period of &quot;%2&quot; seconds is not supported (use %3 to %4).</source>
-        <translation>%1: "%2" saniyelik periyot desteklenmiyor (%3 ile %4 arası kullanın).</translation>
+        <translation>%1: &quot;%2&quot; saniyelik periyot desteklenmiyor (%3 ile %4 arası kullanın).</translation>
     </message>
     <message>
         <source>%1: the counter &quot;%2&quot; is not a whole number of 0 or more.</source>
-        <translation>%1: "%2" sayacı 0 veya daha büyük bir tam sayı değil.</translation>
+        <translation>%1: &quot;%2&quot; sayacı 0 veya daha büyük bir tam sayı değil.</translation>
     </message>
     <message>
         <source>%1: type &quot;%2&quot; is not supported (only totp and hotp).</source>
-        <translation>%1: "%2" türü desteklenmiyor (yalnızca totp ve hotp).</translation>
+        <translation>%1: &quot;%2&quot; türü desteklenmiyor (yalnızca totp ve hotp).</translation>
     </message>
     <message>
         <source>%1: there is no secret.</source>
@@ -14751,7 +14929,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>The core&apos;s regex engine (RE2) does not support &quot;%1&quot;.</source>
-        <translation>Çekirdeğin regex motoru (RE2) "%1" desteklemiyor.</translation>
+        <translation>Çekirdeğin regex motoru (RE2) &quot;%1&quot; desteklemiyor.</translation>
     </message>
     <message>
         <source>The core&apos;s regex engine (RE2) allows at most 1000 repetitions, counting nested repeats multiplied together.</source>
@@ -14779,11 +14957,11 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>&quot;%1&quot; is a single port; write it as %1:%1.</source>
-        <translation>"%1" tek bir port; %1:%1 olarak yazın.</translation>
+        <translation>&quot;%1&quot; tek bir port; %1:%1 olarak yazın.</translation>
     </message>
     <message>
         <source>&quot;%1&quot; is a single port; write it as %1-%1.</source>
-        <translation>"%1" tek bir port; %1-%1 olarak yazın.</translation>
+        <translation>&quot;%1&quot; tek bir port; %1-%1 olarak yazın.</translation>
     </message>
     <message>
         <source>The range starts after it ends, so it matches nothing.</source>
@@ -14839,7 +15017,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Unknown unit &quot;%1&quot;. Use b, k, kb, m, mb, g or gb.</source>
-        <translation>Bilinmeyen birim "%1". b, k, kb, m, mb, g veya gb kullanın.</translation>
+        <translation>Bilinmeyen birim &quot;%1&quot;. b, k, kb, m, mb, g veya gb kullanın.</translation>
     </message>
     <message>
         <source>Use an address with a prefix length, for example 10.0.0.0/8 or fd00::/8.</source>
@@ -14875,19 +15053,19 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Must be a %1-byte key in URL-safe base64 without padding (%2 characters).</source>
-        <translation>Dolgusuz URL güvenli base64'te %1 baytlık bir anahtar olmalıdır (%2 karakter).</translation>
+        <translation>Dolgusuz URL güvenli base64&apos;te %1 baytlık bir anahtar olmalıdır (%2 karakter).</translation>
     </message>
     <message>
         <source>Must be a %1-byte key in URL-safe base64 (%2 characters).</source>
-        <translation>URL güvenli base64'te %1 baytlık bir anahtar olmalıdır (%2 karakter).</translation>
+        <translation>URL güvenli base64&apos;te %1 baytlık bir anahtar olmalıdır (%2 karakter).</translation>
     </message>
     <message>
         <source>Must be a %1-byte key in base64 without padding (%2 characters).</source>
-        <translation>Dolgusuz base64'te %1 baytlık bir anahtar olmalıdır (%2 karakter).</translation>
+        <translation>Dolgusuz base64&apos;te %1 baytlık bir anahtar olmalıdır (%2 karakter).</translation>
     </message>
     <message>
         <source>Must be a %1-byte key in base64 (%2 characters).</source>
-        <translation>base64'te %1 baytlık bir anahtar olmalıdır (%2 karakter).</translation>
+        <translation>base64&apos;te %1 baytlık bir anahtar olmalıdır (%2 karakter).</translation>
     </message>
     <message>
         <source>Not valid base64.</source>
@@ -14931,7 +15109,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Unknown value &quot;%1&quot;. Use one of: %2.</source>
-        <translation>Bilinmeyen değer "%1". Şunlardan birini kullanın: %2.</translation>
+        <translation>Bilinmeyen değer &quot;%1&quot;. Şunlardan birini kullanın: %2.</translation>
     </message>
     <message>
         <source>Must not contain spaces or special characters.</source>

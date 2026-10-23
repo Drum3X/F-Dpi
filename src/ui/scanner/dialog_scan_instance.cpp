@@ -64,7 +64,7 @@ namespace {
 
     const QStringList kScanInstanceCandidateExclusions = {
         QStringLiteral("custom"), QStringLiteral("extracore"), QStringLiteral("tailscale"),
-        QStringLiteral("autoselector"), QStringLiteral("direct"),
+        QStringLiteral("autoselector"), QStringLiteral("direct"), QStringLiteral("dpi"),
     };
 
     const QStringList kScanInstanceTimeoutPresets = {

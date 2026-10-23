@@ -19,6 +19,7 @@ namespace Configs {
 namespace Engine {
     class AutoSelectorController;
     class CoreSupervisor;
+    class DpiSupervisor;
     class EnginePolicy;
     class StatsService;
     class TestRunner;
@@ -71,6 +72,11 @@ namespace Engine {
 
         // Any thread.
         std::shared_ptr<Configs::Profile> runningSnapshot() const;
+
+        // F-Dpi, any thread (ConnectionDpi.cpp).
+        ActiveEngine activeEngine() const;
+
+        static bool IsDpiProfile(const std::shared_ptr<Configs::Profile> &profile);
 
         int resolveLastProfile() const;
 
@@ -139,6 +145,11 @@ namespace Engine {
 
         void deferStartToCore(const StartRequest &request);
 
+        // F-Dpi (ConnectionDpi.cpp). start() for a DPI Bypass profile: stops the running profile, then runs winws.
+        void startDpi(const StartRequest &resolved, const std::shared_ptr<Configs::Profile> &ent);
+
+        void onDpiExited(const QString &reason);
+
         // tun: the running config carries a tun inbound (generated Tun or a custom config's).
         void setRunning(std::shared_ptr<Configs::Profile> profile, bool tun = false);
 
@@ -162,6 +173,7 @@ namespace Engine {
 
         EnginePolicy *m_policy;
         CoreSupervisor *m_coreSupervisor;
+        DpiSupervisor *m_dpi = nullptr;
         StatsService *m_stats;
         TestRunner *m_tests = nullptr;
         AutoSelectorController *m_autoSelector = nullptr;

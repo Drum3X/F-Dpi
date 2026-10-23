@@ -58,6 +58,7 @@ namespace Configs
             if (member->type == "openvpn" || member->type == "openconnect")
                 return AutoSelectorSkip::ManagementEndpoint;
             if (member->outbound->IsExtraCore()) return AutoSelectorSkip::ExtraCore;
+            if (member->outbound->IsDpi()) return AutoSelectorSkip::Dpi;
             if (member->type == "custom") {
                 const auto custom = member->Custom();
                 if (custom == nullptr) return AutoSelectorSkip::Missing;
@@ -245,6 +246,7 @@ namespace Configs
             case AutoSelectorSkip::MetaType: return QObject::tr("chain or auto selector");
             case AutoSelectorSkip::CoreTransitions: return QObject::tr("needs too many core switches");
             case AutoSelectorSkip::ExtraCore: return QObject::tr("extra-core profile");
+            case AutoSelectorSkip::Dpi: return QObject::tr("DPI Bypass profile");
             case AutoSelectorSkip::FullConfig: return QObject::tr("full config profile");
             case AutoSelectorSkip::Malformed: return QObject::tr("config does not parse");
             case AutoSelectorSkip::Tailscale: return QObject::tr("Tailscale profile");

@@ -27,6 +27,7 @@
 #include "include/configs/outbounds/ssh.h"
 #include "include/configs/outbounds/custom.h"
 #include "include/configs/outbounds/extracore.h"
+#include "include/configs/outbounds/dpi.h"
 #include "include/configs/outbounds/naive.h"
 #include "include/configs/outbounds/direct.h"
 
@@ -59,6 +60,7 @@ namespace Configs
         if (type == "ssh") return new ssh();
         if (type == "custom") return new Custom();
         if (type == "extracore") return new extracore();
+        if (type == "dpi") return new dpi();
         if (type == "naive") return new naive();
         if (type == "direct") return new direct();
         auto* ob = new outbound();
@@ -68,6 +70,9 @@ namespace Configs
 
     QString RefusedForeignType(const QString& type)
     {
+        // F-Dpi: winws runs as admin and its options read and write files, so a foreign strategy is never taken as is.
+        if (type == "dpi")
+            return QCoreApplication::translate("Validation", "Refused to import a DPI Bypass profile: it would run winws with options from another installation.");
         if (type == "extracore")
             return QCoreApplication::translate("Validation", "Refused to import an Extra Core profile: it would run a program on this computer.");
         if (type == "chain")

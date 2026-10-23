@@ -8,6 +8,7 @@
 #include "include/ui/profile/edit_chain.h"
 #include "include/ui/profile/edit_custom.h"
 #include "include/ui/profile/edit_direct.h"
+#include "include/ui/profile/edit_dpi.h"
 #include "include/ui/profile/edit_extra_core.h"
 #include "include/ui/profile/edit_http.h"
 #include "include/ui/profile/edit_hysteria.h"
@@ -80,6 +81,7 @@ EditorFactory editorFactory(const QString &type) {
         {"chain", makeEditor<EditChain>},
         {"autoselector", makeEditor<EditAutoSelector>},
         {"extracore", makeEditor<EditExtraCore>},
+        {"dpi", makeEditor<EditDpi>},
         {"custom", makeEditor<EditCustom>},
     };
     return factories.value(type);
@@ -91,7 +93,7 @@ bool isCustomSubtype(const QString &type) {
 }
 
 bool hasServerAddress(const QString &type) {
-    static const QSet<QString> serverless = {"chain", "autoselector", "direct", "extracore", "tailscale", "custom"};
+    static const QSet<QString> serverless = {"chain", "autoselector", "direct", "extracore", "tailscale", "custom", "dpi"};
     return !serverless.contains(type);
 }
 
@@ -237,6 +239,8 @@ void DialogEditProfile::setupTypeList() {
     const auto addType = [this](const QString &t) {
         ui->type->addItem(Configs::dataManager->profilesRepo->NewProfile(t)->outbound->DisplayType(), t);
     };
+    // F-Dpi: DPI Bypass first, as the product's main profile type.
+    addType("dpi");
     for (const auto *t: {"autoselector", "socks", "http", "shadowsocks", "trojan", "vmess", "vless", "xrayvless",
                          "hysteria", "tuic", "juicity", "naive", "trusttunnel", "anytls", "mieru", "snell",
                          "shadowtls", "wireguard", "masque", "openvpn", "openconnect", "tailscale", "ssh", "direct"}) {

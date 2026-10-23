@@ -12,6 +12,7 @@
 #include "include/configs/outbounds/autoselector.h"
 #include "include/configs/outbounds/custom.h"
 #include "include/configs/outbounds/extracore.h"
+#include "include/configs/outbounds/dpi.h"
 #include "include/configs/outbounds/socks.h"
 #include "include/configs/outbounds/http.h"
 #include "include/configs/outbounds/hysteria.h"
@@ -187,6 +188,10 @@ namespace Configs {
 
         [[nodiscard]] Configs::extracore *ExtraCore() const {
             return dynamic_cast<Configs::extracore *>(outbound.get());
+        };
+
+        [[nodiscard]] Configs::dpi *Dpi() const {
+            return dynamic_cast<Configs::dpi *>(outbound.get());
         };
     };
     class ProfileFilter {

@@ -758,7 +758,7 @@ namespace Configs {
         }
 
         bool routeRuleUnroutable(const std::shared_ptr<Profile>& ent) {
-            if (ent->outbound == nullptr || ent->outbound->IsExtraCore() || ent->outbound->IsXrayFullConfig()) return true;
+            if (ent->outbound == nullptr || ent->outbound->IsExtraCore() || ent->outbound->IsDpi() || ent->outbound->IsXrayFullConfig()) return true;
             return ent->type == "custom" && ent->Custom() != nullptr && ent->Custom()->type == Custom::CustomFullConfig;
         }
 

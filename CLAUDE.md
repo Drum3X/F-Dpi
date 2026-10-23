@@ -59,6 +59,10 @@ Notlar:
 - Go core'u ayrıca derlemek için `script/build_go.sh` kullanılır: Git Bash'te `GOOS=windows GOARCH=amd64 DEST=...` ile çalışır. `DEST`'i siler, bu yüzden `build_windows.ps1` onu `deployment/.core-windows-amd64`'e derleyip kopyalar.
 - Deploy içinde `F-Dpi.exe`, `ThroneCore.exe`, `zapret/` alt dizini (`winws.exe` ve bağımlılıkları) ile `sing-box.exe` bulunur.
 - **Smoke test (yükseltilmemiş shell'den):** `F-Dpi.exe` yönetici ister. UAC istemi çıkmadan pencere ve core'un açıldığını görmek için `$env:__COMPAT_LAYER="RunAsInvoker"` ayarlayıp `Start-Process` ile başlatın. Portable modda veri `deployment\windows-amd64\config\` altına yazılır; günlük dosyası `config\logs\throne.log`.
+  - Günlük dosyası tamponludur: satırlar ancak sonraki bir yazımla diske düşer. Anlık durum için pencereyi okuyun.
+  - **GUI'yi sürmek:** PowerShell'de UI Automation (`UIAutomationClient`) pencere metinlerini (durum çubuğu, tablo satırları, diyaloglar) okur. Satırı seçip `SendKeys` ile `{ENTER}` göndermek profili başlatır; `^n` yeni profil diyaloğunu açar. Fare tıklamaları güvenilir değildir. Ekran görüntüsü `System.Drawing` `CopyFromScreen` ile alınır.
+  - **Test verisi:** uygulama kapalıyken `config\throne.db` Node'un yerleşik `node:sqlite` modülüyle düzenlenebilir (`profiles` satırı + `groups.profiles_json`). Ters bölü içeren JSON'u kabuk tırnaklaması yerine bir `.js` dosyasından ve `String.raw` ile yazın.
+  - Yükseltilmemiş testte winws argümanları ve listeleri işler, sonra WinDivert'te exit 5 (erişim reddedildi) ile durur. DPI'nin gerçekten çalışması ve DPI→proxy geçişi ancak yönetici olarak test edilebilir.
 
 ### Çeviriler (Türkçe = `res/translations/tr_TR.ts`)
 1. `build_windows.ps1 -SkipCore -UpdateTranslations` komutu lupdate ile tüm `.ts` dosyalarını kaynaktan yeniler.
@@ -75,16 +79,19 @@ Notlar:
 ### Motorlar ve karşılıklı dışlama
 - **Proxy motoru = Throne Go core'u (`ThroneCore.exe`, `core/`).** sing-box'ı kütüphane olarak gömer; GUI ile named pipe (`throneIPC-<uuid>`) üzerinden, protobuf çerçeveleriyle konuşur (`core/gen/libcore.proto`, `src/api/RPC.cpp`). Tüm Throne özellikleri (test, istatistik, auto-selector) buna bağlıdır.
   - Standalone `sing-box.exe` paketlenir ama varsayılan runtime değildir; ileride yedek/teşhis amaçlı kullanılabilir.
-- **DPI motoru = `winws.exe`** (WinDivert, ayrı süreç).
-  - Yeni bir `DpiSupervisor` tarafından yönetilir. Şablonu `CoreSupervisor` (`src/engine/supervisor/CoreSupervisor.cpp`): `CoreProcess : QProcess`, `DS_cores` thread'i, backoff/give-up durum makinesi, stdout→`MW_show_log`.
+- **DPI motoru = `winws.exe`** (zapret, WinDivert, ayrı süreç). `DpiSupervisor` tarafından yönetilir (bkz. "DPI motoru (F2 sonrası)").
   - winws bir cygwin build'idir: `cygwin1.dll` aynı dizinde olmalıdır.
-- **Dışlama noktası:** `ConnectionManager` (`src/engine/connection/ConnectionManager.cpp`).
-  - Bugün tek aktif profil `m_running` + `mu_starting/mu_stopping` ile sağlanıyor; core da ikinci `Start`'ı reddediyor.
-  - `RunningProfiles.hpp` yalnızca edit-lock amaçlıdır.
-  - F-Dpi'de `EngineArbiter` (`None | Proxy | Dpi`) `ConnectionManager::start` / `EngineControl` seviyesinde devreye girer: önce diğer motoru durdurur, sonra hedefi başlatır.
-  - Core süreci boşta çalışmaya devam edebilir (config yüklü değilken trafiğe dokunmaz).
-  - DPI aktifken şu yollar profil başlatmamalıdır: `EngineHost::init` auto-resume (`started_id`/`remember_id`), `restartForGuard`, `applyPendingRestart`, `onCoreStarted`.
-  - Kill switch açıksa winws için `KillSwitch::permitExtraCore(path)` benzeri bir WFP izni gerekir.
+- **Dışlama noktası (F2 ile uygulandı):** `ConnectionManager` (`src/engine/connection/ConnectionManager.cpp` + `ConnectionDpi.cpp`).
+  - Ayrı bir arbiter sınıfı yoktur. **DPI profili de "çalışan profil"dir** (`m_running`), dolayısıyla Throne'un tek-aktif-profil kuralı (`m_running` + `mu_starting/mu_stopping`) iki motoru da kapsar: bir profil başlatılırken önce çalışan profil (proxy ya da DPI) `stop()` ile durdurulur.
+  - Motor türü: `ConnectionManager::activeEngine()` → `ActiveEngine::{None, Proxy, Dpi}` (`EngineTypes.h`). Blockcheck (F5) ve NetworkMonitor (F4) bunu kullanacak.
+  - `start()` profili çözdükten sonra `IsDpiProfile(ent)` ise `startDpi()`'ye dallanır: kill switch, auto-selector sıralaması, `BuildSingBoxConfig` ve core RPC'si atlanır.
+  - `stop()`: DPI için RPC yerine `DpiSupervisor::stop()`. `crash=true` durdurmaları (core çökmesi/yeniden başlatması, "Restart Core") DPI'yi **durdurmaz**, çünkü winws core'a bağlı değildir.
+  - `onCoreStarted`: yeniden başlayan core `started_id`'yi (çalışan DPI profili) devam ettirmek isterse winws yeniden başlatılmaz.
+  - Auto-resume (`remember_id`) DPI profilini de normal yoldan başlatır. `restartForGuard`/`applyPendingRestart` da normal `start()`'tan geçer, yani dışlama korunur.
+  - Core süreci DPI çalışırken boşta kalır (yüklü config yok, trafiğe dokunmaz).
+  - **Kill switch açıkken DPI başlatılmaz** (tüm trafiği keserdi); açık hata mesajı verilir.
+  - DPI başlarken sistem proxy'si açıksa OS proxy ayarı temizlenir (core'un inbound'u boştadır). `spmode_system_proxy` bayrağı korunur ve proxy'ye dönünce yeniden uygulanır.
+  - `RunningProfiles.hpp` yalnızca edit-lock amaçlıdır; DPI için `{id}` yazılır.
 
 ### Önemli Throne alanları (analiz özeti)
 **Başlat/durdur akışı**
@@ -177,17 +184,37 @@ Notlar:
 - `tr_TR.ts` F-Dpi'ye aittir ve 3595 metnin tamamı çevrilidir.
 - Dil seçimi: `dialog_basic_settings.ui` combo'sundaki 5. indeks; yükleyici `GuiStartup.cpp::LoadTranslator`. "Sistem" seçiliyken Türkçe Windows otomatik olarak `tr_TR` yükler.
 
-### F-Dpi bileşen tasarımı
-- **`dpi` profil tipi** (`include/configs/outbounds/dpi.h`)
-  - Strateji: `--filter-*` / `--dpi-desync*` argüman blokları (`--new` ile ayrılır) ve preset adı.
-  - Filtre portları: `--wf-tcp`, `--wf-udp`.
-  - Split bypass: `mode = all | hostlist | autohostlist`, `hostlist[]`, `exclude[]`, auto-hostlist dosyası.
-  - Hepsi `outbound_json` içinde saklanır.
-  - `Build()` sing-box tarafında kullanılmaz; winws argv'si `DpiConfig::BuildArgs()` ile üretilir.
-- **`DpiSupervisor`** (`include/engine/dpi/`): winws sürecini yönetir.
-  - Liste dosyalarını veri dizinine yazar.
-  - Çıkışta WinDivert sürücüsünün bırakıldığını doğrular.
-- **`EngineArbiter`**: proxy ve DPI karşılıklı dışlamasının tek doğruluk kaynağıdır (`ConnectionState` + aktif motor).
+### DPI motoru (F2 sonrası)
+- **`dpi` profil tipi**: `include/configs/outbounds/dpi.h` + `src/configs/outbounds/dpi.cpp`.
+  - Alanlar `outbound_json` içinde saklanır:
+    - `preset` (boş = elle düzenlenmiş)
+    - `strategy` (winws profil seçenekleri, `--new` ile ayrılır; `#` yorum, `%ZAPRET%` = winws dizini)
+    - `wf_tcp`, `wf_udp`
+    - `mode` (`all | hostlist | autohostlist`), `hostlist[]`, `exclude[]`
+  - Yeni profil `Dpi::kDefaultPreset` ile başlar.
+  - `outbound::IsDpi()` sanal kancası tipi tanıtır. `Build()` hata döner, çünkü proxy değildir; bu sayede zincir, yönlendirme ve test kullanımları reddedilir.
+  - `Checks::DpiStrategy` dosya yazan veya F-Dpi'nin yönettiği seçenekleri reddeder (`--hostlist-auto`, `--wf-save`, `--debug=@`, `--pidfile`, `--daemon`).
+  - `RefusedForeignType("dpi")`: link, abonelik ve API ile DPI profili içe aktarılmaz; winws yönetici olarak çalışır ve seçenekleri dosya okur.
+  - Dışlandığı listeler: `generate.cpp` serverless, `ScanProfiles`, `dialog_scan_instance`, `mainwindow_connections` (yönlendirme hedefleri), `RouteRule` (unroutable), `AutoSelectorPlan` (`AutoSelectorSkip::Dpi`).
+- **Preset'ler**: `include/dpi/DpiPresets.h`. `general` (zapret preset1 türevi), `split` ve `fake-ttl`.
+- **Komut satırı**: `include/dpi/DpiLaunch.h`, `Dpi::BuildLaunch()`.
+  - `--wf-tcp/--wf-udp` öne eklenir; strateji kendi `--wf-*` seçeneğini içeriyorsa eklenmez.
+  - Split bypass seçenekleri her `--new` bloğuna eklenir.
+  - Listeler `<config>/dpi/{hostlist,exclude,autohostlist}-<profilId>.txt` dosyalarına yazılır. Alan adları punycode ve küçük harfe çevrilir. autohostlist dosyası korunur, çünkü winws ona ekleme yapar.
+  - `Dpi::WindowsCommandLine()`: cygwin, tırnaksız argümanlardaki `\` karakterini kaçış sayar. Bu yüzden ters bölü veya boşluk içeren değerler `--opt="C:\..."` biçiminde tırnaklanır ve `QProcess::setNativeArguments` ile verilir.
+- **`DpiSupervisor`**: `include/engine/dpi/DpiSupervisor.h`, ConnectionManager'a aittir.
+  - QProcess kendi thread'inde (`DS_dpi`) yaşar. `start()` yalnızca worker thread'den çağrılır ve 1,5 sn bekler, çünkü winws WinDivert veya argüman hatasında hemen kapanır. Bu sürede kapanırsa son çıktı satırıyla hata döner.
+  - Bilinen WinDivert çıkış kodları açıklamalı mesaja çevrilir: 5 = yönetici gerekli, 2/3 = .sys eksik, 87 = filtre, 577/1275 = sürücü engellendi.
+  - stdout `[DPI]` önekiyle log paneline gider.
+  - Sonradan beklenmedik çıkış `unexpectedExit` sinyalini tetikler; ConnectionManager profili durdurur. `started_id` korunur.
+  - `Sys::TieChildToSelf` (`include/sys/ChildProcess.hpp`, Windows'ta job object + `KILL_ON_JOB_CLOSE`) sayesinde F-Dpi çökerse winws de ölür. Açılışta `Sys::KillProcessesByPath` kalmış winws süreçlerini kapatır.
+- **Düzenleme UI'ı (F2 asgari)**: `EditDpi` (`src/ui/profile/edit_dpi.cpp`, kodla kurulmuş form).
+  - Hazır ayar, TCP/UDP portları ve strateji metni içerir.
+  - Tip listesinde ilk sıradadır; Ctrl+N ile yeni profil varsayılan olarak DPI Bypass açılır.
+  - Split bypass editörleri F3'te gelecek.
+
+### F-Dpi bileşen tasarımı (sonraki fazlar)
+- `dpi` tipi, `DpiSupervisor` ve dışlama: uygulandı (bkz. "DPI motoru (F2 sonrası)" ve "Motorlar ve karşılıklı dışlama").
 - **Genel / Özel**
   - `groups.scope` kolonu (`general` | `network`).
   - `network_bindings` tablosu: `network_key` → profile_id; anahtar Wi-Fi SSID(+BSSID opsiyonel) veya Ethernet NLM network GUID / gateway MAC.
@@ -217,10 +244,12 @@ Notlar:
   - `tr_TR` (tam çeviri) ve `ts_tool.js`.
   - `.gitattributes` ile `*.sh` LF'e sabitlendi.
   - Kalan iş: ikon tasarımı ve installer (F7'ye kaydırıldı).
-- [ ] **F2 – DPI motoru:**
-  - `dpi` profil tipi ve `DpiSupervisor`.
-  - `EngineArbiter` (karşılıklı dışlama, auto-resume yollarının korunması).
-  - Log paneline winws çıktısı; deploy'a zapret.
+- [x] **F2 – DPI motoru:**
+  - `dpi` profil tipi, preset'ler, `Dpi::BuildLaunch` (split bypass listeleri dahil) ve `DpiSupervisor` (job object, kalıntı temizliği).
+  - ConnectionManager'da karşılıklı dışlama (`startDpi`, crash-stop/`onCoreStarted` korumaları, `ActiveEngine`); kill switch ve sistem proxy'si kuralları.
+  - Log paneline winws çıktısı; asgari `EditDpi` editörü; `tr_TR` çevirileri.
+  - Doğrulandı (yönetici olmadan, UI Automation ile): profil yükleme/gösterim, liste dosyaları, winws argümanları, proxy→DPI geçişi (proxy durduruldu), hata mesajı, hatadan sonra proxy'nin yeniden başlaması, editör.
+  - **Doğrulanmadı:** yönetici olarak gerçek DPI çalışması, DPI→proxy geçişi ve çökme sonrası winws'in job object ile kapanması.
 - [ ] **F3 – DPI düzenleme UI'ı:**
   - `edit_dpi`: preset'ler, manuel argüman editörü, port filtreleri.
   - Split Bypass: mod seçimi + hostlist / exclude / auto-hostlist editörleri.
@@ -246,4 +275,7 @@ Notlar:
 - Yeni F-Dpi kodu yeni dosyalara yazılır (`*/dpi/*`, `sys/NetworkMonitor*`, `dns/*`). Throne dosyalarına yalnızca kanca/kayıt satırları eklenir; bu, upstream merge'lerini kolaylaştırır.
 - Platforma özgü kod `src/sys/<os>/` altında, platformdan bağımsız arayüzlerin arkasında tutulur.
 - Kaynak dosyalar `CMakeLists.txt` içinde açıkça listelenir; yeni dosya eklerken listeyi güncelle.
+  - `<windows.h>` içeren Windows dosyaları `cmake/windows/windows.cmake` içindeki `PLATFORM_HEADLESS_SOURCES` listesine eklenir; bu liste MSVC unity batch'lerinin sonuna eklenir.
+- MSVC unity build açık: aynı batch'teki dosyaların anonim namespace isimleri çakışabilir. Bu yüzden yardımcı fonksiyonlara dosyaya özgü önek verilir (ör. `dpiLaunch…`, `dpiSupervisor…`).
+- Motor katmanı (`src/engine`, `configs`, `sys`, …) UI başlıklarını veya `qApp` kullanamaz; `cmake/EngineBoundary.cmake` her derlemede bunu denetler.
 - `deps/`, `build/`, `deployment/` ve `res/dashboard/*` commit edilmez.

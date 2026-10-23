@@ -72,7 +72,8 @@ namespace Scanner {
 
     bool IsScanBaseType(const QString &type) {
         return !type.isEmpty() && type != QLatin1String("custom") && type != QLatin1String("extracore") &&
-               type != QLatin1String("tailscale") && type != QLatin1String("autoselector") && type != QLatin1String("direct");
+               type != QLatin1String("tailscale") && type != QLatin1String("autoselector") && type != QLatin1String("direct") &&
+               type != QLatin1String("dpi");
     }
 
     QString WarpTransportOf(const QString &mode) {

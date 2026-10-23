@@ -24,6 +24,8 @@ namespace Configs
         CountryFilter,
         Unavailable,
         XrayFullChained,
+        // F-Dpi
+        Dpi,
     };
 
     QString AutoSelectorSkipReason(AutoSelectorSkip skip);

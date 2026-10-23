@@ -589,6 +589,17 @@ set(PROJECT_SOURCES
         include/ui/stats/dialog_auto_selector.h
         src/ui/stats/dialog_auto_selector.cpp
         include/configs/outbounds/extracore.h
+        # F-Dpi: DPI Bypass profile type, winws presets and command line
+        include/configs/outbounds/dpi.h
+        src/configs/outbounds/dpi.cpp
+        include/dpi/DpiPresets.h
+        src/dpi/DpiPresets.cpp
+        include/dpi/DpiLaunch.h
+        src/dpi/DpiLaunch.cpp
+        include/ui/profile/edit_dpi.h
+        src/ui/profile/edit_dpi.cpp
+        include/sys/ChildProcess.hpp
+        src/sys/ChildProcess.cpp
         include/ui/profile/edit_advanced.h
         src/ui/profile/edit_advanced.cpp
         include/ui/profile/edit_advanced.ui
@@ -747,6 +758,9 @@ set(ENGINE_SOURCES
         include/engine/connection/ConnectionManager.h
         src/engine/connection/ConnectionManager.cpp
         src/engine/connection/ConnectionModes.cpp
+        src/engine/connection/ConnectionDpi.cpp
+        include/engine/dpi/DpiSupervisor.h
+        src/engine/dpi/DpiSupervisor.cpp
         include/engine/vpn/VpnAuthController.h
         src/engine/vpn/VpnAuthController.cpp
         include/engine/services/Dashboard.h

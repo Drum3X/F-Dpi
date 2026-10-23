@@ -27,6 +27,13 @@ namespace Engine {
         StartFailed,
     };
 
+    // F-Dpi: what the running profile runs on. Proxy (ThroneCore) and Dpi (winws) never run together.
+    enum class ActiveEngine {
+        None,
+        Proxy,
+        Dpi,
+    };
+
     struct StartRequest {
         int profileId = -1;
         // Unattended callers get every failure through startFinished and the log, never a dialog.
