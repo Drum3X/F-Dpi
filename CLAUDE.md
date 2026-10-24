@@ -332,6 +332,7 @@ Notlar:
   - Her sağlayıcı kendi thread'inde, proxy'siz QNAM ile ölçülür. İlk sorgu "bağlantı" süresidir (TLS dahil); sonraki popüler alan adları + test alan adları üzerinden medyan alınır.
   - Elenenler: yanıt vermeyenler (ağ DoH'u engelliyor olabilir), test alan adına bogon adres verenler (filtreliyor) ve sorguların yarısından azını yanıtlayanlar.
   - Zehirlenme testi, engelli siteler için üç yanıtı karşılaştırır: sistem DNS'i (adaptörün sunucusuna düz UDP; F-Dpi DNS'i değiştirdiyse yedekteki asıl sunucu), düz UDP ile 1.1.1.1 ve şifreli yanıtların birleşimi.
+  - Varsayılan test sitesi yalnızca discord.com'dur (`Dns::DefaultTestDomains`; Blockcheck'te `kBlockcheckDefaultDomains`). Pencerelerde başka siteler eklenebilir; "aynı adres" kuralı ancak birden çok siteyle çalışır.
   - Kararlar: bogon adres ya da birden çok sitenin aynı adrese gitmesi (engel sayfası) → ZEHİRLİ; yanıt yok → engelli; şifreli yanıtla kesişim yok → farklı (CDN olabilir).
 - **Proxy modu:** `generate.cpp` içinde `RouteDns::Current` sonrasına (iki yerde: normal ve test config'i) `Dns::ApplyToRouteDns` kancası eklendi.
   - Yalnızca **doğrudan DNS** değişir; uzak DNS zaten proxy'den geçer.

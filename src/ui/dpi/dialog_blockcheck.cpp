@@ -23,7 +23,7 @@
 #include "include/global/Utils.hpp"
 
 namespace {
-    const QStringList kBlockcheckDefaultDomains = {QStringLiteral("discord.com"), QStringLiteral("youtube.com")};
+    const QStringList kBlockcheckDefaultDomains = {QStringLiteral("discord.com")};
 }
 
 DialogBlockcheck::DialogBlockcheck(const QStringList &domains, bool applyToProfile, QWidget *parent)

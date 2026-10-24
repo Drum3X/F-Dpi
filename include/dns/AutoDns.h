@@ -41,7 +41,7 @@ namespace Dns {
     // Addresses no public site resolves to: what a poisoning resolver answers with (0.0.0.0, loopback, private ranges...).
     bool IsBogon(const QHostAddress &address);
 
-    // Blocked in many countries; the poisoning test and the benchmark's filtering check resolve these.
+    // The poisoning test's and the benchmark's filtering check's default sites (discord.com); the test window takes others.
     QStringList DefaultTestDomains();
 
     // generate.cpp hook: points the direct DNS at the active provider unless Auto DNS is off for proxies or the routing

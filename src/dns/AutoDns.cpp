@@ -82,8 +82,7 @@ namespace Dns {
     }
 
     QStringList DefaultTestDomains() {
-        return {QStringLiteral("discord.com"), QStringLiteral("www.youtube.com"), QStringLiteral("x.com"), QStringLiteral("telegram.org"),
-                QStringLiteral("signal.org")};
+        return {QStringLiteral("discord.com")};
     }
 
     bool ApplyToRouteDns(Configs::RouteDns *dns, bool routeOwnsDns) {
