@@ -403,7 +403,7 @@ namespace Engine {
                     if (interactive) {
                         runOnUiThread([=,this] { policy()->stopFailed(error); });
                     } else {
-                        MW_show_log(MainWindowTr::tr("Stop return error") + ": " + error);
+                        MW_show_log(QStringLiteral("Stop return error: ") + error); // F-Dpi: the log stays English
                     }
                     return false;
                 } else if (!rpcOK) {

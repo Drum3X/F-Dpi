@@ -88,7 +88,8 @@ Notlar:
 1. `build_windows.ps1 -SkipCore -UpdateTranslations` komutu lupdate ile tüm `.ts` dosyalarını kaynaktan yeniler.
 2. **Yalnızca `tr_TR.ts` commit edilir.** zh_CN, fa_IR ve ru_RU dosyaları `git checkout -- res/translations/{zh_CN,fa_IR,ru_RU}.ts` ile geri alınır, çünkü upstream'e aittirler.
 3. Yeni (unfinished) metinler `node script/ts_tool.js export res/translations/tr_TR.ts <dir> [chunks]` ile JSON parçalara bölünür. Çeviriler `<dir>/*.out.json` dosyalarına `{ "<id>": "metin" | ["%n form"] }` biçiminde yazılır ve `node script/ts_tool.js import res/translations/tr_TR.ts <dir>` ile geri yazılır. Durumu `node script/ts_tool.js stats …` gösterir.
-4. Kurallar:
+4. **Günlük paneli her dilde İngilizcedir.** Çeviriden sonra `node script/ts_tool.js english-logs res/translations/tr_TR.ts` çalıştırılır: yalnızca `MW_show_log(...)` içinde `tr()`'ye verilen metinler İngilizce kaynağını ("Throne" → "F-Dpi") çeviri olarak alır. Arayüzde de kullanılan bir metin çevrili kalır; böyle bir günlük satırı kodda `QStringLiteral` ile yazılır. Değişkenle gelen metinler (ör. hata penceresiyle paylaşılan hata mesajları) bu yolla yakalanmaz.
+5. Kurallar:
    - `%1`, `%n`, `%Ln`, `%s`, HTML etiketleri ve `\n` korunur.
    - Türkçede tek çoğul formu vardır.
    - Kullanıcıya görünen "Throne" adı Türkçede "F-Dpi" olur. `throne://` ve `thronectl` aynen kalır.

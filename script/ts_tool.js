@@ -6,6 +6,9 @@
 //   node script/ts_tool.js import res/translations/tr_TR.ts <dir>
 //       reads <dir>/*.out.json: { "<id>": "text" | ["form", ...] } and fills those messages in place
 //   node script/ts_tool.js stats res/translations/tr_TR.ts
+//   node script/ts_tool.js english-logs res/translations/tr_TR.ts
+//       keeps the log panel English: a text that src/ and include/ pass to tr() only inside MW_show_log(...) calls gets its
+//       English source as the translation. A text also used outside a log call (a dialog, a label) keeps its translation.
 //
 // Message ids are positions in file order, so export and import must run against the same .ts revision.
 "use strict";
@@ -78,6 +81,93 @@ function importChunks(tsPath, dir) {
     console.log(`filled ${filled} of ${Object.keys(translations).length} provided translations`);
 }
 
+// C++ string literals: [{ start, end, value }], adjacent literals ("a" "b") joined.
+function cppLiterals(text) {
+    const out = [];
+    const re = /"((?:[^"\\\n]|\\.)*)"/g;
+    const unescape = { n: "\n", t: "\t", '"': '"', "'": "'", "\\": "\\" };
+    let m;
+    while ((m = re.exec(text))) {
+        const value = m[1].replace(/\\(n|t|"|'|\\)/g, (_, c) => unescape[c]);
+        const prev = out[out.length - 1];
+        if (prev && /^\s*$/.test(text.slice(prev.end, m.index))) {
+            prev.value += value;
+            prev.end = re.lastIndex;
+        } else {
+            out.push({ start: m.index, end: re.lastIndex, value });
+        }
+    }
+    return out;
+}
+
+// [start, end) of the arguments of every MW_show_log( ... ) call.
+function logSpans(text) {
+    const spans = [];
+    const re = /\bMW_show_log\s*\(/g;
+    let m;
+    while ((m = re.exec(text))) {
+        let depth = 1, i = re.lastIndex;
+        for (; i < text.length && depth > 0; i++) {
+            const c = text[i];
+            if (c === '"' || c === "'") {
+                for (i++; i < text.length && text[i] !== c; i++) if (text[i] === "\\") i++;
+            } else if (c === "(") depth++;
+            else if (c === ")") depth--;
+        }
+        spans.push([re.lastIndex, i]);
+    }
+    return spans;
+}
+
+function englishLogs(tsPath) {
+    const files = [];
+    const walk = (dir) => {
+        for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+            const f = path.join(dir, e.name);
+            if (e.isDirectory()) walk(f);
+            else if (/\.(cpp|h|hpp|ui)$/.test(e.name)) files.push(f);
+        }
+    };
+    const root = path.resolve(__dirname, "..");
+    for (const d of ["src", "include"]) walk(path.join(root, d));
+    // A literal tr() takes: right after "tr(", or after translate("Context", .
+    const trText = /\b(?:tr|QT_TR_NOOP)\s*\(\s*$|\b(?:translate|QT_TRANSLATE_NOOP)\s*\(\s*"(?:[^"\\]|\\.)*"\s*,\s*$/;
+    const inLog = new Set(), elsewhere = new Set();
+    for (const f of files) {
+        const text = fs.readFileSync(f, "utf8");
+        if (f.endsWith(".ui")) {
+            for (const m of text.matchAll(/<string[^>]*>([\s\S]*?)<\/string>/g)) elsewhere.add(decode(m[1]));
+            continue;
+        }
+        const spans = logSpans(text);
+        for (const lit of cppLiterals(text)) {
+            if (!trText.test(text.slice(Math.max(0, lit.start - 200), lit.start))) continue;
+            (spans.some(([a, b]) => lit.start >= a && lit.end <= b) ? inLog : elsewhere).add(lit.value);
+        }
+    }
+    let ts = fs.readFileSync(tsPath, "utf8");
+    let set = 0, shared = 0;
+    ts = ts.replace(MESSAGE_RE, (whole, numerus, body) => {
+        const source = tag(body, "source");
+        if (!inLog.has(source) || /type="(obsolete|vanished)"/.test(body)) return whole;
+        if (elsewhere.has(source)) {
+            shared++;
+            console.log(`  kept: ${source}`);
+            return whole;
+        }
+        set++;
+        // The app's name, as the other translations have it; ThroneCore, throne:// and thronectl stay.
+        const english = encode(source.replace(/\bThrone\b/g, "F-Dpi"));
+        const forms = Math.max(1, (body.match(/<numerusform/g) || []).length);
+        const translation = numerus
+            ? `<translation>\n${Array(forms).fill(`            <numerusform>${english}</numerusform>`).join("\n")}\n        </translation>`
+            : `<translation>${english}</translation>`;
+        return whole.replace(/<translation[^>]*>[\s\S]*?<\/translation>|<translation[^>]*\/>/, translation);
+    });
+    fs.writeFileSync(tsPath, ts);
+    console.log(`${inLog.size} log texts: ${set} message(s) set to English, ${shared} kept (also used outside the log)`);
+}
+
 function stats(tsPath) {
     const all = messages(fs.readFileSync(tsPath, "utf8")).filter((m) => !m.obsolete);
     console.log(`${all.length} messages, ${all.filter((m) => m.unfinished).length} unfinished`);
@@ -87,7 +177,8 @@ const [cmd, tsPath, arg, chunks] = process.argv.slice(2);
 if (cmd === "export") exportChunks(tsPath, arg, Number(chunks) || 6);
 else if (cmd === "import") importChunks(tsPath, arg);
 else if (cmd === "stats") stats(tsPath);
+else if (cmd === "english-logs") englishLogs(tsPath);
 else {
-    console.error("usage: ts_tool.js export|import|stats <file.ts> [dir] [chunks]");
+    console.error("usage: ts_tool.js export|import|stats|english-logs <file.ts> [dir] [chunks]");
     process.exit(2);
 }

@@ -373,7 +373,7 @@ namespace Engine {
         }
         if (changed(MwArg::Vpn) && settings->spmode_vpn) {
             if (interactive) policy()->settingsNeedTunRestart();
-            else MW_show_log(MainWindowTr::tr("Tun Settings changed") + ": " + MainWindowTr::tr("Restart Tun to take effect."));
+            else MW_show_log(QStringLiteral("Tun Settings changed: Restart Tun to take effect.")); // F-Dpi: the log stays English
         }
         if (changed(MwArg::ChoosePort) || suggestRestartProxy) {
             m_connection->noteRestartNeeded(changed(MwArg::Route) ? Engine::RestartReason::Routing : Engine::RestartReason::Settings);
@@ -381,7 +381,7 @@ namespace Engine {
         emit statusChanged();
         if (changed(MwArg::NeedRestart)) {
             if (!interactive) {
-                MW_show_log(MainWindowTr::tr("Settings changed") + ": " + MainWindowTr::tr("Restart the program to take effect."));
+                MW_show_log(QStringLiteral("Settings changed: Restart the program to take effect.")); // F-Dpi: the log stays English
             } else if (policy()->confirmRestartProgram()) {
                 m_exit->requestExit(ExitReason::Restart, false);
             }

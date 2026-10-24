@@ -53,35 +53,35 @@
     </message>
     <message>
         <source>[DNS] Automatic DNS: %1</source>
-        <translation>[DNS] Otomatik DNS: %1</translation>
+        <translation>[DNS] Automatic DNS: %1</translation>
     </message>
     <message>
         <source>[DNS] Restored the Windows DNS settings F-Dpi had changed before it last closed.</source>
-        <translation>[DNS] F-Dpi&apos;nin son kapanışından önce değiştirdiği Windows DNS ayarları geri yüklendi.</translation>
+        <translation>[DNS] Restored the Windows DNS settings F-Dpi had changed before it last closed.</translation>
     </message>
     <message>
         <source>[DNS] Could not restore the Windows DNS settings: %1</source>
-        <translation>[DNS] Windows DNS ayarları geri yüklenemedi: %1</translation>
+        <translation>[DNS] Could not restore the Windows DNS settings: %1</translation>
     </message>
     <message>
         <source>[DNS] Could not set the Windows DNS: %1</source>
-        <translation>[DNS] Windows DNS&apos;i ayarlanamadı: %1</translation>
+        <translation>[DNS] Could not set the Windows DNS: %1</translation>
     </message>
     <message>
         <source>[DNS] Automatic DNS: %1, the fastest encrypted DNS here (%2 ms).</source>
-        <translation>[DNS] Otomatik DNS: %1, bu ağdaki en hızlı şifreli DNS (%2 ms).</translation>
+        <translation>[DNS] Automatic DNS: %1, the fastest encrypted DNS here (%2 ms).</translation>
     </message>
     <message>
         <source>[DNS] Left alone, DNS servers are set for this network in Windows: %1</source>
-        <translation>[DNS] Bu ağ için Windows&apos;ta DNS sunucuları ayarlı olduğundan dokunulmadı: %1</translation>
+        <translation>[DNS] Left alone, DNS servers are set for this network in Windows: %1</translation>
     </message>
     <message>
         <source>[DNS] Windows now resolves through %1 over DNS-over-HTTPS while DPI Bypass runs.</source>
-        <translation>[DNS] DPI Bypass çalıştığı sürece Windows DNS-over-HTTPS ile %1 üzerinden çözümlüyor.</translation>
+        <translation>[DNS] Windows now resolves through %1 over DNS-over-HTTPS while DPI Bypass runs.</translation>
     </message>
     <message>
         <source>[DNS] Windows DNS settings restored.</source>
-        <translation>[DNS] Windows DNS ayarları geri yüklendi.</translation>
+        <translation>[DNS] Windows DNS settings restored.</translation>
     </message>
     <message>
         <source>cannot save the backup of the current settings to %1</source>
@@ -1552,7 +1552,7 @@ Bu yedek uygulamanın daha yeni bir sürümüyle oluşturulmuş olabilir.</trans
     </message>
     <message>
         <source>Downloading Xray geo asset: %1</source>
-        <translation>Xray coğrafi verisi indiriliyor: %1</translation>
+        <translation>Downloading Xray geo asset: %1</translation>
     </message>
     <message>
         <source>Select at least one part to include in the backup.</source>
@@ -5682,11 +5682,11 @@ https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
     </message>
     <message>
         <source>[DPI] The system proxy is not used while DPI Bypass runs.</source>
-        <translation>[DPI] DPI Bypass çalışırken sistem proxy&apos;si kullanılmaz.</translation>
+        <translation>[DPI] The system proxy is not used while DPI Bypass runs.</translation>
     </message>
     <message>
         <source>[DPI] DPI Bypass stopped because winws exited: %1</source>
-        <translation>[DPI] winws kapandığı için DPI Bypass durdu: %1</translation>
+        <translation>[DPI] DPI Bypass stopped because winws exited: %1</translation>
     </message>
     <message>
         <source>Cannot write the site list %1: %2</source>
@@ -9077,7 +9077,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>The core did not connect within %1 s, restarting it.</source>
-        <translation>Çekirdek %1 sn içinde bağlanmadı, yeniden başlatılıyor.</translation>
+        <translation>The core did not connect within %1 s, restarting it.</translation>
     </message>
     <message>
         <source>The core keeps exiting, so it is no longer restarted. Use Restart Core to try again.</source>
@@ -9727,7 +9727,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>[Kill switch] Not starting %1: the kill switch is not active.</source>
-        <translation>[Kill switch] %1 başlatılmıyor: kill switch etkin değil.</translation>
+        <translation>[Kill switch] Not starting %1: the kill switch is not active.</translation>
     </message>
     <message>
         <source>BuildConfig return error</source>
@@ -9735,7 +9735,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>[Kill switch] The extra core %1 could not be allowed through the kill switch.</source>
-        <translation>[Kill switch] %1 ek çekirdeğine kill switch üzerinden izin verilemedi.</translation>
+        <translation>[Kill switch] The extra core %1 could not be allowed through the kill switch.</translation>
     </message>
     <message>
         <source>Another profile is starting...</source>
@@ -9747,15 +9747,15 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>Try to start the config, but the core has not listened to the RPC port, so restart it...</source>
-        <translation>Yapılandırma başlatılmaya çalışıldı ancak çekirdek RPC portunu dinlemiyor, yeniden başlatılıyor...</translation>
+        <translation>Try to start the config, but the core has not listened to the RPC port, so restart it...</translation>
     </message>
     <message>
         <source>Starting profile %1</source>
-        <translation>%1 profili başlatılıyor</translation>
+        <translation>Starting profile %1</translation>
     </message>
     <message>
         <source>Failed to start profile %1</source>
-        <translation>%1 profili başlatılamadı</translation>
+        <translation>Failed to start profile %1</translation>
     </message>
     <message>
         <source>Stop return error</source>
@@ -9763,23 +9763,23 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>Stopping profile %1</source>
-        <translation>%1 profili durduruluyor</translation>
+        <translation>Stopping profile %1</translation>
     </message>
     <message>
         <source>Failed to stop, please restart the program.</source>
-        <translation>Durdurulamadı, lütfen programı yeniden başlatın.</translation>
+        <translation>Failed to stop, please restart the program.</translation>
     </message>
     <message>
         <source>User opted for no privilege req, some features may not work</source>
-        <translation>Kullanıcı yetki istememeyi seçti, bazı özellikler çalışmayabilir</translation>
+        <translation>User opted for no privilege req, some features may not work</translation>
     </message>
     <message>
         <source>System proxy: %1</source>
-        <translation>Sistem proxy&apos;si: %1</translation>
+        <translation>System proxy: %1</translation>
     </message>
     <message>
         <source>[Kill switch] Restarting the core so that its own traffic passes the kill switch...</source>
-        <translation>[Kill switch] Kendi trafiğinin kill switch&apos;ten geçmesi için çekirdek yeniden başlatılıyor...</translation>
+        <translation>[Kill switch] Restarting the core so that its own traffic passes the kill switch...</translation>
     </message>
     <message>
         <source>[VPN] %1: %2</source>
@@ -9795,19 +9795,19 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>[VPN] %1: the core did not answer the sign-in prompt.</source>
-        <translation>[VPN] %1: çekirdek oturum açma istemine yanıt vermedi.</translation>
+        <translation>[VPN] %1: the core did not answer the sign-in prompt.</translation>
     </message>
     <message>
         <source>[VPN] %1: could not answer the sign-in prompt: %2</source>
-        <translation>[VPN] %1: oturum açma istemi yanıtlanamadı: %2</translation>
+        <translation>[VPN] %1: could not answer the sign-in prompt: %2</translation>
     </message>
     <message>
         <source>[VPN] %1: signed in again with a new one-time code.</source>
-        <translation>[VPN] %1: yeni bir tek kullanımlık kodla yeniden oturum açıldı.</translation>
+        <translation>[VPN] %1: signed in again with a new one-time code.</translation>
     </message>
     <message>
         <source>[VPN] %1 rejected the saved credentials; restarting the profile with a new one-time code.</source>
-        <translation>[VPN] %1 kaydedilmiş kimlik bilgilerini reddetti; profil yeni bir tek kullanımlık kodla yeniden başlatılıyor.</translation>
+        <translation>[VPN] %1 rejected the saved credentials; restarting the profile with a new one-time code.</translation>
     </message>
     <message>
         <source>The server refused the credentials saved with this profile. Enter the ones to use for this session; the profile itself is left unchanged.</source>
@@ -9815,11 +9815,11 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>[VPN] %1 rejected the saved credentials.</source>
-        <translation>[VPN] %1 kaydedilmiş kimlik bilgilerini reddetti.</translation>
+        <translation>[VPN] %1 rejected the saved credentials.</translation>
     </message>
     <message>
         <source>Imported %1 profile(s)</source>
-        <translation>%1 profil içe aktarıldı</translation>
+        <translation>Imported %1 profile(s)</translation>
     </message>
     <message>
         <source>Tun Settings changed</source>
@@ -9847,31 +9847,31 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>The Xray config &quot;%1&quot; needs &quot;%2&quot;, but the installed %3 does not contain it.</source>
-        <translation>&quot;%1&quot; Xray yapılandırması &quot;%2&quot; gerektiriyor, ancak yüklü %3 bunu içermiyor.</translation>
+        <translation>The Xray config "%1" needs "%2", but the installed %3 does not contain it.</translation>
     </message>
     <message>
         <source>The Xray config &quot;%1&quot; needs geo data files that are not installed: %2. Download them under Basic Settings &gt; Miscellaneous &gt; Xray Geo Assets.</source>
-        <translation>&quot;%1&quot; Xray yapılandırması yüklü olmayan coğrafi veri dosyalarına ihtiyaç duyuyor: %2. Bunları Temel Ayarlar &gt; Çeşitli &gt; Xray Coğrafi Verileri altından indirin.</translation>
+        <translation>The Xray config "%1" needs geo data files that are not installed: %2. Download them under Basic Settings &gt; Miscellaneous &gt; Xray Geo Assets.</translation>
     </message>
     <message>
         <source>Downloaded Xray geo asset files.</source>
-        <translation>Xray coğrafi veri dosyaları indirildi.</translation>
+        <translation>Downloaded Xray geo asset files.</translation>
     </message>
     <message>
         <source>Geo asset files are already being downloaded.</source>
-        <translation>Coğrafi veri dosyaları zaten indiriliyor.</translation>
+        <translation>Geo asset files are already being downloaded.</translation>
     </message>
     <message>
         <source>Failed to close connections: %1</source>
-        <translation>Bağlantılar kapatılamadı: %1</translation>
+        <translation>Failed to close connections: %1</translation>
     </message>
     <message>
         <source>IPC error</source>
-        <translation>IPC hatası</translation>
+        <translation>IPC error</translation>
     </message>
     <message>
         <source>Failed to stop tests</source>
-        <translation>Testler durdurulamadı</translation>
+        <translation>Failed to stop tests</translation>
     </message>
     <message>
         <source>a tested profile</source>
@@ -9879,23 +9879,23 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>[%1] test error: %2</source>
-        <translation>[%1] test hatası: %2</translation>
+        <translation>[%1] test error: %2</translation>
     </message>
     <message>
         <source>[%1] IP test error: %2</source>
-        <translation>[%1] IP testi hatası: %2</translation>
+        <translation>[%1] IP test error: %2</translation>
     </message>
     <message>
         <source>Profile test aborted</source>
-        <translation>Profil testi iptal edildi</translation>
+        <translation>Profile test aborted</translation>
     </message>
     <message>
         <source>Something is very wrong, the subject ent cannot be found!</source>
-        <translation>Ciddi bir sorun var, ilgili girdi bulunamıyor!</translation>
+        <translation>Something is very wrong, the subject ent cannot be found!</translation>
     </message>
     <message>
         <source>Profile manager data is corrupted, try again.</source>
-        <translation>Profil yöneticisi verileri bozuk, yeniden deneyin.</translation>
+        <translation>Profile manager data is corrupted, try again.</translation>
     </message>
     <message>
         <source>The last url test did not exit completely, please wait. If it persists, please restart the program.</source>
@@ -9907,15 +9907,15 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>Failed to build test config for batch: </source>
-        <translation>Toplu test yapılandırması oluşturulamadı: </translation>
+        <translation>Failed to build test config for batch: </translation>
     </message>
     <message>
         <source>URL test finished!</source>
-        <translation>URL testi bitti!</translation>
+        <translation>URL test finished!</translation>
     </message>
     <message>
         <source>IP test finished!</source>
-        <translation>IP testi bitti!</translation>
+        <translation>IP test finished!</translation>
     </message>
     <message>
         <source>The last test did not finish completely, please wait. If it persists, please restart the program.</source>
@@ -9923,43 +9923,43 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>Failed to build batch test config: </source>
-        <translation>Toplu test yapılandırması oluşturulamadı: </translation>
+        <translation>Failed to build batch test config: </translation>
     </message>
     <message>
         <source>Speedtest finished!</source>
-        <translation>Hız testi bitti!</translation>
+        <translation>Speedtest finished!</translation>
     </message>
     <message>
         <source>Profile speed test aborted</source>
-        <translation>Profil hız testi iptal edildi</translation>
+        <translation>Profile speed test aborted</translation>
     </message>
     <message>
         <source>[%1] speed test error: %2</source>
-        <translation>[%1] hız testi hatası: %2</translation>
+        <translation>[%1] speed test error: %2</translation>
     </message>
     <message>
         <source>[Auto selector] Running the best %1 of %2 ranked profiles.</source>
-        <translation>[Otomatik seçici] Sıralanan %2 profilin en iyi %1 tanesi çalıştırılıyor.</translation>
+        <translation>[Auto selector] Running the best %1 of %2 ranked profiles.</translation>
     </message>
     <message>
         <source>[Auto selector] Reusing existing test results; ranked %1 profiles.</source>
-        <translation>[Otomatik seçici] Mevcut test sonuçları yeniden kullanılıyor; %1 profil sıralandı.</translation>
+        <translation>[Auto selector] Reusing existing test results; ranked %1 profiles.</translation>
     </message>
     <message>
         <source>[Auto selector] Measuring %1 not-yet-tested profiles...</source>
-        <translation>[Otomatik seçici] Henüz test edilmemiş %1 profil ölçülüyor...</translation>
+        <translation>[Auto selector] Measuring %1 not-yet-tested profiles...</translation>
     </message>
     <message>
         <source>[Auto selector] Ranked %1 profiles.</source>
-        <translation>[Otomatik seçici] %1 profil sıralandı.</translation>
+        <translation>[Auto selector] Ranked %1 profiles.</translation>
     </message>
     <message>
         <source>[Auto selector] The subscription replaced profiles it was running on — rebuilding.</source>
-        <translation>[Otomatik seçici] Abonelik, çalıştığı profilleri değiştirdi — yeniden oluşturuluyor.</translation>
+        <translation>[Auto selector] The subscription replaced profiles it was running on — rebuilding.</translation>
     </message>
     <message>
         <source>[Auto selector] Every running profile stopped working — rebuilding from the next best candidates.</source>
-        <translation>[Otomatik seçici] Çalışan tüm profiller çalışmayı bıraktı — sonraki en iyi adaylardan yeniden oluşturuluyor.</translation>
+        <translation>[Auto selector] Every running profile stopped working — rebuilding from the next best candidates.</translation>
     </message>
     <message>
         <source>Connect OK</source>
@@ -9979,7 +9979,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>Restart as administrator was cancelled, Throne keeps running</source>
-        <translation>Yönetici olarak yeniden başlatma iptal edildi, F-Dpi çalışmaya devam ediyor</translation>
+        <translation>Restart as administrator was cancelled, F-Dpi keeps running</translation>
     </message>
     <message>
         <source>Disable Kill Switch</source>
@@ -10091,7 +10091,7 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     </message>
     <message>
         <source>Global hotkey not registered: %1</source>
-        <translation>Genel kısayol tuşu kaydedilmedi: %1</translation>
+        <translation>Global hotkey not registered: %1</translation>
     </message>
     <message>
         <source>Search Settings</source>
@@ -10361,7 +10361,7 @@ Hata: %1</translation>
     </message>
     <message>
         <source> Test result(s) copied to clipboard!</source>
-        <translation> Test sonuçları panoya kopyalandı!</translation>
+        <translation> Test result(s) copied to clipboard!</translation>
     </message>
     <message>
         <source>All files (*)</source>
@@ -10699,7 +10699,7 @@ Hata: %1</translation>
     </message>
     <message>
         <source>Copied %1 item(s)</source>
-        <translation>%1 öğe kopyalandı</translation>
+        <translation>Copied %1 item(s)</translation>
     </message>
     <message>
         <source>Copy</source>
@@ -10731,15 +10731,15 @@ Hata: %1</translation>
     </message>
     <message>
         <source>Failed to resolve domains: %1</source>
-        <translation>Alan adları çözümlenemedi: %1</translation>
+        <translation>Failed to resolve domains: %1</translation>
     </message>
     <message>
         <source>the core did not answer</source>
-        <translation>çekirdek yanıt vermedi</translation>
+        <translation>the core did not answer</translation>
     </message>
     <message>
         <source>Failed to resolve %1: %2</source>
-        <translation>%1 çözümlenemedi: %2</translation>
+        <translation>Failed to resolve %1: %2</translation>
     </message>
     <message>
         <source>Replace domain server addresses with their resolved IPs?</source>
@@ -10771,7 +10771,7 @@ Hata: %1</translation>
     </message>
     <message>
         <source>Ignored deeplink with unknown command: %1</source>
-        <translation>Bilinmeyen komutlu derin bağlantı yok sayıldı: %1</translation>
+        <translation>Ignored deeplink with unknown command: %1</translation>
     </message>
     <message>
         <source>Import routing profile</source>
@@ -10889,11 +10889,11 @@ URL: %2</translation>
     <name>Network</name>
     <message>
         <source>[Network] Connected to %1.</source>
-        <translation>[Ağ] %1 ağına bağlanıldı.</translation>
+        <translation>[Network] Connected to %1.</translation>
     </message>
     <message>
         <source>[Network] %1: starting %2.</source>
-        <translation>[Ağ] %1: %2 başlatılıyor.</translation>
+        <translation>[Network] %1: starting %2.</translation>
     </message>
     <message>
         <source>No network</source>
@@ -10901,7 +10901,7 @@ URL: %2</translation>
     </message>
     <message>
         <source>Wi-Fi &quot;%1&quot;</source>
-        <translation>Wi-Fi &quot;%1&quot;</translation>
+        <translation>Wi-Fi "%1"</translation>
     </message>
     <message>
         <source>Ethernet %1</source>
@@ -10909,7 +10909,7 @@ URL: %2</translation>
     </message>
     <message>
         <source>[Network] No network connection.</source>
-        <translation>[Ağ] Ağ bağlantısı yok.</translation>
+        <translation>[Network] No network connection.</translation>
     </message>
 </context>
 <context>
@@ -11085,15 +11085,15 @@ Bunu düzeltmek için etkin noktayı &quot;%1&quot; yerine throne-tun bağdaşt�
     </message>
     <message>
         <source>Restarting the core ...</source>
-        <translation>Çekirdek yeniden başlatılıyor ...</translation>
+        <translation>Restarting the core ...</translation>
     </message>
     <message>
         <source>Core exited, cleaning up...</source>
-        <translation>Çekirdek kapandı, temizleniyor...</translation>
+        <translation>Core exited, cleaning up...</translation>
     </message>
     <message>
         <source>Core exits too frequently, stop automatic restart this profile.</source>
-        <translation>Çekirdek çok sık kapanıyor, bu profilin otomatik yeniden başlatılması durduruldu.</translation>
+        <translation>Core exits too frequently, stop automatic restart this profile.</translation>
     </message>
     <message>
         <source>Enter the WebDAV server URL in the WebDAV settings.</source>
@@ -11249,7 +11249,7 @@ Bunu düzeltmek için etkin noktayı &quot;%1&quot; yerine throne-tun bağdaşt�
     </message>
     <message>
         <source>%1 dials its own address: %2</source>
-        <translation>%1 kendi adresine bağlanıyor: %2</translation>
+        <translation>%1 dials its own address: %2</translation>
     </message>
     <message>
         <source>The routing profile lists an endpoint profile (id %1) that no longer exists</source>
@@ -11285,11 +11285,11 @@ Bunu düzeltmek için etkin noktayı &quot;%1&quot; yerine throne-tun bağdaşt�
     </message>
     <message>
         <source>Skipped the Tun private range &quot;%1&quot;: it is not a valid IP address or CIDR.</source>
-        <translation>&quot;%1&quot; Tun özel aralığı atlandı: geçerli bir IP adresi veya CIDR değil.</translation>
+        <translation>Skipped the Tun private range "%1": it is not a valid IP address or CIDR.</translation>
     </message>
     <message>
         <source>DNS address &quot;%1&quot; is invalid: %2</source>
-        <translation>&quot;%1&quot; DNS adresi geçersiz: %2</translation>
+        <translation>DNS address "%1" is invalid: %2</translation>
     </message>
     <message>
         <source>Chain &quot;%1&quot; has a hop (profile id %2) that no longer exists, edit the chain to remove it</source>
@@ -11333,7 +11333,7 @@ Bunu düzeltmek için etkin noktayı &quot;%1&quot; yerine throne-tun bağdaşt�
     </message>
     <message>
         <source>Skipped testing %1: %2</source>
-        <translation>%1 testi atlandı: %2</translation>
+        <translation>Skipped testing %1: %2</translation>
     </message>
     <message>
         <source>the group&apos;s fixed address</source>
@@ -11517,7 +11517,7 @@ Bunu düzeltmek için etkin noktayı &quot;%1&quot; yerine throne-tun bağdaşt�
     </message>
     <message>
         <source>[Auto selector] Every profile is failing, but this machine has no network connection — keeping the current pool.</source>
-        <translation>[Otomatik seçici] Tüm profiller başarısız, ancak bu makinenin ağ bağlantısı yok — mevcut havuz korunuyor.</translation>
+        <translation>[Auto selector] Every profile is failing, but this machine has no network connection — keeping the current pool.</translation>
     </message>
     <message>
         <source>just now</source>
@@ -11995,11 +11995,11 @@ Doğrudan: %2</translation>
     </message>
     <message>
         <source>Remote routing profile %1 failed: %2</source>
-        <translation>%1 uzak yönlendirme profili başarısız: %2</translation>
+        <translation>Remote routing profile %1 failed: %2</translation>
     </message>
     <message>
         <source>Added remote routing profiles: %1 of %2 fetched</source>
-        <translation>Uzak yönlendirme profilleri eklendi: %2 profilden %1 tanesi alındı</translation>
+        <translation>Added remote routing profiles: %1 of %2 fetched</translation>
     </message>
     <message>
         <source>Add profiles to this group</source>
@@ -12213,7 +12213,7 @@ Nasıl güncellensin?</translation>
     </message>
     <message>
         <source>Skipped removing invalid profiles: the core is unreachable.</source>
-        <translation>Geçersiz profillerin kaldırılması atlandı: çekirdeğe ulaşılamıyor.</translation>
+        <translation>Skipped removing invalid profiles: the core is unreachable.</translation>
     </message>
     <message>
         <source>Removed %1 invalid profiles:</source>
@@ -12229,35 +12229,35 @@ Nasıl güncellensin?</translation>
     </message>
     <message>
         <source>Subscription update already queued: %1</source>
-        <translation>Abonelik güncellemesi zaten sırada: %1</translation>
+        <translation>Subscription update already queued: %1</translation>
     </message>
     <message>
         <source>Requesting subscription: %1</source>
-        <translation>Abonelik isteniyor: %1</translation>
+        <translation>Requesting subscription: %1</translation>
     </message>
     <message>
         <source>Requesting subscription %1 error: %2</source>
-        <translation>%1 abonelik isteği hatası: %2</translation>
+        <translation>Requesting subscription %1 error: %2</translation>
     </message>
     <message>
         <source>Subscription request fininshed: %1</source>
-        <translation>Abonelik isteği bitti: %1</translation>
+        <translation>Subscription request fininshed: %1</translation>
     </message>
     <message>
         <source>Subscription server update interval: %1 hour(s)</source>
-        <translation>Abonelik sunucusu güncelleme aralığı: %1 saat</translation>
+        <translation>Subscription server update interval: %1 hour(s)</translation>
     </message>
     <message>
         <source>Processing subscription data...</source>
-        <translation>Abonelik verileri işleniyor...</translation>
+        <translation>Processing subscription data...</translation>
     </message>
     <message>
         <source>Process complete, applying...</source>
-        <translation>İşlem tamamlandı, uygulanıyor...</translation>
+        <translation>Process complete, applying...</translation>
     </message>
     <message>
         <source>The URL of %1 changed during the update, so the result was discarded.</source>
-        <translation>%1 URL&apos;si güncelleme sırasında değişti, bu yüzden sonuç atıldı.</translation>
+        <translation>The URL of %1 changed during the update, so the result was discarded.</translation>
     </message>
     <message>
         <source>The server returned a web page instead of a subscription. If it is a CAPTCHA or a bot check, try another TLS version, HTTP version or User Agent in the group&apos;s Advanced settings.</source>
@@ -12273,7 +12273,7 @@ Nasıl güncellensin?</translation>
     </message>
     <message>
         <source>Clearing servers...</source>
-        <translation>Sunucular temizleniyor...</translation>
+        <translation>Clearing servers...</translation>
     </message>
     <message>
         <source>Added %1 profiles:
@@ -12307,7 +12307,7 @@ Deleted %5 Profiles:
     </message>
     <message>
         <source>Change of %1:</source>
-        <translation>%1 değişikliği:</translation>
+        <translation>Change of %1:</translation>
     </message>
     <message>
         <source>Change of %1</source>
@@ -12315,7 +12315,7 @@ Deleted %5 Profiles:
     </message>
     <message>
         <source>After the URL test of %1:</source>
-        <translation>%1 URL testinden sonra:</translation>
+        <translation>After the URL test of %1:</translation>
     </message>
     <message>
         <source>internal error: null profile</source>
@@ -12339,15 +12339,15 @@ Deleted %5 Profiles:
     </message>
     <message>
         <source>Updating remote routing profile: %1</source>
-        <translation>Uzak yönlendirme profili güncelleniyor: %1</translation>
+        <translation>Updating remote routing profile: %1</translation>
     </message>
     <message>
         <source>Remote routing profile updated: %1</source>
-        <translation>Uzak yönlendirme profili güncellendi: %1</translation>
+        <translation>Remote routing profile updated: %1</translation>
     </message>
     <message>
         <source>Remote routing profiles: %1 updated, %2 failed</source>
-        <translation>Uzak yönlendirme profilleri: %1 güncellendi, %2 başarısız</translation>
+        <translation>Remote routing profiles: %1 updated, %2 failed</translation>
     </message>
     <message>
         <source>Proxy</source>
@@ -12453,7 +12453,7 @@ Deleted %5 Profiles:
     </message>
     <message>
         <source>[Warn] Throne did not shut down cleanly last time. Diagnostics were saved to: %1</source>
-        <translation>[Uyarı] F-Dpi geçen sefer düzgün kapanmadı. Tanılama bilgileri şuraya kaydedildi: %1</translation>
+        <translation>[Warn] F-Dpi did not shut down cleanly last time. Diagnostics were saved to: %1</translation>
     </message>
     <message>
         <source>Default</source>
@@ -12461,7 +12461,7 @@ Deleted %5 Profiles:
     </message>
     <message>
         <source>Auto-update: running %1</source>
-        <translation>Otomatik güncelleme: %1 çalışıyor</translation>
+        <translation>Auto-update: running %1</translation>
     </message>
     <message>
         <source>Throne needs at least one group.</source>
@@ -12614,7 +12614,7 @@ gidenler ve diğer F-Dpi özellikleri bozulabilir. Yalnızca ileri düzey kullan
     <name>RemoteApi::Router</name>
     <message>
         <source>[API] %1 %2 from %3</source>
-        <translation>[API] %3 kaynağından %1 %2</translation>
+        <translation>[API] %1 %2 from %3</translation>
     </message>
     <message>
         <source>[API] %1</source>
@@ -12623,12 +12623,12 @@ gidenler ve diğer F-Dpi özellikleri bozulabilir. Yalnızca ileri düzey kullan
     <message numerus="yes">
         <source>[API] Testing %n profile(s) to find the lowest latency</source>
         <translation>
-            <numerusform>[API] En düşük gecikmeyi bulmak için %n profil test ediliyor</numerusform>
+            <numerusform>[API] Testing %n profile(s) to find the lowest latency</numerusform>
         </translation>
     </message>
     <message>
         <source>[API] Lowest latency: %1 (%2 ms)</source>
-        <translation>[API] En düşük gecikme: %1 (%2 ms)</translation>
+        <translation>[API] Lowest latency: %1 (%2 ms)</translation>
     </message>
 </context>
 <context>
@@ -13286,15 +13286,15 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Updating IP list %1</source>
-        <translation>%1 IP listesi güncelleniyor</translation>
+        <translation>Updating IP list %1</translation>
     </message>
     <message>
         <source>Updating IP list %1 failed: %2</source>
-        <translation>%1 IP listesi güncellenemedi: %2</translation>
+        <translation>Updating IP list %1 failed: %2</translation>
     </message>
     <message>
         <source>its source changed during the update</source>
-        <translation>kaynağı güncelleme sırasında değişti</translation>
+        <translation>its source changed during the update</translation>
     </message>
     <message>
         <source>The source changed during the update</source>
@@ -13307,7 +13307,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     <message numerus="yes">
         <source>IP list %1 updated (%n entries)</source>
         <translation>
-            <numerusform>%1 IP listesi güncellendi (%n girdi)</numerusform>
+            <numerusform>IP list %1 updated (%n entries)</numerusform>
         </translation>
     </message>
     <message>
@@ -13340,7 +13340,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>IP list update failed: %1</source>
-        <translation>IP listesi güncellenemedi: %1</translation>
+        <translation>IP list update failed: %1</translation>
     </message>
     <message>
         <source>IP list update failed</source>
@@ -13435,7 +13435,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Scan %1: saving its final state failed</source>
-        <translation>%1 taraması: son durumu kaydedilemedi</translation>
+        <translation>Scan %1: saving its final state failed</translation>
     </message>
     <message>
         <source>Preparing targets…</source>
@@ -13513,7 +13513,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Scan %1: network check failed: %2</source>
-        <translation>%1 taraması: ağ denetimi başarısız: %2</translation>
+        <translation>Scan %1: network check failed: %2</translation>
     </message>
     <message>
         <source>IPv4 is unreachable from this network; IPv4 results were kept</source>
@@ -13563,7 +13563,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Scan %1 stopped: %2</source>
-        <translation>%1 taraması durdu: %2</translation>
+        <translation>Scan %1 stopped: %2</translation>
     </message>
     <message numerus="yes">
         <source>Skipped %n invalid entry(ies)</source>
@@ -13728,7 +13728,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Performance profile saved to %1</source>
-        <translation>Performans profili %1 konumuna kaydedildi</translation>
+        <translation>Performance profile saved to %1</translation>
     </message>
     <message>
         <source>The performance profile was saved (%1).</source>
@@ -13736,7 +13736,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Performance profile failed: %1</source>
-        <translation>Performans profili başarısız: %1</translation>
+        <translation>Performance profile failed: %1</translation>
     </message>
     <message>
         <source>Performance profile</source>
@@ -13779,23 +13779,23 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>[Kill switch] Off.</source>
-        <translation>[Kill switch] Kapalı.</translation>
+        <translation>[Kill switch] Off.</translation>
     </message>
     <message>
         <source>[Kill switch] Allowing the extra core %1.</source>
-        <translation>[Kill switch] %1 ek çekirdeğine izin veriliyor.</translation>
+        <translation>[Kill switch] Allowing the extra core %1.</translation>
     </message>
     <message>
         <source>[Kill switch] Warning: %1</source>
-        <translation>[Kill switch] Uyarı: %1</translation>
+        <translation>[Kill switch] Warning: %1</translation>
     </message>
     <message>
         <source>[Kill switch] On: only traffic through Throne can leave this device.</source>
-        <translation>[Kill switch] Açık: yalnızca F-Dpi üzerinden geçen trafik bu cihazdan çıkabilir.</translation>
+        <translation>[Kill switch] On: only traffic through F-Dpi can leave this device.</translation>
     </message>
     <message>
         <source>[Kill switch] New settings applied.</source>
-        <translation>[Kill switch] Yeni ayarlar uygulandı.</translation>
+        <translation>[Kill switch] New settings applied.</translation>
     </message>
     <message>
         <source>the kill switch did not respond within %1 seconds</source>
@@ -13823,19 +13823,19 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>[Kill switch] The new settings could not be applied, the previous ones stay in force: %1</source>
-        <translation>[Kill switch] Yeni ayarlar uygulanamadı, önceki ayarlar geçerliliğini koruyor: %1</translation>
+        <translation>[Kill switch] The new settings could not be applied, the previous ones stay in force: %1</translation>
     </message>
     <message>
         <source>[Kill switch] Protection lost: %1</source>
-        <translation>[Kill switch] Koruma kaybedildi: %1</translation>
+        <translation>[Kill switch] Protection lost: %1</translation>
     </message>
     <message>
         <source>[Kill switch] Starting it again...</source>
-        <translation>[Kill switch] Yeniden başlatılıyor...</translation>
+        <translation>[Kill switch] Starting it again...</translation>
     </message>
     <message>
         <source>[Kill switch] Not active: %1</source>
-        <translation>[Kill switch] Etkin değil: %1</translation>
+        <translation>[Kill switch] Not active: %1</translation>
     </message>
 </context>
 <context>
@@ -15332,7 +15332,7 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     </message>
     <message>
         <source>Could not copy %1.</source>
-        <translation>%1 kopyalanamadı.</translation>
+        <translation>Could not copy %1.</translation>
     </message>
     <message numerus="yes">
         <source>%n profile(s) could not be saved to the database.</source>
