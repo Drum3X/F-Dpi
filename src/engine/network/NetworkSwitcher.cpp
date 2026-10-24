@@ -30,6 +30,12 @@ namespace Engine {
             return -1;
         }
 
+        // A profile of a network-scoped (Özel) group.
+        bool networkSwitcherCustomProfile(int id) {
+            const auto profile = Configs::dataManager->profilesRepo->GetProfile(id);
+            return profile != nullptr && Configs::dataManager->networkScopesRepo->Get(profile->gid).network;
+        }
+
         QString networkSwitcherProfileName(int id) {
             const auto profile = Configs::dataManager->profilesRepo->GetProfile(id);
             if (profile == nullptr || profile->outbound == nullptr) return QString::number(id);
@@ -60,7 +66,8 @@ namespace Engine {
         const int remembered = settings->remember_enable && settings->remember_id >= 0 ? settings->remember_id : -1;
         if (!settings->network_start_on_launch && (!settings->network_auto_switch || remembered < 0)) return remembered;
         const int target = targetProfile(remembered);
-        if (target < 0) return remembered;
+        // No config for this network: a remembered Custom profile belongs to another network and stays off.
+        if (target < 0) return networkSwitcherCustomProfile(remembered) ? -1 : remembered;
         if (target != remembered) {
             MW_show_log(QCoreApplication::translate("Network", "[Network] %1: starting %2.")
                             .arg(network.connected() ? network.name : QCoreApplication::translate("Network", "No network"), networkSwitcherProfileName(target)));
@@ -116,7 +123,17 @@ namespace Engine {
         const auto running = m_connection->runningSnapshot();
         if (running == nullptr && settings->started_id < 0) return false;
         const int target = targetProfile(running != nullptr ? running->id : settings->started_id);
-        if (target < 0 || (running != nullptr && running->id == target)) return false;
+        if (target < 0) {
+            // Neither a Custom group for this network nor a general config: the Custom profile of the network left behind
+            // stops. Not a manual stop, so started_id stays and the profile comes back with its network.
+            if (running != nullptr && networkSwitcherCustomProfile(running->id)) {
+                MW_show_log(QCoreApplication::translate("Network", "[Network] %1: no config for this network, stopping %2.")
+                                .arg(why, networkSwitcherProfileName(running->id)));
+                m_connection->stop(StopOptions{.manual = false, .interactive = false});
+            }
+            return false;
+        }
+        if (running != nullptr && running->id == target) return false;
         if (m_connection->connectionState() == ConnectionState::Connecting) return false;
         MW_show_log(QCoreApplication::translate("Network", "[Network] %1: starting %2.").arg(why, networkSwitcherProfileName(target)));
         m_connection->start(StartRequest{target, false, m_connection->nextStartSerial()});

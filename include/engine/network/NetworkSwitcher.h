@@ -16,6 +16,8 @@ namespace Engine {
     // F-Dpi: runs the config assigned to the current network.
     // - A network-scoped ("Özel") group bound to the network: its chosen profile (or its first one) runs.
     // - Otherwise the general config runs: settings general_profile_id, else the first profile of the first general group.
+    // - Neither: a running Custom profile (another network's) stops, without counting as a manual stop, so it comes back with
+    //   its network; a remembered one does not start.
     // It acts only while the user wants something running (a profile runs, or one is started and not stopped by hand), so it
     // never starts a connection the user turned off. Every start goes through ConnectionManager, which stops the other engine.
     // A running profile that uses network placeholders (%GATEWAY%...) is started again when their values change, even on

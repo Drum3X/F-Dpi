@@ -10936,6 +10936,10 @@ URL: %2</translation>
         <translation>[Network] No network connection.</translation>
     </message>
     <message>
+        <source>[Network] %1: no config for this network, stopping %2.</source>
+        <translation>[Network] %1: no config for this network, stopping %2.</translation>
+    </message>
+    <message>
         <source>[Network] %1: %2 changed, restarting %3.</source>
         <translation>[Network] %1: %2 changed, restarting %3.</translation>
     </message>
