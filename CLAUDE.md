@@ -194,6 +194,7 @@ Notlar:
   - Kill switch WFP sağlayıcısının ve kurallarının görünen adları "F-Dpi" oldu; sağlayıcı GUID'i zaten her oturumda rastgeledir. Çekirdeğin bağlantı satırı da "Connected to F-Dpi!".
   - İkonlar: `res/fdpi/` (`script/make_icons.ps1` üretir: kalkan + engeli kıran ok; Throne'un tepsi durum renkleri). `Throne.qrc` takma adları ve exe ikonu (`windows.cmake`) bunlara bakar. Throne'un `res/public` ve `res/Throne.ico` dosyaları upstream merge'leri için yerinde durur.
   - Kalan ortak nokta: `throne://` şeması iki uygulamada da kayıtlıdır; son açılan kazanır (Throne'un iki kopyasında da böyledir).
+- Tema (Windows 11 stili, `ThemeManager.cpp`): sekmeler bitişik, seçili sekme panele açılır (`windows11TabStyleSheet`). Windows vurgu rengi yerine gri kullanılır (`neutralAccent`: Accent/Highlight).
 - İngilizce kaynak metinlerdeki "Throne" ifadelerine dokunulmaz, çünkü upstream çevirileri bozulur. Kullanıcıya görünen ad Türkçe çeviride "F-Dpi" olarak verilir.
 - ⚠ Bu makinede `%APPDATA%\F-Dpi` ve `%LOCALAPPDATA%\F-Dpi` dizinleri bu repodan önce başka bir F-Dpi uygulaması tarafından oluşturulmuş (`profiles.json`, `settings.ini`, `fdpi.log`). Bizim uygulama portable modda bunlara dokunmaz. appdata modunda (`-appdata`, ya da exe dizini yazılamazsa) aynı kök dizini paylaşır, ama dosya adları çakışmaz. Installer'ın kaldırıcısı bu yüzden yalnızca `config\` alt klasörünü siler, `%APPDATA%\F-Dpi`'ye hiç dokunmaz.
 
