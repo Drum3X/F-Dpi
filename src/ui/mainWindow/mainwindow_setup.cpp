@@ -629,9 +629,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
         if (gid >= 0) updateTabToolTip(gid);
     });
 
-    // F-Dpi: General / Custom (per network) switch left of the group tabs.
+    // F-Dpi: General / Custom (per network) tabs above the group tabs.
     auto *groupSections = new GroupSectionBar(ui->tabWidget);
-    ui->tabWidget->setCornerWidget(groupSections, Qt::TopLeftCorner);
     connect(groupSections, &GroupSectionBar::sectionRequested, this, [this](bool network) { show_group_section(network); });
 
     this->refresh_groups();

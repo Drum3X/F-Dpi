@@ -142,7 +142,7 @@ void MainWindow::refresh_groups() {
     // F-Dpi: the section of the current group; also the scope a group added from here starts with.
     const auto current = Configs::dataManager->groupsRepo->CurrentGroup();
     mw_network_section = current != nullptr && groupInNetworkSection(current->id);
-    if (auto *sections = qobject_cast<GroupSectionBar *>(ui->tabWidget->cornerWidget(Qt::TopLeftCorner))) {
+    if (auto *sections = findChild<GroupSectionBar *>()) {
         sections->setNetworkSection(mw_network_section);
     }
     NetworkScopeEditor::SetDefaultForNew(mw_network_section);

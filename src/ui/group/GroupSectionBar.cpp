@@ -1,37 +1,51 @@
 #include "include/ui/group/GroupSectionBar.h"
 
-#include <QButtonGroup>
 #include <QHBoxLayout>
 #include <QLabel>
+#include <QSignalBlocker>
+#include <QSplitter>
+#include <QTabBar>
+#include <QTabWidget>
 #include <QToolButton>
+#include <QVBoxLayout>
 
 #include "include/global/Configs.hpp"
 #include "include/sys/NetworkMonitor.hpp"
 
-GroupSectionBar::GroupSectionBar(QWidget *parent) : QWidget(parent) {
+GroupSectionBar::GroupSectionBar(QTabWidget *groupTabs) : QWidget(groupTabs->parentWidget()), m_groupTabs(groupTabs) {
+    // A column in the group tabs' place: these section tabs, then the group tabs.
+    auto *column = new QWidget(groupTabs->parentWidget());
+    auto *columnLayout = new QVBoxLayout(column);
+    columnLayout->setContentsMargins(0, 0, 0, 0);
+    columnLayout->setSpacing(4);
+    if (auto *splitter = qobject_cast<QSplitter *>(groupTabs->parentWidget())) {
+        splitter->replaceWidget(splitter->indexOf(groupTabs), column);
+    } else if (auto *layout = groupTabs->parentWidget() != nullptr ? groupTabs->parentWidget()->layout() : nullptr) {
+        delete layout->replaceWidget(groupTabs, column);
+    }
+    columnLayout->addWidget(this);
+    columnLayout->addWidget(groupTabs, 1);
+    groupTabs->show();
+
     auto *layout = new QHBoxLayout(this);
-    layout->setContentsMargins(0, 0, 6, 0);
-    layout->setSpacing(2);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setSpacing(0);
+    m_sections = new QTabBar(this);
+    m_sections->setDrawBase(false);
+    m_sections->setExpanding(false);
+    m_sections->addTab(tr("General"));
+    m_sections->setTabToolTip(0, tr("Configs used on any network without a config of its own."));
+    m_sections->addTab(tr("Custom (per network)"));
+    connect(m_sections, &QTabBar::currentChanged, this, [this](int index) { emit sectionRequested(index == 1); });
+    layout->addWidget(m_sections);
+    layout->addStretch(1);
 
-    const auto makeSection = [this](const QString &text) {
-        auto *button = new QToolButton(this);
-        button->setText(text);
-        button->setCheckable(true);
-        button->setAutoRaise(true);
-        return button;
-    };
-    m_general = makeSection(tr("General"));
-    m_general->setToolTip(tr("Configs used on any network without a config of its own."));
-    m_network = makeSection(tr("Custom (per network)"));
-    auto *group = new QButtonGroup(this);
-    group->setExclusive(true);
-    group->addButton(m_general);
-    group->addButton(m_network);
-    m_general->setChecked(true);
-    connect(m_general, &QToolButton::clicked, this, [this] { emit sectionRequested(false); });
-    connect(m_network, &QToolButton::clicked, this, [this] { emit sectionRequested(true); });
-
-    m_auto = new QToolButton(this);
+    // Left of the group tabs while the Özel section is shown.
+    m_networkTools = new QWidget(groupTabs);
+    auto *tools = new QHBoxLayout(m_networkTools);
+    tools->setContentsMargins(0, 0, 6, 0);
+    tools->setSpacing(6);
+    m_auto = new QToolButton(m_networkTools);
     m_auto->setText(tr("Auto switch"));
     m_auto->setCheckable(true);
     m_auto->setAutoRaise(true);
@@ -41,32 +55,35 @@ GroupSectionBar::GroupSectionBar(QWidget *parent) : QWidget(parent) {
         Configs::dataManager->settingsRepo->network_auto_switch = on;
         Configs::dataManager->settingsRepo->Save();
     });
-
-    m_current = new QLabel(this);
+    m_current = new QLabel(m_networkTools);
     m_current->setEnabled(false);
-
-    layout->addWidget(m_general);
-    layout->addWidget(m_network);
-    layout->addSpacing(6);
-    layout->addWidget(m_auto);
-    layout->addWidget(m_current);
+    tools->addWidget(m_auto);
+    tools->addWidget(m_current);
+    m_networkTools->hide();
 
     connect(Sys::NetworkMonitor::instance(), &Sys::NetworkMonitor::networkChanged, this, [this] { updateNetwork(); });
     updateNetwork();
 }
 
 void GroupSectionBar::setNetworkSection(bool network) {
-    (network ? m_network : m_general)->setChecked(true);
+    {
+        const QSignalBlocker blocker(m_sections);
+        m_sections->setCurrentIndex(network ? 1 : 0);
+    }
+    // QTabWidget keeps a hidden corner widget's room, so the tools come and go as the corner widget.
+    if (network == (m_groupTabs->cornerWidget(Qt::TopLeftCorner) == m_networkTools)) return;
+    m_groupTabs->setCornerWidget(network ? m_networkTools : nullptr, Qt::TopLeftCorner);
+    m_networkTools->setVisible(network);
 }
 
 void GroupSectionBar::updateNetwork() {
     const auto network = Sys::NetworkMonitor::instance()->current();
     if (!network.connected()) {
         m_current->setText(tr("No network"));
-        m_network->setToolTip(tr("Configs bound to a Wi-Fi or Ethernet network. No network is connected now."));
+        m_sections->setTabToolTip(1, tr("Configs bound to a Wi-Fi or Ethernet network. No network is connected now."));
         return;
     }
     const QString kind = network.kind == Sys::NetworkIdentity::Kind::WiFi ? tr("Wi-Fi") : tr("Ethernet");
     m_current->setText(QStringLiteral("%1: %2").arg(kind, network.name));
-    m_network->setToolTip(tr("Configs bound to a Wi-Fi or Ethernet network. Now connected to %1 %2.").arg(kind, network.name));
+    m_sections->setTabToolTip(1, tr("Configs bound to a Wi-Fi or Ethernet network. Now connected to %1 %2.").arg(kind, network.name));
 }
