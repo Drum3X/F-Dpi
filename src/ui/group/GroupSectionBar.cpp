@@ -12,9 +12,10 @@
 #include "include/global/Configs.hpp"
 #include "include/sys/NetworkMonitor.hpp"
 
-GroupSectionBar::GroupSectionBar(QTabWidget *groupTabs) : QWidget(groupTabs->parentWidget()), m_groupTabs(groupTabs) {
-    // A column in the group tabs' place: these section tabs, then the group tabs.
-    auto *column = new QWidget(groupTabs->parentWidget());
+GroupSectionBar::GroupSectionBar(QTabWidget *groupTabs) : QWidget(nullptr), m_groupTabs(groupTabs) {
+    // A column in the group tabs' place: these section tabs, then the group tabs. Both start without a parent: a new child
+    // of a QSplitter joins it as its last pane, and replaceWidget() would then move it there instead of into the tabs' place.
+    auto *column = new QWidget();
     auto *columnLayout = new QVBoxLayout(column);
     columnLayout->setContentsMargins(0, 0, 0, 0);
     columnLayout->setSpacing(4);
