@@ -41,8 +41,9 @@ DisableProgramGroupPage=yes
 ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 MinVersion=10.0.17763
-CloseApplications=force
-RestartApplications=no
+; Not Restart Manager: it lists F-Dpi, winws and the core before ssInstall, where StopFDpi ends them (the core with F-Dpi),
+; and then fails on the gone processes and aborts the update. StopFDpi and -cleanup do the whole job instead.
+CloseApplications=no
 ; Uninstall removes the associations F-Dpi registers at runtime, so Explorer has to reload them.
 ChangesAssociations=yes
 Compression=lzma2/ultra64
@@ -113,16 +114,21 @@ begin
     Processes := Service.ExecQuery('SELECT * FROM Win32_Process WHERE Name = ''F-Dpi.exe'' OR Name = ''ThroneCore.exe'' OR Name = ''winws.exe''');
     for I := 0 to Processes.Count - 1 do
     begin
-      Process := Processes.ItemIndex(I);
-      if not VarIsNull(Process.ExecutablePath) then
-      begin
-        // Pascal Script converts a Variant to String on assignment, but not when passed as a String parameter.
-        ExePath := Process.ExecutablePath;
-        if Pos(Prefix, Lowercase(ExePath)) = 1 then
+      // One at a time: a process that exited since the query (Restart Manager closed it) must not stop the others.
+      try
+        Process := Processes.ItemIndex(I);
+        if not VarIsNull(Process.ExecutablePath) then
         begin
-          Process.Terminate(0);
-          Stopped := True;
+          // Pascal Script converts a Variant to String on assignment, but not when passed as a String parameter.
+          ExePath := Process.ExecutablePath;
+          if Pos(Prefix, Lowercase(ExePath)) = 1 then
+          begin
+            Process.Terminate(0);
+            Stopped := True;
+          end;
         end;
+      except
+        Log('Skipped a process that is gone: ' + GetExceptionMessage);
       end;
     end;
   except
@@ -150,7 +156,7 @@ end;
 
 procedure CurStepChanged(CurStep: TSetupStep);
 begin
-  // An update: after Restart Manager closed F-Dpi (gracefully, as at Windows shutdown), before any file is replaced.
+  // An update: before any file is replaced (a running F-Dpi, winws or the WinDivert driver keeps them locked).
   if CurStep = ssInstall then
   begin
     StopFDpi;

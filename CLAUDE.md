@@ -80,6 +80,8 @@ Notlar:
   - Tuşlar (`SendKeys`) yalnızca F-Dpi penceresi öndeyken gönderilir (`GetForegroundWindow` + `GetWindowThreadProcessId`). Önde başka pencere varsa tuş oraya gider ve **ESC Claude'un çalışmasını keser**: ESC hiç kullanılmaz, diyaloglar kendi düğmeleriyle kapatılır.
   - Arka plandaki betik `SetForegroundWindow` ile pencereyi öne alamayabilir; gerçek bir fare tıklaması alır.
   - PowerShell'de `Kill` gibi yerleşik takma adlarla aynı adda fonksiyon yazılmaz: takma ad fonksiyondan önceliklidir. `Kill` = `Stop-Process` parametresiz kalıp gizli pencerede girdi bekler ve betik takılır.
+  - PowerShell 5.1'de tek elemanlı sonuç dizi olarak dönmez: `(Get-Process winws).Count` ya da bir fonksiyonun döndürdüğü `@(...)` tek süreçte boş görünür. Sayı `return [int]@(...).Count` ile alınır.
+  - **Inno Setup sihirbazı** UI Automation'a düğme göstermez. Pencere `EnumWindows`/`EnumChildWindows` ile bulunur (`TSelectLanguageForm`, `TWizardForm`, `TUninstallProgressForm`, `#32770`) ve düğmelere `BM_CLICK` gönderilir. Inno 7 Türkçe düğme adları: Tamam, Sonraki, Kur, Bitti, Evet, Hayır; lisans radyosu "Anlaşmayı kabul ediyorum".
 
 ### Çeviriler (Türkçe = `res/translations/tr_TR.ts`)
 1. `build_windows.ps1 -SkipCore -UpdateTranslations` komutu lupdate ile tüm `.ts` dosyalarını kaynaktan yeniler.
@@ -271,7 +273,8 @@ Notlar:
   - Benzetilmiş ağla: genel Socks çalışırken "TestNet"e geçince ağa özel Socks başladı, geri dönünce genel profile dönüldü. Elle durdurduktan sonra ağ değişimi hiçbir şey başlatmadı.
   - Bölüm düğmeleri sekmeleri doğru süzdü.
   - Boş Özel bölümünden "Ağım" grubu oluşturuldu ve gerçek ağa bağlandı (DB'de iki anahtar).
-- **Doğrulanmadı:** gerçek bir ağ değişimi (başka Wi-Fi/Ethernet), kablolu ağda MAC/NLM anahtarları, yönetici modunda DPI ↔ ağa özel proxy geçişi.
+- **Doğrulandı (yönetici, 2026-10-24, benzetilmiş ağ):** DPI çalışırken "TestNet"e geçince 8 sn'de DPI durdu, ağın Socks'u başladı ve Windows DNS'i geri yüklendi. Eve dönünce DPI yeniden başladı ve DNS yeniden uygulandı.
+- **Doğrulanmadı:** gerçek bir ağ değişimi (başka Wi-Fi/Ethernet), kablolu ağda MAC/NLM anahtarları.
 
 ### Blockcheck (F5 sonrası)
 - **Motor:** `Engine::Blockcheck` (`src/engine/dpi/Blockcheck.cpp`). Native C++; zapret'in cygwin `blockcheck.cmd` script'ini kullanmaz. Worker thread'de çalışır, sinyaller ana thread'e gelir.
@@ -299,6 +302,8 @@ Notlar:
   - Yönetici olmadan: DoH çözümlemesi, taban ölçüm (discord.com HTTP/TLS1.2/TLS1.3 engelli, youtube.com açık), WinDivert hata mesajı, çalışan Socks'un durdurulup yeniden başlatılması.
   - Yönetici olarak (2026-10-23): Hızlı tarama ~10 sn'de `--dpi-desync=fake --dpi-desync-fooling=md5sig` buldu (TLS 2/2, HTTP 1/1). Sonuç DB'ye profil olarak kaydedildi.
   - Kaydedilen profil açılışta başlatıldığında winws çalıştı ve `discord.com` 200 döndü (öncesinde curl exit 35). `youtube.com` etkilenmedi; F-Dpi kapatılınca engel geri geldi.
+  - Yönetici olarak (2026-10-24), DPI editöründen: çalışan DPI profili tarama boyunca durdu ve sonra devam etti. Bulunan strateji (HTTP md5sig, TLS badseq) "Bu profilde kullan" ile editöre geldi, kaydedilince DB'ye yazıldı.
+  - Derin Tarama (yönetici, 2026-10-24, discord.com + youtube.com): 364 stratejinin (HTTP 165, TLS 199) tamamı ~5 dakikada denendi. En iyi: HTTP `--methodeol` (1/1), TLS `--dpi-desync=fake --dpi-desync-fooling=md5sig` (2/2). Bu ağda arayüzdeki "30 dakika" uyarısı üst sınır kaldı.
 - **UIA notları:**
   - Araçlar düğmesinin menüsü ok kısmına tıklanınca açılır.
   - Qt menü öğeleri UIA'ya görünmez; klavyeyle seçilir.
@@ -348,7 +353,8 @@ Notlar:
     - Zorla kapatmadan sonra değişiklik kaldı; sonraki açılış geri yükledi.
     - DPI çalışırken Program → Çıkış geri yükledi.
     - Her durumda kayıt defteri başlangıçla aynı kaldı (`DohInterfaceSettings` altında boş anahtarlar kalabilir; zararsız).
-- **Doğrulanmadı:** DHCP DNS'li (zehirli ISS) bir ağda gerçek kullanım; Ethernet; DPI çalışırken ağ değişimi; QUIC/HTTP3 DNS'i (Chrome kendi DoH'unu kullanabilir).
+- DPI çalışırken (benzetilmiş) ağ değişimi doğrulandı: proxy'ye geçişte DNS geri yüklendi, DPI'ye dönüşte yeniden uygulandı; yeni ağda arka plan benchmark'ı Cloudflare'i seçti (bkz. F4).
+- **Doğrulanmadı:** DHCP DNS'li (zehirli ISS) bir ağda gerçek kullanım; Ethernet; gerçek ağ değişimi; QUIC/HTTP3 DNS'i (Chrome kendi DoH'unu kullanabilir).
 
 ### Sertleştirme ve paketleme (F7 sonrası)
 - **WinDivert sürücüsü:** winws kapandıktan sonra da yüklü kalır ve `zapret\WinDivert64.sys` dosyasını kilitler; güncelleme ve kaldırma bu yüzden başarısız olur.
@@ -362,7 +368,9 @@ Notlar:
 - **Installer** (`script/windows_installer.iss`, Inno Setup 7, BOM'lu UTF-8):
   - Yeni AppId; `PrivilegesRequired=admin`, `{autopf}\F-Dpi`, yalnızca x64, Windows 10 1809+, Türkçe + İngilizce, lisans sayfası.
   - Dağıtım klasörünün `config\` (test verisi), `*.pdb` ve `updater.exe` dosyaları kuruluma girmez.
-  - Güncelleme: Restart Manager F-Dpi'yi oturum kapanışı gibi düzgün kapatır (`PowerOffTaskkillFilter`). `ssInstall` adımında kalan süreçler (F-Dpi, ThroneCore, winws) kapatılır ve eski exe ile `-cleanup` çalıştırılır, ardından dosyalar kopyalanır.
+  - Güncelleme: `ssInstall` adımında süreçler (F-Dpi, ThroneCore, winws) kapatılır ve eski exe ile `-cleanup` çalıştırılır, ardından dosyalar kopyalanır.
+  - `CloseApplications=no`: Restart Manager açıkken kapatılacak süreçleri `ssInstall`'dan önce listeliyordu. Onları StopFDpi kapattıktan sonra (ThroneCore F-Dpi'yle zaten ölür) olmayan süreçleri kapatamayıp sessiz güncellemeyi iptal ediyordu (exit 5).
+  - StopFDpi her süreci ayrı `try` içinde kapatır; arada çıkmış bir süreç döngüyü kesmez.
   - Kaldırma: süreçler kapatılır, `-cleanup` çalıştırılır; ilişkilendirmeler (`throne://` yalnızca bu kopyayı açıyorsa), "F-Dpi AutoRun *" zamanlanmış görevleri ve WER dump anahtarları kaldırılır. İstenirse `config\` silinir.
   - Kurulum sonrası "F-Dpi'yi başlat" ek UAC istemi açmaz (kurulum zaten yükseltilmiştir).
 - **Yedek geri yükleme:** uzak istemciden (Remote API) gelen bir yedekteki DPI profili, Extra Core gibi reddedilir (`BackupArchive.cpp`, `BackupUntrustedRefusal`). winws yönetici olarak çalışır ve seçeneklerinin adını verdiği dosyaları okuyup sahte paket olarak gönderebilir. Pencereden yapılan yerel geri yükleme etkilenmez. Link, abonelik ve API içe aktarımı zaten `RefusedForeignType` ile reddediliyordu.
@@ -374,7 +382,12 @@ Notlar:
     - DPI çalışırken sessiz kaldırma: süreçler kapandı, DNS birebir geri geldi, sürücü kaldırıldı; klasör, kayıt, kısayollar ve görevler temizlendi.
   - Yönetici olarak, geliştirme sürümünde DPI çalışırken Program → Çıkış: winws durdu, sürücü kaldırıldı (log: "WinDivert driver stopped").
   - Yönetici olmadan: `-cleanup` iş yokken 0 ile çıktı; pencere yeni ikonla "F-Dpi 0.1.0" başlığıyla açıldı.
-- **Doğrulanmadı:** sürüm yükseltme (iki installer sürümü gerekir, Restart Manager yolu), Throne ile aynı makinede yan yana kurulum, Inno Setup'ın etkileşimli arayüzü (yalnızca sessiz kurulum denendi).
+- **Doğrulandı (son tur, 2026-10-24):**
+  - Etkileşimli kurulum (Win32 mesajlarıyla sürülen sihirbaz): dil → lisans → konum → Kur → Bitti. Kurulum sonu F-Dpi'yi ek istem olmadan başlattı.
+  - DPI çalışırken 0.1.0 → 0.1.1 sessiz yükseltme: F-Dpi ve winws kapandı, `-cleanup` 0 ile çıktı, DNS birebir geri geldi, sürücü kaldırıldı, profil korundu. 0.1.1 açılınca DPI devam etti, discord.com 200 döndü.
+  - Etkileşimli kaldırma, DPI çalışırken ve verileri koruyarak ("Hayır"): DNS geri geldi, sürücü kaldırıldı, yalnızca `config\` kaldı; kayıt ve kısayollar silindi.
+  - Upstream Throne (birleşme tabanından, ayrı worktree'de derlendi) ile yan yana: ikisi aynı anda çalıştı, her biri kendi çekirdeğiyle. İkinci açılışlar kendi kopyasına devretti; Throne kapatılınca F-Dpi ve çekirdeği çalışmayı sürdürdü.
+- **Doğrulanmadı:** Throne'un da kurulu olduğu durumda dosya/bağlantı ilişkilendirmeleri (Throne portable çalıştırıldı).
 
 ### F-Dpi bileşen tasarımı (sonraki fazlar)
 - `dpi` tipi, `DpiSupervisor` ve dışlama: uygulandı (bkz. "DPI motoru (F2 sonrası)" ve "Motorlar ve karşılıklı dışlama").
@@ -404,7 +417,9 @@ Notlar:
   - `EditDpi` iki sekme: Strateji (preset, portlar, strateji, komut satırı önizlemesi) ve Site seçimi (mod + Siteler / Asla dokunma listeleri, hazır listeler, dosyadan içe aktarma, öğrenilen liste).
   - `build_windows.ps1` zapret dosyalarını yalnızca değiştiyse kopyalar (yüklü WinDivert sürücüsü `WinDivert64.sys`'i kilitler).
   - Doğrulandı (yönetici olmadan, UIA + fare): yeni profil → Yalnızca listedeki siteler + Discord + oyun hariç listesi → önizleme → kaydet; DB'de `mode=hostlist`, 11 site, 14 hariç. Otomatik modda winws argümanları WinDivert'e kadar kabul edildi, `autohostlist-1.txt` oluştu. Diyalog 1080p ekrana sığıyor.
-  - Doğrulanmadı: otomatik modda winws'in gerçekten site öğrenmesi (yönetici + engelli site trafiği gerekir); "Dosyadan içe aktar" dosya seçicisi.
+  - Doğrulandı (2026-10-24):
+    - Otomatik mod (yönetici): ilk üç discord.com isteği engellendi; winws siteyi `autohostlist-<id>.txt`'ye ekledi ve sonraki istekler 200 döndü.
+    - "Dosyadan içe aktar" (Windows dosya seçicisi): URL'ler alan adına çevrildi, küçük harfe indirildi, tekrarlar atıldı.
 - [x] **F4 – Genel / Özel config:**
   - `network_scopes` tablosu + `NetworkScopesRepo`; ayarlar `network_auto_switch`, `general_profile_id`.
   - İkiye bölünmüş sekme alanı (`GroupSectionBar`); grup diyaloğunda kapsam (`NetworkScopeEditor`).
