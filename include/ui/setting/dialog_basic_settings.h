@@ -33,7 +33,7 @@ public slots:
 
 private:
     Ui::DialogBasicSettings *ui;
-    // F-Dpi: network_start_on_launch, under "Hide dashboard at startup".
+    // F-Dpi: network_start_on_launch, in its own "Startup" box atop the Common tab.
     QCheckBox *m_connectOnLaunch = nullptr;
 
     Validation::Form *form = nullptr;

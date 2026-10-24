@@ -1456,7 +1456,11 @@ Bu yedek uygulamanın daha yeni bir sürümüyle oluşturulmuş olabilir.</trans
     </message>
     <message>
         <source>When F-Dpi starts, connect the current network&apos;s own config (Custom groups bound to it), else the general config.</source>
-        <translation>F-Dpi açıldığında şu anki ağın kendi config'ini (ağa bağlı Özel gruplar), yoksa genel config'i başlat.</translation>
+        <translation>F-Dpi açıldığında şu anki ağın kendi config&apos;ini (ağa bağlı Özel gruplar), yoksa genel config&apos;i başlat.</translation>
+    </message>
+    <message>
+        <source>Startup</source>
+        <translation>Başlangıç</translation>
     </message>
     <message>
         <source>Select png icons</source>

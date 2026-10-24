@@ -28,6 +28,7 @@
 #include <QStandardPaths>
 #include <QUuid>
 #include <QCheckBox>
+#include <QGroupBox>
 #include <QScreen>
 #include <QVBoxLayout>
 #include <QDialogButtonBox>
@@ -323,7 +324,9 @@ DialogBasicSettings::DialogBasicSettings(QWidget *parent)
     m_connectOnLaunch = new QCheckBox(tr("Connect on launch"), this);
     m_connectOnLaunch->setToolTip(tr("When F-Dpi starts, connect the current network's own config (Custom groups bound to it), else the general config."));
     m_connectOnLaunch->setChecked(Configs::dataManager->settingsRepo->network_start_on_launch);
-    ui->verticalLayout_5->insertWidget(ui->verticalLayout_5->indexOf(ui->start_minimal) + 1, m_connectOnLaunch);
+    auto *startupBox = new QGroupBox(tr("Startup"), ui->tab_1);
+    (new QVBoxLayout(startupBox))->addWidget(m_connectOnLaunch);
+    ui->verticalLayout_2->insertWidget(0, startupBox);
     ui->skip_delete_confirm->setChecked(Configs::dataManager->settingsRepo->skip_delete_confirmation);
     D_LOAD_BOOL(show_config_security)
     ui->language->setCurrentIndex(Configs::dataManager->settingsRepo->language);
