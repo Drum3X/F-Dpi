@@ -6,7 +6,7 @@ class QLabel;
 class QToolButton;
 
 // F-Dpi: the switch left of the group tabs that splits them into "Genel" and "Özel (Ağ Bazlı)", plus the network auto-switch
-// and connect-on-launch toggles and the current network.
+// toggle and the current network.
 class GroupSectionBar : public QWidget {
     Q_OBJECT
 
@@ -25,6 +25,5 @@ private:
     QToolButton *m_general = nullptr;
     QToolButton *m_network = nullptr;
     QToolButton *m_auto = nullptr;
-    QToolButton *m_launch = nullptr;
     QLabel *m_current = nullptr;
 };

@@ -320,6 +320,10 @@ DialogBasicSettings::DialogBasicSettings(QWidget *parent)
     ui->connection_statistics->setChecked(Configs::dataManager->settingsRepo->enable_stats);
     ui->disable_traffic_aggregation->setChecked(Configs::dataManager->settingsRepo->disable_traffic_aggregation);
     D_LOAD_BOOL(start_minimal)
+    m_connectOnLaunch = new QCheckBox(tr("Connect on launch"), this);
+    m_connectOnLaunch->setToolTip(tr("When F-Dpi starts, connect the current network's own config (Custom groups bound to it), else the general config."));
+    m_connectOnLaunch->setChecked(Configs::dataManager->settingsRepo->network_start_on_launch);
+    ui->verticalLayout_5->insertWidget(ui->verticalLayout_5->indexOf(ui->start_minimal) + 1, m_connectOnLaunch);
     ui->skip_delete_confirm->setChecked(Configs::dataManager->settingsRepo->skip_delete_confirmation);
     D_LOAD_BOOL(show_config_security)
     ui->language->setCurrentIndex(Configs::dataManager->settingsRepo->language);
@@ -681,6 +685,7 @@ void DialogBasicSettings::accept() {
     Configs::dataManager->settingsRepo->follow_status_in_taskbar = ui->follow_status_in_taskbar->isChecked();
     if (oldFollowStatusInTaskbar != Configs::dataManager->settingsRepo->follow_status_in_taskbar) CACHE.updateTrayIcon = true;
     D_SAVE_BOOL(start_minimal)
+    Configs::dataManager->settingsRepo->network_start_on_launch = m_connectOnLaunch->isChecked();
     Configs::dataManager->settingsRepo->skip_delete_confirmation = ui->skip_delete_confirm->isChecked();
     bool profileListDisplayChanged =
         Configs::dataManager->settingsRepo->show_config_security != ui->show_config_security->isChecked();

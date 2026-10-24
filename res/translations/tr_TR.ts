@@ -1451,6 +1451,14 @@ Bu yedek uygulamanın daha yeni bir sürümüyle oluşturulmuş olabilir.</trans
         <translation>Yapılandırma dosyası ilişkilendirmeleri kaydedilemedi.</translation>
     </message>
     <message>
+        <source>Connect on launch</source>
+        <translation>Açılışta bağlan</translation>
+    </message>
+    <message>
+        <source>When F-Dpi starts, connect the current network&apos;s own config (Custom groups bound to it), else the general config.</source>
+        <translation>F-Dpi açıldığında şu anki ağın kendi config'ini (ağa bağlı Özel gruplar), yoksa genel config'i başlat.</translation>
+    </message>
+    <message>
         <source>Select png icons</source>
         <translation>png simgeleri seç</translation>
     </message>
@@ -9147,14 +9155,6 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     <message>
         <source>When the network changes, run its own config (Custom groups bound to it), else the last general config.</source>
         <translation>Ağ değiştiğinde o ağa ait config&apos;i (ağa bağlı Özel gruplar), yoksa son genel config&apos;i çalıştırır.</translation>
-    </message>
-    <message>
-        <source>Connect on launch</source>
-        <translation>Açılışta bağlan</translation>
-    </message>
-    <message>
-        <source>When F-Dpi starts, connect the current network&apos;s own config (Custom groups bound to it), else the general config.</source>
-        <translation>F-Dpi açıldığında şu anki ağın kendi config'ini (ağa bağlı Özel gruplar), yoksa genel config'i başlat.</translation>
     </message>
     <message>
         <source>No network</source>
