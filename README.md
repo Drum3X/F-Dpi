@@ -1,123 +1,96 @@
-# Throne
+<p align="center">
+  <img src="res/fdpi/Running.png" width="96" alt="F-Dpi">
+</p>
 
-Qt based Desktop cross-platform GUI proxy utility, empowered by [Sing-box](https://github.com/SagerNet/sing-box)
+<h1 align="center">F-Dpi</h1>
 
-Supports Windows 11/10/8/7 / Linux / MacOS out of the box.
+<p align="center">
+  <b>English</b> · <a href="README.tr.md">Türkçe</a>
+</p>
 
-Now supporting headless mode, running as a service or in a container, controlled with [thronectl](https://github.com/throneproj/Throne-api): see [Headless Throne](https://throneproj.github.io/headless/).
+F-Dpi is a Windows desktop app for getting around internet censorship and DPI (deep packet inspection) blocks. It puts
+two engines behind one window:
 
-<img width="1002" height="789" alt="image" src="https://github.com/user-attachments/assets/af4a8e32-7e55-430c-9402-ec2d665cf71a" />
+- **Proxy** through [sing-box](https://github.com/SagerNet/sing-box), with everything [Throne](https://github.com/throneproj/Throne)
+  offers (VLESS, Trojan, Shadowsocks, Hysteria, WireGuard, subscriptions, routing, TUN mode, ...).
+- **DPI Bypass** through [zapret](https://github.com/bol-van/zapret)'s `winws`, which works without any server: it reshapes
+  your own traffic so the censor's filter no longer recognizes it.
 
-### Supporting Throne
-If Throne is useful to you, you can support its development with [crypto](.github/donate/Donate.md) (USDT, USDC, TRX or Monero) or through [GitHub Sponsors](https://github.com/sponsors/Mahdi-zarei).
+The two never run at the same time: starting one stops the other.
 
-### Note on MacOS releases
-Apple platforms have a very strict security policy and since Throne does not have a signed certificate, you will have to remove the quarantine using `xattr -d com.apple.quarantine /path/to/throne.app`. Move `Throne.app` to `/Applications` before the first launch — the built-in privilege escalation opens `Terminal` to make the core setuid-root, and that step can fail while the app is still inside `~/Downloads`. The [Homebrew cask](#macos-homebrew) does both for you.
+F-Dpi is built on Throne and keeps its interface.
 
-### GitHub Releases (Portable ZIP)
+## Features
 
-[![GitHub All Releases](https://img.shields.io/github/downloads/throneproj/Throne/total?label=downloads-total&logo=github&style=flat-square)](https://github.com/throneproj/Throne/releases)
+- **DPI Bypass profiles:** ready-made strategies or your own `winws` options, edited in the profile editor.
+- **Blockcheck:** finds the strategy that works on your network.
+  - *Quick scan* tries the common strategies and stops at the first that opens every blocked site.
+  - *Deep scan* tries every combination.
+  - The result is saved as a profile, or applied to the one you are editing.
+- **Split bypass:** apply the bypass only to blocked sites (a list, or learned automatically), or keep sites out of it.
+  Ready lists for Discord and YouTube are included, and one for game launchers to leave alone.
+- **General and per-network configs:** profile groups are either *General* or bound to a Wi-Fi/Ethernet network.
+  - F-Dpi runs the config of the network you connect to, else the general one.
+  - Profiles switch on their own when the network changes.
+- **Network placeholders:** write `%GATEWAY%`, `%LOCAL_IP%`, `%DHCP_DNS%`, `%INTERFACE%` or `%GATEWAY6%` in a profile and
+  F-Dpi fills in the current network's value when the profile starts.
+  - This suits a phone hotspot whose address changes on every connection, e.g. a SOCKS proxy at `%GATEWAY%:10808`.
+  - Placeholders only work in profiles saved in this computer's editor, never in imported ones.
+- **Automatic DNS (anti DNS poisoning):** F-Dpi measures encrypted DNS providers (Cloudflare, Google, Quad9, AdGuard,
+  OpenDNS, Mullvad) and uses the fastest.
+  - It checks whether your network's DNS is poisoned.
+  - While DPI Bypass runs, it sets Windows itself to DNS-over-HTTPS and restores your settings afterwards.
+- **Connect on launch:** F-Dpi starts the right config for the current network when it opens.
+- **Safe to remove:** quitting, updating or uninstalling puts back the Windows DNS settings and unloads the WinDivert
+  driver.
 
-### Linux CLI installer
-```bash
-curl -fsSL https://raw.githubusercontent.com/throneproj/Throne/dev/script/install_linux.py | sudo python3
+## Requirements
+
+- Windows 10 1809 or later, 64-bit (Windows 11 recommended: Automatic DNS for DPI Bypass uses its DNS-over-HTTPS).
+- Administrator rights. F-Dpi always runs elevated, because WinDivert, TUN mode and the Windows DNS settings need it.
+
+## Installation
+
+Download `F-Dpi-<version>-windows-x64-setup.exe` from [Releases](https://github.com/Drum3X/F-Dpi/releases) and run it.
+It installs for all users under `Program Files\F-Dpi`. The installer is available in English and Turkish.
+
+## Quick start
+
+1. **DPI Bypass:** open *Tools → Blockcheck…*, enter a blocked site and run a quick scan. Save the result as a profile and
+   start it.
+2. **Proxy:** add a profile from a link or subscription (as in Throne) and start it. TUN mode and the system proxy are on
+   by default.
+3. **Per-network:** switch to *Custom (per network)*, create a group, and use *Add current network* in its *Scope* box.
+   That network now gets its own config.
+4. **Automatic DNS:** *Tools → Automatic DNS…* shows the chosen server and tests your network for DNS poisoning.
+
+## Building from source
+
+The toolchain is downloaded into `deps/` (no admin rights needed). The only system requirement is Visual Studio 2022
+Build Tools with the C++ workload.
+
+```powershell
+# Toolchain and runtime binaries (Qt, Go, CMake, Ninja, protoc, sing-box, zapret, Inno Setup)
+powershell -ExecutionPolicy Bypass -File script\fetch_deps.ps1
+# Go core + Qt GUI -> deployment\windows-amd64\
+powershell -ExecutionPolicy Bypass -File script\build_windows.ps1
+# With an installer -> deployment\F-Dpi-<version>-windows-x64-setup.exe
+powershell -ExecutionPolicy Bypass -File script\build_windows.ps1 -Version 0.1.0 -Installer
 ```
 
-### Linux package repositories
-Every stable release is published to signed APT and RPM repositories (the system-Qt packages, x64 and ARM64) and to the AUR, so your package manager keeps Throne up to date. See the [installation guide](https://throneproj.github.io/get_started/installation/#apt-repository) for details.
+Developer notes (architecture, conventions, how things were tested) are in [CLAUDE.md](CLAUDE.md), in Turkish.
 
-Debian / Ubuntu:
-```bash
-sudo install -d -m 0755 /etc/apt/keyrings
-sudo curl -fsSLo /etc/apt/keyrings/throne.asc https://throneproj.github.io/Throne/throne.asc
-sudo curl -fsSLo /etc/apt/sources.list.d/throne.list https://throneproj.github.io/Throne/apt/throne.list
-sudo apt update && sudo apt install throne
-```
+## Credits and license
 
-Fedora / RHEL 9+:
-```bash
-sudo curl -fsSLo /etc/yum.repos.d/throne.repo https://throneproj.github.io/Throne/rpm/throne.repo
-sudo dnf install throne --refresh
-```
+F-Dpi is free software under the [GNU GPL v3](LICENSE). It is built on:
 
-openSUSE / SLES:
-```bash
-sudo zypper addrepo -fc https://throneproj.github.io/Throne/rpm/throne.repo
-sudo zypper install throne
-```
+- [Throne](https://github.com/throneproj/Throne) (GPL-3.0): the application it is based on.
+- [sing-box](https://github.com/SagerNet/sing-box): the proxy core.
+- [zapret](https://github.com/bol-van/zapret) and [zapret-win-bundle](https://github.com/bol-van/zapret-win-bundle):
+  `winws` and its lists.
+- [WinDivert](https://github.com/basil00/WinDivert): packet capture on Windows.
 
-Arch Linux (AUR): `yay -S throne` or `paru -S throne`
+## Disclaimer
 
-### macOS (Homebrew)
-Every stable release is also published to Throne's own Homebrew tap (macOS 14.4 or newer, Apple Silicon and Intel). The cask installs `Throne.app` to `/Applications` and removes the quarantine flag; update with `brew upgrade --cask throne`. See the [installation guide](https://throneproj.github.io/get_started/installation/#homebrew) for details.
-```bash
-brew install --cask throneproj/tap/throne
-```
-
-## Supported protocols
-
-- SOCKS
-- HTTP(S)
-- Shadowsocks
-- Trojan
-- VMess
-- VLESS
-- TUIC
-- Hysteria
-- Hysteria2
-- AnyTLS
-- Mieru
-- Snell
-- NaïveProxy
-- Juicity
-- TrustTunnel
-- ShadowTLS
-- Wireguard
-- AmneziaWG
-- MASQUE
-- SSH
-- Xray VLESS
-- OpenVPN/OpenConnect
-- Custom Outbound (Both Sing-box and Xray)
-- Custom Config (Both Sing-box and Xray)
-- Chaining outbounds
-- Extra Core
-
-## Subscription Formats
-
-Various formats are supported, including share links, various JSON representation of Sing-box configs, and v2rayN link format as well as limited support for Shadowsocks and Clash formats.
-
-Deeplinks are also supported, read the [documentation](https://throneproj.github.io/advanced/deeplinks/) for more information.
-
-## Credits
-
-- [SagerNet/sing-box](https://github.com/SagerNet/sing-box)
-- [XTLS/Xray-core](https://github.com/xtls/xray-core)
-- [Qv2ray](https://github.com/Qv2ray/Qv2ray)
-- [Qt](https://www.qt.io/)
-- [simple-protobuf](https://github.com/tonda-kriz/simple-protobuf)
-- [fkYAML](https://github.com/fktn-k/fkYAML)
-- [quirc](https://github.com/dlbeer/quirc)
-- [srombauts/sqlitecpp](https://github.com/srombauts/sqlitecpp)
-
-## FAQ
-**How does this project differ from the original Nekoray?** <br/>
-Nekoray's developer partially abandoned the project on December of 2023, some minor updates were done recently but the project is now officially archived. This project was meant to continue the way of the original project, with lots of improvements, tons of new features and also, removal of obsolete features and simplifications.
-
-**Why does my Anti-Virus detect Throne and/or its Core as malware?** <br/>
-Throne's built-in update functionallity downloads the new release, removes the old files and replaces them with the new ones, which is quite simliar to what malwares do, remove your files and replace them with an encrypted version of your files.
-
-**Is setting the `SUID` bit really needed on Linux?** <br/>
-To create and manage a system TUN interface, root access is required, without it, you will have to grant the Core some `Cap_xxx_admin` and still, need to enter your password 3 to 4 times per TUN activation. You can also opt to disable the automatic privilege escalation in `Basic Settings`->`Security`, but note that features that require root access will stop working unless you manually grant the needed permissions.
-
-**Why does my internet stop working after I force quit Throne?** <br/>
-If Throne is force-quit while `System proxy` is enabled, the process ends immediately and Throne cannot reset the proxy. <br/>
-Solution:
-- Always close Throne normally.
-- If you force quit by accident, open Throne again, enable `System proxy`, then disable it- this will reset the settings.
-
-**Where are the downloadable route profiles/rulesets coming from?**<br/>
-They are located at the [routeprofiles](https://github.com/throneproj/routeprofiles) repository.
-
-**How does "Throne-\<version\>-debian-system-qt-x64.deb" differ from "Throne-\<version\>-debian-x64.deb" and why is the latter 3 times heavier then the former?**<br/>
-The first one does not pack the Qt libraries and relies on those installed on the host. The second one packs everything needed with itself, thus being heavier. The reason the first one exists is that on legacy systems provided Qt libraries use unsupported system features. If a graphical interface fails to load for your system, you may try to download the system-qt version and install fitting Qt libraries from your package manager or compile them from source.
+F-Dpi is meant for reaching information that is blocked where you are. You are responsible for following the laws of
+your country. The software comes without any warranty.
