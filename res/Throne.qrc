@@ -23,11 +23,12 @@
         <file>icon/material/swap-horizontal.png</file>
     </qresource>
     <qresource prefix="/Throne">
-        <file alias="Throne.png">public/Throne.png</file>
-        <file alias="Off.png">public/Off.png</file>
-        <file alias="Connecting.png">public/Connecting.png</file>
-        <file alias="Proxy.png">public/Proxy.png</file>
-        <file alias="Tun.png">public/Tun.png</file>
+        <!-- F-Dpi: its own icons (script/make_icons.ps1); the Throne ones in public/ stay for upstream merges. -->
+        <file alias="Throne.png">fdpi/Running.png</file>
+        <file alias="Off.png">fdpi/Off.png</file>
+        <file alias="Connecting.png">fdpi/Connecting.png</file>
+        <file alias="Proxy.png">fdpi/Proxy.png</file>
+        <file alias="Tun.png">fdpi/Tun.png</file>
         <file>dashboard-notice.html</file>
         <file>dashboard-bootstrap.html</file>
     </qresource>

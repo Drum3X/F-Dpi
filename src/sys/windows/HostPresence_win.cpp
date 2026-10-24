@@ -18,7 +18,8 @@
 namespace Sys::HostPresence {
     namespace {
         // Global\ needs SeCreateGlobalPrivilege (elevated or a service); Local\ is seen only inside this Windows session.
-        constexpr const wchar_t *kHostPresenceWinNames[] = {L"Global\\ThroneHeadless", L"Local\\ThroneHeadless"};
+        // F-Dpi: its own names, so its GUI never takes a headless Throne on this computer for its own.
+        constexpr const wchar_t *kHostPresenceWinNames[] = {L"Global\\FDpiHeadless", L"Local\\FDpiHeadless"};
         constexpr int kHostPresenceWinGlobal = 0;
         constexpr int kHostPresenceWinLocal = 1;
         constexpr DWORD kHostPresenceWinMinSize = 4096;

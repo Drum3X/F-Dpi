@@ -6,5 +6,7 @@ namespace Sys {
     bool TieChildToSelf(qint64, QString *) { return true; }
 
     int KillProcessesByPath(const QString &) { return 0; }
+
+    bool StopDriverLoadedFrom(const QString &, const QString &, QString *) { return false; }
 } // namespace Sys
 #endif

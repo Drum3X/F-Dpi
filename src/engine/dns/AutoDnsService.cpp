@@ -190,11 +190,7 @@ namespace Engine {
 
     bool AutoDnsService::restoreSystem(QString *error) {
         QMutexLocker lock(&m_mutex);
-        const auto backup = autoDnsReadBackup();
-        const bool ok = Sys::SystemDns::Restore(backup, error);
-        // A failed restore is not retried forever: the next boot would hit the same adapter again.
-        QFile::remove(autoDnsBackupPath());
-        return ok;
+        return Dns::RestoreSystemDnsBackup(autoDnsBackupPath(), error);
     }
 
     bool AutoDnsService::systemDnsActive() const {

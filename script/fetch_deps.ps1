@@ -12,6 +12,7 @@
       deps/toolchain/protoc    protoc (+ protoc-gen-go / protoc-gen-go-grpc in deps/toolchain/gobin)
       deps/toolchain/Qt        Qt (throneproj/buildqt prebuilt, same as CI)
       deps/toolchain/openssl   OpenSSL (throneproj/env_windows_legacy, same as CI)
+      deps/toolchain/innosetup Inno Setup (jrsoftware/issrc, portable install), for build_windows.ps1 -Installer
       deps/sing-box            official sing-box release (standalone, optional runtime/fallback)
       deps/zapret              bol-van/zapret-win-bundle (winws.exe, WinDivert, lists, blockcheck)
 
@@ -170,6 +171,20 @@ if (Wants "openssl") {
     if (Skip "$dest\include\openssl\ssl.h") { Write-Step "openssl: present" } else {
         Write-Step "openssl (throneproj/env_windows_legacy)"
         Install-Flattened (Get-File "https://github.com/throneproj/env_windows_legacy/releases/download/latest/openssl_x64.7z" "openssl_x64.7z") $dest
+    }
+}
+
+if (Wants "innosetup") {
+    $dest = Join-Path $Toolchain "innosetup"
+    if (Skip "$dest\ISCC.exe") { Write-Step "innosetup: present" } else {
+        $rel = Get-LatestRelease "jrsoftware/issrc"
+        $asset = $rel.assets | Where-Object { $_.name -match "^innosetup-[\d.]+-x64\.exe$" } | Select-Object -First 1
+        Write-Step "innosetup: $($rel.tag_name)"
+        $setup = Get-File $asset.browser_download_url $asset.name
+        # Its own installer in portable mode: per user, no uninstaller or registry entries, nothing outside deps/.
+        $setupArgs = "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART", "/CURRENTUSER", "/PORTABLE=1", "/NOICONS", "/DIR=`"$dest`""
+        $proc = Start-Process -FilePath $setup -ArgumentList $setupArgs -Wait -PassThru
+        if ($proc.ExitCode -ne 0 -or -not (Test-Path "$dest\ISCC.exe")) { throw "Inno Setup install failed (exit $($proc.ExitCode))" }
     }
 }
 

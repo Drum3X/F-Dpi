@@ -172,6 +172,11 @@ namespace Engine::BackupArchive {
                             offend(QStringLiteral("Extra Core profile %1").arg(BackupShownName(name, fallback)));
                             continue;
                         }
+                        // F-Dpi: winws runs elevated and reads the files its options name (fake payloads it sends out).
+                        if (type == QLatin1String("dpi")) {
+                            offend(QStringLiteral("DPI Bypass profile %1").arg(BackupShownName(name, fallback)));
+                            continue;
+                        }
                         Validation::Issues issues;
                         profile->outbound->StripForeignState(issues);
                         if (issues.isEmpty()) continue;

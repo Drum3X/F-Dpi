@@ -42,6 +42,8 @@ Toolchain ve runtime binary'leri `deps/` altındadır (git-ignored). Yönetici y
 powershell -ExecutionPolicy Bypass -File script\fetch_deps.ps1
 # 2) Go core + Qt GUI + runtime paketleme -> deployment\windows-amd64\
 powershell -ExecutionPolicy Bypass -File script\build_windows.ps1            # -SkipCore / -SkipGui / -Clean / -BuildType Debug
+# 3) Sürüm + installer -> deployment\F-Dpi-<sürüm>-windows-x64-setup.exe (önce: fetch_deps.ps1 -Only innosetup)
+powershell -ExecutionPolicy Bypass -File script\build_windows.ps1 -Version 0.1.0 -Installer
 ```
 
 `fetch_deps.ps1` neleri getirir (SHA256'lar `deps\fetch_deps.log` dosyasına yazılır):
@@ -54,6 +56,7 @@ powershell -ExecutionPolicy Bypass -File script\build_windows.ps1            # -
 | sing-box (resmi, standalone) | SagerNet/sing-box | `deps/sing-box` |
 | zapret-win-bundle (`winws.exe`, `WinDivert*`, `cygwin1.dll`, listeler, blockcheck) | bol-van/zapret-win-bundle | `deps/zapret` |
 | Web dashboard, `srslist.h` | sing-box-dashboard, throneproj/routeprofiles | `res/dashboard`, `build/` |
+| Inno Setup (taşınabilir kurulum: kaldırıcı ve kayıt girdisi yok) | jrsoftware/issrc | `deps/toolchain/innosetup` |
 
 Notlar:
 - Go core'u ayrıca derlemek için `script/build_go.sh` kullanılır: Git Bash'te `GOOS=windows GOARCH=amd64 DEST=...` ile çalışır. `DEST`'i siler, bu yüzden `build_windows.ps1` onu `deployment/.core-windows-amd64`'e derleyip kopyalar.
@@ -162,7 +165,7 @@ Notlar:
   - "Her Zaman Standart Kullanıcı Olarak Başlat" (`windows_no_admin`) ayarını gizler.
   - Autorun zamanlanmış görevini her zaman `HighestAvailable` yapar (`AutoRun.cpp::autoRunElevated`).
 - Throne'un elevated relaunch'ı (`GuiStartup.cpp::RelaunchElevatedIfNeeded`) ve servis modu (`ServiceManager_win.cpp`) kodda durur. Süreç zaten yönetici olduğu için devreye girmezler.
-- Installer hâlâ `PrivilegesRequired=lowest` (F7).
+- Installer `PrivilegesRequired=admin` ile tüm kullanıcılar için `Program Files\F-Dpi` altına kurar (bkz. "Sertleştirme ve paketleme (F7 sonrası)").
 
 **Ağ izleme**
 - Throne'un C++ tarafında yoktu; Go core'daki `core/internal/netmon` yalnızca core çalışırken kullanılabilir. F-Dpi kendi `Sys::NetworkMonitor`'ünü yazdı (bkz. "Genel / Özel config (F4 sonrası)").
@@ -182,14 +185,14 @@ Notlar:
   - Veri ve süreç adları: `throne.db`, `throne.log`, `throneIPC`, `throne-tun`, `ThroneCore.exe`
   - Kaynak ve kod: `:/Throne` kaynak öneki, Go modülü `ThroneCore`
   - Bağlantılar: `throne://` (içe aktarma ve URL scheme kaydı), `thronectl`
-- Hâlâ Throne adını taşıyan, Throne ile yan yana kurulumda çakışabilecek tanımlayıcılar (F7):
-  - Kill switch WFP sağlayıcısı (`core/internal/guard/backend_windows.go`)
-  - Headless servis adları (`HostPresence_win.cpp`, `ServiceManager_win.cpp`)
-  - URL scheme ProgId (`UrlScheme.cpp`)
-  - Installer (`script/windows_installer.iss`)
-  - İkonlar (`res/Throne.ico`, `res/public/Throne.png`)
+- Throne ile yan yana kurulumda çakışabilecek Windows tanımlayıcıları F7'de F-Dpi'ye çevrildi:
+  - Kurulum kayıt anahtarı `Software\F-Dpi` ve dosya ilişkilendirme ProgId'si `F-Dpi.Config` (`Branding::InstallRegistryKey/ConfigProgId`, `UrlScheme.cpp`).
+  - Headless varlık eşlemesi `Global\FDpiHeadless` ve pencere sınıfı `FDpiHeadlessWindow` (`HostPresence_win.cpp`, `ServiceManager_win.cpp`). Böylece F-Dpi penceresi bir Throne headless'ını kendininki sanmaz. Servis modunun ProgramData klasörü `F-Dpi`.
+  - Kill switch WFP sağlayıcısının ve kurallarının görünen adları "F-Dpi" oldu; sağlayıcı GUID'i zaten her oturumda rastgeledir. Çekirdeğin bağlantı satırı da "Connected to F-Dpi!".
+  - İkonlar: `res/fdpi/` (`script/make_icons.ps1` üretir: kalkan + engeli kıran ok; Throne'un tepsi durum renkleri). `Throne.qrc` takma adları ve exe ikonu (`windows.cmake`) bunlara bakar. Throne'un `res/public` ve `res/Throne.ico` dosyaları upstream merge'leri için yerinde durur.
+  - Kalan ortak nokta: `throne://` şeması iki uygulamada da kayıtlıdır; son açılan kazanır (Throne'un iki kopyasında da böyledir).
 - İngilizce kaynak metinlerdeki "Throne" ifadelerine dokunulmaz, çünkü upstream çevirileri bozulur. Kullanıcıya görünen ad Türkçe çeviride "F-Dpi" olarak verilir.
-- ⚠ Bu makinede `%APPDATA%\F-Dpi` ve `%LOCALAPPDATA%\F-Dpi` dizinleri bu repodan önce başka bir F-Dpi uygulaması tarafından oluşturulmuş (`profiles.json`, `settings.ini`, `fdpi.log`). Bizim uygulama portable modda bunlara dokunmaz. appdata modunda (`-appdata` / installer) aynı kök dizini paylaşır, ama dosya adları çakışmaz.
+- ⚠ Bu makinede `%APPDATA%\F-Dpi` ve `%LOCALAPPDATA%\F-Dpi` dizinleri bu repodan önce başka bir F-Dpi uygulaması tarafından oluşturulmuş (`profiles.json`, `settings.ini`, `fdpi.log`). Bizim uygulama portable modda bunlara dokunmaz. appdata modunda (`-appdata`, ya da exe dizini yazılamazsa) aynı kök dizini paylaşır, ama dosya adları çakışmaz. Installer'ın kaldırıcısı bu yüzden yalnızca `config\` alt klasörünü siler, `%APPDATA%\F-Dpi`'ye hiç dokunmaz.
 
 **Çeviriler**
 - `res/translations/{zh_CN,fa_IR,ru_RU}.ts` upstream'e aittir.
@@ -347,6 +350,32 @@ Notlar:
     - Her durumda kayıt defteri başlangıçla aynı kaldı (`DohInterfaceSettings` altında boş anahtarlar kalabilir; zararsız).
 - **Doğrulanmadı:** DHCP DNS'li (zehirli ISS) bir ağda gerçek kullanım; Ethernet; DPI çalışırken ağ değişimi; QUIC/HTTP3 DNS'i (Chrome kendi DoH'unu kullanabilir).
 
+### Sertleştirme ve paketleme (F7 sonrası)
+- **WinDivert sürücüsü:** winws kapandıktan sonra da yüklü kalır ve `zapret\WinDivert64.sys` dosyasını kilitler; güncelleme ve kaldırma bu yüzden başarısız olur.
+  - `Sys::StopDriverLoadedFrom(service, dir)` (`ChildProcess_win.cpp`) sürücüyü yalnızca ikili dosyası bu kurulumun `zapret` klasöründeyse ve oradan çalışan süreç yoksa durdurur. Böylece başka bir programın WinDivert'ine dokunulmaz. Durdurulan WinDivert servisi kendini siler.
+  - `ExitController::shutdown` her düzgün çıkışta bunu çağırır (kill switch kapatıldıktan sonra).
+  - Çökme sonrası: winws job object ile ölür; yüklü kalan boş sürücü trafiğe dokunmaz ve sonraki çıkışta ya da `-cleanup` ile durdurulur.
+- **`F-Dpi.exe -cleanup`** (`Dpi::RunCleanup`, `src/dpi/DpiCleanup.cpp`; `main.cpp`'de veri dizini çözüldükten hemen sonra):
+  - `config/dpi/dns-backup.json` varsa Windows DNS'ini geri yükler (`Dns::RestoreSystemDnsBackup`, AutoDnsService ile ortak) ve WinDivert'i durdurur.
+  - Pencere açmaz, tek örnek kilidine dokunmaz, stderr'e yazar ve çıkar (~4 sn).
+  - Installer'ın kaldırma ve güncelleme adımları kullanır: onlar F-Dpi'yi zorla kapatır, düzgün çıkış yolu çalışmaz.
+- **Installer** (`script/windows_installer.iss`, Inno Setup 7, BOM'lu UTF-8):
+  - Yeni AppId; `PrivilegesRequired=admin`, `{autopf}\F-Dpi`, yalnızca x64, Windows 10 1809+, Türkçe + İngilizce, lisans sayfası.
+  - Dağıtım klasörünün `config\` (test verisi), `*.pdb` ve `updater.exe` dosyaları kuruluma girmez.
+  - Güncelleme: Restart Manager F-Dpi'yi oturum kapanışı gibi düzgün kapatır (`PowerOffTaskkillFilter`). `ssInstall` adımında kalan süreçler (F-Dpi, ThroneCore, winws) kapatılır ve eski exe ile `-cleanup` çalıştırılır, ardından dosyalar kopyalanır.
+  - Kaldırma: süreçler kapatılır, `-cleanup` çalıştırılır; ilişkilendirmeler (`throne://` yalnızca bu kopyayı açıyorsa), "F-Dpi AutoRun *" zamanlanmış görevleri ve WER dump anahtarları kaldırılır. İstenirse `config\` silinir.
+  - Kurulum sonrası "F-Dpi'yi başlat" ek UAC istemi açmaz (kurulum zaten yükseltilmiştir).
+- **Yedek geri yükleme:** uzak istemciden (Remote API) gelen bir yedekteki DPI profili, Extra Core gibi reddedilir (`BackupArchive.cpp`, `BackupUntrustedRefusal`). winws yönetici olarak çalışır ve seçeneklerinin adını verdiği dosyaları okuyup sahte paket olarak gönderebilir. Pencereden yapılan yerel geri yükleme etkilenmez. Link, abonelik ve API içe aktarımı zaten `RefusedForeignType` ile reddediliyordu.
+- **Sürüm:** `build_windows.ps1 -Version` (varsayılan 0.1.0) `INPUT_VERSION` olarak cmake'e geçer; pencere başlığı "F-Dpi 0.1.0", exe sürüm bilgisi 0.1.0.0.
+- **Doğrulandı (2026-10-24):**
+  - Yönetici olarak, kurulum testi (bağımsız betik):
+    - Sessiz kurulum: doğru dosyalar, kayıt anahtarı, Başlat ve masaüstü kısayolları, sürüm 0.1.0.0.
+    - Kurulu F-Dpi'de DPI ve zorla Otomatik DNS çalıştı; WinDivert `Program Files\F-Dpi\zapret`'tan yüklendi, discord.com 200 döndü.
+    - DPI çalışırken sessiz kaldırma: süreçler kapandı, DNS birebir geri geldi, sürücü kaldırıldı; klasör, kayıt, kısayollar ve görevler temizlendi.
+  - Yönetici olarak, geliştirme sürümünde DPI çalışırken Program → Çıkış: winws durdu, sürücü kaldırıldı (log: "WinDivert driver stopped").
+  - Yönetici olmadan: `-cleanup` iş yokken 0 ile çıktı; pencere yeni ikonla "F-Dpi 0.1.0" başlığıyla açıldı.
+- **Doğrulanmadı:** sürüm yükseltme (iki installer sürümü gerekir, Restart Manager yolu), Throne ile aynı makinede yan yana kurulum, Inno Setup'ın etkileşimli arayüzü (yalnızca sessiz kurulum denendi).
+
 ### F-Dpi bileşen tasarımı (sonraki fazlar)
 - `dpi` tipi, `DpiSupervisor` ve dışlama: uygulandı (bkz. "DPI motoru (F2 sonrası)" ve "Motorlar ve karşılıklı dışlama").
 - Genel / Özel ve `NetworkMonitor`: uygulandı (bkz. "Genel / Özel config (F4 sonrası)").
@@ -383,10 +412,7 @@ Notlar:
   - Ayrıntı ve test sonuçları: "Genel / Özel config (F4 sonrası)".
 - [x] **F5 – Blockcheck:** `Engine::Blockcheck`, `Dpi::Blockcheck` stratejileri, `DialogBlockcheck` (Araçlar menüsü + DPI editörü), `ConnectionManager::setExclusiveTask`, `DpiSupervisor` quiet/grace/killStrays. Ayrıntı: "Blockcheck (F5 sonrası)".
 - [x] **F6 – Otomatik DNS:** `Dns::Providers`/`DnsWire`, `Engine::DnsBenchmark` (hız + zehirlenme testi), `Engine::AutoDnsService` (arka plan seçimi, DPI sırasında Windows DoH, yedek/geri yükleme/çökme kurtarma), `Sys::SystemDns`, proxy doğrudan DNS kancası, `DialogAutoDns`. Ayrıntı: "Otomatik DNS (F6 sonrası)".
-- [ ] **F7 – Sertleştirme ve paketleme:**
-  - Çökme sonrası WinDivert temizliği (DNS'inki F6'da yapıldı).
-  - Installer (`windows_installer.iss` yeniden markalanmış).
-  - Smoke testleri, `RefusedForeignType`/yedekleme kenar durumları.
+- [x] **F7 – Sertleştirme ve paketleme:** WinDivert sürücüsünün çıkışta durdurulması, `-cleanup` modu, F-Dpi installer'ı (Inno Setup, yönetici, TR/EN), ikonlar, yan yana kurulumda çakışan tanımlayıcılar, uzak yedekte DPI profilinin reddi, sürüm. Ayrıntı: "Sertleştirme ve paketleme (F7 sonrası)".
 
 ## Konvansiyonlar
 - Kod stili Throne'unkini izler (`script/format_cpp.sh`, `.clang-format`); `tr()` ile çevrilebilir metin kullanılır.

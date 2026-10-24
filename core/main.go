@@ -134,7 +134,7 @@ func RunCore() {
 		log.Fatalf("failed to connect to GUI socket after 10 attempts: %v", err)
 	}
 
-	fmt.Println("Core Has Successfully Connected to Throne!")
+	fmt.Println("Core Has Successfully Connected to F-Dpi!")
 	rpc.Serve(conn, debug)
 	sysdns.Release()
 	log.Fatal("IPC connection dropped, exiting")

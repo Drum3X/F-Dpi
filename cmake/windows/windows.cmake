@@ -6,7 +6,7 @@ set(PLATFORM_HEADLESS_SOURCES src/sys/windows/ServiceManager_win.cpp src/sys/win
 include(cmake/windows/generate_product_version.cmake)
 generate_product_version(
         QV2RAY_RC
-        ICON "${CMAKE_SOURCE_DIR}/res/Throne.ico"
+        ICON "${CMAKE_SOURCE_DIR}/res/fdpi/F-Dpi.ico"
         NAME "F-Dpi"
         BUNDLE "F-Dpi"
         COMPANY_NAME "F-Dpi"

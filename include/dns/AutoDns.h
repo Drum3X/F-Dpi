@@ -47,4 +47,8 @@ namespace Dns {
     // generate.cpp hook: points the direct DNS at the active provider unless Auto DNS is off for proxies or the routing
     // profile brings its own DNS. True when it changed dns.
     bool ApplyToRouteDns(Configs::RouteDns *dns, bool routeOwnsDns);
+
+    // Puts back the Windows DNS settings saved in backupFile (Engine::AutoDnsService writes it while DPI Bypass runs) and
+    // deletes it, also after a failed restore: the next attempt would fail on the same adapter. True when nothing failed.
+    bool RestoreSystemDnsBackup(const QString &backupFile, QString *error);
 } // namespace Dns

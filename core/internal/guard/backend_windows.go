@@ -81,7 +81,7 @@ type wfpBackend struct {
 
 func newBackend() (backend, error) {
 	if !windows.GetCurrentProcessToken().IsElevated() {
-		return nil, newError(CodePrivilege, "the kill switch needs Throne to run as administrator")
+		return nil, newError(CodePrivilege, "the kill switch needs F-Dpi to run as administrator")
 	}
 	return &wfpBackend{stop: make(chan struct{})}, nil
 }
@@ -131,7 +131,7 @@ func (b *wfpBackend) arm(cfg *config, tuns []tunAdapter, appIDs []*fwpByteBlob) 
 	b.access.Lock()
 	defer b.access.Unlock()
 	session := fwpmSession0{
-		displayData:          displayData("Throne kill switch"),
+		displayData:          displayData("F-Dpi kill switch"),
 		flags:                fwpmSessionFlagDynamic,
 		txnWaitTimeoutInMSec: 10 * 1000,
 	}
@@ -213,13 +213,13 @@ func (b *wfpBackend) addSublayer() error {
 	if b.sublayer, err = windows.GenerateGUID(); err != nil {
 		return err
 	}
-	provider := fwpmProvider0{providerKey: b.provider, displayData: displayData("Throne")}
+	provider := fwpmProvider0{providerKey: b.provider, displayData: displayData("F-Dpi")}
 	if err = fwpmProviderAdd0(b.engine, &provider); err != nil {
 		return fmt.Errorf("add provider: %w", err)
 	}
 	sublayer := fwpmSublayer0{
 		subLayerKey: b.sublayer,
-		displayData: displayData("Throne kill switch"),
+		displayData: displayData("F-Dpi kill switch"),
 		providerKey: &b.provider,
 		weight:      0xFFFF,
 	}
@@ -245,7 +245,7 @@ func (b *wfpBackend) install(rules []wfpRule) ([]uint64, error) {
 
 func (b *wfpBackend) addFilter(rule wfpRule, layer windows.GUID) (uint64, error) {
 	filter := fwpmFilter0{
-		displayData: displayData("Throne: " + rule.name),
+		displayData: displayData("F-Dpi: " + rule.name),
 		providerKey: &b.provider,
 		layerKey:    layer,
 		subLayerKey: b.sublayer,
@@ -404,14 +404,14 @@ func baseRules(cfg *config, appIDs []*fwpByteBlob, pin *runtime.Pinner) []wfpRul
 		apps[i] = condition(conditionALEAppID, fwpMatchEqual, fwpByteBlobType, uintptr(unsafe.Pointer(appID)))
 	}
 	rules := []wfpRule{
-		{"permit Throne", aleLayers, weightApp, fwpActionPermit, apps},
+		{"permit F-Dpi", aleLayers, weightApp, fwpActionPermit, apps},
 		{"permit loopback", aleLayers, weightLoopback, fwpActionPermit, []fwpmFilterCondition0{
 			condition(conditionFlags, fwpMatchFlagsAllSet, fwpUint32, fwpConditionFlagIsLoopback),
 		}},
 	}
 	if cfg.APIPort != 0 {
 		// ALE authorizes the whole flow: an accepted connection's replies never reach the connect layer's block.
-		rules = append(rules, wfpRule{"permit the Throne API", []windows.GUID{layerALEAuthRecvAcceptV4, layerALEAuthRecvAcceptV6}, weightAPI, fwpActionPermit, []fwpmFilterCondition0{
+		rules = append(rules, wfpRule{"permit the F-Dpi API", []windows.GUID{layerALEAuthRecvAcceptV4, layerALEAuthRecvAcceptV6}, weightAPI, fwpActionPermit, []fwpmFilterCondition0{
 			equal8(conditionIPProtocol, ipProtoTCP), equal16(conditionIPLocalPort, cfg.APIPort),
 		}})
 	}

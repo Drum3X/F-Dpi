@@ -12,6 +12,7 @@
 #include <utility>
 #include <vector>
 
+#include "include/global/Branding.hpp"
 #include "include/global/Logger.hpp"
 
 #include <windows.h>
@@ -32,7 +33,8 @@ namespace Sys::ServiceManager {
         constexpr DWORD kServiceManagerWinConsoleWaitMs = 4500;
         constexpr qint64 kServiceManagerWinMaxHintMs = 10 * 60 * 1000;
         constexpr size_t kServiceManagerWinMaxHeld = 4;
-        constexpr wchar_t kServiceManagerWinWindowClass[] = L"ThroneHeadlessWindow";
+        // F-Dpi: not Throne's, so a Throne headless on this computer is never addressed by mistake.
+        constexpr wchar_t kServiceManagerWinWindowClass[] = L"FDpiHeadlessWindow";
         constexpr wchar_t kServiceManagerWinOwnedSddl[] = L"O:SYG:SYD:P(A;OICI;FA;;;SY)(A;OICI;FA;;;BA)";
         constexpr wchar_t kServiceManagerWinDaclSddl[] = L"D:P(A;OICI;FA;;;SY)(A;OICI;FA;;;BA)";
         // FOLDERID_ProgramData, spelled out so no uuid import library is needed.
@@ -628,7 +630,7 @@ namespace Sys::ServiceManager {
             return;
         }
         // Top level and never shown: an HWND_MESSAGE window gets no WM_QUERYENDSESSION, WM_ENDSESSION or taskkill WM_CLOSE (T20).
-        if (CreateWindowExW(0, kServiceManagerWinWindowClass, L"Throne headless", WS_OVERLAPPED, 0, 0, 0, 0, nullptr, nullptr, instance,
+        if (CreateWindowExW(0, kServiceManagerWinWindowClass, L"F-Dpi headless", WS_OVERLAPPED, 0, 0, 0, 0, nullptr, nullptr, instance,
                             nullptr) == nullptr) {
             state.notes << QStringLiteral("Could not create the shutdown window (taskkill and session end will not stop Throne cleanly): %1")
                                .arg(serviceManagerWinError(GetLastError()));
@@ -727,7 +729,7 @@ namespace Sys::ServiceManager {
         }
         CoTaskMemFree(raw);
         if (base.isEmpty()) return {};
-        return QDir::fromNativeSeparators(base) + QStringLiteral("/Throne");
+        return QDir::fromNativeSeparators(base) + QLatin1Char('/') + QLatin1String(Branding::SystemDataDirName);
     }
 
     bool SecureDataDir(const QString &path, bool created, QString *error) {

@@ -1,6 +1,7 @@
 #include "include/engine/app/ExitController.h"
 
 #include "include/api/remote/Server.hpp"
+#include "include/dpi/DpiLaunch.h"
 #include "include/engine/EnginePolicy.h"
 #include "include/engine/ThreadCheck.h"
 #include "include/engine/connection/ConnectionManager.h"
@@ -8,6 +9,7 @@
 #include "include/global/Configs.hpp"
 #include "include/global/Logger.hpp"
 #include "include/scanner/ScanManager.h"
+#include "include/sys/ChildProcess.hpp"
 #include "include/sys/KillSwitch.hpp"
 
 #include <QDebug>
@@ -58,6 +60,10 @@ namespace Engine {
         emit coreShutDown();
         // Only once the core is gone: until then the guard keeps blocking whatever would leak around the dying tunnel.
         Sys::KillSwitch::instance()->shutdown();
+        // F-Dpi: winws is gone by now. WinDivert's driver would stay loaded and lock WinDivert64.sys (updates, uninstall).
+        QString driverNote;
+        if (Sys::StopDriverLoadedFrom(QStringLiteral("WinDivert"), Dpi::ZapretDir(), &driverNote)) LOG_INFO("WinDivert driver stopped");
+        else if (!driverNote.isEmpty()) LOG_INFO(QStringLiteral("WinDivert driver left loaded: %1").arg(driverNote));
 
         mu_exit.unlock();
         qDebug() << "prepare exit done!";

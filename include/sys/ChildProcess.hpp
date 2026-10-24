@@ -11,4 +11,9 @@ namespace Sys {
 
     // Kills every running process whose executable is exactly this path (left over from a crashed run). Returns how many.
     int KillProcessesByPath(const QString &executable);
+
+    // Windows: stops the kernel driver service (WinDivert stays loaded after its last user exits and locks its .sys file,
+    // which blocks updates and uninstalling) when its binary lies in dir and no process runs from dir. True when it was
+    // stopped; *note says why not (empty when it was not loaded). Elsewhere false.
+    bool StopDriverLoadedFrom(const QString &service, const QString &dir, QString *note = nullptr);
 } // namespace Sys

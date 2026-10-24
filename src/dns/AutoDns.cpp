@@ -1,10 +1,13 @@
 #include "include/dns/AutoDns.h"
 
+#include <QFile>
+#include <QJsonDocument>
 #include <QPair>
 
 #include "include/database/DatabaseManager.h"
 #include "include/database/SettingsRepo.h"
 #include "include/database/entities/RouteProfile.h"
+#include "include/sys/SystemDns.hpp"
 
 namespace Dns {
     const QList<Provider> &Providers() {
@@ -87,5 +90,15 @@ namespace Dns {
         if (provider == nullptr || dns->direct_dns == provider->url) return false;
         dns->direct_dns = provider->url;
         return true;
+    }
+
+    bool RestoreSystemDnsBackup(const QString &backupFile, QString *error) {
+        QFile file(backupFile);
+        if (!file.open(QIODevice::ReadOnly)) return true;
+        const auto backup = QJsonDocument::fromJson(file.readAll()).object();
+        file.close();
+        const bool ok = Sys::SystemDns::Restore(backup, error);
+        QFile::remove(backupFile);
+        return ok;
     }
 } // namespace Dns

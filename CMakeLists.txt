@@ -596,6 +596,8 @@ set(PROJECT_SOURCES
         src/dpi/DpiPresets.cpp
         include/dpi/DpiLaunch.h
         src/dpi/DpiLaunch.cpp
+        include/dpi/DpiCleanup.h
+        src/dpi/DpiCleanup.cpp
         include/ui/profile/edit_dpi.h
         src/ui/profile/edit_dpi.cpp
         include/sys/ChildProcess.hpp

@@ -10,6 +10,7 @@
     powershell -ExecutionPolicy Bypass -File script\build_windows.ps1
     powershell -ExecutionPolicy Bypass -File script\build_windows.ps1 -SkipCore -BuildType Debug
     powershell -ExecutionPolicy Bypass -File script\build_windows.ps1 -SkipCore -UpdateTranslations
+    powershell -ExecutionPolicy Bypass -File script\build_windows.ps1 -Version 0.2.0 -Installer
 #>
 [CmdletBinding()]
 param(
@@ -18,7 +19,9 @@ param(
     [switch]$SkipCore,
     [switch]$SkipGui,
     [switch]$UpdateTranslations,   # refresh res/translations/*.ts from the sources before building
-    [switch]$Clean
+    [switch]$Clean,
+    [string]$Version = "0.1.0",    # F-Dpi version: About, exe version info, installer
+    [switch]$Installer             # also build deployment\F-Dpi-<version>-windows-x64-setup.exe (fetch_deps -Only innosetup)
 )
 
 $ErrorActionPreference = "Stop"
@@ -58,6 +61,8 @@ $env:PATH = @(
 $env:GOROOT = "$Toolchain\go"
 $env:CMAKE_PREFIX_PATH = "$Toolchain\Qt\lib\cmake"
 $env:OPENSSL_ROOT_DIR = "$Toolchain\openssl"
+# cmake/nkr.cmake reads it at configure time.
+$env:INPUT_VERSION = $Version
 
 # Git Bash only: the bash.exe stubs in System32/WindowsApps start WSL, which drops the env vars build_go.sh reads.
 $bash = "$env:ProgramFiles\Git\bin\bash.exe"
@@ -116,5 +121,15 @@ if (Test-Path $zapretSrc) {
 } else { Write-Warning "deps\zapret missing - run script\fetch_deps.ps1" }
 $singbox = Join-Path $Root "deps\sing-box\sing-box.exe"
 if (Test-Path $singbox) { Copy-Item -Force $singbox $Dest } else { Write-Warning "deps\sing-box missing" }
+
+if ($Installer) {
+    $iscc = Join-Path $Toolchain "innosetup\ISCC.exe"
+    if (-not (Test-Path $iscc)) { throw "Inno Setup missing - run script\fetch_deps.ps1 -Only innosetup" }
+    $parts = @(($Version -replace "^[vV]", "" -replace "-.*$", "").Split(".")) + @("0", "0", "0")
+    Write-Step "installer $Version"
+    Invoke-Checked { & $iscc /Q "/DAppVersion=$Version" "/DAppVersionMajor=$($parts[0])" "/DAppVersionMinor=$($parts[1])" `
+        "/DAppVersionPatch=$($parts[2])" "/DAppVersionBuild=0" "/O$(Join-Path $Root 'deployment')" `
+        "/FF-Dpi-$Version-windows-x64-setup" (Join-Path $Root "script\windows_installer.iss") } "ISCC"
+}
 
 Write-Step "done -> $Dest"

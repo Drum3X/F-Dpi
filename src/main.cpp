@@ -17,6 +17,7 @@
 #include <3rdparty/WinCommander.hpp>
 
 
+#include "include/dpi/DpiCleanup.h"
 #include "include/global/Branding.hpp"
 #include "include/global/Configs.hpp"
 #include "include/global/Logger.hpp"
@@ -125,6 +126,8 @@ int main(int argc, char* argv[]) {
     const auto dataDir = Engine::Bootstrap::ResolveDataDir(arguments, QDir(QCoreApplication::applicationDirPath()));
     const QDir &wd = dataDir.wd;
     Configs::SetBasePath(wd.absolutePath());
+    // F-Dpi: the uninstaller and updates run "-cleanup" once F-Dpi is stopped (Windows DNS, WinDivert driver).
+    if (arguments.contains("-cleanup")) return Dpi::RunCleanup(dataDir.configDir);
 
     const auto serverName = Engine::Bootstrap::InstanceServerName(wd);
     qDebug() << "server name: " << serverName;
