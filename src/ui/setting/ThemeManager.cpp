@@ -270,6 +270,9 @@ static QString windows11TabStyleSheet(const QPalette &pal, const ThemeTokens &t)
         "QTabBar::tab:hover:!selected { background: %3; color: %2; }\n"
         "QTabBar::tab:selected { background: %4; color: %2; border-bottom-color: %4; }\n"
         "QTabBar::tab:disabled { color: %6; }\n"
+        // F-Dpi: the Genel / Özel switch (GroupSectionBar) has no pane under it: rounded buttons.
+        "QTabBar#groupSections::tab { border-radius: 4px; border-bottom-color: %1; margin-right: 3px; }\n"
+        "QTabBar#groupSections::tab:selected { border-bottom-color: %1; }\n"
     ).arg(hex(border), hex(t.onSurface), hex(hover), hex(selected), hex(unselected), hex(t.muted), hex(pane));
 }
 

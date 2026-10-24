@@ -32,6 +32,7 @@ GroupSectionBar::GroupSectionBar(QTabWidget *groupTabs) : QWidget(nullptr), m_gr
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
     m_sections = new QTabBar(this);
+    m_sections->setObjectName(QStringLiteral("groupSections")); // rounded in ThemeManager's tab sheet
     m_sections->setDrawBase(false);
     m_sections->setExpanding(false);
     m_sections->addTab(tr("General"));
