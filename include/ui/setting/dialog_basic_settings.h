@@ -35,6 +35,8 @@ private:
     Ui::DialogBasicSettings *ui;
     // F-Dpi: network_start_on_launch, in its own "Startup" box atop the Common tab.
     QCheckBox *m_connectOnLaunch = nullptr;
+    // F-Dpi: network_auto_switch, on the Networks tab.
+    QCheckBox *m_networkAutoSwitch = nullptr;
 
     Validation::Form *form = nullptr;
 

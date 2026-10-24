@@ -5,16 +5,17 @@
 class QLabel;
 class QTabBar;
 class QTabWidget;
-class QToolButton;
 
-// F-Dpi: the "Genel" / "Özel (Ağ Bazlı)" tabs above the group tabs. In the Özel section the group tabs' left corner also shows
-// the network auto-switch toggle and the current network.
+// F-Dpi: the "Genel" / "Özel (Ağ Bazlı)" buttons above the group tabs.
 class GroupSectionBar : public QWidget {
     Q_OBJECT
 
 public:
-    // Goes above groupTabs (which it moves into a column with itself, in groupTabs' place) and owns its corner tools.
+    // Goes above groupTabs, which it moves into a column with itself, in groupTabs' place.
     explicit GroupSectionBar(QTabWidget *groupTabs);
+
+    // The current network ("Wi-Fi: <name>"), kept up to date; for the status bar.
+    static QLabel *NewNetworkLabel(QWidget *parent);
 
     // Shows which section's tabs are listed; emits nothing.
     void setNetworkSection(bool network);
@@ -25,9 +26,5 @@ signals:
 private:
     void updateNetwork();
 
-    QTabWidget *m_groupTabs = nullptr;
     QTabBar *m_sections = nullptr;
-    QWidget *m_networkTools = nullptr;
-    QToolButton *m_auto = nullptr;
-    QLabel *m_current = nullptr;
 };

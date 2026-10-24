@@ -267,7 +267,8 @@ Notlar:
   - Öğrenme: genel gruptan başlatılan profil `general_profile_id` olur. Ağa bağlı Özel gruptan o ağdayken başlatılan profil grubun `profile_id`'si olur.
   - Ayar: `network_auto_switch` (varsayılan açık).
 - **UI:**
-  - `GroupSectionBar`: grup sekmelerinin üstünde "Genel | Özel (Ağ Bazlı)" sekmeleri (`QTabBar`). Ana penceredeki splitter'da `tabWidget`'ın yerine ikisini içeren bir sütun koyar. Özel bölümünde grup sekmelerinin sol köşesinde (`setCornerWidget`) "Otomatik geçiş" ve şu anki ağ görünür; Genel'de köşe boştur (gizli köşe widget'ı yer kaplamaya devam ettiği için köşe kaldırılır).
+  - `GroupSectionBar`: grup sekmelerinin üstünde "Genel | Özel (Ağ Bazlı)" yuvarlak düğmeleri (`QTabBar#groupSections`, stili `ThemeManager`'da). Ana penceredeki splitter'da `tabWidget`'ın yerine ikisini içeren bir sütun koyar; sütun ebeveynsiz oluşturulur, yoksa splitter onu son bölme olarak ekler ve günlüklerin altına düşer.
+  - Şu anki ağ durum çubuğunda (`GroupSectionBar::NewNetworkLabel`, Mixed ile Proxy arasında). "Otomatik geçiş" Tercihler → Ağlar sekmesinde.
   - Sekme çubuğu tek bölümü listeler. `MainWindowInternal.h` içindeki `visibleGroupsTabOrder()` / `mw_network_section` `tabIndex2GroupId`/`groupId2TabIndex`'i süzer.
   - `show_group` diğer bölümden bir grup isterse o bölüme geçer.
   - Sekme sürükleme diğer bölümün gruplarının yerini korur.

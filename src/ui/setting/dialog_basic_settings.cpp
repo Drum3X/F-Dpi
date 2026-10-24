@@ -497,6 +497,20 @@ DialogBasicSettings::DialogBasicSettings(QWidget *parent)
 
     D_LOAD_BOOL(skip_cert)
 
+    // F-Dpi: Networks tab, after Common.
+    {
+        auto *networks = new QWidget(ui->tabWidget);
+        auto *layout = new QVBoxLayout(networks);
+        m_networkAutoSwitch = new QCheckBox(tr("Auto switch"), networks);
+        m_networkAutoSwitch->setChecked(Configs::dataManager->settingsRepo->network_auto_switch);
+        auto *hint = new QLabel(tr("When the network changes, run its own config (Custom groups bound to it), else the last general config."), networks);
+        hint->setWordWrap(true);
+        hint->setProperty("colorRole", "muted");
+        layout->addWidget(m_networkAutoSwitch);
+        layout->addWidget(hint);
+        layout->addStretch(1);
+        ui->tabWidget->insertTab(ui->tabWidget->indexOf(ui->tab_1) + 1, networks, tr("Networks"));
+    }
     ui->tabWidget->addTab(new DiagnosticsTab(ui->tabWidget), tr("Diagnostics"));
     bindValidation();
 
@@ -689,6 +703,7 @@ void DialogBasicSettings::accept() {
     if (oldFollowStatusInTaskbar != Configs::dataManager->settingsRepo->follow_status_in_taskbar) CACHE.updateTrayIcon = true;
     D_SAVE_BOOL(start_minimal)
     Configs::dataManager->settingsRepo->network_start_on_launch = m_connectOnLaunch->isChecked();
+    Configs::dataManager->settingsRepo->network_auto_switch = m_networkAutoSwitch->isChecked();
     Configs::dataManager->settingsRepo->skip_delete_confirmation = ui->skip_delete_confirm->isChecked();
     bool profileListDisplayChanged =
         Configs::dataManager->settingsRepo->show_config_security != ui->show_config_security->isChecked();

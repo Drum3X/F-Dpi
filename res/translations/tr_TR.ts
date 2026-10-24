@@ -1475,6 +1475,18 @@ Bu yedek uygulamanın daha yeni bir sürümüyle oluşturulmuş olabilir.</trans
         <translation>127.0.0.1 (varsayılan)</translation>
     </message>
     <message>
+        <source>Auto switch</source>
+        <translation>Otomatik geçiş</translation>
+    </message>
+    <message>
+        <source>When the network changes, run its own config (Custom groups bound to it), else the last general config.</source>
+        <translation>Ağ değişince o ağın kendi config'ini (ağa bağlı Özel gruplar), yoksa son genel config'i çalıştır.</translation>
+    </message>
+    <message>
+        <source>Networks</source>
+        <translation>Ağlar</translation>
+    </message>
+    <message>
         <source>Diagnostics</source>
         <translation>Tanılama</translation>
     </message>
@@ -9151,14 +9163,6 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
     <message>
         <source>Custom (per network)</source>
         <translation>Özel (Ağ Bazlı)</translation>
-    </message>
-    <message>
-        <source>Auto switch</source>
-        <translation>Otomatik geçiş</translation>
-    </message>
-    <message>
-        <source>When the network changes, run its own config (Custom groups bound to it), else the last general config.</source>
-        <translation>Ağ değiştiğinde o ağa ait config&apos;i (ağa bağlı Özel gruplar), yoksa son genel config&apos;i çalıştırır.</translation>
     </message>
     <message>
         <source>No network</source>

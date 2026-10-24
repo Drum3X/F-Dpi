@@ -631,6 +631,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     // F-Dpi: General / Custom (per network) tabs above the group tabs.
     auto *groupSections = new GroupSectionBar(ui->tabWidget);
+    ui->horizontalLayout->insertWidget(ui->horizontalLayout->indexOf(ui->label_speed), GroupSectionBar::NewNetworkLabel(this));
     connect(groupSections, &GroupSectionBar::sectionRequested, this, [this](bool network) { show_group_section(network); });
 
     this->refresh_groups();
