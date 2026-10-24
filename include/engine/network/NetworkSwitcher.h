@@ -25,9 +25,11 @@ namespace Engine {
     public:
         explicit NetworkSwitcher(ConnectionManager *connection, QObject *parent = nullptr);
 
-        // Main thread, before the core starts: detects the network once, and when the remembered profile is about to resume,
-        // swaps it for the one this network calls for. Then follows Sys::NetworkMonitor.
-        void start();
+        // Main thread, before the core starts: detects the network once and returns the profile to start with the core (-1:
+        // none). With network_start_on_launch that is the one this network calls for, remembered or not; else the remembered
+        // profile resumes as in Throne, swapped for this network's config under network_auto_switch. Then follows
+        // Sys::NetworkMonitor.
+        int start();
 
         // Main thread. The profile the current network calls for, given the one running (or about to resume): the bound group's
         // profile; else current itself when it is a general profile (any general config is fine on an unbound network);

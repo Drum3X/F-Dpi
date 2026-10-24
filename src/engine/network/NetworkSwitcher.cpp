@@ -42,9 +42,9 @@ namespace Engine {
                 });
     }
 
-    void NetworkSwitcher::start() {
+    int NetworkSwitcher::start() {
         ENGINE_CHECK_MAIN_THREAD();
-        if (m_started) return;
+        if (m_started) return -1;
         m_started = true;
         auto *monitor = Sys::NetworkMonitor::instance();
         monitor->start(true);
@@ -55,11 +55,16 @@ namespace Engine {
             MW_show_log(QCoreApplication::translate("Network", "[Network] Connected to %1.").arg(network.name));
         }
         auto &settings = Configs::dataManager->settingsRepo;
-        if (!settings->network_auto_switch || !settings->remember_enable || settings->remember_id < 0) return;
-        if (const int target = targetProfile(settings->remember_id); target >= 0 && target != settings->remember_id) {
-            MW_show_log(QCoreApplication::translate("Network", "[Network] %1: starting %2.").arg(network.name, networkSwitcherProfileName(target)));
-            settings->remember_id = target;
+        const int remembered = settings->remember_enable && settings->remember_id >= 0 ? settings->remember_id : -1;
+        if (!settings->network_start_on_launch && (!settings->network_auto_switch || remembered < 0)) return remembered;
+        const int target = targetProfile(remembered);
+        if (target < 0) return remembered;
+        if (target != remembered) {
+            MW_show_log(QCoreApplication::translate("Network", "[Network] %1: starting %2.")
+                            .arg(network.connected() ? network.name : QCoreApplication::translate("Network", "No network"), networkSwitcherProfileName(target)));
+            if (remembered >= 0) settings->remember_id = target;
         }
+        return target;
     }
 
     int NetworkSwitcher::targetProfile(int current) const {

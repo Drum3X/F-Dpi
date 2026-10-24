@@ -313,15 +313,14 @@ namespace Engine {
         // F-Dpi: before the resume below, which it may point at the current network's config; a DPI profile resuming applies
         // Otomatik DNS again, so a crashed run's Windows DNS is put back first.
         m_autoDns->recoverAtBoot();
-        m_networkSwitcher->start();
+        const int launchProfile = m_networkSwitcher->start();
         m_autoDns->start();
 
         if (bootStart) {
             if (bootStart->profileId >= 0) m_connection->setBootStart(StartRequest{bootStart->profileId, false, bootStart->serial});
             m_coreSupervisor->start(bootStart->profileId);
         } else {
-            const auto &startSettings = Configs::dataManager->settingsRepo;
-            m_coreSupervisor->start(startSettings->remember_enable && startSettings->remember_id >= 0 ? startSettings->remember_id : -1);
+            m_coreSupervisor->start(launchProfile);
         }
 
         m_apiReady = true;

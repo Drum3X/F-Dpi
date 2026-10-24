@@ -214,6 +214,8 @@ namespace Configs {
 
         // F-Dpi: start the network's own config (Özel groups) on a network change, else the last general config.
         bool network_auto_switch = true;
+        // F-Dpi: on launch, connect the network's own config (else the general config) even when nothing is remembered.
+        bool network_start_on_launch = true;
         // F-Dpi: the last profile started from a general group; what runs on a network with no config of its own.
         int general_profile_id = NoProfileId;
         // F-Dpi Otomatik DNS (include/dns/AutoDns.h): "auto", "off" or a provider id; where it applies; the benchmark's pick.

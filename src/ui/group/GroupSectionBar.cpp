@@ -42,6 +42,17 @@ GroupSectionBar::GroupSectionBar(QWidget *parent) : QWidget(parent) {
         Configs::dataManager->settingsRepo->Save();
     });
 
+    m_launch = new QToolButton(this);
+    m_launch->setText(tr("Connect on launch"));
+    m_launch->setCheckable(true);
+    m_launch->setAutoRaise(true);
+    m_launch->setToolTip(tr("When F-Dpi starts, connect the current network's own config (Custom groups bound to it), else the general config."));
+    m_launch->setChecked(Configs::dataManager->settingsRepo->network_start_on_launch);
+    connect(m_launch, &QToolButton::toggled, this, [](bool on) {
+        Configs::dataManager->settingsRepo->network_start_on_launch = on;
+        Configs::dataManager->settingsRepo->Save();
+    });
+
     m_current = new QLabel(this);
     m_current->setEnabled(false);
 
@@ -49,6 +60,7 @@ GroupSectionBar::GroupSectionBar(QWidget *parent) : QWidget(parent) {
     layout->addWidget(m_network);
     layout->addSpacing(6);
     layout->addWidget(m_auto);
+    layout->addWidget(m_launch);
     layout->addWidget(m_current);
 
     connect(Sys::NetworkMonitor::instance(), &Sys::NetworkMonitor::networkChanged, this, [this] { updateNetwork(); });

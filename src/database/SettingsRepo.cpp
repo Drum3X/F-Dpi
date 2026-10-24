@@ -34,6 +34,7 @@ namespace Configs {
             {"net_use_proxy",                 &net_use_proxy},
             {"remember_enable",               &remember_enable},
             {"network_auto_switch",           &network_auto_switch},
+            {"network_start_on_launch",       &network_start_on_launch},
             {"auto_dns_proxy",                &auto_dns_proxy},
             {"auto_dns_system",               &auto_dns_system},
             {"skip_cert",                     &skip_cert},

@@ -73,7 +73,7 @@
     </message>
     <message>
         <source>[DNS] Left alone, DNS servers are set for this network in Windows: %1</source>
-        <translation>[DNS] Bu ağ için Windows'ta DNS sunucuları ayarlı olduğundan dokunulmadı: %1</translation>
+        <translation>[DNS] Bu ağ için Windows&apos;ta DNS sunucuları ayarlı olduğundan dokunulmadı: %1</translation>
     </message>
     <message>
         <source>[DNS] Windows now resolves through %1 over DNS-over-HTTPS while DPI Bypass runs.</source>
@@ -418,7 +418,7 @@ Giden: %4</translation>
     </message>
     <message>
         <source>winws does not touch DNS. The network adapters&apos; DNS settings are saved first and put back when DPI Bypass stops, and at the next start if F-Dpi was closed abruptly. A network whose DNS servers you set in Windows is left as it is.</source>
-        <translation>winws DNS'e dokunmaz. Ağ adaptörlerinin DNS ayarları önce kaydedilir; DPI Bypass durunca, F-Dpi beklenmedik biçimde kapandıysa da sonraki açılışta geri yüklenir. DNS sunucularını Windows'ta kendiniz ayarladığınız bir ağa dokunulmaz.</translation>
+        <translation>winws DNS&apos;e dokunmaz. Ağ adaptörlerinin DNS ayarları önce kaydedilir; DPI Bypass durunca, F-Dpi beklenmedik biçimde kapandıysa da sonraki açılışta geri yüklenir. DNS sunucularını Windows&apos;ta kendiniz ayarladığınız bir ağa dokunulmaz.</translation>
     </message>
     <message>
         <source>Needs Windows 11.</source>
@@ -9149,6 +9149,14 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
         <translation>Ağ değiştiğinde o ağa ait config&apos;i (ağa bağlı Özel gruplar), yoksa son genel config&apos;i çalıştırır.</translation>
     </message>
     <message>
+        <source>Connect on launch</source>
+        <translation>Açılışta bağlan</translation>
+    </message>
+    <message>
+        <source>When F-Dpi starts, connect the current network&apos;s own config (Custom groups bound to it), else the general config.</source>
+        <translation>F-Dpi açıldığında şu anki ağın kendi config'ini (ağa bağlı Özel gruplar), yoksa genel config'i başlat.</translation>
+    </message>
+    <message>
         <source>No network</source>
         <translation>Ağ yok</translation>
     </message>
@@ -10874,6 +10882,10 @@ URL: %2</translation>
     <message>
         <source>[Network] %1: starting %2.</source>
         <translation>[Ağ] %1: %2 başlatılıyor.</translation>
+    </message>
+    <message>
+        <source>No network</source>
+        <translation>Ağ yok</translation>
     </message>
     <message>
         <source>Wi-Fi &quot;%1&quot;</source>

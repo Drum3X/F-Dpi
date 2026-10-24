@@ -259,7 +259,10 @@ Notlar:
   - Hedef (`targetProfile(current)`): ağa bağlı Özel grubun seçili profili (yoksa ilk profili). Ağa bağlı grup yoksa ve çalışan/hatırlanan profil genel bir gruptaysa o profil kalır. Bu kural F5'te düzeltildi: önceden açılışta hatırlanan DPI profili son genel Socks ile değiştiriliyordu. Aksi halde `general_profile_id` (son başlatılan genel profil), o da yoksa ilk genel grubun ilk profili.
   - Yalnızca kullanıcı bir şey çalışmasını istiyorsa devreye girer: profil çalışıyorsa ya da `started_id >= 0` ise. Elle durdurma `started_id`'yi temizler, bu yüzden ağ değişimi bağlantıyı yeniden açmaz.
   - Başlatma `ConnectionManager::start` üzerinden yapılır, yani proxy/DPI dışlaması korunur.
-  - Açılışta `EngineHost::init` içinde core başlamadan önce ağ eşzamanlı algılanır. Hatırlanan profil (`remember_id`) bu ağın hedefinden farklıysa hedefle değiştirilir.
+  - Açılışta `EngineHost::init` içinde core başlamadan önce ağ eşzamanlı algılanır; `NetworkSwitcher::start()` core ile başlayacak profili döndürür.
+    - **Açılışta bağlan** (`network_start_on_launch`, varsayılan açık, `GroupSectionBar` düğmesi): "son profili hatırla" kapalı olsa ve hiçbir şey hatırlanmasa bile bu ağın hedefi başlar. Elle durdurup çıkmak sonraki açılışı etkilemez.
+    - Kapalıyken Throne davranışı: yalnızca hatırlanan profil (`remember_enable && remember_id`) başlar; otomatik geçiş açıksa bu ağın hedefiyle değiştirilir.
+    - Doğrulandı (yönetici olmadan, 2026-10-24, `remember_enable=false`): TestNet'te ağa özel Socks, gerçek ağda genel Socks başladı; ayar kapalıyken hiçbir şey başlamadı.
   - Öğrenme: genel gruptan başlatılan profil `general_profile_id` olur. Ağa bağlı Özel gruptan o ağdayken başlatılan profil grubun `profile_id`'si olur.
   - Ayar: `network_auto_switch` (varsayılan açık).
 - **UI:**

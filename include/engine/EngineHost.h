@@ -46,8 +46,8 @@ namespace Engine {
         };
 
         // Once the front end exists: binds its answers, then the random inbound port, the core IPC listener, the kill switch,
-        // the core and the API. observer may be null. Without bootStart the remembered profile starts as the GUI always did
-        // (remember_enable && remember_id >= 0); with it, exactly that request starts once the core is up. The API answers
+        // the core and the API. observer may be null. Without bootStart the profile NetworkSwitcher::start() picks starts (F-Dpi: the network's
+        // config; Throne: remember_enable && remember_id >= 0); with it, exactly that request starts once the core is up. The API answers
         // 503 "starting" until this returns.
         void init(EnginePolicy *policy, TestObserver *observer, std::optional<BootStart> bootStart = std::nullopt);
 
