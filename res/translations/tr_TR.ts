@@ -1475,12 +1475,16 @@ Bu yedek uygulamanın daha yeni bir sürümüyle oluşturulmuş olabilir.</trans
         <translation>127.0.0.1 (varsayılan)</translation>
     </message>
     <message>
+        <source>Network switching</source>
+        <translation>Ağ geçişi</translation>
+    </message>
+    <message>
         <source>Auto switch</source>
         <translation>Otomatik geçiş</translation>
     </message>
     <message>
         <source>When the network changes, run its own config (Custom groups bound to it), else the last general config.</source>
-        <translation>Ağ değişince o ağın kendi config'ini (ağa bağlı Özel gruplar), yoksa son genel config'i çalıştır.</translation>
+        <translation>Ağ değişince o ağın kendi config&apos;ini (ağa bağlı Özel gruplar), yoksa son genel config&apos;i çalıştır.</translation>
     </message>
     <message>
         <source>Networks</source>

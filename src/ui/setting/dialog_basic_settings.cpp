@@ -499,15 +499,16 @@ DialogBasicSettings::DialogBasicSettings(QWidget *parent)
 
     // F-Dpi: Networks tab, after Common.
     {
+        // Laid out like the other tabs: titled group boxes, the explanations as tooltips.
         auto *networks = new QWidget(ui->tabWidget);
         auto *layout = new QVBoxLayout(networks);
-        m_networkAutoSwitch = new QCheckBox(tr("Auto switch"), networks);
+        auto *switching = new QGroupBox(tr("Network switching"), networks);
+        auto *switchingLayout = new QVBoxLayout(switching);
+        m_networkAutoSwitch = new QCheckBox(tr("Auto switch"), switching);
+        m_networkAutoSwitch->setToolTip(tr("When the network changes, run its own config (Custom groups bound to it), else the last general config."));
         m_networkAutoSwitch->setChecked(Configs::dataManager->settingsRepo->network_auto_switch);
-        auto *hint = new QLabel(tr("When the network changes, run its own config (Custom groups bound to it), else the last general config."), networks);
-        hint->setWordWrap(true);
-        hint->setProperty("colorRole", "muted");
-        layout->addWidget(m_networkAutoSwitch);
-        layout->addWidget(hint);
+        switchingLayout->addWidget(m_networkAutoSwitch);
+        layout->addWidget(switching);
         layout->addStretch(1);
         ui->tabWidget->insertTab(ui->tabWidget->indexOf(ui->tab_1) + 1, networks, tr("Networks"));
     }
