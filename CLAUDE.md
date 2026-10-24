@@ -81,6 +81,7 @@ Notlar:
   - Arka plandaki betik `SetForegroundWindow` ile pencereyi öne alamayabilir; gerçek bir fare tıklaması alır.
   - PowerShell'de `Kill` gibi yerleşik takma adlarla aynı adda fonksiyon yazılmaz: takma ad fonksiyondan önceliklidir. `Kill` = `Stop-Process` parametresiz kalıp gizli pencerede girdi bekler ve betik takılır.
   - PowerShell 5.1'de tek elemanlı sonuç dizi olarak dönmez: `(Get-Process winws).Count` ya da bir fonksiyonun döndürdüğü `@(...)` tek süreçte boş görünür. Sayı `return [int]@(...).Count` ile alınır.
+  - Installer testini kullanıcı gibi yapın: installer yükseltilmemiş shell'den başlatılır (kendi UAC istemi), düğmeleri ayrı bir yönetici betiği tıklar. Yönetici betikten başlatılan installer'da "asıl kullanıcı" da yöneticidir ve `postinstall` hataları görünmez.
   - **Inno Setup sihirbazı** UI Automation'a düğme göstermez. Pencere `EnumWindows`/`EnumChildWindows` ile bulunur (`TSelectLanguageForm`, `TWizardForm`, `TUninstallProgressForm`, `#32770`) ve düğmelere `BM_CLICK` gönderilir. Inno 7 Türkçe düğme adları: Tamam, Sonraki, Kur, Bitti, Evet, Hayır; lisans radyosu "Anlaşmayı kabul ediyorum".
 
 ### Çeviriler (Türkçe = `res/translations/tr_TR.ts`)
@@ -372,7 +373,7 @@ Notlar:
   - `CloseApplications=no`: Restart Manager açıkken kapatılacak süreçleri `ssInstall`'dan önce listeliyordu. Onları StopFDpi kapattıktan sonra (ThroneCore F-Dpi'yle zaten ölür) olmayan süreçleri kapatamayıp sessiz güncellemeyi iptal ediyordu (exit 5).
   - StopFDpi her süreci ayrı `try` içinde kapatır; arada çıkmış bir süreç döngüyü kesmez.
   - Kaldırma: süreçler kapatılır, `-cleanup` çalıştırılır; ilişkilendirmeler (`throne://` yalnızca bu kopyayı açıyorsa), "F-Dpi AutoRun *" zamanlanmış görevleri ve WER dump anahtarları kaldırılır. İstenirse `config\` silinir.
-  - Kurulum sonrası "F-Dpi'yi başlat" ek UAC istemi açmaz (kurulum zaten yükseltilmiştir).
+  - Kurulum sonrası "F-Dpi'yi başlat" `runascurrentuser` ile kurulumun yönetici yetkisinde çalışır, ek UAC istemi açmaz. Inno, `postinstall` girdilerini varsayılan olarak kurulumu başlatan yükseltilmemiş kullanıcıyla çalıştırır; o zaman requireAdministrator exe CreateProcess 740 ("yükseltme gerekiyor") ile açılmaz. Kullanıcı bunu buldu; yönetici betikten başlatılan testlerde asıl kullanıcı zaten yönetici olduğu için görünmüyordu.
 - **Yedek geri yükleme:** uzak istemciden (Remote API) gelen bir yedekteki DPI profili, Extra Core gibi reddedilir (`BackupArchive.cpp`, `BackupUntrustedRefusal`). winws yönetici olarak çalışır ve seçeneklerinin adını verdiği dosyaları okuyup sahte paket olarak gönderebilir. Pencereden yapılan yerel geri yükleme etkilenmez. Link, abonelik ve API içe aktarımı zaten `RefusedForeignType` ile reddediliyordu.
 - **Sürüm:** `build_windows.ps1 -Version` (varsayılan 0.1.0) `INPUT_VERSION` olarak cmake'e geçer; pencere başlığı "F-Dpi 0.1.0", exe sürüm bilgisi 0.1.0.0.
 - **Doğrulandı (2026-10-24):**

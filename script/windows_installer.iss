@@ -80,8 +80,9 @@ Root: HKLM; Subkey: "Software\F-Dpi"; ValueType: string; ValueName: "InstallPath
 Type: files; Name: "{app}\updater.old"
 
 [Run]
-; Setup runs elevated, so F-Dpi (requireAdministrator) starts without another prompt.
-Filename: "{app}\F-Dpi.exe"; Description: "{cm:LaunchProgram,F-Dpi}"; Flags: postinstall nowait skipifsilent
+; runascurrentuser: postinstall entries run as the user who started Setup, normally not elevated, and CreateProcess of a
+; requireAdministrator exe then fails with 740. Setup itself is elevated, so F-Dpi starts without another prompt.
+Filename: "{app}\F-Dpi.exe"; Description: "{cm:LaunchProgram,F-Dpi}"; Flags: postinstall nowait skipifsilent runascurrentuser
 
 [Code]
 function NextButtonClick(CurPageID: Integer): Boolean;
