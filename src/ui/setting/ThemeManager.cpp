@@ -193,17 +193,6 @@ static QColor paletteAccent(const QPalette &pal) {
 #endif
 }
 
-// Prefers a surface the theme already defines, so the chip looks native to it; falls back to
-// stepping the window itself and mixing in a trace of accent.
-static QColor selectedFill(const QPalette &pal, const QColor &surface, const QColor &onSurface,
-                           const QColor &accent) {
-    for (const auto role : {QPalette::AlternateBase, QPalette::Base, QPalette::Button, QPalette::Midlight}) {
-        const QColor c = pal.color(QPalette::Active, role);
-        if (contrastRatio(c, surface) >= 1.35 && contrastRatio(onSurface, c) >= 4.5) return c;
-    }
-    return blendToward(accent, separate(surface, surface, 1.5), 0.22);
-}
-
 static ThemeTokens resolveTokens(const QPalette &pal) {
     ThemeTokens t;
     t.surface   = pal.color(QPalette::Active, QPalette::Window);
@@ -255,33 +244,45 @@ static QColor paneBorder(const ThemeTokens &t) {
     return separate(blendToward(t.onSurface, t.surface, 0.32), t.surface, 1.9);
 }
 
-// windows11 insets the first tab, never opens the selected one into the pane (zero base overlap) and marks it with a 45% fill.
+// F-Dpi: joined tabs. They share their borders; the selected one is lighter and opens into the pane, the others sit darker
+// with a muted label.
 static QString windows11TabStyleSheet(const QPalette &pal, const ThemeTokens &t) {
     const auto hex = [](const QColor &c) { return c.name(QColor::HexRgb); };
     const QColor border = paneBorder(t);
-    const QColor hover = separate(blendToward(t.accent, t.surface, 0.10), t.surface, 1.10);
-    QColor selected = selectedFill(pal, t.surface, t.onSurface, t.accent);
-    // Readability of onSurface on the chip outranks how far the chip sits from the window.
-    for (int i = 0; i < 8 && contrastRatio(t.onSurface, selected) < 4.5; ++i) {
-        selected = blendToward(selected, t.surface, 0.6);
-    }
+    const QColor pane = pal.color(QPalette::Active, QPalette::Base);
+    const bool light = relLuminance(pane) > 0.5;
+    const QColor selected = light ? pane : blendToward(pane, QColor(0xFF, 0xFF, 0xFF), 0.90);
+    const QColor unselected = blendToward(pane, QColor(0, 0, 0), light ? 0.93 : 0.80);
+    const QColor hover = blendToward(selected, unselected, 0.5);
     return QStringLiteral(
-        "QTabWidget::pane { margin-top: 1px; border: 1px solid %1; border-radius: 4px; background: %7; }\n"
+        "QTabWidget::pane { top: -1px; border: 1px solid %1; background: %7; }\n"
         "#profilesTableView, #masterLogBrowser, #connections { border: none; }\n"
         "QTabBar { background: transparent; qproperty-drawBase: 0; }\n"
         "QTabBar::tab {\n"
-        "    background: transparent;\n"
-        "    color: %2;\n"
+        "    background: %5;\n"
+        "    color: %6;\n"
         "    border: 1px solid %1;\n"
-        "    border-radius: 4px;\n"
-        "    padding: 2px 6px;\n"
-        "    margin-right: 1px;\n"
+        "    border-top-left-radius: 3px;\n"
+        "    border-top-right-radius: 3px;\n"
+        "    padding: 3px 10px;\n"
+        "    margin-right: -1px;\n"
         "}\n"
-        "QTabBar::tab:hover:!selected { background: %3; }\n"
-        "QTabBar::tab:selected { background: %4; color: %2; border: 1px solid %5; }\n"
+        "QTabBar::tab:hover:!selected { background: %3; color: %2; }\n"
+        "QTabBar::tab:selected { background: %4; color: %2; border-bottom-color: %4; }\n"
         "QTabBar::tab:disabled { color: %6; }\n"
-    ).arg(hex(border), hex(t.onSurface), hex(hover), hex(selected), hex(t.accent), hex(t.muted),
-          hex(pal.color(QPalette::Active, QPalette::Base)));
+    ).arg(hex(border), hex(t.onSurface), hex(hover), hex(selected), hex(unselected), hex(t.muted), hex(pane));
+}
+
+// F-Dpi: a grey accent in place of the Windows accent colour (check boxes, default button, focus, selection).
+static void neutralAccent() {
+    QPalette pal = qApp->palette();
+    const bool light = relLuminance(pal.color(QPalette::Active, QPalette::Window)) > 0.5;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
+    pal.setColor(QPalette::Accent, light ? QColor(0x5A, 0x5A, 0x5A) : QColor(0xC8, 0xC8, 0xC8));
+#endif
+    pal.setColor(QPalette::Highlight, light ? QColor(0xCC, 0xCC, 0xCC) : QColor(0x55, 0x55, 0x55));
+    pal.setColor(QPalette::HighlightedText, light ? QColor(0x1A, 0x1A, 0x1A) : QColor(0xFF, 0xFF, 0xFF));
+    qApp->setPalette(pal);
 }
 
 // QMacStyle cuts its pane border where its own centred tab bar would be (clipTabBarFrame), so the sheet draws the pane.
@@ -359,6 +360,7 @@ void ThemeManager::ApplyTheme(const QString &theme, bool force) {
         const QString styleName = lowerTheme == "system" ? system_style_name : theme;
         qApp->setStyle(styleName);
         windows11Tabs = styleName.compare(QStringLiteral("windows11"), Qt::CaseInsensitive) == 0;
+        if (windows11Tabs) neutralAccent();
         macosPane = styleName.compare(QStringLiteral("macos"), Qt::CaseInsensitive) == 0;
     }
 
