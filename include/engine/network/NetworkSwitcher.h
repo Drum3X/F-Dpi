@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QMap>
 #include <QObject>
 #include <QString>
 
@@ -17,6 +18,8 @@ namespace Engine {
     // - Otherwise the general config runs: settings general_profile_id, else the first profile of the first general group.
     // It acts only while the user wants something running (a profile runs, or one is started and not stopped by hand), so it
     // never starts a connection the user turned off. Every start goes through ConnectionManager, which stops the other engine.
+    // A running profile that uses network placeholders (%GATEWAY%...) is started again when their values change, even on
+    // the same network: a phone hotspot hands out a new gateway on every connection.
     // It also learns: a profile the user starts from a general group becomes the general config, and one started from a
     // network group while on its network becomes that network's config.
     class NetworkSwitcher final : public QObject {
@@ -39,9 +42,14 @@ namespace Engine {
     private:
         void onNetworkChanged(const Sys::NetworkIdentity &network);
         void onStartFinished(quint64 serial, int profileId, Engine::StartOutcome outcome);
-        void apply(const QString &why);
+        // True when it started another profile.
+        bool apply(const QString &why);
+        void restartForPlaceholders(const QString &why);
 
         ConnectionManager *m_connection;
+        // The running profile's placeholders and their values when it started.
+        int m_placeholderProfile = -1;
+        QMap<QString, QString> m_placeholderValues;
         QString m_lastKey;
         bool m_started = false;
     };

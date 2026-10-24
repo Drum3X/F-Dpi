@@ -459,6 +459,7 @@ namespace Engine::SettingsRegistry {
             QStringLiteral("log_font_family"), QStringLiteral("log_font_size"),
             QStringLiteral("hk_mw"), QStringLiteral("hk_group"), QStringLiteral("hk_route"), QStringLiteral("hk_spmenu"),
             QStringLiteral("hk_toggle"), QStringLiteral("hk_startstop"), QStringLiteral("hk_tun"), QStringLiteral("shortcuts"),
+            QStringLiteral("network_placeholder_trust"), // F-Dpi: which profiles may expand network placeholders
         };
         return keys;
     }

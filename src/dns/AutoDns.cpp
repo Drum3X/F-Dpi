@@ -1,5 +1,6 @@
 #include "include/dns/AutoDns.h"
 
+#include <QCoreApplication>
 #include <QFile>
 #include <QJsonDocument>
 #include <QPair>
@@ -7,6 +8,7 @@
 #include "include/database/DatabaseManager.h"
 #include "include/database/SettingsRepo.h"
 #include "include/database/entities/RouteProfile.h"
+#include "include/sys/NetworkPlaceholders.h"
 #include "include/sys/SystemDns.hpp"
 
 namespace Dns {
@@ -90,6 +92,18 @@ namespace Dns {
         if (provider == nullptr || dns->direct_dns == provider->url) return false;
         dns->direct_dns = provider->url;
         return true;
+    }
+
+    void ExpandRouteDnsPlaceholders(Configs::RouteDns *dns, QString *error) {
+        const auto expand = [error](QString *server, const QString &what) {
+            if (!Sys::HasNetworkPlaceholders(*server)) return;
+            QString problem;
+            const auto expanded = Sys::ExpandNetworkPlaceholders(*server, &problem);
+            if (expanded.isEmpty()) *error += QStringLiteral("%1: %2").arg(what, problem);
+            else *server = expanded;
+        };
+        expand(&dns->direct_dns, QCoreApplication::translate("AutoDns", "Direct DNS"));
+        expand(&dns->remote_dns, QCoreApplication::translate("AutoDns", "Remote DNS"));
     }
 
     bool RestoreSystemDnsBackup(const QString &backupFile, QString *error) {

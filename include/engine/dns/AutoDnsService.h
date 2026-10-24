@@ -22,6 +22,7 @@ namespace Engine {
 
     public:
         explicit AutoDnsService(ConnectionManager *connection, QObject *parent = nullptr);
+        ~AutoDnsService() override;
 
         // Main thread, before any profile starts: restores adapters a crashed run left on F-Dpi's DNS.
         void recoverAtBoot();

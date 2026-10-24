@@ -48,6 +48,10 @@ namespace Dns {
     // profile brings its own DNS. True when it changed dns.
     bool ApplyToRouteDns(Configs::RouteDns *dns, bool routeOwnsDns);
 
+    // generate.cpp hook, after ApplyToRouteDns: fills in network placeholders in the direct and remote DNS servers (%DHCP_DNS%,
+    // %GATEWAY%...; include/sys/NetworkPlaceholders.h). Appends to *error when one has no value on this network.
+    void ExpandRouteDnsPlaceholders(Configs::RouteDns *dns, QString *error);
+
     // Puts back the Windows DNS settings saved in backupFile (Engine::AutoDnsService writes it while DPI Bypass runs) and
     // deletes it, also after a failed restore: the next attempt would fail on the same adapter. True when nothing failed.
     bool RestoreSystemDnsBackup(const QString &backupFile, QString *error);

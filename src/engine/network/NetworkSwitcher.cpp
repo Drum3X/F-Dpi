@@ -8,11 +8,13 @@
 #include "include/database/GroupsRepo.h"
 #include "include/database/NetworkScopesRepo.h"
 #include "include/database/ProfilesRepo.h"
+#include "include/configs/ProfilePlaceholders.h"
 #include "include/engine/ThreadCheck.h"
 #include "include/engine/connection/ConnectionManager.h"
 #include "include/global/Logger.hpp"
 #include "include/global/Utils.hpp"
 #include "include/sys/NetworkMonitor.hpp"
+#include "include/sys/NetworkPlaceholders.h"
 
 namespace Engine {
     namespace {
@@ -99,28 +101,53 @@ namespace Engine {
             MW_show_log(QCoreApplication::translate("Network", "[Network] No network connection."));
         }
         // Offline: nothing to match, and the next network decides.
-        if (!network.connected() || network.key == m_lastKey) return;
-        m_lastKey = network.key;
-        apply(network.name);
+        if (!network.connected()) return;
+        if (network.key != m_lastKey) {
+            m_lastKey = network.key;
+            if (apply(network.name)) return;
+        }
+        restartForPlaceholders(network.name);
     }
 
-    void NetworkSwitcher::apply(const QString &why) {
+    bool NetworkSwitcher::apply(const QString &why) {
         const auto &settings = Configs::dataManager->settingsRepo;
-        if (!settings->network_auto_switch || settings->prepare_exit) return;
+        if (!settings->network_auto_switch || settings->prepare_exit) return false;
         // A manual stop clears started_id: the user turned the connection off, so a network change must not turn it on.
         const auto running = m_connection->runningSnapshot();
-        if (running == nullptr && settings->started_id < 0) return;
+        if (running == nullptr && settings->started_id < 0) return false;
         const int target = targetProfile(running != nullptr ? running->id : settings->started_id);
-        if (target < 0 || (running != nullptr && running->id == target)) return;
-        if (m_connection->connectionState() == ConnectionState::Connecting) return;
+        if (target < 0 || (running != nullptr && running->id == target)) return false;
+        if (m_connection->connectionState() == ConnectionState::Connecting) return false;
         MW_show_log(QCoreApplication::translate("Network", "[Network] %1: starting %2.").arg(why, networkSwitcherProfileName(target)));
         m_connection->start(StartRequest{target, false, m_connection->nextStartSerial()});
+        return true;
+    }
+
+    void NetworkSwitcher::restartForPlaceholders(const QString &why) {
+        if (Configs::dataManager->settingsRepo->prepare_exit || m_placeholderValues.isEmpty()) return;
+        const auto running = m_connection->runningSnapshot();
+        if (running == nullptr || running->id != m_placeholderProfile) return;
+        if (m_connection->connectionState() == ConnectionState::Connecting) return;
+        const auto now = Sys::NetworkPlaceholderValues();
+        QStringList changed;
+        for (auto it = m_placeholderValues.cbegin(); it != m_placeholderValues.cend(); ++it) {
+            if (now.value(it.key()) != it.value()) changed << QLatin1Char('%') + it.key() + QLatin1Char('%');
+        }
+        if (changed.isEmpty()) return;
+        MW_show_log(QCoreApplication::translate("Network", "[Network] %1: %2 changed, restarting %3.")
+                        .arg(why, changed.join(QStringLiteral(", ")), networkSwitcherProfileName(running->id)));
+        m_connection->start(StartRequest{running->id, false, m_connection->nextStartSerial()});
     }
 
     void NetworkSwitcher::onStartFinished(quint64, int profileId, Engine::StartOutcome outcome) {
         if (outcome != StartOutcome::Started) return;
         const auto profile = Configs::dataManager->profilesRepo->GetProfile(profileId);
         if (profile == nullptr) return;
+        // The placeholder values this start used, to notice when they change.
+        m_placeholderProfile = profileId;
+        m_placeholderValues.clear();
+        const auto values = Sys::NetworkPlaceholderValues();
+        for (const auto &name : Configs::Placeholders::Used(*profile)) m_placeholderValues.insert(name, values.value(name));
         auto &scopes = Configs::dataManager->networkScopesRepo;
         auto scope = scopes->Get(profile->gid);
         if (!scope.network) {

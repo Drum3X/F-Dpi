@@ -227,6 +227,9 @@ namespace Configs {
         QString auto_dns_network = "";
         // Epoch seconds, as text.
         QString auto_dns_checked = "";
+        // F-Dpi network placeholders (include/configs/ProfilePlaceholders.h): {"<profile id>": "<sha1 of its placeholder texts>"}
+        // for profiles saved in this computer's editor. Host-only: a backup restored from a remote client keeps this one.
+        QString network_placeholder_trust = "";
 
         // Routing
         int current_route_id = 1;

@@ -584,6 +584,8 @@ set(PROJECT_SOURCES
         src/configs/outbounds/autoselector.cpp
         include/configs/AutoSelectorPlan.h
         src/configs/AutoSelectorPlan.cpp
+        include/configs/ProfilePlaceholders.h
+        src/configs/ProfilePlaceholders.cpp
         include/stats/autoselector/AutoSelectorMonitor.hpp
         src/stats/autoselector/AutoSelectorMonitor.cpp
         include/ui/stats/dialog_auto_selector.h
@@ -607,6 +609,8 @@ set(PROJECT_SOURCES
         src/database/NetworkScopesRepo.cpp
         include/sys/NetworkMonitor.hpp
         src/sys/NetworkMonitor.cpp
+        include/sys/NetworkPlaceholders.h
+        src/sys/NetworkPlaceholders.cpp
         include/ui/group/GroupSectionBar.h
         src/ui/group/GroupSectionBar.cpp
         include/ui/group/NetworkScopeEditor.h

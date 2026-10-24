@@ -1,6 +1,8 @@
 #include "include/ui/profile/dialog_edit_profile.h"
 
 #include "include/configs/generate.h"
+#include "include/configs/ProfilePlaceholders.h"
+#include "include/sys/NetworkPlaceholders.h"
 
 #include "include/ui/profile/edit_advanced.h"
 #include "include/ui/profile/edit_anytls.h"
@@ -170,11 +172,18 @@ DialogEditProfile::DialogEditProfile(const QString &_type, int profileOrGroupId,
     ui->verticalLayout_5->setAlignment(Qt::AlignTop);
     ui->verticalLayout_8->setAlignment(Qt::AlignTop);
     ui->port->setValidator(QRegExpValidator_Number);
+    // F-Dpi: network placeholders (include/sys/NetworkPlaceholders.h).
+    ui->address->setPlaceholderText(tr("Network-dependent addresses: %GATEWAY% etc."));
+    ui->address->setToolTip(tr("For an address that changes with the network, F-Dpi fills in when the profile starts:\n"
+                               "%GATEWAY% / %GATEWAY6%: the network's gateway (IPv4 / IPv6)\n"
+                               "%LOCAL_IP%: this computer's address\n"
+                               "%DHCP_DNS%: the network's DNS server\n"
+                               "%INTERFACE%: the network adapter's name"));
     form->bind(ui->address, [this](const QString &text) {
         const auto empty = innerEditor->serverAddressOptional() ? Validation::Empty::Allowed : Validation::Empty::Required;
         const auto address = QString(text).remove(' ');
         if (type == "openvpn" && (address.startsWith('[') || address.endsWith(']'))) return Configs::Checks::OpenVPNRemoteHost(address);
-        return Validation::Host(address, empty);
+        return Validation::Host(Sys::WithSampleNetworkValues(address), empty); // F-Dpi: %GATEWAY%...
     }).when([this] { return serverFieldsEditable(type, innerEditor); });
     form->bind(ui->port, [this](const QString &text) {
         if (innerEditor->serverPortOptional() && (text.isEmpty() || Validation::ToInt(text) == 0)) return QString();
@@ -398,6 +407,7 @@ void DialogEditProfile::accept() {
         args << MwArg::RestartProxy;
     }
     if (!newEnt) Configs::RepositionLater(QList<std::shared_ptr<Configs::Profile>>{ent}, Configs::SortInput::Config);
+    Configs::Placeholders::Trust(*ent); // F-Dpi: written here, so its network placeholders expand
 
     MW_dialog_message(MwMessage::ProfileChanged, args);
     QDialog::accept();

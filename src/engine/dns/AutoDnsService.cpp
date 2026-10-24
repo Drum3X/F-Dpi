@@ -19,6 +19,7 @@
 #include "include/engine/connection/ConnectionManager.h"
 #include "include/global/Utils.hpp"
 #include "include/sys/NetworkMonitor.hpp"
+#include "include/sys/NetworkPlaceholders.h"
 #include "include/sys/SystemDns.hpp"
 
 namespace Engine {
@@ -49,6 +50,8 @@ namespace Engine {
 
     AutoDnsService::AutoDnsService(ConnectionManager *connection, QObject *parent)
         : QObject(parent), m_connection(connection), m_benchmark(new DnsBenchmark(this)) {
+        // %DHCP_DNS% means the network's own server, not the one F-Dpi wrote while DPI Bypass runs.
+        Sys::SetOriginalDnsLookup([this] { return originalServers(); });
         connect(m_benchmark, &DnsBenchmark::finished, this, [this](const DnsBenchmarkResult &result) {
             if (result.cancelled) return;
             if (result.bestId.isEmpty()) {
@@ -68,6 +71,10 @@ namespace Engine {
         } else {
             MW_show_log(QCoreApplication::translate("AutoDns", "[DNS] Could not restore the Windows DNS settings: %1").arg(error));
         }
+    }
+
+    AutoDnsService::~AutoDnsService() {
+        Sys::SetOriginalDnsLookup(nullptr);
     }
 
     void AutoDnsService::start() {

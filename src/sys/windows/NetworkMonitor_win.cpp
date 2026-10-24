@@ -109,9 +109,47 @@ namespace Sys {
         }
 
         QString networkMonitorAddress(const SOCKADDR *address) {
-            char text[INET_ADDRSTRLEN] = {};
-            inet_ntop(AF_INET, &reinterpret_cast<const SOCKADDR_IN *>(address)->sin_addr, text, sizeof(text));
+            char text[INET6_ADDRSTRLEN] = {};
+            if (address->sa_family == AF_INET6) {
+                inet_ntop(AF_INET6, &reinterpret_cast<const SOCKADDR_IN6 *>(address)->sin6_addr, text, sizeof(text));
+            } else {
+                inet_ntop(AF_INET, &reinterpret_cast<const SOCKADDR_IN *>(address)->sin_addr, text, sizeof(text));
+            }
             return QString::fromLatin1(text);
+        }
+
+        // The IPv6 default gateway; usually link-local (fe80::...).
+        QString networkMonitorIpv6Gateway(const IP_ADAPTER_ADDRESSES *adapter) {
+            for (auto *gateway = adapter->FirstGatewayAddress; gateway != nullptr; gateway = gateway->Next) {
+                if (gateway->Address.lpSockaddr != nullptr && gateway->Address.lpSockaddr->sa_family == AF_INET6) {
+                    return networkMonitorAddress(gateway->Address.lpSockaddr);
+                }
+            }
+            return {};
+        }
+
+        // This computer's IPv4 address on the adapter; an APIPA (169.254.x.x) address only when it has nothing else.
+        QString networkMonitorLocalIpv4(const IP_ADAPTER_ADDRESSES *adapter) {
+            QString fallback;
+            for (auto *unicast = adapter->FirstUnicastAddress; unicast != nullptr; unicast = unicast->Next) {
+                const auto *address = unicast->Address.lpSockaddr;
+                if (address == nullptr || address->sa_family != AF_INET) continue;
+                const auto text = networkMonitorAddress(address);
+                if (!text.startsWith(QStringLiteral("169.254."))) return text;
+                if (fallback.isEmpty()) fallback = text;
+            }
+            return fallback;
+        }
+
+        QString networkMonitorFirstDns(const IP_ADAPTER_ADDRESSES *adapter) {
+            QString ipv6;
+            for (auto *dns = adapter->FirstDnsServerAddress; dns != nullptr; dns = dns->Next) {
+                const auto *address = dns->Address.lpSockaddr;
+                if (address == nullptr) continue;
+                if (address->sa_family == AF_INET) return networkMonitorAddress(address);
+                if (address->sa_family == AF_INET6 && ipv6.isEmpty()) ipv6 = networkMonitorAddress(address);
+            }
+            return ipv6;
         }
 
         void CALLBACK networkMonitorInterfaceChanged(PVOID context, PMIB_IPINTERFACE_ROW, MIB_NOTIFICATION_TYPE) {
@@ -128,10 +166,10 @@ namespace Sys {
         ULONG size = 16 * 1024;
         std::vector<unsigned char> buffer;
         ULONG result = ERROR_BUFFER_OVERFLOW;
-        const ULONG flags = GAA_FLAG_INCLUDE_GATEWAYS | GAA_FLAG_SKIP_ANYCAST | GAA_FLAG_SKIP_MULTICAST | GAA_FLAG_SKIP_DNS_SERVER;
+        const ULONG flags = GAA_FLAG_INCLUDE_GATEWAYS | GAA_FLAG_SKIP_ANYCAST | GAA_FLAG_SKIP_MULTICAST;
         for (int attempt = 0; attempt < 3 && result == ERROR_BUFFER_OVERFLOW; ++attempt) {
             buffer.resize(size);
-            result = GetAdaptersAddresses(AF_INET, flags, nullptr, reinterpret_cast<PIP_ADAPTER_ADDRESSES>(buffer.data()), &size);
+            result = GetAdaptersAddresses(AF_UNSPEC, flags, nullptr, reinterpret_cast<PIP_ADAPTER_ADDRESSES>(buffer.data()), &size);
         }
         if (result != NO_ERROR) return {};
 
@@ -162,6 +200,11 @@ namespace Sys {
         if (!ssid.isEmpty()) network.name = ssid;
         else if (!nlmName.isEmpty()) network.name = nlmName;
         else network.name = QStringLiteral("%1 (%2)").arg(QString::fromWCharArray(best->FriendlyName), gatewayAddress);
+        network.gateway = gatewayAddress;
+        network.gateway6 = networkMonitorIpv6Gateway(best);
+        network.localIp = networkMonitorLocalIpv4(best);
+        network.dhcpDns = networkMonitorFirstDns(best);
+        network.interfaceName = QString::fromWCharArray(best->FriendlyName);
         return network;
     }
 

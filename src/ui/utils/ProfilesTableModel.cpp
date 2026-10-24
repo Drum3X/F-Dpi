@@ -7,6 +7,8 @@
 #include <QPalette>
 
 #include "include/configs/generate.h"
+#include "include/configs/ProfilePlaceholders.h"
+#include "include/sys/NetworkPlaceholders.h"
 #include "include/database/GroupsRepo.h"
 #include "include/database/ProfilesRepo.h"
 
@@ -123,6 +125,15 @@ QVariant ProfilesTableModel::data(const QModelIndex &index, int role) const {
         }
     }
     if (role == Qt::ToolTipRole) {
+        // F-Dpi: an address with network placeholders shows what it stands for on this network.
+        if (index.column() == ColAddress) {
+            const auto shown = data(index, Qt::DisplayRole).toString();
+            if (!Sys::HasNetworkPlaceholders(shown)) return {};
+            if (!Configs::Placeholders::Trusted(*profile)) return tr("This profile did not come from this computer's editor, so its %...% placeholders stay as they are. Open and save it to use them.");
+            QString problem;
+            const auto expanded = Sys::ExpandNetworkPlaceholders(shown, &problem);
+            return expanded.isEmpty() ? problem : tr("On this network: %1").arg(expanded);
+        }
         if (index.column() == ColType && Configs::dataManager->settingsRepo->show_config_security && profile->outbound) {
             const auto security = profile->outbound->EffectiveSecurity();
             if (security.compromised) return tr("Certificate checks are turned off by the \"Skip TLS certificate authentication\" setting.");

@@ -87,6 +87,14 @@
         <source>cannot save the backup of the current settings to %1</source>
         <translation>mevcut ayarların yedeği %1 dosyasına kaydedilemiyor</translation>
     </message>
+    <message>
+        <source>Direct DNS</source>
+        <translation>Doğrudan DNS</translation>
+    </message>
+    <message>
+        <source>Remote DNS</source>
+        <translation>Uzak DNS</translation>
+    </message>
 </context>
 <context>
     <name>Blockcheck</name>
@@ -2983,6 +2991,22 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     <message>
         <source>Concurrency</source>
         <translation>Eşzamanlılık</translation>
+    </message>
+    <message>
+        <source>Network-dependent addresses: %GATEWAY% etc.</source>
+        <translation>Ağa göre değişen adresler için %GATEWAY% vb.</translation>
+    </message>
+    <message>
+        <source>For an address that changes with the network, F-Dpi fills in when the profile starts:
+%GATEWAY% / %GATEWAY6%: the network&apos;s gateway (IPv4 / IPv6)
+%LOCAL_IP%: this computer&apos;s address
+%DHCP_DNS%: the network&apos;s DNS server
+%INTERFACE%: the network adapter&apos;s name</source>
+        <translation>Ağa göre değişen bir adres için F-Dpi, profil başlarken şunları doldurur:
+%GATEWAY% / %GATEWAY6%: ağın ağ geçidi (IPv4 / IPv6)
+%LOCAL_IP%: bu bilgisayarın adresi
+%DHCP_DNS%: ağın DNS sunucusu
+%INTERFACE%: ağ bağdaştırıcısının adı</translation>
     </message>
     <message>
         <source>Custom (%1 outbound)</source>
@@ -10911,6 +10935,37 @@ URL: %2</translation>
         <source>[Network] No network connection.</source>
         <translation>[Network] No network connection.</translation>
     </message>
+    <message>
+        <source>[Network] %1: %2 changed, restarting %3.</source>
+        <translation>[Network] %1: %2 changed, restarting %3.</translation>
+    </message>
+</context>
+<context>
+    <name>NetworkPlaceholders</name>
+    <message>
+        <source>%1: there is no network connection.</source>
+        <translation>%1: ağ bağlantısı yok.</translation>
+    </message>
+    <message>
+        <source>%1: this network has no IPv4 gateway.</source>
+        <translation>%1: bu ağda IPv4 ağ geçidi yok.</translation>
+    </message>
+    <message>
+        <source>%1: this network has no IPv6 gateway.</source>
+        <translation>%1: bu ağda IPv6 ağ geçidi yok.</translation>
+    </message>
+    <message>
+        <source>%1: this computer has no IPv4 address on this network.</source>
+        <translation>%1: bu bilgisayarın bu ağda IPv4 adresi yok.</translation>
+    </message>
+    <message>
+        <source>%1: this network gives no DNS server.</source>
+        <translation>%1: bu ağ DNS sunucusu vermiyor.</translation>
+    </message>
+    <message>
+        <source>%1 has no value on this network.</source>
+        <translation>%1 bu ağda bir değer almıyor.</translation>
+    </message>
 </context>
 <context>
     <name>NetworkScopeEditor</name>
@@ -11011,6 +11066,14 @@ URL: %2</translation>
 </context>
 <context>
     <name>ProfilesTableModel</name>
+    <message>
+        <source>This profile did not come from this computer&apos;s editor, so its %...% placeholders stay as they are. Open and save it to use them.</source>
+        <translation>Bu profil bu bilgisayarın düzenleyicisinden gelmedi; %...% yer tutucuları olduğu gibi kalır. Kullanmak için profili açıp kaydedin.</translation>
+    </message>
+    <message>
+        <source>On this network: %1</source>
+        <translation>Bu ağda: %1</translation>
+    </message>
     <message>
         <source>Certificate checks are turned off by the &quot;Skip TLS certificate authentication&quot; setting.</source>
         <translation>Sertifika denetimleri &quot;TLS sertifika doğrulamasını atla&quot; ayarıyla kapatıldı.</translation>

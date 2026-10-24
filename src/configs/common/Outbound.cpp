@@ -1,5 +1,6 @@
 #include "include/configs/common/Outbound.h"
 #include "include/configs/common/utils.h"
+#include "include/sys/NetworkPlaceholders.h"
 #include "include/configs/outbounds/juicity.h"
 #include "include/configs/outbounds/masque.h"
 #include "include/configs/outbounds/naive.h"
@@ -285,7 +286,7 @@ namespace Configs {
             if (address.isEmpty()) {
                 if (!ServerAddressOptional()) add(Severity::Error, "server", QCoreApplication::translate("Validation", "The server address is missing."));
             } else {
-                add(Severity::Error, "server", Validation::Host(address), address);
+                add(Severity::Error, "server", Validation::Host(Sys::WithSampleNetworkValues(address)), address); // F-Dpi: %GATEWAY%...
             }
             if (const auto port = GetPort().trimmed(); Validation::ToInt(port).value_or(0) == 0) {
                 if (!ServerPortOptional()) add(Severity::Error, "server_port", QCoreApplication::translate("Validation", "The server port is missing."));

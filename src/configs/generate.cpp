@@ -25,6 +25,8 @@
 #include "include/sys/linux/systemChecks.h"
 #endif
 #include "include/dns/AutoDns.h"
+#include "include/configs/ProfilePlaceholders.h"
+#include "include/sys/NetworkPlaceholders.h"
 
 #include <algorithm>
 #include <optional>
@@ -713,6 +715,7 @@ namespace Configs {
 #endif
             ctx.dns = RouteDns::Current(&ctx.routeOwnsDns);
             Dns::ApplyToRouteDns(&ctx.dns, ctx.routeOwnsDns); // F-Dpi: Otomatik DNS
+            Dns::ExpandRouteDnsPlaceholders(&ctx.dns, &ctx.error); // F-Dpi: network placeholders
             auto &preReqs = ctx.prerequisites;
 
             auto routeChain = dataManager->routesRepo->GetRouteProfile(settings.current_route_id);
@@ -1595,7 +1598,7 @@ namespace Configs {
                     if (gated) ctx.vpnGateTags << tag;
                 }
                 auto [object, error] = ent->outbound->Build();
-                if (!error.isEmpty())
+                if (!error.isEmpty() || !Placeholders::ExpandOutbound(*ent, &object, &error)) // F-Dpi: network placeholders
                 {
                     ctx.error += error;
                     return;
@@ -1632,7 +1635,7 @@ namespace Configs {
                 if (idx == 0) ctx.xrayIngressTags << tag;
                 const auto& ent = ents[idx];
                 auto [object, error] = ent->outbound->BuildXray();
-                if (!error.isEmpty())
+                if (!error.isEmpty() || !Placeholders::ExpandOutbound(*ent, &object, &error)) // F-Dpi: network placeholders
                 {
                     ctx.error += error;
                     return;
@@ -2682,7 +2685,8 @@ namespace Configs {
             if (why != nullptr) *why = reason;
             return false;
         };
-        const QString address = text.trimmed();
+        // F-Dpi: network placeholders are checked with sample values; builds expand them first (ExpandRouteDnsPlaceholders).
+        const QString address = Sys::WithSampleNetworkValues(text.trimmed());
         if (address.isEmpty()) return fail(QCoreApplication::translate("Validation", "The DNS address is empty."));
 
         DnsAddress res;
@@ -3055,6 +3059,7 @@ namespace Configs {
 #endif
         ctx.dns = RouteDns::Current(&ctx.routeOwnsDns);
         Dns::ApplyToRouteDns(&ctx.dns, ctx.routeOwnsDns); // F-Dpi: Otomatik DNS
+        Dns::ExpandRouteDnsPlaceholders(&ctx.dns, &ctx.error); // F-Dpi: network placeholders
 
         for (const auto &item : profiles) {
             if (item == nullptr) continue;

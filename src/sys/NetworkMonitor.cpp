@@ -1,6 +1,7 @@
 #include "include/sys/NetworkMonitor.hpp"
 
 #include <QFile>
+#include <QMutex>
 #include <QTimer>
 
 #include "include/global/Utils.hpp"
@@ -20,9 +21,28 @@ namespace Sys {
             network.keys = parts[1].split(',', Qt::SkipEmptyParts);
             network.key = network.keys.value(0);
             network.name = parts[2];
+            network.gateway = parts.value(3).trimmed();
+            network.localIp = parts.value(4).trimmed();
+            network.dhcpDns = parts.value(5).trimmed();
+            network.interfaceName = parts.value(6).trimmed();
+            network.gateway6 = parts.value(7).trimmed();
             return network;
         }
+
+        QMutex networkMonitorLatestMutex;
+        NetworkIdentity networkMonitorLatest;
+        bool networkMonitorLatestSet = false;
     } // namespace
+
+    NetworkIdentity NetworkMonitor::Latest() {
+        {
+            QMutexLocker lock(&networkMonitorLatestMutex);
+            if (networkMonitorLatestSet) return networkMonitorLatest;
+        }
+        // The monitor is not running (-dump-configs, headless before its start): detect once here.
+        const QString override = qEnvironmentVariable("FDPI_NETWORK_OVERRIDE_FILE");
+        return override.isEmpty() ? DetectNetwork() : networkMonitorOverride(override);
+    }
 
 #ifndef Q_OS_WIN
     NetworkIdentity DetectNetwork() { return {}; }
@@ -77,9 +97,14 @@ namespace Sys {
 
     void NetworkMonitor::onDetected(const NetworkIdentity &network) {
         m_detecting = false;
-        if (m_detected && network == m_current) return;
+        const bool changed = !m_detected || !(network == m_current);
         m_detected = true;
-        m_current = network;
-        emit networkChanged(network);
+        m_current = network; // dhcpDns can change without a networkChanged
+        {
+            QMutexLocker lock(&networkMonitorLatestMutex);
+            networkMonitorLatest = network;
+            networkMonitorLatestSet = true;
+        }
+        if (changed) emit networkChanged(network);
     }
 } // namespace Sys

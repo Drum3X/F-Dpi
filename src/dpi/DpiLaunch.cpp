@@ -10,6 +10,7 @@
 #include <QSaveFile>
 
 #include "include/configs/outbounds/dpi.h"
+#include "include/sys/NetworkPlaceholders.h"
 
 namespace Dpi {
     namespace {
@@ -121,7 +122,18 @@ namespace Dpi {
 
         const auto zapret = QDir::toNativeSeparators(ZapretDir());
         auto tokens = config.StrategyTokens();
-        for (auto &token : tokens) token.replace(QStringLiteral("%ZAPRET%"), zapret, Qt::CaseInsensitive);
+        for (auto &token : tokens) {
+            token.replace(QStringLiteral("%ZAPRET%"), zapret, Qt::CaseInsensitive);
+            // Network placeholders (%GATEWAY%...). The preview keeps one that has no value here.
+            if (!Sys::HasNetworkPlaceholders(token)) continue;
+            QString problem;
+            const auto expanded = Sys::ExpandNetworkPlaceholders(token, &problem);
+            if (!expanded.isEmpty()) token = expanded;
+            else if (!dryRun) {
+                *error = problem;
+                return false;
+            }
+        }
 
         QStringList args;
         const bool ownCapture = std::any_of(tokens.begin(), tokens.end(), [](const QString &t) { return t.startsWith(QStringLiteral("--wf-")); });

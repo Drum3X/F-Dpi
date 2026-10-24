@@ -256,7 +256,8 @@ Notlar:
   - Bağlı ağ, kimliklerinden herhangi biri eşleşirse tanınır.
   - **Windows 11 24H2, konum izni olmayan uygulamaya SSID'yi vermez** (WlanQueryInterface). Bu yüzden SSID'ye güvenilmez; ad olarak Windows ağ adı (NLM) gösterilir.
   - Değişiklik `NotifyIpInterfaceChange` ile (1,5 sn debounce) ve 20 sn'lik yoklamayla algılanır; algılama UI thread dışında çalışır.
-  - Test kancası `FDPI_NETWORK_OVERRIDE_FILE`: ağı dosyadan okur (`wifi|key1,key2|Ad`). Yalnızca yoklamayla okunur, yani değişiklik ≤20 sn'de yansır.
+  - Test kancası `FDPI_NETWORK_OVERRIDE_FILE`: ağı dosyadan okur (`wifi|key1,key2|Ad[|gateway|localIp|dhcpDns|arayüz|gateway6]`; adres alanları isteğe bağlı, ağ yer tutucuları için). Yalnızca yoklamayla okunur, yani değişiklik ≤20 sn'de yansır.
+  - `NetworkIdentity` ayrıca adaptörün adreslerini taşır (`gateway`, `gateway6`, `localIp`, `dhcpDns`, `interfaceName`). Adres değişimi de `networkChanged` sayılır (telefon hotspot'u aynı ağ kimliğiyle her bağlantıda yeni ağ geçidi verir); `dhcpDns` sayılmaz, çünkü F-Dpi DPI sırasında onu kendisi değiştirir. `NetworkMonitor::Latest()` her thread'den okunur; monitör hiç çalışmadıysa (ör. `-dump-configs`) bir kez algılar.
 - **Otomatik geçiş:** `Engine::NetworkSwitcher` (`src/engine/network/`, EngineHost'ta).
   - Hedef (`targetProfile(current)`): ağa bağlı Özel grubun seçili profili (yoksa ilk profili). Ağa bağlı grup yoksa ve çalışan/hatırlanan profil genel bir gruptaysa o profil kalır. Bu kural F5'te düzeltildi: önceden açılışta hatırlanan DPI profili son genel Socks ile değiştiriliyordu. Aksi halde `general_profile_id` (son başlatılan genel profil), o da yoksa ilk genel grubun ilk profili.
   - Yalnızca kullanıcı bir şey çalışmasını istiyorsa devreye girer: profil çalışıyorsa ya da `started_id >= 0` ise. Elle durdurma `started_id`'yi temizler, bu yüzden ağ değişimi bağlantıyı yeniden açmaz.
@@ -395,6 +396,30 @@ Notlar:
   - Etkileşimli kaldırma, DPI çalışırken ve verileri koruyarak ("Hayır"): DNS geri geldi, sürücü kaldırıldı, yalnızca `config\` kaldı; kayıt ve kısayollar silindi.
   - Upstream Throne (birleşme tabanından, ayrı worktree'de derlendi) ile yan yana: ikisi aynı anda çalıştı, her biri kendi çekirdeğiyle. İkinci açılışlar kendi kopyasına devretti; Throne kapatılınca F-Dpi ve çekirdeği çalışmayı sürdürdü.
 - **Doğrulanmadı:** Throne'un da kurulu olduğu durumda dosya/bağlantı ilişkilendirmeleri (Throne portable çalıştırıldı).
+
+### Ağ yer tutucuları
+- **Amaç:** IP'si her bağlantıda değişen ağlar (telefon hotspot'u: V2rayNG Socks'u ağ geçidinde, port 10808). Profil sunucusu `%GATEWAY%` olunca F-Dpi başlatırken o anki değeri koyar; DB'deki profil yer tutucuyla kalır.
+- **Adlar** (`include/sys/NetworkPlaceholders.h`, büyük/küçük harf duyarsız; bilinmeyen `%ADI%` olduğu gibi kalır). Değerler varsayılan rotanın fiziksel adaptöründen gelir (`Sys::NetworkMonitor`):
+  - `%GATEWAY%` / `%GATEWAY6%`: ağ geçidi (IPv4 / IPv6; IPv6 genelde link-local ve zone'suzdur).
+  - `%LOCAL_IP%`: bilgisayarın IPv4 adresi.
+  - `%DHCP_DNS%`: adaptörün ilk DNS sunucusu (DHCP ya da Windows'ta elle). F-Dpi DPI için Windows DNS'ini değiştirdiyse `dns-backup.json`'daki önceki etkin sunucu kullanılır (`Sys::SetOriginalDnsLookup`, `AutoDnsService` kurar).
+  - `%INTERFACE%`: adaptörün Windows adı (sing-box `bind_interface`).
+- **Nerede çözülür:**
+  - Proxy: `generate.cpp`'de her hop'un `Build()` / `BuildXray()` çıktısındaki tüm metinler (`Configs::Placeholders::ExpandOutbound`, `include/configs/ProfilePlaceholders.h`).
+  - DNS: `Dns::ExpandRouteDnsPlaceholders` (doğrudan ve uzak DNS), `ApplyToRouteDns`'ten sonra.
+  - DPI: `Dpi::BuildLaunch` strateji metninde, `%ZAPRET%` gibi. Önizleme, değeri olmayan yer tutucuyu olduğu gibi gösterir.
+  - Değer yoksa başlatma hatayla durur (ör. "%GATEWAY%: bu ağda IPv4 ağ geçidi yok").
+  - Doğrulama örnek değerlerle yapılır (`Sys::WithSampleNetworkValues`): `outbound::Validate`, düzenleyicideki adres alanı, `ParseDnsAddress`.
+- **Güven (uzaktan gelen profil):** yalnızca bu bilgisayarın düzenleyicisinde kaydedilen profil çözülür. `DialogEditProfile::accept` → `Placeholders::Trust`: profilin yer tutucu içeren metinlerinin SHA1'i `network_placeholder_trust` ayarına (`{"id": "sha1"}`) yazılır. Ayar `HostKeys`'tedir (uzak yedek değiştiremez) ve Remote API ayarlarında yoktur. Link, abonelik, API ve yedekten gelen profilde metin düz kalır; tablo ipucu bunu söyler.
+  - Profil başına "kaynak" bayrağı yerine parmak izi seçildi: abonelik güncellemesi ya da API, düzenleyicinin kaydettiği bir profili sonradan yeniden yazabilir. Parmak izi o zaman tutmaz ve yer tutucular çözülmez. DPI profilleri hep yereldir (`RefusedForeignType("dpi")`).
+- **Ağ değişimi:** `NetworkSwitcher` başlatmada çalışan profilin kullandığı yer tutucuların değerlerini kaydeder (`Placeholders::Used`: hop'lar ve DNS dahil). Değer değişirse profil aynı ağda bile yeniden başlatılır ("[Network] X: %GATEWAY% changed, restarting ...").
+- **UI:** profil tablosunda Adres yer tutucuyu, ipucu çözülmüş değeri gösterir. Düzenleyicide adres alanında ipucu metni ve araç ipucu vardır.
+- **Doğrulandı (yönetici olmadan, 2026-10-24):** 
+  - Gerçek Wi-Fi, `-dump-configs` ile: sunucusu `%GATEWAY%`, portu 10808 olan güvenilir Socks profili o anki ağ geçidine (`192.168.1.1:10808`) çözüldü. Güveni olmayan (içe aktarılmış gibi) profilde `%LOCAL_IP%` düz metin kaldı.
+  - Benzetilmiş ağla (override dosyası, aynı ağ kimliği): profil 10.0.0.1 ile başladı; ağ geçidi 10.0.0.9 olunca "%GATEWAY% changed, restarting" ile yeni adrese geçti.
+  - Ağ geçidi kalkınca başlatma "%GATEWAY%: bu ağda IPv4 ağ geçidi yok." hatasıyla durdu; çalışan profil eski adresiyle kaldı. Ağ geçidi 10.0.0.7 olarak dönünce profil yeni adresle yeniden başladı.
+  - Gerçek link içe aktarımı UI'dan denenmedi; güvensiz profil DB'ye doğrudan yazıldı (içe aktarma yolunun eşdeğeri: güven kaydı yok).
+- **Doğrulanmadı:** gerçek telefon hotspot'u, IPv6 ağ geçidi, `%DHCP_DNS%`'in DPI çalışırken yedekten okunması (yönetici gerekir), Xray profillerinde çözüm.
 
 ### F-Dpi bileşen tasarımı (sonraki fazlar)
 - `dpi` tipi, `DpiSupervisor` ve dışlama: uygulandı (bkz. "DPI motoru (F2 sonrası)" ve "Motorlar ve karşılıklı dışlama").

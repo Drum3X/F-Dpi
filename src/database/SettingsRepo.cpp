@@ -209,6 +209,7 @@ namespace Configs {
             {"auto_dns_server",            &auto_dns_server},
             {"auto_dns_network",           &auto_dns_network},
             {"auto_dns_checked",           &auto_dns_checked},
+            {"network_placeholder_trust",  &network_placeholder_trust},
             {"direct_dns",                 &direct_dns},
             {"dns_object",                 &dns_object},
             {"dns_optimistic_timeout",     &dns_optimistic_timeout},
