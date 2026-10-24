@@ -113,6 +113,7 @@ Notlar:
   - **Kill switch açıkken DPI başlatılmaz** (tüm trafiği keserdi); açık hata mesajı verilir.
   - DPI başlarken sistem proxy'si açıksa OS proxy ayarı temizlenir (core'un inbound'u boştadır). `spmode_system_proxy` bayrağı korunur ve proxy'ye dönünce yeniden uygulanır.
   - `RunningProfiles.hpp` yalnızca edit-lock amaçlıdır; DPI için `{id}` yazılır.
+- **TUN modu ve sistem proxy'si** yeni kurulumda açık gelir (`remember_tun`/`remember_system_proxy` varsayılanı `true`). Çekirdek başlayınca, "son profili hatırla" (`remember_enable`) kapalı olsa da geri yüklenir (`ConnectionManager::onCoreStarted`); düğmeler kullanıcının seçimini kaydeder.
 
 ### Önemli Throne alanları (analiz özeti)
 **Başlat/durdur akışı**

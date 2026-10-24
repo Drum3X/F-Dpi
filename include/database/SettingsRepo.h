@@ -205,8 +205,9 @@ namespace Configs {
         QString device_name = "";
 
         // Remember
-        bool remember_system_proxy = false;
-        bool remember_tun = false;
+        // F-Dpi: both on for a new install; the toggles keep the user's choice from then on.
+        bool remember_system_proxy = true;
+        bool remember_tun = true;
         int remember_id = NoProfileId;
         bool remember_enable = false;
         bool windows_set_admin = false;

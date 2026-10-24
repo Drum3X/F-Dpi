@@ -528,10 +528,11 @@ namespace Engine {
                                 .arg(tunHoldWhy));
             }
         } else {
-            if (settings->remember_enable && settings->remember_system_proxy) {
+            // F-Dpi: the modes come back on their own; remember_enable is about the profile only.
+            if (settings->remember_system_proxy) {
                 setSystemProxy(true, ModeChange{.save = false});
             }
-            if ((settings->remember_enable && settings->remember_tun) || settings->flag_restart_tun_on) {
+            if (settings->remember_tun || settings->flag_restart_tun_on) {
                 setTun(true, ModeChange{.save = settings->flag_restart_tun_on});
                 settings->flag_restart_tun_on = false;
             }
