@@ -22,7 +22,7 @@
   libmnl,
   zlib,
   libcap,
-  xorg,
+  libxcb,
   src,
   version ? "0.1.0",
 }:
@@ -79,12 +79,11 @@ let
     pname = "f-dpi-core";
     inherit version src;
     modRoot = "core";
-    # Set by the first `nix build`: it fails and prints the hash to put here.
-    vendorHash = lib.fakeHash;
+    vendorHash = "sha256-s9+ZnZ2jSb+MB3XluKYoAm4TjIS8j+V+A0vyc5fI4eQ=";
     nativeBuildInputs = [ protobuf protoc-gen-go protoc-gen-go-grpc ];
     # gen/*.pb.go are generated, not committed; vendoring needs them as well.
-    overrideModAttrs = _: {
-      nativeBuildInputs = [ protobuf protoc-gen-go protoc-gen-go-grpc ];
+    overrideModAttrs = old: {
+      nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ protobuf protoc-gen-go protoc-gen-go-grpc ];
       preBuild = generateProto;
     };
     preBuild = generateProto;
@@ -100,7 +99,7 @@ stdenv.mkDerivation {
   inherit version src;
 
   nativeBuildInputs = [ cmake ninja pkg-config unzip qt6.wrapQtAppsHook qt6.qttools ];
-  buildInputs = [ qt6.qtbase qt6.qtsvg qt6.qtwayland xorg.libxcb ];
+  buildInputs = [ qt6.qtbase qt6.qtsvg qt6.qtwayland libxcb ];
 
   # The wrapper must not replace opt/F-Dpi/F-Dpi: the core checks that its parent is exactly that file.
   dontWrapQtApps = true;
