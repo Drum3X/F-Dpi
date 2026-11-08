@@ -382,9 +382,10 @@ namespace Engine {
             return;
         }
         const auto id = current->id;
-        // F-Dpi: a core crash or core restart leaves winws running; it does not depend on the core.
+        // F-Dpi: a core crash or core restart leaves winws running; it does not depend on the core. On Linux nfqws runs in the
+        // core and went down with it: the profile stops as a proxy one would, and the restarted core resumes it.
         const bool dpi = IsDpiProfile(current);
-        if (dpi && crash) return;
+        if (dpi && crash && !DpiSupervisor::kRunsInCore) return;
 
         auto profile_stop_stage2 = [=,this](const Engine::SlowOperation &slowStop) {
             if (dpi) {

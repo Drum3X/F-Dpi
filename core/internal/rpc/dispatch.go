@@ -148,6 +148,10 @@ var handlers = map[string]handlerFn{
 	"ScanCheckNetwork":    handle(globalServer.ScanCheckNetwork),
 	"ParseRuleSet":        handle(globalServer.ParseRuleSet),
 	"ResolveDomains":      handle(globalServer.ResolveDomains),
+	// F-Dpi
+	"DpiStart": handle(globalServer.DpiStart),
+	"DpiStop":  handle(globalServer.DpiStop),
+	"DpiQuery": handle(globalServer.DpiQuery),
 }
 
 func dispatch(methodName string, payload []byte) ([]byte, error) {

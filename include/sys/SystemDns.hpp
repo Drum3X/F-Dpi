@@ -5,14 +5,17 @@
 #include <QStringList>
 
 // F-Dpi: the operating system's own resolver settings, for Otomatik DNS while DPI Bypass runs (sing-box, which would
-// otherwise resolve, is idle then). Windows: per-adapter DNS servers with DNS-over-HTTPS required (Windows 11). Stubs
-// elsewhere. Needs administrator rights. Any thread; calls are short and blocking.
+// otherwise resolve, is idle then). Windows: per-adapter DNS servers with DNS-over-HTTPS required (Windows 11). Linux:
+// systemd-resolved's settings of the default-route link with DNS-over-TLS required, written by the setuid core
+// (ThroneCore --fdpi-dns). Stubs elsewhere. Needs administrator rights. Any thread; calls are short and blocking.
 namespace Sys::SystemDns {
     struct Servers {
         QStringList ipv4;
         QStringList ipv6;
         // DoH URL template Windows validates the servers' certificate against.
         QString dohTemplate;
+        // Linux: the DNS-over-TLS name resolved checks the certificate against; empty: the provider has no DoT.
+        QString dotName;
     };
 
     bool Supported();

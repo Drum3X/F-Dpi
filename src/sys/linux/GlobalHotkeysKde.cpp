@@ -13,10 +13,13 @@
 
 #include <algorithm>
 
+#include "include/global/Branding.hpp"
+
 namespace {
     const QString kService = "org.kde.kglobalaccel";
-    const QString kComponent = "throne";
-    const QString kComponentPath = "/component/throne";
+    // F-Dpi: its own component, so Throne's shortcuts are not shared (Branding.hpp).
+    const QString kComponent = QLatin1String(Branding::KdeShortcutComponent);
+    const QString kComponentPath = QStringLiteral("/component/") + QLatin1String(Branding::KdeShortcutComponent);
     const QString kComponentInterface = "org.kde.kglobalaccel.Component";
     constexpr uint kSetPresent = 2;
     constexpr uint kNoAutoloading = 4;
@@ -47,7 +50,7 @@ namespace {
     }
 
     QStringList actionId(const QString &name, const QString &text) {
-        return {kComponent, name, "Throne", text};
+        return {kComponent, name, QString::fromLatin1(Branding::AppName), text};
     }
 
     QDBusMessage callKGlobalAccel(const QString &method, const QVariantList &arguments) {

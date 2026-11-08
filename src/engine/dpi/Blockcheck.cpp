@@ -267,11 +267,11 @@ namespace Engine {
                 if (m_cancel) break;
                 emit progress(tried, total, targetName + QStringLiteral(": ") + strategy);
                 ++tried;
-                Dpi::Launch launch{Dpi::WinwsPath(), Dpi::Blockcheck::TrialArguments(target, strategy), Dpi::ZapretDir()};
+                const Dpi::Launch launch = Dpi::Blockcheck::TrialLaunch(target, strategy);
                 QString error;
                 if (!m_dpi->start(launch, &error, kBlockcheckWinwsGraceMs)) {
-                    // WinDivert cannot open (no administrator, blocked driver): every other strategy would fail the same way.
-                    if (error.contains(QStringLiteral("windivert"), Qt::CaseInsensitive)) {
+                    // WinDivert or nftables cannot open (no privileges, blocked driver): every other strategy would fail the same way.
+                    if (Dpi::Blockcheck::IsEngineSetupError(error)) {
                         result.error = error;
                         return done();
                     }

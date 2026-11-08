@@ -3,5 +3,7 @@ if (NOT TARGET X11::xcb)
     message(FATAL_ERROR "libxcb development files were not found")
 endif ()
 
-set(PLATFORM_SOURCES src/sys/linux/LinuxCap.cpp include/sys/linux/coreDump.h src/sys/linux/coreDump.cpp src/sys/linux/AutoRun.cpp src/sys/linux/UrlScheme.cpp src/sys/linux/SystemProxy.cpp include/sys/linux/systemChecks.h src/sys/linux/systemChecks.cpp src/sys/linux/GlobalHotkeysX11.cpp src/sys/linux/GlobalHotkeysKde.cpp)
+set(PLATFORM_SOURCES src/sys/linux/LinuxCap.cpp include/sys/linux/coreDump.h src/sys/linux/coreDump.cpp src/sys/linux/AutoRun.cpp src/sys/linux/UrlScheme.cpp src/sys/linux/SystemProxy.cpp include/sys/linux/systemChecks.h src/sys/linux/systemChecks.cpp src/sys/linux/GlobalHotkeysX11.cpp src/sys/linux/GlobalHotkeysKde.cpp src/sys/linux/NetworkMonitor_linux.cpp)
 set(PLATFORM_LIBRARIES dl X11::xcb)
+# F-Dpi
+list(APPEND PLATFORM_SOURCES include/sys/linux/FdpiPrivileges.h src/sys/linux/FdpiPrivileges.cpp src/sys/linux/SystemDns_linux.cpp)

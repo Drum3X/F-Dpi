@@ -44,7 +44,8 @@ namespace Sys {
         return override.isEmpty() ? DetectNetwork() : networkMonitorOverride(override);
     }
 
-#ifndef Q_OS_WIN
+// Windows: src/sys/windows/NetworkMonitor_win.cpp; Linux: src/sys/linux/NetworkMonitor_linux.cpp.
+#if !defined(Q_OS_WIN) && !defined(Q_OS_LINUX)
     NetworkIdentity DetectNetwork() { return {}; }
 
     void *WatchNetworkChanges(std::function<void()>) { return nullptr; }

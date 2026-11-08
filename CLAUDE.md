@@ -12,8 +12,8 @@
 ### 1. Temel yapı ve kısıtlar
 - **Temel:** Throne kod tabanı; Throne'un genel UI tasarımı korunur.
 - **Teknoloji:** önyüzde C++ + Qt; arka planda `sing-box` (Throne Go core'u) ve `zapret` (`winws`).
-- **Platform:** mimari cross-platform'a uygun tasarlanır, **şimdilik yalnızca Windows** derlenir.
-- **Yetki:** F-Dpi doğrudan **Yönetici (Administrator)** yetkisiyle çalışır.
+- **Platform:** mimari cross-platform'a uygun tasarlanır. **Windows ve Linux (x86_64)** derlenir (Linux: kullanıcı kararı, 2026-11-07; paketler deb, rpm ve Nix).
+- **Yetki:** F-Dpi doğrudan **Yönetici (Administrator)** yetkisiyle çalışır. Linux'ta bunun karşılığı (kullanıcı kararı, 2026-11-07): arayüz normal kullanıcıyla çalışır, ayrıcalıklı işleri setuid root `ThroneCore` yapar (bkz. "Linux portu").
 - **Karşılıklı dışlama:** Throne'daki "iki config aynı anda çalışmaz" mantığı korunur. **Proxy (sing-box)** ile **DPI Bypass (winws)** asla aynı anda çalışmaz; biri başlatılınca diğeri durdurulur.
 
 ### 2. Özellikler
@@ -84,8 +84,37 @@ Notlar:
   - Installer testini kullanıcı gibi yapın: installer yükseltilmemiş shell'den başlatılır (kendi UAC istemi), düğmeleri ayrı bir yönetici betiği tıklar. Yönetici betikten başlatılan installer'da "asıl kullanıcı" da yöneticidir ve `postinstall` hataları görünmez.
   - **Inno Setup sihirbazı** UI Automation'a düğme göstermez. Pencere `EnumWindows`/`EnumChildWindows` ile bulunur (`TSelectLanguageForm`, `TWizardForm`, `TUninstallProgressForm`, `#32770`) ve düğmelere `BM_CLICK` gönderilir. Inno 7 Türkçe düğme adları: Tamam, Sonraki, Kur, Bitti, Evet, Hayır; lisans radyosu "Anlaşmayı kabul ediyorum".
 
+## Build (Linux x86_64)
+
+Bağımlılıklar `deps/linux/` altına iner, böylece aynı checkout'taki Windows `deps/toolchain` ile çakışmaz. Root gerekmez; yalnızca dağıtımın -dev paketleri gerekir ve `fetch_deps.sh` eksik olanları tek bir `sudo apt install …` satırıyla yazar.
+
+```bash
+bash script/fetch_deps.sh                          # Go, cmake/ninja/aqtinstall (venv), protoc, Qt 6.12 (aqt), nfqws, sing-box
+bash script/build_linux.sh                         # core + GUI + Qt runtime -> deployment/linux-amd64/ (--skip-core / --skip-gui / --clean)
+bash script/package_linux.sh --version 0.1.0       # deployment/F-Dpi-<sürüm>-linux-amd64.deb/.rpm (--deb / --rpm)
+nix build .#f-dpi                                   # Nix (flake.nix, nix/); NixOS: programs.f-dpi.enable
+```
+
+| Bileşen | Kaynak | Hedef |
+|---|---|---|
+| Qt 6.12.0 `linux_gcc_64` | aqtinstall (CI'daki install-qt-action ile aynı) | `deps/linux/toolchain/Qt` |
+| Go (son stable), protoc 31.1 + protoc-gen-go(-grpc) | resmi | `deps/linux/toolchain/{go,protoc,gobin}` |
+| cmake, ninja, aqtinstall | pip, venv | `deps/linux/toolchain/py` |
+| nfqws + `files/fake/*.bin` | bol-van/zapret v72.13 sürüm tarball'ı (SHA256 sabit) | `deps/linux/zapret/{nfqws,files/}` |
+| `list-youtube.txt` | zapret-win-bundle (Windows ile aynı commit) | `deps/linux/zapret/files/` |
+| sing-box | SagerNet/sing-box linux-amd64 | `deps/linux/sing-box` |
+
+Notlar:
+- **WSL2'de derleme:** `/mnt/c` üzerinde derleme yavaştır. Ağaç `rsync -rlt --delete --exclude /deps --exclude '/build*' --exclude /deployment --exclude /.git /mnt/c/.../F-DPI/ ~/F-DPI/` ile WSL'ye kopyalanır ve orada derlenir (`-a` değil: `/mnt/c` izinleri 777 görünür ve setuid çekirdeğin nfqws güven denetimi herkesin yazabildiği dizini haklı olarak reddeder). Bu makinede WSL Ubuntu 26.04 vardır, `sudo` parola ister.
+  - -dev paketleri kurulamıyorsa: `apt-get download <paketler>` + `dpkg -x <deb> ~/fdpi-sysroot/root` root gerektirmez. Ardından kırık `.so` bağlantıları `/usr/lib/x86_64-linux-gnu`'ya yönlendirilir ve `build_linux.sh --sysroot ~/fdpi-sysroot/root` ile derlenir.
+- Çekirdek yerelde naive'siz derlenir (`NO_NAIVE=1`, `build_go.sh`): naive'in Chromium toolchain'i yalnızca CI'da kurulur. `--with-naive` CI ortamında kullanılır.
+- Exe adı Linux'ta da `F-Dpi`'dir (`OUTPUT_NAME`); `parentcheck.go` Linux'ta ebeveyn olarak `F-Dpi` bekler.
+- Yetki verildikten sonra (`zapret/` root'a geçer) `build_linux.sh` değişmemiş `zapret/`'e dokunmaz. Değişmişse `sudo rm -rf deployment/linux-amd64/zapret` ister.
+- Throne'un `pack_debian.sh`/`pack_rpm.sh`/`deploy_linux64.sh` dosyaları ve CI işleri upstream'e aittir; F-Dpi paketlemesi `package_linux.sh` + `nix/`'tir.
+
 ### Çeviriler (Türkçe = `res/translations/tr_TR.ts`)
 1. `build_windows.ps1 -SkipCore -UpdateTranslations` komutu lupdate ile tüm `.ts` dosyalarını kaynaktan yeniler.
+   - **Yalnızca Windows'ta çalıştırın.** lupdate yalnızca hedefin kaynaklarını tarar ve `-no-obsolete` kullanır. Linux derlemesindeki lupdate Windows'a özgü dosyaların (ör. `src/sys/windows/GlobalHotkeys.cpp`) çevirilerini siler. Linux'a özgü F-Dpi metinleri Windows'ta da görünür: ya her iki platformda derlenen dosyalardaki `#ifdef` dallarında ya da `DpiSupervisorCore.cpp` gibi her platformda listelenen dosyalardadır.
 2. **Yalnızca `tr_TR.ts` commit edilir.** zh_CN, fa_IR ve ru_RU dosyaları `git checkout -- res/translations/{zh_CN,fa_IR,ru_RU}.ts` ile geri alınır, çünkü upstream'e aittirler.
 3. Yeni (unfinished) metinler `node script/ts_tool.js export res/translations/tr_TR.ts <dir> [chunks]` ile JSON parçalara bölünür. Çeviriler `<dir>/*.out.json` dosyalarına `{ "<id>": "metin" | ["%n form"] }` biçiminde yazılır ve `node script/ts_tool.js import res/translations/tr_TR.ts <dir>` ile geri yazılır. Durumu `node script/ts_tool.js stats …` gösterir.
 4. **Günlük paneli her dilde İngilizcedir.** Çeviriden sonra `node script/ts_tool.js english-logs res/translations/tr_TR.ts` çalıştırılır: yalnızca `MW_show_log(...)` içinde `tr()`'ye verilen metinler İngilizce kaynağını ("Throne" → "F-Dpi") çeviri olarak alır. Arayüzde de kullanılan bir metin çevrili kalır; böyle bir günlük satırı kodda `QStringLiteral` ile yazılır. Değişkenle gelen metinler (ör. hata penceresiyle paylaşılan hata mesajları) bu yolla yakalanmaz.
@@ -286,6 +315,13 @@ Notlar:
   - Boş Özel bölümünden "Ağım" grubu oluşturuldu ve gerçek ağa bağlandı (DB'de iki anahtar).
 - **Doğrulandı (yönetici, 2026-10-24, benzetilmiş ağ):** DPI çalışırken "TestNet"e geçince 8 sn'de DPI durdu, ağın Socks'u başladı ve Windows DNS'i geri yüklendi. Eve dönünce DPI yeniden başladı ve DNS yeniden uygulandı.
 - **Doğrulanmadı:** gerçek bir ağ değişimi (başka Wi-Fi/Ethernet), kablolu ağda MAC/NLM anahtarları.
+- **Ağ izleme (Linux, L4):** `src/sys/linux/NetworkMonitor_linux.cpp` (`linux.cmake`'te listeli; `NetworkMonitor.cpp` stub'ı artık yalnızca Windows ve Linux dışı içindir). Yetki gerektirmez.
+  - Varsayılan rota: rtnetlink `RTM_GETROUTE` dökümü, yalnızca ana tablo (WireGuard/Tailscale'in politika tabloları sayılmaz), ağ geçitli ve `linkdown` olmayan rotalar, ECMP next hop'ları dahil. En düşük metrikli fiziksel arayüz seçilir: `/sys/class/net/<if>/device` var, `bridge` yok, ad tun/tap/wg/veth/br/docker/virbr/vnet/vmnet/zt/tailscale/throne ile başlamıyor. Wi-Fi: `wireless` ya da `phy80211` var.
+  - Anahtarlar: `nm:<etkin bağlantı UUID>` (NetworkManager, **yalnızca Wi-Fi**: kablolu profil, ör. "Wired connection 1", her kabloda aynıdır ve bütün kablolu ağları tek ağ yapardı), `gw:<MAC>` (`RTM_GETNEIGH`, Windows'la aynı `aa-bb-…` biçimi; girdi yoksa ağ geçidine tek UDP paketi ARP'yi tetikler, ≤500 ms beklenir), `wifi:<SSID>` (NM AccessPoint), yedek `gwip:`. Ad: NM bağlantı adı → SSID → "arayüz (ağ geçidi)".
+  - `dhcpDns`: NM `IP4Config.NameserverData` (eski `Nameservers`), sonra `IP6Config`; NM yoksa ya da cihazı yönetmiyorsa systemd-resolved `Link.DNS`; ikisi de yoksa `/etc/resolv.conf` (127.x/::1 stub'ı değilse). D-Bus servisleri önce `NameHasOwner` ile sorulur: durmuş resolved D-Bus ile başlatılmaz, NM'siz sistemde hata ya da zaman aşımı olmaz. Çağrı başına 1 sn zaman aşımı.
+  - Değişiklik: `RTMGRP_LINK|IPV4_IFADDR|IPV4_ROUTE|IPV6_ROUTE` netlink soketi, kendi `std::thread`'i (`poll` + durdurma `eventfd`'si; `UnwatchNetworkChanges` thread'i bekler). `IFLA_WIRELESS` taşıyan RTM_NEWLINK'ler (Wi-Fi tarama olayları) sayılmaz; `ENOBUFS` değişiklik sayılır.
+  - **Doğrulandı (WSL2, 2026-11-07; Qt 6.10 paketleri `apt-get download` + `dpkg -x` ile, köke gerek yok):** dosya `-Wall -Wextra` ile uyarısız derlendi, küçük bir test programıyla çalıştırıldı. WSL2'de (NM yok): `gw:` anahtarı, resolv.conf DNS'i, ~5 ms. `unshare -rnm` ad alanında dummy arayüzlerle: rota yok/yalnız tun → çevrimdışı; tun0 (metrik 10) yerine eth0 (100) seçildi; ECMP; IPv6 ağ geçidi; 169.254 atlandı; ARP yolu; izleyici adres/rota/link olaylarında tetiklendi ve temiz durdu. Sahte NM/resolved servisleriyle (dbus-python, özel sistem veri yolu, `/sys/class/net` tmpfs ile taklit): Wi-Fi'de `nm:`+`gw:`+`wifi:` ve `NameserverData`, kabloluda yalnız `gw:` ve eski `Nameservers`, yönetilmeyen cihazda ve NM'siz sistemde resolved `a(iay)` DNS'i, boş veri yolunda resolv.conf.
+  - **Doğrulanmadı:** gerçek NetworkManager/systemd-networkd, gerçek Wi-Fi (SSID, tarama olaylarının süzülmesi), gerçek ağ değişimi, uygulamanın tamamının Linux derlemesi (L0).
 
 ### Blockcheck (F5 sonrası)
 - **Motor:** `Engine::Blockcheck` (`src/engine/dpi/Blockcheck.cpp`). Native C++; zapret'in cygwin `blockcheck.cmd` script'ini kullanmaz. Worker thread'de çalışır, sinyaller ana thread'e gelir.
@@ -425,6 +461,44 @@ Notlar:
   - Gerçek link içe aktarımı UI'dan denenmedi; güvensiz profil DB'ye doğrudan yazıldı (içe aktarma yolunun eşdeğeri: güven kaydı yok).
 - **Doğrulanmadı:** gerçek telefon hotspot'u, IPv6 ağ geçidi, `%DHCP_DNS%`'in DPI çalışırken yedekten okunması (yönetici gerekir), Xray profillerinde çözüm.
 
+### Linux portu (L0–L6, 2026-11-07)
+Plan: `~/.claude/plans/linux-portu-i-in-plan-wondrous-codd.md`. Throne'un Linux desteği (CMake, `src/sys/linux/*`, nftables kill switch, setuid çekirdek akışı) olduğu gibi kullanılır.
+- **Yetki modeli:** GUI kullanıcıyla çalışır (Wayland, sistem proxy'si `gsettings` ve autostart kullanıcının ayarlarıdır). `ThroneCore` setuid root'tur.
+  - Throne bunu TUN için zaten yapıyor. F-Dpi'de nfqws, nftables kuralı ve resolved DNS'i de çekirdek yönetir.
+  - `MainWindow::requestCorePrivileges` → `Sys::Linux::GrantCorePrivileges` (`src/sys/linux/FdpiPrivileges.cpp`): tek pkexec istemi, `chown root` + `chmod 4755` çekirdek, `chown -R -h root` + `go-w` `zapret/`. Throne'un iki ayrı pkexec çağrısının yerini alır.
+  - TUN yeni kurulumda açık geldiği için çekirdek yetkisizken açılışta Throne'un mevcut istemi çıkar. `startDpi` de yetki yoksa istemi açar ve başlatmayı açıklamayla reddeder.
+  - deb/rpm çekirdeği pakette setuid kurar. NixOS'ta `security.wrappers` kullanılır; `NKR_ELEVATION_HINT` pkexec'i kapatır.
+  - Tehdit modeli: setuid çekirdek, yetkiyi veren kullanıcıya Throne'unkinden fazlasını vermez (sing-box config'i zaten root olarak dosya yazabilir). **Başka yerel kullanıcıların** çekirdek üzerinden root kod çalıştıramaması hedeflenir.
+- **DPI motoru çekirdekte** (`core/internal/dpi`, RPC `DpiStart/DpiStop/DpiQuery`, `core/internal/rpc/dpi.go`):
+  - nftables (sagernet/nftables, guard ile aynı kütüphane) **owner bayraklı** `inet fdpi-<pid>` tablosu kurar: postrouting 101'de `l4proto + oifname != lo + dport + mark&0x40000000==0 + ct packets 1-12 → queue num 200 bypass`. Output -300'de nfqws'in işaretli paketleri `notrack` olur. Autohostlist/autottl varsa prerouting'de `sport` kuralı da eklenir.
+    - Kütüphane `ct packets`'e yön veremediği için iki yön birlikte sayılır (zapret: `ct original packets 1-6`).
+    - Owner tablo çekirdeğin netlink soketine bağlıdır: çekirdek ölürse kernel tabloyu siler (Linux 5.12+).
+  - nfqws: `--qnum=200 --dpi-desync-fwmark=0x40000000 --uid=65534:65534`. Çekirdek nfqws'i doğrudan değil, kendi alt komutu `ThroneCore --fdpi-nfqws` (bekçi, `RunGuard`) üzerinden başlatır. Kernel her kimlik değişiminde (`commit_creds`) ebeveyn-ölüm sinyalini sıfırlar ve nfqws `--uid` ile kimlik değiştirir; bu yüzden `Pdeathsig` işe yaramaz. Bekçi root kalır ve fd 3'teki pipe kapanınca nfqws'i öldürür: `Stop` yazma ucunu kapatır, çekirdek ölünce kernel kapatır. Bekçi yalnızca ebeveyni çekirdeğin kendisiyse ve yalnızca güvenilir nfqws ile çalışır. Ortam `PATH` dışında boştur. Çıktısı 400 satırlık halkadadır; GUI 300 ms'de bir `DpiQuery` ile okur.
+  - **Güvenlik:** zapret v72.13 `nfq/nfqws.c` fake dosyalarını, hostlist/ipset'leri okumayı ve autohostlist'in `chown`'unu `droproot`'tan **önce, root olarak** yapar. Bu yüzden:
+    - `dpi.Parse` (`args.go`, testli) `@dosya`, `--qnum/--uid/--user/--gid/--dpi-desync-fwmark/--daemon/--pidfile/--hostlist-auto-debug/--wf-save`, `--wf-*` ve dosya olmayan seçenekte mutlak yolu reddeder.
+    - Her dosya `openat2(RESOLVE_NO_SYMLINKS)` ile okunur. Dosya gerçek kullanıcıya ya da (root'a ait ve) `zapret/` altına ait olmalıdır. Okunan dosya root'a ait `/run/f-dpi-core/<pid>-<n>/` dizinine kopyalanır.
+    - Autohostlist de orada tutulur; içeriği `DpiQuery`/`DpiStop` ile GUI'ye döner, kullanıcının `autohostlist-<id>.txt` dosyasını GUI yazar.
+  - `trustedNfqws`: `<çekirdek dizini>/zapret/nfqws` ve `zapret/` root'a ait ve yalnızca root yazabilir olmalıdır. Üst dizinler root'un ya da gerçek kullanıcının olmalı ve başkası yazamamalıdır. Root'a ait sticky dizin (ör. `/nix/store`) sayılır; grup yazma izni yalnızca grup gerçek kullanıcının üyesiz özel grubuysa kabul edilir (`privateGroup`, umask 002 dağıtımları).
+  - `CleanupAtBoot` (çekirdek `main.go`): bu kurulumun nfqws'inden kalan süreçleri ve ölü çekirdeklerin çalışma dizinlerini temizler.
+- **C++ tarafı:**
+  - `DpiSupervisor`'ın Linux metotları `DpiSupervisorCore.cpp`'dedir; Windows kodu `DpiSupervisor.cpp`'de `#ifndef Q_OS_LINUX` altında aynen durur. `kRunsInCore` sabiti vardır.
+  - `Dpi::Launch`'a `tcpPorts/udpPorts` eklendi. `BuildLaunch` Linux dalı: program `zapret/nfqws`; `wf_tcp/wf_udp` ve stratejideki `--wf-tcp/--wf-udp` porta çevrilir, diğer `--wf-*` hata verir. `%ZAPRET%` içeren token'da `\` → `/` (Windows preset'leri/profilleri çalışır). `Dpi::DisplayCommandLine` log ve önizleme içindir.
+  - **Çekirdek ölümü DPI'yi de durdurur:** `ConnectionManager::stop`'taki "crash DPI'yi atlar" istisnası `!kRunsInCore` ile Windows'a sınırlandı. Yeniden başlayan çekirdeği `onCoreStarted` normal `start()` ile DPI'ye döndürür. Bağlantı kopunca `DpiSupervisor` `unexpectedExit` verir.
+  - Blockcheck: `Dpi::Blockcheck::TrialLaunch` (Linux: `tcpPorts={80|443}`), `IsEngineSetupError` (yetki/nftables/nfqws/WinDivert hatası taramayı bitirir).
+- **Sistem DNS'i (resolved):** `ThroneCore --fdpi-dns` alt komutu (`core/internal/fdpidns`, godbus; ebeveyn denetimli). stdin'den tek JSON istek alır (`supported|get|set|flush`), stdout'a tek yanıt yazar. RPC kullanılmaz, böylece `-cleanup` çekirdek çalışmazken de aynı yolu kullanır.
+  - `src/sys/linux/SystemDns_linux.cpp`: varsayılan rota arayüzüne `SetLinkDNSEx` (`ip#dotName`), `DNSOverTLS=yes`, `Domains=~.`, `DefaultRoute=yes` yazar, ardından önbelleği boşaltır.
+  - Yedek Windows biçimindedir (`adapters[<arayüz adı>] = {ifindex, original, set}`). Geri yüklemede link sunucuları hâlâ `set` ise `original` yeniden yazılır. `RevertLink` kullanılmaz, çünkü NM'nin yazdığı değerleri de silerdi.
+  - NM bağlantısında `ipv4.dns/ipv6.dns` elle girilmişse (`nmcli`) o arayüze dokunulmaz.
+  - D-Bus link ayarları çalışma anı durumudur: yeniden başlatma ya da NM'nin link güncellemesi onları zaten siler. `Supported()` = resolved D-Bus'ta + `resolv.conf` onun stub'ına bakıyor (30 sn önbellek).
+  - resolved DoH bilmez: `Dns::DotName` (DoH host'u; OpenDNS'te boş) ve `Dns::SystemProvider` (Linux'ta DoT'suz sağlayıcı → Cloudflare). `AutoDnsService::dpiStarted` resolved yoksa tek satır yazıp çıkar. DNS log satırları "system DNS" diye genelleştirildi.
+- **Markalama (Linux):** `Branding::UnixDirName` = `f-dpi`: `/run/f-dpi`, `$XDG_RUNTIME_DIR/f-dpi`, `/tmp/f-dpi-<euid>`, `/var/lib/f-dpi`. Preflight süreç adında `throne` ya da `f-dpi` arar (Windows'taki `F-Dpi.exe` için de düzeltildi).
+  - `DesktopFileName` = `F-Dpi.desktop`, `UrlHandlerDesktopId` = `f-dpi-url-handler.desktop`, KDE kısayol bileşeni `fdpi` (D-Bus yol öğesi `-` alamaz).
+  - `throne://`, `throne-tun`, `throne.db` bilerek aynı kalır.
+- **Metinler:** winws/WinDivert/Windows DNS geçen arayüz metinlerinin Linux karşılıkları `#ifdef Q_OS_WIN` ile ayrı `tr()` olarak eklendi (`edit_dpi`, `dialog_blockcheck`, `dialog_about`, `dialog_auto_dns`, `OutboundFactory`, `ConnectionDpi`). Windows metinleri ve çevirileri değişmedi.
+- **Paketler:** `script/package_linux.sh`: `/opt/F-Dpi` (çekirdek pakette 4755, `zapret/` root'un), `F-Dpi.desktop` (`-appdata`, veri `~/.config/F-Dpi`), hicolor ikonu. prerm çalışan F-Dpi'yi SIGTERM ile kapatır; düzgün çıkış DNS'i geri getirir.
+  - Nix: `flake.nix` + `nix/package.nix` (nfqws kaynaktan; srslist/dashboard/list-youtube sabit hash'li; Qt sarmalayıcısı `bin/f-dpi`'dedir, `opt/F-Dpi/F-Dpi`'yi değiştirmez, çünkü ebeveyn denetimi bunu ister), `nix/module.nix` (`programs.f-dpi`, setuid wrapper), `nix/test.nix`.
+  - **Nix test edilmedi** (bu makinede nix yok). Go `vendorHash` = `lib.fakeHash`; ilk `nix build` doğru hash'i yazar.
+
 ### F-Dpi bileşen tasarımı (sonraki fazlar)
 - `dpi` tipi, `DpiSupervisor` ve dışlama: uygulandı (bkz. "DPI motoru (F2 sonrası)" ve "Motorlar ve karşılıklı dışlama").
 - Genel / Özel ve `NetworkMonitor`: uygulandı (bkz. "Genel / Özel config (F4 sonrası)").
@@ -464,6 +538,26 @@ Notlar:
 - [x] **F5 – Blockcheck:** `Engine::Blockcheck`, `Dpi::Blockcheck` stratejileri, `DialogBlockcheck` (Araçlar menüsü + DPI editörü), `ConnectionManager::setExclusiveTask`, `DpiSupervisor` quiet/grace/killStrays. Ayrıntı: "Blockcheck (F5 sonrası)".
 - [x] **F6 – Otomatik DNS:** `Dns::Providers`/`DnsWire`, `Engine::DnsBenchmark` (hız + zehirlenme testi), `Engine::AutoDnsService` (arka plan seçimi, DPI sırasında Windows DoH, yedek/geri yükleme/çökme kurtarma), `Sys::SystemDns`, proxy doğrudan DNS kancası, `DialogAutoDns`. Ayrıntı: "Otomatik DNS (F6 sonrası)".
 - [x] **F7 – Sertleştirme ve paketleme:** WinDivert sürücüsünün çıkışta durdurulması, `-cleanup` modu, F-Dpi installer'ı (Inno Setup, yönetici, TR/EN), ikonlar, yan yana kurulumda çakışan tanımlayıcılar, uzak yedekte DPI profilinin reddi, sürüm. Ayrıntı: "Sertleştirme ve paketleme (F7 sonrası)".
+
+- [ ] **L – Linux portu (2026-11-07):** ayrıntı "Linux portu (L0–L6)" ve "Build (Linux x86_64)".
+  - [x] L0 derleme betikleri ve markalama; L1 yetki akışı; L2 çekirdekte DPI motoru; L3 Blockcheck; L4 ağ izleme; L5 resolved DNS + `-cleanup`; L6 metinler, deb/rpm betiği, Nix taslağı.
+  - Doğrulandı (WSL2 Ubuntu 26.04, yetkisiz): `fetch_deps.sh` ve `build_linux.sh` temiz (GCC 15, Qt 6.12, Go 1.27.3; -dev paketleri `--sysroot` ile). F-Dpi WSLg'de açıldı, çekirdek bağlandı (`F-Dpi` ebeveyn denetimi geçti), `eth0` algılandı, arka plan DNS testi Google'ı seçti, SIGTERM ile temiz çıkış oldu. `dpi.Parse`/`ParsePorts` birim testleri geçti.
+  - **Doğrulandı (WSL2, root, 2026-11-08):** `core/internal/dpi/engine_root_linux_test.go` geçti (çalıştırıcı: WSL'de `~/fdpi-root-test.sh`, log `~/fdpi_root_test.log`).
+    - Kernel 6.18 WSL2'de owner nftables tablosu kuruldu ve durdurunca kalktı.
+    - nfqws kuyruk 200'e bağlandı, `UID=65534` olarak çalıştı, dosyalar `/run/f-dpi-core/<pid>-<n>/` kopyalarından okundu.
+    - `--debug=1` ile TLS ClientHello'nun kuyruğa düştüğü ve sahte paketin gönderildiği görüldü.
+    - Test gerçek uid'yi 1000 yapıp (`setresuid`, euid 0 kalır) setuid durumunu taklit eder. `/etc/shadow` ("başka kullanıcıya ait"), sembolik bağlantı (`RESOLVE_NO_SYMLINKS`), `@dosya` ve `--qnum` reddedildi.
+    - Gerçek uid 0 iken (`sudo`/`wsl -u root`) her dosya "kullanıcının kendi dosyası" sayılır; bu doğrudur, root zaten her şeyi okur.
+    - discord.com WSL'den DPI'siz de 200 döndüğü için engelin aşılması burada ölçülemedi. Liste olmadan `fake+md5sig` example.com'u bozdu (zapret'in md5sig uyarısı).
+  - **Claude WSL'de root komut çalıştırabilir:** `MSYS_NO_PATHCONV=1 wsl.exe -d Ubuntu -u root -e bash /home/drum3x/<betik>` (parola istemez). Git Bash'te `MSYS_NO_PATHCONV=1` olmadan `/home/...` Windows yoluna çevrilir (rc 127).
+  - **Doğrulandı (WSL2, uçtan uca, 2026-11-08):** çalıştırıcı `~/fdpi-e2e.sh` (root olarak çalışır; çekirdeği setuid yapar, F-Dpi'yi drum3x olarak WSLg'de açar, sonunda sahiplikleri geri verir; log `~/fdpi_e2e.log`). Test DB'sinde "yalnızca listedeki siteler" (discord.com) modunda, Windows biçimli `%ZAPRET%\files\…` yollu bir DPI profili vardır ve açılışta başlar.
+    - discord.com DPI'siz engelliydi (`curl 35`, bağlantı sıfırlandı), F-Dpi'nin DPI profiliyle 200 döndü. example.com etkilenmedi.
+    - nfqws `UID 65534` olarak bekçi altında çalıştı. Liste dosyaları `/run/f-dpi-core/<pid>-1/` kopyalarından okundu; çıktısı günlük paneline aktı.
+    - Çekirdek `kill -9` ile öldürülünce nfqws 3 sn içinde öldü. F-Dpi çekirdeği yeniden başlattı ve DPI ~0,6 sn'de kendiliğinden döndü.
+    - SIGTERM ile çıkışta geride nfqws, çekirdek ya da çalışma dizini kalmadı. resolved olmadığı için DNS "dokunulmadı" yoluna düştü.
+    - Bulunan ve düzeltilen hatalar: `Pdeathsig` nfqws'in `--uid` kimlik değişiminde sıfırlanıyordu (bekçi eklendi). Kullanıcı özel grubuyla grup yazılabilir ev dizinleri yanlışlıkla reddediliyordu (`privateGroup`). Güven hatası "root yetkisi yok" ipucunu tetikliyordu.
+    - WSL notları: root oturumu WSLg'nin `/run/user/1000/wayland-0` bağlantısından önce açılabilir; `XDG_RUNTIME_DIR=/mnt/wslg/runtime-dir` kullanılır. WSL boşta kapanınca `\\wsl.localhost` zaman aşımına düşer; önce `wsl.exe -e true` çalıştırılır.
+  - **Doğrulanmadı:** resolved DNS, gerçek ağ değişimi, NM anahtarları, deb/rpm kur/kaldır, Nix (`vendorHash` boş), naive'li çekirdek ve CI işleri.
 
 ## Konvansiyonlar
 - Kod stili Throne'unkini izler (`script/format_cpp.sh`, `.clang-format`); `tr()` ile çevrilebilir metin kullanılır.

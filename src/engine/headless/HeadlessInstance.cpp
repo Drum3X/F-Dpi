@@ -27,6 +27,7 @@
 #include "NkrVersion.h"
 #include "include/engine/app/ExitCodes.h"
 #include "include/engine/app/InstanceServer.h"
+#include "include/global/Branding.hpp"
 #include "include/global/Logger.hpp"
 #include "include/sys/ServiceManager.hpp"
 
@@ -48,14 +49,16 @@ namespace Engine::HeadlessInstance {
         // not ours alone; without create nothing is made, and a missing dir is fine (nothing listens in it).
         QString headlessInstancePrivateDir(bool create, QString *why) {
             const auto euid = ::geteuid();
-            QByteArray dir = QByteArrayLiteral("/tmp/throne-") + QByteArray::number(qulonglong(euid));
+            // F-Dpi: its own names (Branding::UnixDirName), shared with HostPresence's marker.
+            const QByteArray name(Branding::UnixDirName);
+            QByteArray dir = QByteArrayLiteral("/tmp/") + name + '-' + QByteArray::number(qulonglong(euid));
             if (euid == 0) {
                 // Under a root-only parent: no user can pre-create it.
 #ifdef Q_OS_MACOS
-                dir = QByteArrayLiteral("/var/run/throne");
+                dir = QByteArrayLiteral("/var/run/") + name;
 #else
                 struct stat run{};
-                dir = ::stat("/run", &run) == 0 && S_ISDIR(run.st_mode) ? QByteArrayLiteral("/run/throne") : QByteArrayLiteral("/var/run/throne");
+                dir = (::stat("/run", &run) == 0 && S_ISDIR(run.st_mode) ? QByteArrayLiteral("/run/") : QByteArrayLiteral("/var/run/")) + name;
 #endif
             }
             struct stat st{};

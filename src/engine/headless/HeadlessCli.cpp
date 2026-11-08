@@ -7,6 +7,7 @@
 #include <QTemporaryFile>
 
 #include "include/engine/app/ExitCodes.h"
+#include "include/global/Branding.hpp"
 #include "include/sys/ServiceManager.hpp"
 
 #ifdef Q_OS_UNIX
@@ -52,7 +53,7 @@ namespace Engine::HeadlessCli {
 #ifndef Q_OS_WIN
         QString headlessCliRootDefault() {
 #if defined(Q_OS_LINUX)
-            if (::geteuid() == 0) return QStringLiteral("/var/lib/throne");
+            if (::geteuid() == 0) return QStringLiteral("/var/lib/") + QLatin1String(Branding::UnixDirName); // F-Dpi
 #elif defined(Q_OS_MACOS)
             if (::geteuid() == 0) return QStringLiteral("/Library/Application Support/Throne");
 #endif
@@ -234,7 +235,7 @@ namespace Engine::HeadlessCli {
                           "DIR"});
 #else
         parser.addOption({{kDataDir, "appdata"},
-                          "Data directory (THRONE_DATA_DIR). Default: $STATE_DIRECTORY, then /var/lib/throne as root on Linux "
+                          "Data directory (THRONE_DATA_DIR). Default: $STATE_DIRECTORY, then /var/lib/f-dpi as root on Linux "
                           "(/Library/Application Support/Throne on macOS), else the per-user configuration directory (such as "
                           "~/.config/Throne). A portable desktop install keeps its data next to the program: pass --data-dir "
                           "<program directory> to share it.",

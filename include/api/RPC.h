@@ -133,6 +133,12 @@ namespace API {
         libcore::ResolveDomainsResponse ResolveDomains(bool *rpcOK, const QStringList &domains, const QString &config,
                                                        QString *coreError = nullptr) const;
 
+        // F-Dpi (Linux): the DPI engine runs in the privileged core (core/internal/dpi). DpiStart blocks for about graceMs and
+        // returns the core's error text, empty on success.
+        QString DpiStart(bool *rpcOK, const QStringList &args, const QStringList &tcpPorts, const QStringList &udpPorts, int graceMs) const;
+        libcore::DpiStatus DpiStop(bool *rpcOK) const;
+        libcore::DpiStatus DpiQuery(bool *rpcOK, qint64 afterSeq, qint64 autohostlistVersion) const;
+
     private:
         class LocalSocketChannel;
         std::unique_ptr<LocalSocketChannel> channel;

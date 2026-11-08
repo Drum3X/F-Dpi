@@ -16,6 +16,8 @@ import (
 
 	"ThroneCore/internal/boxmain"
 	"ThroneCore/internal/capcheck"
+	"ThroneCore/internal/dpi"
+	"ThroneCore/internal/fdpidns"
 	"ThroneCore/internal/guard"
 	"ThroneCore/internal/ipc"
 	"ThroneCore/internal/parentcheck"
@@ -97,6 +99,8 @@ func RunCore() {
 	}
 	guard.CleanupStale()
 	sysdns.RestoreStale()
+	// F-Dpi: an nfqws or runtime folder a previous core left behind (Linux).
+	dpi.CleanupAtBoot()
 
 	go func() {
 		parent, err := os.FindProcess(parentcheck.ParentPID)
@@ -164,6 +168,13 @@ func main() {
 			parentcheck.CheckParentProcess()
 			sysdns.RestoreStale()
 			os.Exit(0)
+		case "--fdpi-nfqws":
+			// F-Dpi (Linux): the guard nfqws runs under; its parent is the core itself, which RunGuard checks.
+			dpi.RunGuard()
+		case "--fdpi-dns":
+			// F-Dpi (Linux): systemd-resolved link DNS for Automatic DNS; one JSON request on stdin.
+			parentcheck.CheckParentProcess()
+			fdpidns.Run()
 		case "--version":
 			printVersions()
 			os.Exit(0)

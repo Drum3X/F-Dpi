@@ -4,6 +4,7 @@
 #include <QFile>
 #include <QJsonDocument>
 #include <QPair>
+#include <QUrl>
 
 #include "include/database/DatabaseManager.h"
 #include "include/database/SettingsRepo.h"
@@ -50,6 +51,20 @@ namespace Dns {
         }
         if (const auto *picked = FindProvider(settings->auto_dns_server)) return picked;
         return FindProvider(kDefaultProvider);
+    }
+
+    QString DotName(const Provider &provider) {
+        // OpenDNS answers DNS-over-HTTPS only.
+        if (provider.id == QStringLiteral("opendns")) return {};
+        return QUrl(provider.dohTemplate).host();
+    }
+
+    const Provider *SystemProvider() {
+        const auto *provider = ActiveProvider();
+#ifdef Q_OS_LINUX
+        if (provider != nullptr && DotName(*provider).isEmpty()) return FindProvider(kDefaultProvider);
+#endif
+        return provider;
     }
 
     bool IsBogon(const QHostAddress &address) {

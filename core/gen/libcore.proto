@@ -49,6 +49,10 @@ service LibcoreService {
   rpc ScanCheckNetwork(ScanCheckNetworkRequest) returns (ScanCheckNetworkResponse);
   rpc ParseRuleSet(ParseRuleSetRequest) returns (ParseRuleSetResponse);
   rpc ResolveDomains(ResolveDomainsRequest) returns (ResolveDomainsResponse);
+  // F-Dpi (Linux): the DPI engine (nfqws behind an nftables queue) runs in the privileged core.
+  rpc DpiStart(DpiStartRequest) returns (ErrorResp);
+  rpc DpiStop(EmptyReq) returns (DpiStatus);
+  rpc DpiQuery(DpiQueryRequest) returns (DpiStatus);
 }
 
 message EmptyReq {}
@@ -667,4 +671,34 @@ message ResolvedDomain {
   optional string domain = 1 [default = ""];
   repeated string addresses = 2;
   optional string error = 3 [default = ""];
+}
+
+// F-Dpi (Linux) DPI engine: core/internal/dpi.
+message DpiStartRequest {
+  // nfqws options without --qnum, --uid and --dpi-desync-fwmark, which the core adds.
+  repeated string args = 1;
+  // nftables port specs: "443", "80,443", "50000-50100".
+  repeated string tcp_ports = 2;
+  repeated string udp_ports = 3;
+  // How long nfqws must stay up for the start to count; it exits at once on a bad option.
+  optional int32 grace_ms = 4 [default = 1500];
+}
+
+message DpiQueryRequest {
+  optional int64 after_seq = 1 [default = 0];
+  optional int64 autohostlist_version = 2 [default = 0];
+}
+
+message DpiStatus {
+  optional bool running = 1 [default = false];
+  // nfqws exited on its own since the last start.
+  optional bool exited = 2 [default = false];
+  optional int32 exit_code = 3 [default = 0];
+  // Output lines after after_seq; last_seq is the newest one's.
+  repeated string lines = 4;
+  optional int64 last_seq = 5 [default = 0];
+  // The learned autohostlist, only when it changed since autohostlist_version.
+  optional bool autohostlist_changed = 6 [default = false];
+  optional string autohostlist = 7;  // ASCII host names (punycode)
+  optional int64 autohostlist_version = 8 [default = 0];
 }

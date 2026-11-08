@@ -67,9 +67,9 @@ namespace Engine {
         if (!QFile::exists(autoDnsBackupPath())) return;
         QString error;
         if (restoreSystem(&error)) {
-            MW_show_log(QCoreApplication::translate("AutoDns", "[DNS] Restored the Windows DNS settings F-Dpi had changed before it last closed."));
+            MW_show_log(QCoreApplication::translate("AutoDns", "[DNS] Restored the system DNS settings F-Dpi had changed before it last closed."));
         } else {
-            MW_show_log(QCoreApplication::translate("AutoDns", "[DNS] Could not restore the Windows DNS settings: %1").arg(error));
+            MW_show_log(QCoreApplication::translate("AutoDns", "[DNS] Could not restore the system DNS settings: %1").arg(error));
         }
     }
 
@@ -88,7 +88,7 @@ namespace Engine {
                 QString name;
                 QStringList untouched;
                 QString error;
-                if (!applySystem(&name, &untouched, &error)) MW_show_log(QCoreApplication::translate("AutoDns", "[DNS] Could not set the Windows DNS: %1").arg(error));
+                if (!applySystem(&name, &untouched, &error)) MW_show_log(QCoreApplication::translate("AutoDns", "[DNS] Could not set the system DNS: %1").arg(error));
             }
             QTimer::singleShot(kAutoDnsNetworkDelayMs, this, [this] { refreshIfStale(); });
         });
@@ -149,19 +149,30 @@ namespace Engine {
     void AutoDnsService::dpiStarted() {
         const auto &settings = Configs::dataManager->settingsRepo;
         if (!settings->auto_dns_system || Dns::ActiveProvider() == nullptr) return;
+#ifdef Q_OS_LINUX
+        if (!Sys::SystemDns::Supported()) {
+            // Linux without systemd-resolved: nothing F-Dpi can point the system at; the system DNS stays as it is.
+            MW_show_log(QStringLiteral("[DNS] The system DNS is left as it is: it is not managed by systemd-resolved."));
+            return;
+        }
+#endif
         QString name;
         QStringList untouched;
         QString error;
         if (applySystem(&name, &untouched, &error)) {
             if (!untouched.isEmpty()) {
-                MW_show_log(QCoreApplication::translate("AutoDns", "[DNS] Left alone, DNS servers are set for this network in Windows: %1")
+                MW_show_log(QCoreApplication::translate("AutoDns", "[DNS] Left alone, DNS servers are set for this network in the system settings: %1")
                                 .arg(untouched.join(QStringLiteral(", "))));
             }
             if (systemDnsActive()) {
+#ifdef Q_OS_WIN
                 MW_show_log(QCoreApplication::translate("AutoDns", "[DNS] Windows now resolves through %1 over DNS-over-HTTPS while DPI Bypass runs.").arg(name));
+#else
+                MW_show_log(QCoreApplication::translate("AutoDns", "[DNS] The system now resolves through %1 over DNS-over-TLS while DPI Bypass runs.").arg(name));
+#endif
             }
         } else {
-            MW_show_log(QCoreApplication::translate("AutoDns", "[DNS] Could not set the Windows DNS: %1").arg(error));
+            MW_show_log(QCoreApplication::translate("AutoDns", "[DNS] Could not set the system DNS: %1").arg(error));
         }
         QMetaObject::invokeMethod(this, [this] { emit changed(); }, Qt::QueuedConnection);
     }
@@ -169,13 +180,13 @@ namespace Engine {
     void AutoDnsService::dpiStopped() {
         if (!systemDnsActive()) return;
         QString error;
-        if (restoreSystem(&error)) MW_show_log(QCoreApplication::translate("AutoDns", "[DNS] Windows DNS settings restored."));
-        else MW_show_log(QCoreApplication::translate("AutoDns", "[DNS] Could not restore the Windows DNS settings: %1").arg(error));
+        if (restoreSystem(&error)) MW_show_log(QCoreApplication::translate("AutoDns", "[DNS] System DNS settings restored."));
+        else MW_show_log(QCoreApplication::translate("AutoDns", "[DNS] Could not restore the system DNS settings: %1").arg(error));
         QMetaObject::invokeMethod(this, [this] { emit changed(); }, Qt::QueuedConnection);
     }
 
     bool AutoDnsService::applySystem(QString *providerName, QStringList *untouched, QString *error) {
-        const auto *provider = Dns::ActiveProvider();
+        const auto *provider = Dns::SystemProvider();
         if (provider == nullptr) return true;
         *providerName = provider->name;
         QMutexLocker lock(&m_mutex);
@@ -183,7 +194,7 @@ namespace Engine {
         if (!backup.contains(QStringLiteral("effective"))) {
             backup[QStringLiteral("effective")] = QJsonArray::fromStringList(Sys::SystemDns::EffectiveServers());
         }
-        const bool ok = Sys::SystemDns::Apply({provider->ipv4, provider->ipv6, provider->dohTemplate}, &backup, untouched, error);
+        const bool ok = Sys::SystemDns::Apply({provider->ipv4, provider->ipv6, provider->dohTemplate, Dns::DotName(*provider)}, &backup, untouched, error);
         backup[QStringLiteral("provider")] = provider->id;
         // Written even after a partial failure: what was changed must still be put back.
         if (!backup[QStringLiteral("adapters")].toObject().isEmpty() && !autoDnsWriteBackup(backup)) {

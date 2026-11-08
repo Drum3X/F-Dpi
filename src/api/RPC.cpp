@@ -886,4 +886,62 @@ namespace API {
         }
     }
 
+    // F-Dpi (Linux): DPI engine in the core.
+    QString Client::DpiStart(bool *rpcOK, const QStringList &args, const QStringList &tcpPorts, const QStringList &udpPorts, int graceMs) const
+    {
+        libcore::DpiStartRequest request;
+        for (const auto &arg : args) request.args.push_back(arg.toStdString());
+        for (const auto &port : tcpPorts) request.tcp_ports.push_back(port.toStdString());
+        for (const auto &port : udpPorts) request.udp_ports.push_back(port.toStdString());
+        request.grace_ms = graceMs;
+        libcore::ErrorResp reply;
+        std::vector<uint8_t> resp;
+        // The core stops a running nfqws (3 s at most), installs the rules and waits graceMs.
+        auto status = channel->Call("DpiStart", spb::pb::serialize<std::string>(request), resp, graceMs + 15000);
+
+        if (status == LocalSocketChannel::CallOK && tryDeserialize(resp, reply)) {
+            *rpcOK = true;
+            return QString::fromStdString(reply.error.value());
+        } else {
+            NOT_OK
+            if (status != LocalSocketChannel::CallOK && !resp.empty())
+                return QString::fromUtf8(reinterpret_cast<const char *>(resp.data()), static_cast<int>(resp.size()));
+            return QStringLiteral("the core is not reachable");
+        }
+    }
+
+    libcore::DpiStatus Client::DpiStop(bool *rpcOK) const
+    {
+        const libcore::EmptyReq request;
+        libcore::DpiStatus reply;
+        std::vector<uint8_t> resp;
+        auto status = channel->Call("DpiStop", spb::pb::serialize<std::string>(request), resp, 10000);
+
+        if (status == LocalSocketChannel::CallOK && tryDeserialize(resp, reply)) {
+            *rpcOK = true;
+            return reply;
+        } else {
+            NOT_OK
+            return {};
+        }
+    }
+
+    libcore::DpiStatus Client::DpiQuery(bool *rpcOK, qint64 afterSeq, qint64 autohostlistVersion) const
+    {
+        libcore::DpiQueryRequest request;
+        request.after_seq = afterSeq;
+        request.autohostlist_version = autohostlistVersion;
+        libcore::DpiStatus reply;
+        std::vector<uint8_t> resp;
+        auto status = channel->Call("DpiQuery", spb::pb::serialize<std::string>(request), resp, 5000);
+
+        if (status == LocalSocketChannel::CallOK && tryDeserialize(resp, reply)) {
+            *rpcOK = true;
+            return reply;
+        } else {
+            NOT_OK
+            return {};
+        }
+    }
+
 } // namespace API

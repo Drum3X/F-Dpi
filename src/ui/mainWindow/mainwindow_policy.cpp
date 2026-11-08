@@ -11,6 +11,9 @@
 
 #ifdef Q_OS_LINUX
 #include "include/sys/linux/LinuxCap.h"
+// F-Dpi
+#include "include/dpi/DpiLaunch.h"
+#include "include/sys/linux/FdpiPrivileges.h"
 #endif
 #ifdef Q_OS_MACOS
 #include "include/sys/macos/MacOS.h"
@@ -184,17 +187,12 @@ bool MainWindow::requestCorePrivileges() {
     if (n == QMessageBox::Yes) {
         runOnNewThread([=,this]
         {
-            auto chownArgs = QString("root:root " + Configs::FindCoreRealPath());
-            auto ret = Linux_Run_Command("chown", chownArgs);
-            if (ret != 0) {
-                MW_show_log(QString("Failed to run chown %1 code is %2").arg(chownArgs).arg(ret));
-            }
-            auto chmodArgs = QString("u+s " + Configs::FindCoreRealPath());
-            ret = Linux_Run_Command("chmod", chmodArgs);
-            if (ret == 0) {
+            // F-Dpi: one pkexec prompt for the core and the zapret/ folder its DPI engine runs nfqws from as root.
+            QString error;
+            if (Sys::Linux::GrantCorePrivileges(Configs::FindCoreRealPath(), Dpi::ZapretDir(), &error)) {
                 StopVPNProcess();
             } else {
-                MW_show_log(QString("Failed to run chmod %1").arg(chmodArgs));
+                MW_show_log(QStringLiteral("Could not give the core root privileges: %1").arg(error));
             }
         });
         return false;

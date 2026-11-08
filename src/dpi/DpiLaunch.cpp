@@ -31,7 +31,29 @@ namespace Dpi {
             }
             return false;
         }
+
+        QString dpiLaunchShellQuote(const QString &argument) {
+            static const QString safe = QStringLiteral("-_=.,:/%@+");
+            const bool plain = !argument.isEmpty() && std::all_of(argument.begin(), argument.end(), [](QChar c) {
+                return c.isLetterOrNumber() || safe.contains(c);
+            });
+            if (plain) return argument;
+            return QLatin1Char('\'') + QString(argument).replace(QLatin1Char('\''), QStringLiteral("'\\''")) + QLatin1Char('\'');
+        }
     } // namespace
+
+    QString DisplayCommandLine(const Launch &launch) {
+#ifdef Q_OS_WIN
+        return QDir::toNativeSeparators(launch.program) + QLatin1Char(' ') + WindowsCommandLine(launch.arguments);
+#else
+        QStringList parts{dpiLaunchShellQuote(launch.program)};
+        for (const auto &argument : launch.arguments) parts << dpiLaunchShellQuote(argument);
+        QStringList ports;
+        if (!launch.tcpPorts.isEmpty()) ports << QStringLiteral("TCP ") + launch.tcpPorts.join(',');
+        if (!launch.udpPorts.isEmpty()) ports << QStringLiteral("UDP ") + launch.udpPorts.join(',');
+        return parts.join(' ') + QStringLiteral("  [nftables: %1]").arg(ports.join(QStringLiteral(", ")));
+#endif
+    }
 
     QString WindowsCommandLine(const QStringList &arguments) {
         QStringList parts;
@@ -57,8 +79,16 @@ namespace Dpi {
         return QDir(QCoreApplication::applicationDirPath()).filePath(QStringLiteral("zapret"));
     }
 
-    QString WinwsPath() {
+    QString EnginePath() {
+#ifdef Q_OS_WIN
         return QDir(ZapretDir()).filePath(QStringLiteral("winws.exe"));
+#else
+        return QDir(ZapretDir()).filePath(QStringLiteral("nfqws"));
+#endif
+    }
+
+    QString WinwsPath() {
+        return EnginePath();
     }
 
     QString ListDir() {
@@ -67,17 +97,21 @@ namespace Dpi {
     }
 
     bool BuildLaunch(const Configs::dpi &config, int profileId, Launch *out, QString *error, bool dryRun) {
-#ifndef Q_OS_WIN
+#if !defined(Q_OS_WIN) && !defined(Q_OS_LINUX)
         Q_UNUSED(config);
         Q_UNUSED(profileId);
         Q_UNUSED(out);
         Q_UNUSED(dryRun);
-        *error = QCoreApplication::translate("Dpi", "DPI Bypass is only available on Windows for now.");
+        *error = QCoreApplication::translate("Dpi", "DPI Bypass is only available on Windows and Linux for now.");
         return false;
 #else
-        const auto program = WinwsPath();
+        const auto program = EnginePath();
         if (!QFileInfo::exists(program)) {
+#ifdef Q_OS_WIN
             *error = QCoreApplication::translate("Dpi", "winws.exe was not found at %1. Reinstall F-Dpi.").arg(QDir::toNativeSeparators(program));
+#else
+            *error = QCoreApplication::translate("Dpi", "nfqws was not found at %1. Reinstall F-Dpi.").arg(program);
+#endif
             return false;
         }
         const auto strategyError = Configs::Checks::DpiStrategy(config.strategy);
@@ -123,6 +157,10 @@ namespace Dpi {
         const auto zapret = QDir::toNativeSeparators(ZapretDir());
         auto tokens = config.StrategyTokens();
         for (auto &token : tokens) {
+#ifndef Q_OS_WIN
+            // Presets and profiles made on Windows write %ZAPRET%\files\x.bin.
+            if (token.contains(QStringLiteral("%ZAPRET%"), Qt::CaseInsensitive)) token.replace(QLatin1Char('\\'), QLatin1Char('/'));
+#endif
             token.replace(QStringLiteral("%ZAPRET%"), zapret, Qt::CaseInsensitive);
             // Network placeholders (%GATEWAY%...). The preview keeps one that has no value here.
             if (!Sys::HasNetworkPlaceholders(token)) continue;
@@ -137,10 +175,41 @@ namespace Dpi {
 
         QStringList args;
         const bool ownCapture = std::any_of(tokens.begin(), tokens.end(), [](const QString &t) { return t.startsWith(QStringLiteral("--wf-")); });
+#ifdef Q_OS_WIN
         if (!ownCapture) {
             if (!config.wfTcp.trimmed().isEmpty()) args << QStringLiteral("--wf-tcp=") + config.wfTcp.simplified().remove(' ');
             if (!config.wfUdp.trimmed().isEmpty()) args << QStringLiteral("--wf-udp=") + config.wfUdp.simplified().remove(' ');
         }
+#else
+        // The nftables rule picks the traffic: a strategy's own --wf-tcp/--wf-udp become its ports, other WinDivert options
+        // have no Linux meaning.
+        QStringList tcpPorts, udpPorts;
+        if (!ownCapture) {
+            if (!config.wfTcp.trimmed().isEmpty()) tcpPorts << config.wfTcp.simplified().remove(' ');
+            if (!config.wfUdp.trimmed().isEmpty()) udpPorts << config.wfUdp.simplified().remove(' ');
+        }
+        for (auto it = tokens.begin(); it != tokens.end();) {
+            if (!it->startsWith(QStringLiteral("--wf-"))) {
+                ++it;
+                continue;
+            }
+            const auto name = it->section('=', 0, 0);
+            const auto value = it->section('=', 1);
+            if (name == QStringLiteral("--wf-tcp")) tcpPorts << value;
+            else if (name == QStringLiteral("--wf-udp")) udpPorts << value;
+            else {
+                *error = QCoreApplication::translate("Dpi", "%1 is a WinDivert option that only works on Windows; on Linux the TCP and UDP ports choose the traffic.").arg(name);
+                return false;
+            }
+            it = tokens.erase(it);
+        }
+        if (tcpPorts.isEmpty() && udpPorts.isEmpty()) {
+            *error = QCoreApplication::translate("Dpi", "No TCP or UDP port is set: nothing would go through the DPI engine.");
+            return false;
+        }
+        out->tcpPorts = tcpPorts;
+        out->udpPorts = udpPorts;
+#endif
 
         // The split-bypass options are per profile block, so every block between --new separators gets them.
         QList<QStringList> blocks{{}};

@@ -81,6 +81,7 @@ DialogAutoDns::DialogAutoDns(QWidget *parent) : QDialog(parent) {
     m_proxy->setToolTip(tr("Replaces the direct DNS of the DNS settings, unless the routing profile has its own DNS. "
                            "The remote DNS already goes through the proxy."));
     form->addRow(m_proxy);
+#ifdef Q_OS_WIN
     m_system = new QCheckBox(tr("DPI Bypass: point Windows' DNS at it while DPI Bypass runs (DNS-over-HTTPS required)"), settingsBox);
     m_system->setChecked(settings->auto_dns_system);
     m_system->setToolTip(tr("winws does not touch DNS. The network adapters' DNS settings are saved first and put back when "
@@ -90,6 +91,17 @@ DialogAutoDns::DialogAutoDns(QWidget *parent) : QDialog(parent) {
         m_system->setEnabled(false);
         m_system->setToolTip(tr("Needs Windows 11."));
     }
+#else
+    m_system = new QCheckBox(tr("DPI Bypass: point the system DNS (systemd-resolved) at it while DPI Bypass runs (DNS-over-TLS required)"), settingsBox);
+    m_system->setChecked(settings->auto_dns_system);
+    m_system->setToolTip(tr("nfqws does not touch DNS. The network connection's DNS settings are saved first and put back when "
+                            "DPI Bypass stops, and at the next start if F-Dpi was closed abruptly. A connection whose DNS servers you set in "
+                            "NetworkManager is left as it is. OpenDNS has no DNS-over-TLS, so Cloudflare is used instead."));
+    if (!Sys::SystemDns::Supported()) {
+        m_system->setEnabled(false);
+        m_system->setToolTip(tr("Needs systemd-resolved, which this system does not resolve through."));
+    }
+#endif
     form->addRow(m_system);
     m_status = new QLabel(settingsBox);
     m_status->setWordWrap(true);
@@ -198,8 +210,13 @@ void DialogAutoDns::refreshStatus() {
     }
     if (auto *service = Engine::host()->autoDns(); service != nullptr && service->systemDnsActive()) {
         const auto original = service->originalServers();
+#ifdef Q_OS_WIN
         lines << tr("Windows' DNS is changed by F-Dpi while DPI Bypass runs (it was %1).")
                      .arg(original.isEmpty() ? tr("unknown") : original.join(QStringLiteral(", ")));
+#else
+        lines << tr("The system DNS is changed by F-Dpi while DPI Bypass runs (it was %1).")
+                     .arg(original.isEmpty() ? tr("unknown") : original.join(QStringLiteral(", ")));
+#endif
     }
     m_status->setText(lines.join('\n'));
 }

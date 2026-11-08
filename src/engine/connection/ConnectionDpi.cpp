@@ -44,6 +44,21 @@ namespace Engine {
             return;
         }
 
+        if constexpr (DpiSupervisor::kRunsInCore) {
+            // Linux: the core runs nfqws and its nftables rule, which needs root.
+            if (!Configs::dataManager->settingsRepo->disable_privilege_req && !tunPrivileged()) {
+                StartRequest quiet = resolved;
+                if (resolved.interactive) {
+                    policy()->requestCorePrivileges();
+                    quiet.interactive = false;
+                }
+                failStart(quiet, StartOutcome::StartFailed, title,
+                          QCoreApplication::translate("Dpi", "DPI Bypass needs the core to have root privileges. Give the core root "
+                                                             "privileges, then start the profile again."));
+                return;
+            }
+        }
+
         if (!mu_starting.tryLock()) {
             failStart(resolved, StartOutcome::Busy, software_name, MainWindowTr::tr("Another profile is starting..."));
             return;
@@ -138,7 +153,11 @@ namespace Engine {
         ENGINE_CHECK_MAIN_THREAD();
         const auto running = runningSnapshot();
         if (!IsDpiProfile(running)) return;
+#ifdef Q_OS_WIN
         MW_show_log(QCoreApplication::translate("Dpi", "[DPI] DPI Bypass stopped because winws exited: %1").arg(reason));
+#else
+        MW_show_log(QCoreApplication::translate("Dpi", "[DPI] DPI Bypass stopped because nfqws exited: %1").arg(reason));
+#endif
         // Not manual: the profile stays the started one, so the next launch tries it again.
         stop({false, false, false, false});
     }

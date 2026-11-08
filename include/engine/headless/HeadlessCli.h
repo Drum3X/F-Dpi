@@ -69,7 +69,7 @@ namespace Engine::HeadlessCli {
     // helpText() plus the exit-code table, plain English.
     QString HelpText(const QCommandLineParser &parser);
 
-    // Chain: option > THRONE_DATA_DIR > the first ':' entry of STATE_DIRECTORY > as root: /var/lib/throne (Linux),
+    // Chain: option > THRONE_DATA_DIR > the first ':' entry of STATE_DIRECTORY > as root: /var/lib/f-dpi (Linux),
     // /Library/Application Support/Throne (macOS) > AppConfigLocation (HOME empty or "/": an error). Never the app dir.
     // Windows: option > THRONE_DATA_DIR > --service or LocalSystem: %ProgramData%\Throne (SecureDataDir; refused -> 78) >
     // AppConfigLocation; no STATE_DIRECTORY. An explicit dir that Users can write is logged as a warning.

@@ -47,19 +47,31 @@ QWidget *EditDpi::buildStrategyTab() {
 
     m_wfTcp = new QLineEdit(page);
     m_wfTcp->setPlaceholderText(QStringLiteral("80,443"));
+#ifdef Q_OS_WIN
     m_wfTcp->setToolTip(tr("TCP ports winws captures (--wf-tcp). Separate ports and ranges with commas."));
+#else
+    m_wfTcp->setToolTip(tr("TCP ports whose connections go through nfqws (an nftables queue rule). Separate ports and ranges with commas."));
+#endif
     layout->addRow(tr("TCP ports"), m_wfTcp);
 
     m_wfUdp = new QLineEdit(page);
     m_wfUdp->setPlaceholderText(QStringLiteral("443"));
+#ifdef Q_OS_WIN
     m_wfUdp->setToolTip(tr("UDP ports winws captures (--wf-udp), e.g. 443 for QUIC. Leave empty to leave UDP alone."));
+#else
+    m_wfUdp->setToolTip(tr("UDP ports whose traffic goes through nfqws, e.g. 443 for QUIC. Leave empty to leave UDP alone."));
+#endif
     layout->addRow(tr("UDP ports"), m_wfUdp);
 
     m_strategy = new QPlainTextEdit(page);
     m_strategy->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
     m_strategy->setLineWrapMode(QPlainTextEdit::NoWrap);
     m_strategy->setMinimumHeight(150);
+#ifdef Q_OS_WIN
     m_strategy->setToolTip(tr("winws options. Separate profiles with --new; # starts a comment; %ZAPRET% is the winws folder."));
+#else
+    m_strategy->setToolTip(tr("nfqws options. Separate profiles with --new; # starts a comment; %ZAPRET% is the zapret folder. WinDivert options (--wf-*) do not apply."));
+#endif
     layout->addRow(tr("Strategy"), m_strategy);
 
     auto *preview = new QPushButton(tr("Show command line"), page);
@@ -265,8 +277,13 @@ void EditDpi::updateModeRows() {
     if (all) {
         m_modeHint->setText(tr("Every connection on the captured ports is changed. Simplest, but some sites or games may misbehave."));
     } else if (automatic) {
+#ifdef Q_OS_WIN
         m_modeHint->setText(tr("winws watches connections and adds a site to the learned list once it looks blocked; only those sites "
                                "and the ones below are changed."));
+#else
+        m_modeHint->setText(tr("nfqws watches connections and adds a site to the learned list once it looks blocked; only those sites "
+                               "and the ones below are changed."));
+#endif
     } else {
         m_modeHint->setText(tr("Only the sites below (and their subdomains) are changed; everything else is left alone."));
     }
@@ -305,7 +322,7 @@ void EditDpi::showCommandLine() {
         MessageBoxWarning(tr("Command line"), error);
         return;
     }
-    MessageBoxScrollable(tr("Command line"), QDir::toNativeSeparators(launch.program) + QLatin1Char(' ') + Dpi::WindowsCommandLine(launch.arguments));
+    MessageBoxScrollable(tr("Command line"), Dpi::DisplayCommandLine(launch));
 }
 
 void EditDpi::runBlockcheck() {

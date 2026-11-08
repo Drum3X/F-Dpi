@@ -38,6 +38,13 @@ namespace Dns {
     // What Auto DNS uses now: the fixed provider, else the benchmark's pick, else the default. nullptr when it is off.
     const Provider *ActiveProvider();
 
+    // The DNS-over-TLS name of the provider (its DoH host), empty when it has no DoT (OpenDNS).
+    QString DotName(const Provider &provider);
+
+    // What the system resolver is pointed at while DPI Bypass runs: ActiveProvider(), except that on Linux, where
+    // systemd-resolved speaks DNS-over-TLS but not DoH, a provider without DoT is replaced by the default one.
+    const Provider *SystemProvider();
+
     // Addresses no public site resolves to: what a poisoning resolver answers with (0.0.0.0, loopback, private ranges...).
     bool IsBogon(const QHostAddress &address);
 

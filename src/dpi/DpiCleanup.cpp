@@ -18,9 +18,9 @@ namespace Dpi {
         if (QFile::exists(backup)) {
             QString error;
             if (Dns::RestoreSystemDnsBackup(backup, &error)) {
-                say(QStringLiteral("Windows DNS settings restored."));
+                say(QStringLiteral("System DNS settings restored."));
             } else {
-                say(QStringLiteral("Could not restore the Windows DNS settings: %1").arg(error));
+                say(QStringLiteral("Could not restore the system DNS settings: %1").arg(error));
                 code = 1;
             }
         }

@@ -1,5 +1,6 @@
 #include "include/sys/HostPresence.hpp"
 
+#include "include/global/Branding.hpp"
 #include "include/global/Logger.hpp"
 
 #include <QDir>
@@ -36,17 +37,18 @@ namespace Sys::HostPresence {
         int g_hostPresenceFd = -1;
 
         QString hostPresenceRootDir() {
+            // F-Dpi: its own name, so a Throne headless on the same computer is not taken for ours (Branding.hpp).
 #ifdef Q_OS_LINUX
-            return QStringLiteral("/run/throne");
+            return QStringLiteral("/run/") + QLatin1String(Branding::UnixDirName);
 #else
-            return QStringLiteral("/var/run/throne");
+            return QStringLiteral("/var/run/") + QLatin1String(Branding::UnixDirName);
 #endif
         }
 
         QString hostPresenceUserDir() {
             const QString runtime = qEnvironmentVariable("XDG_RUNTIME_DIR");
             if (runtime.isEmpty() || !QDir::isAbsolutePath(runtime)) return {};
-            return QDir(runtime).absoluteFilePath(QStringLiteral("throne"));
+            return QDir(runtime).absoluteFilePath(QLatin1String(Branding::UnixDirName));
         }
 
         QString hostPresenceFile(const QString &dir) {

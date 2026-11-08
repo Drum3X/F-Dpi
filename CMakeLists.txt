@@ -790,6 +790,7 @@ set(ENGINE_SOURCES
         src/engine/connection/ConnectionDpi.cpp
         include/engine/dpi/DpiSupervisor.h
         src/engine/dpi/DpiSupervisor.cpp
+        src/engine/dpi/DpiSupervisorCore.cpp
         include/engine/network/NetworkSwitcher.h
         src/engine/network/NetworkSwitcher.cpp
         include/engine/dpi/Blockcheck.h
@@ -879,8 +880,11 @@ if (WIN32 AND MSVC)
 endif ()
 
 # F-Dpi: product exe name and mandatory elevation (identity strings: include/global/Branding.hpp)
-if (WIN32)
+# The core's parent check (core/internal/parentcheck) expects this name.
+if (WIN32 OR (UNIX AND NOT APPLE))
     set_target_properties(Throne PROPERTIES OUTPUT_NAME "F-Dpi")
+endif ()
+if (WIN32)
     target_compile_definitions(Throne PRIVATE FDPI_REQUIRE_ADMIN)
     # Qt >= 6.9 embeds its own app manifest (and links with /MANIFESTUAC:NO); this sets its execution level.
     set_target_properties(Throne PROPERTIES QT_WINDOWS_APP_PROJECT_EXECUTION_LEVEL "requireAdministrator")

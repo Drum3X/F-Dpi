@@ -50,8 +50,14 @@ DialogAbout::DialogAbout(QWidget *parent) : QDialog(parent) {
     versions->addRow(QStringLiteral("Qt:"), valueLabel(QString::fromLatin1(qVersion())));
     versions->addRow(QStringLiteral("Go:"), goVersion);
 
-    auto *description = new QLabel(tr("Desktop utility for getting around censorship and DPI blocking: a sing-box proxy and a zapret (winws) DPI "
-                                      "bypass, never running at the same time.") +
+#ifdef Q_OS_WIN
+    const QString what = tr("Desktop utility for getting around censorship and DPI blocking: a sing-box proxy and a zapret (winws) DPI "
+                            "bypass, never running at the same time.");
+#else
+    const QString what = tr("Desktop utility for getting around censorship and DPI blocking: a sing-box proxy and a zapret (nfqws) DPI "
+                            "bypass, never running at the same time.");
+#endif
+    auto *description = new QLabel(what +
                                        "\n\n" + tr("Based on %1 (GPL-3.0).").arg(QString::fromLatin1(Branding::UpstreamName)),
                                    this);
     description->setWordWrap(true);

@@ -56,32 +56,36 @@
         <translation>[DNS] Automatic DNS: %1</translation>
     </message>
     <message>
-        <source>[DNS] Restored the Windows DNS settings F-Dpi had changed before it last closed.</source>
-        <translation>[DNS] Restored the Windows DNS settings F-Dpi had changed before it last closed.</translation>
+        <source>[DNS] Restored the system DNS settings F-Dpi had changed before it last closed.</source>
+        <translation>[DNS] Restored the system DNS settings F-Dpi had changed before it last closed.</translation>
     </message>
     <message>
-        <source>[DNS] Could not restore the Windows DNS settings: %1</source>
-        <translation>[DNS] Could not restore the Windows DNS settings: %1</translation>
+        <source>[DNS] Could not restore the system DNS settings: %1</source>
+        <translation>[DNS] Could not restore the system DNS settings: %1</translation>
     </message>
     <message>
-        <source>[DNS] Could not set the Windows DNS: %1</source>
-        <translation>[DNS] Could not set the Windows DNS: %1</translation>
+        <source>[DNS] Could not set the system DNS: %1</source>
+        <translation>[DNS] Could not set the system DNS: %1</translation>
+    </message>
+    <message>
+        <source>[DNS] Left alone, DNS servers are set for this network in the system settings: %1</source>
+        <translation>[DNS] Left alone, DNS servers are set for this network in the system settings: %1</translation>
+    </message>
+    <message>
+        <source>[DNS] The system now resolves through %1 over DNS-over-TLS while DPI Bypass runs.</source>
+        <translation>[DNS] The system now resolves through %1 over DNS-over-TLS while DPI Bypass runs.</translation>
+    </message>
+    <message>
+        <source>[DNS] System DNS settings restored.</source>
+        <translation>[DNS] System DNS settings restored.</translation>
     </message>
     <message>
         <source>[DNS] Automatic DNS: %1, the fastest encrypted DNS here (%2 ms).</source>
         <translation>[DNS] Automatic DNS: %1, the fastest encrypted DNS here (%2 ms).</translation>
     </message>
     <message>
-        <source>[DNS] Left alone, DNS servers are set for this network in Windows: %1</source>
-        <translation>[DNS] Left alone, DNS servers are set for this network in Windows: %1</translation>
-    </message>
-    <message>
         <source>[DNS] Windows now resolves through %1 over DNS-over-HTTPS while DPI Bypass runs.</source>
         <translation>[DNS] Windows now resolves through %1 over DNS-over-HTTPS while DPI Bypass runs.</translation>
-    </message>
-    <message>
-        <source>[DNS] Windows DNS settings restored.</source>
-        <translation>[DNS] Windows DNS settings restored.</translation>
     </message>
     <message>
         <source>cannot save the backup of the current settings to %1</source>
@@ -378,6 +382,10 @@ Giden: %4</translation>
         <translation>Sansürü ve DPI engellemesini aşmak için masaüstü aracı: bir sing-box proxy&apos;si ve bir zapret (winws) DPI bypass&apos;ı; ikisi asla aynı anda çalışmaz.</translation>
     </message>
     <message>
+        <source>Desktop utility for getting around censorship and DPI blocking: a sing-box proxy and a zapret (nfqws) DPI bypass, never running at the same time.</source>
+        <translation>İnternet sansürünü ve DPI engellerini aşmak için masaüstü aracı: sing-box proxy'si ve zapret (nfqws) DPI bypass'ı, hiçbir zaman aynı anda çalışmazlar.</translation>
+    </message>
+    <message>
         <source>Based on %1 (GPL-3.0).</source>
         <translation>%1 tabanlıdır (GPL-3.0).</translation>
     </message>
@@ -431,6 +439,18 @@ Giden: %4</translation>
     <message>
         <source>Needs Windows 11.</source>
         <translation>Windows 11 gerekir.</translation>
+    </message>
+    <message>
+        <source>DPI Bypass: point the system DNS (systemd-resolved) at it while DPI Bypass runs (DNS-over-TLS required)</source>
+        <translation>DPI Bypass: DPI Bypass çalışırken sistem DNS'ini (systemd-resolved) buna yönlendir (DNS-over-TLS zorunlu)</translation>
+    </message>
+    <message>
+        <source>nfqws does not touch DNS. The network connection&apos;s DNS settings are saved first and put back when DPI Bypass stops, and at the next start if F-Dpi was closed abruptly. A connection whose DNS servers you set in NetworkManager is left as it is. OpenDNS has no DNS-over-TLS, so Cloudflare is used instead.</source>
+        <translation>nfqws DNS'e dokunmaz. Ağ bağlantısının DNS ayarları önce kaydedilir; DPI Bypass durunca, F-Dpi beklenmedik biçimde kapandıysa da sonraki açılışta geri yüklenir. DNS sunucularını NetworkManager'da sizin ayarladığınız bağlantıya dokunulmaz. OpenDNS DNS-over-TLS sunmadığı için onun yerine Cloudflare kullanılır.</translation>
+    </message>
+    <message>
+        <source>Needs systemd-resolved, which this system does not resolve through.</source>
+        <translation>systemd-resolved gerekir; bu sistem ad çözümlemesini onun üzerinden yapmıyor.</translation>
     </message>
     <message>
         <source>Now</source>
@@ -527,6 +547,10 @@ Giden: %4</translation>
     <message>
         <source>unknown</source>
         <translation>bilinmiyor</translation>
+    </message>
+    <message>
+        <source>The system DNS is changed by F-Dpi while DPI Bypass runs (it was %1).</source>
+        <translation>DPI Bypass çalışırken sistem DNS'i F-Dpi tarafından değiştirildi (önceki: %1).</translation>
     </message>
     <message>
         <source>no answer</source>
@@ -1880,6 +1904,10 @@ Geri yüklemeyi tamamlamak için F-Dpi yeniden başlayacak.</translation>
     <message>
         <source>winws refused</source>
         <translation>winws reddetti</translation>
+    </message>
+    <message>
+        <source>nfqws refused</source>
+        <translation>nfqws reddetti</translation>
     </message>
     <message>
         <source>Enter at least one blocked site.</source>
@@ -5705,6 +5733,10 @@ https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
         <translation>Kill switch açıkken DPI Bypass çalışamaz: tüm trafiği engeller. Önce kill switch&apos;i kapatın.</translation>
     </message>
     <message>
+        <source>DPI Bypass needs the core to have root privileges. Give the core root privileges, then start the profile again.</source>
+        <translation>DPI Bypass için çekirdeğin root yetkisi olmalı. Çekirdeğe root yetkisi verin, sonra profili yeniden başlatın.</translation>
+    </message>
+    <message>
         <source>[DPI] The system proxy is not used while DPI Bypass runs.</source>
         <translation>[DPI] The system proxy is not used while DPI Bypass runs.</translation>
     </message>
@@ -5713,20 +5745,36 @@ https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
         <translation>[DPI] DPI Bypass stopped because winws exited: %1</translation>
     </message>
     <message>
+        <source>[DPI] DPI Bypass stopped because nfqws exited: %1</source>
+        <translation>[DPI] DPI Bypass stopped because nfqws exited: %1</translation>
+    </message>
+    <message>
         <source>Cannot write the site list %1: %2</source>
         <translation>%1 site listesi yazılamıyor: %2</translation>
     </message>
     <message>
-        <source>DPI Bypass is only available on Windows for now.</source>
-        <translation>DPI Bypass şimdilik yalnızca Windows&apos;ta kullanılabilir.</translation>
+        <source>DPI Bypass is only available on Windows and Linux for now.</source>
+        <translation>DPI Bypass şimdilik yalnızca Windows ve Linux'ta kullanılabilir.</translation>
     </message>
     <message>
         <source>winws.exe was not found at %1. Reinstall F-Dpi.</source>
         <translation>winws.exe %1 konumunda bulunamadı. F-Dpi&apos;yi yeniden kurun.</translation>
     </message>
     <message>
+        <source>nfqws was not found at %1. Reinstall F-Dpi.</source>
+        <translation>nfqws %1 konumunda bulunamadı. F-Dpi'yi yeniden kurun.</translation>
+    </message>
+    <message>
         <source>Cannot create the folder %1.</source>
         <translation>%1 klasörü oluşturulamıyor.</translation>
+    </message>
+    <message>
+        <source>%1 is a WinDivert option that only works on Windows; on Linux the TCP and UDP ports choose the traffic.</source>
+        <translation>%1 yalnızca Windows'ta çalışan bir WinDivert seçeneğidir; Linux'ta trafiği TCP ve UDP portları seçer.</translation>
+    </message>
+    <message>
+        <source>No TCP or UDP port is set: nothing would go through the DPI engine.</source>
+        <translation>TCP ya da UDP portu ayarlanmamış: DPI motorundan hiçbir trafik geçmezdi.</translation>
     </message>
     <message>
         <source>Custom strategy</source>
@@ -5799,6 +5847,30 @@ https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
     <message>
         <source>Game launchers and stores</source>
         <translation>Oyun başlatıcıları ve mağazaları</translation>
+    </message>
+    <message>
+        <source>The core is not running, so DPI Bypass cannot start.</source>
+        <translation>Çekirdek çalışmıyor, bu yüzden DPI Bypass başlatılamıyor.</translation>
+    </message>
+    <message>
+        <source>nfqws did not start.
+
+%1</source>
+        <translation>nfqws başlamadı.
+
+%1</translation>
+    </message>
+    <message>
+        <source>the core stopped</source>
+        <translation>çekirdek durdu</translation>
+    </message>
+    <message>
+        <source>The core needs root privileges for DPI Bypass: give the core root privileges, then start again.</source>
+        <translation>DPI Bypass için çekirdeğin root yetkisi olmalı: çekirdeğe root yetkisi verin, sonra yeniden başlatın.</translation>
+    </message>
+    <message>
+        <source>nfqws could not read the packet queue: another program (such as zapret&apos;s own service) may be using queue 200.</source>
+        <translation>nfqws paket kuyruğunu okuyamadı: başka bir program (ör. zapret'in kendi servisi) 200 numaralı kuyruğu kullanıyor olabilir.</translation>
     </message>
 </context>
 <context>
@@ -6630,6 +6702,18 @@ https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
         <translation>Oyunlar çoğunlukla kendi portlarında UDP kullanır. UDP portlarında yalnızca 443 varsa oyun trafiği hiç yakalanmaz; web trafiğine de dokunulmaması için oyun başlatıcılarını &quot;Asla dokunma&quot; listesine ekleyin.</translation>
     </message>
     <message>
+        <source>TCP ports whose connections go through nfqws (an nftables queue rule). Separate ports and ranges with commas.</source>
+        <translation>Bağlantıları nfqws'ten (bir nftables kuyruk kuralı) geçen TCP portları. Portları ve aralıkları virgülle ayırın.</translation>
+    </message>
+    <message>
+        <source>UDP ports whose traffic goes through nfqws, e.g. 443 for QUIC. Leave empty to leave UDP alone.</source>
+        <translation>Trafiği nfqws'ten geçen UDP portları; ör. QUIC için 443. UDP'ye dokunulmasın diye boş bırakın.</translation>
+    </message>
+    <message>
+        <source>nfqws options. Separate profiles with --new; # starts a comment; %ZAPRET% is the zapret folder. WinDivert options (--wf-*) do not apply.</source>
+        <translation>nfqws seçenekleri. Profilleri --new ile ayırın; # yorum başlatır; %ZAPRET% zapret klasörüdür. WinDivert seçenekleri (--wf-*) geçerli değildir.</translation>
+    </message>
+    <message>
         <source>Blockcheck...</source>
         <translation>Blockcheck...</translation>
     </message>
@@ -6676,6 +6760,10 @@ https://matsuridayo.github.io/n-configuration/#vpn-tun</translation>
     <message>
         <source>winws watches connections and adds a site to the learned list once it looks blocked; only those sites and the ones below are changed.</source>
         <translation>winws bağlantıları izler ve engellenmiş görünen bir siteyi öğrenilenler listesine ekler; yalnızca bu siteler ve aşağıdakiler değiştirilir.</translation>
+    </message>
+    <message>
+        <source>nfqws watches connections and adds a site to the learned list once it looks blocked; only those sites and the ones below are changed.</source>
+        <translation>nfqws bağlantıları izler ve engellenmiş görünen bir siteyi öğrenilenler listesine ekler; yalnızca bu siteler ve aşağıdakiler değiştirilir.</translation>
     </message>
     <message>
         <source>Only the sites below (and their subdomains) are changed; everything else is left alone.</source>
@@ -9123,16 +9211,16 @@ Delik açma güvenilirliğini artırır. IPv4 gerektirir.</translation>
         <translation>&quot;%1&quot; bunu zaten kullanıyor.</translation>
     </message>
     <message>
-        <source>Registration failed: %1</source>
-        <translation>Kayıt başarısız: %1</translation>
-    </message>
-    <message>
         <source>This key can&apos;t be used in a global hotkey.</source>
         <translation>Bu tuş bir genel kısayol tuşunda kullanılamaz.</translation>
     </message>
     <message>
         <source>Another application or a system shortcut already uses it.</source>
         <translation>Başka bir uygulama veya bir sistem kısayolu bunu zaten kullanıyor.</translation>
+    </message>
+    <message>
+        <source>Registration failed: %1</source>
+        <translation>Kayıt başarısız: %1</translation>
     </message>
 </context>
 <context>
@@ -15028,6 +15116,10 @@ O uç nokta da bu yönlendirme profilinden kaldırılsın mı?</translation>
     <message>
         <source>Refused to import a DPI Bypass profile: it would run winws with options from another installation.</source>
         <translation>DPI Bypass profili içe aktarılmadı: başka bir kurulumdan gelen seçeneklerle winws çalıştırırdı.</translation>
+    </message>
+    <message>
+        <source>Refused to import a DPI Bypass profile: it would run nfqws with options from another installation.</source>
+        <translation>DPI Bypass profili içe aktarılmadı: nfqws'i başka bir kurulumun seçenekleriyle çalıştırırdı.</translation>
     </message>
     <message>
         <source>Refused to import an Extra Core profile: it would run a program on this computer.</source>

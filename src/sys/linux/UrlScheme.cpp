@@ -9,8 +9,11 @@
 #include <QStandardPaths>
 #include <QTextStream>
 
+#include "include/global/Branding.hpp"
+
 // Both associations live in this one entry, told apart by its MimeType list.
-static const QString kDesktopId = "throne-url-handler.desktop";
+// F-Dpi: its own entry, so a Throne install keeps its handler (the throne:// scheme itself is shared, the last registered wins).
+static const QString kDesktopId = QLatin1String(Branding::UrlHandlerDesktopId);
 
 static const QStringList kLinkTypes = {"x-scheme-handler/throne"};
 static const QStringList kConfigTypes = {"application/json", "application/yaml", "text/yaml"};
@@ -87,7 +90,7 @@ static void writeEntry(const QStringList &types) {
             QTextStream ts(&f);
             ts << "[Desktop Entry]\n"
                << "Type=Application\n"
-               << "Name=Throne\n"
+               << "Name=" << Branding::AppName << "\n"
                << "Icon=" << iconTarget() << "\n"
                << execLine() << "\n"
                << "MimeType=" << types.join(';') << ";\n"
@@ -107,13 +110,13 @@ QString UrlScheme_DesiredState(Association a) {
     return (a == Association::Links ? "v4|" : "v1|") + execTarget();
 }
 
-// The deb, the rpm and install_linux.py each install a Throne.desktop that launches this binary; a zip copy has none pointing at itself.
+// The deb and the rpm each install an F-Dpi.desktop that launches this binary; a zip copy has none pointing at itself.
 bool UrlScheme_AutoRegisterByDefault() {
 #ifdef NKR_DESKTOP_EXEC
     return true;
 #else
     const QString target = execTarget();
-    for (const QString &path : QStandardPaths::locateAll(QStandardPaths::ApplicationsLocation, "Throne.desktop")) {
+    for (const QString &path : QStandardPaths::locateAll(QStandardPaths::ApplicationsLocation, QLatin1String(Branding::DesktopFileName))) {
         QFile f(path);
         if (!f.open(QIODevice::ReadOnly | QIODevice::Text)) continue;
         while (!f.atEnd()) {

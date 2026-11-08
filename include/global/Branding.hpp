@@ -18,6 +18,15 @@ namespace Branding {
     inline constexpr auto ConfigProgId = "F-Dpi.Config";
     // - the service mode's data folder under ProgramData.
     inline constexpr auto SystemDataDirName = "F-Dpi";
+    // Linux/macOS identifiers a Throne install must not share:
+    // - the runtime and state directory name: /run/<x> and $XDG_RUNTIME_DIR/<x> (headless presence and socket),
+    //   /tmp/<x>-<euid>, /var/lib/<x> (headless data as root); also matched in process names (Preflight);
+    inline constexpr auto UnixDirName = "f-dpi";
+    // - the desktop entries: the one packages install (launcher) and the URL handler UrlScheme writes;
+    inline constexpr auto DesktopFileName = "F-Dpi.desktop";
+    inline constexpr auto UrlHandlerDesktopId = "f-dpi-url-handler.desktop";
+    // - the KDE global shortcut component (also a D-Bus object path element: letters, digits, '_' only).
+    inline constexpr auto KdeShortcutComponent = "fdpi";
     // Scheduled-task name prefix for autorun.
     inline constexpr auto AutoRunTaskPrefix = "F-Dpi AutoRun ";
     // Project page shown in About; empty hides the button.

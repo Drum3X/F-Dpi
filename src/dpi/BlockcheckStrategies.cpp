@@ -70,17 +70,51 @@ namespace Dpi::Blockcheck {
 
     QStringList TrialArguments(Target target, const QString &strategy) {
         const QString port = target == Target::Http ? QStringLiteral("80") : QStringLiteral("443");
-        QStringList args{QStringLiteral("--wf-tcp=") + port, QStringLiteral("--filter-tcp=") + port};
+        QStringList args;
+#ifdef Q_OS_WIN
+        args << QStringLiteral("--wf-tcp=") + port;
+#endif
+        args << QStringLiteral("--filter-tcp=") + port;
         args << strategy.split(' ', Qt::SkipEmptyParts);
         return args;
+    }
+
+    Launch TrialLaunch(Target target, const QString &strategy) {
+        Launch launch{EnginePath(), TrialArguments(target, strategy), ZapretDir(), {}, {}};
+#ifndef Q_OS_WIN
+        launch.tcpPorts << (target == Target::Http ? QStringLiteral("80") : QStringLiteral("443"));
+#endif
+        return launch;
+    }
+
+    bool IsEngineSetupError(const QString &error) {
+        static const QStringList markers = {
+            QStringLiteral("windivert"),           // Windows: no administrator, blocked driver
+            QStringLiteral("root privileges"),     // Linux: the core is not setuid root
+            QStringLiteral("nftables"),            // no nftables / queue support in the kernel
+            QStringLiteral("nfqws was not found"), // missing or untrusted engine
+            QStringLiteral("could replace nfqws"),
+            QStringLiteral("must be an executable owned by root"),
+            QStringLiteral("nfq_"),                // nfqws could not open the queue
+            QStringLiteral("core is not running"),
+        };
+        for (const auto &marker : markers) {
+            if (error.contains(marker, Qt::CaseInsensitive)) return true;
+        }
+        return false;
     }
 
     QString ComposeStrategy(const QString &http, const QString &tls) {
         QStringList blocks;
         if (!http.isEmpty()) blocks << QStringLiteral("--filter-tcp=80 ") + http;
         if (!tls.isEmpty()) blocks << QStringLiteral("--filter-tcp=443 ") + tls;
+#ifdef Q_OS_WIN
         blocks << QStringLiteral("--filter-udp=443 --filter-l7=quic --dpi-desync=fake --dpi-desync-repeats=11 "
                                  "--dpi-desync-fake-quic=\"%ZAPRET%\\files\\quic_initial_www_google_com.bin\"");
+#else
+        blocks << QStringLiteral("--filter-udp=443 --filter-l7=quic --dpi-desync=fake --dpi-desync-repeats=11 "
+                                 "--dpi-desync-fake-quic=\"%ZAPRET%/files/quic_initial_www_google_com.bin\"");
+#endif
         return QStringLiteral("# Blockcheck\n") + blocks.join(QStringLiteral("\n--new\n")) + QLatin1Char('\n');
     }
 

@@ -72,7 +72,11 @@ namespace Configs
     {
         // F-Dpi: winws runs as admin and its options read and write files, so a foreign strategy is never taken as is.
         if (type == "dpi")
+#ifdef Q_OS_WIN
             return QCoreApplication::translate("Validation", "Refused to import a DPI Bypass profile: it would run winws with options from another installation.");
+#else
+            return QCoreApplication::translate("Validation", "Refused to import a DPI Bypass profile: it would run nfqws with options from another installation.");
+#endif
         if (type == "extracore")
             return QCoreApplication::translate("Validation", "Refused to import an Extra Core profile: it would run a program on this computer.");
         if (type == "chain")

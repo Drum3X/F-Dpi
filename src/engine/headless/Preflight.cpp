@@ -35,6 +35,7 @@
 #include "include/engine/app/DataDirLock.h"
 #include "include/engine/app/ExitCodes.h"
 #include "include/engine/headless/HeadlessInstance.h"
+#include "include/global/Branding.hpp"
 #include "include/global/Configs.hpp"
 #include "include/global/Validation.hpp"
 #include "include/sys/HostPresence.hpp"
@@ -232,9 +233,12 @@ namespace Engine::Preflight {
             if (::kill(static_cast<pid_t>(pid), 0) != 0 && errno != EPERM) return false;
             // kill() already proved it alive; a name this OS or user cannot read does not undo that.
             const QString name = Bootstrap::ProcessName(pid);
-            return name.isEmpty() || name.contains(QLatin1String("throne"), Qt::CaseInsensitive);
+            // F-Dpi: the GUI/headless binary is F-Dpi; ThroneCore keeps its name.
+            return name.isEmpty() || name.contains(QLatin1String("throne"), Qt::CaseInsensitive)
+                   || name.contains(QLatin1String(Branding::UnixDirName), Qt::CaseInsensitive);
 #else
-            return Bootstrap::ProcessName(pid).contains(QLatin1String("throne"), Qt::CaseInsensitive);
+            const QString name = Bootstrap::ProcessName(pid);
+            return name.contains(QLatin1String("throne"), Qt::CaseInsensitive) || name.contains(QLatin1String(Branding::UnixDirName), Qt::CaseInsensitive);
 #endif
         }
 

@@ -1,6 +1,6 @@
 #include "include/sys/SystemDns.hpp"
 
-#ifndef Q_OS_WIN
+#if !defined(Q_OS_WIN) && !defined(Q_OS_LINUX) // Windows: windows/SystemDns_win.cpp, Linux: linux/SystemDns_linux.cpp
 namespace Sys::SystemDns {
     bool Supported() { return false; }
 

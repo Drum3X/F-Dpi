@@ -36,7 +36,8 @@ case "$GOOS" in
     fi
     ;;
   linux)
-    TAGS+=",with_naive_outbound"
+    # F-Dpi: NO_NAIVE=1 skips naive, which needs the Chromium toolchain CI downloads (local builds: build_linux.sh).
+    [[ "${NO_NAIVE:-}" == "1" ]] || TAGS+=",with_naive_outbound"
     export CGO_ENABLED=1
     ;;
 esac

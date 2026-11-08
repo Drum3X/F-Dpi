@@ -125,7 +125,13 @@ DialogBlockcheck::DialogBlockcheck(const QStringList &domains, bool applyToProfi
                 m_table->insertRow(row);
                 m_table->setItem(row, 0, new QTableWidgetItem(target));
                 m_table->setItem(row, 1, new QTableWidgetItem(strategy));
-                auto *score = new QTableWidgetItem(passed < 0 ? tr("winws refused") : QStringLiteral("%1/%2").arg(passed).arg(total));
+                auto *score = new QTableWidgetItem(passed < 0 ?
+#ifdef Q_OS_WIN
+                                                         tr("winws refused")
+#else
+                                                         tr("nfqws refused")
+#endif
+                                                         : QStringLiteral("%1/%2").arg(passed).arg(total));
                 if (passed > 0 && passed == total) score->setForeground(QColor(0x2e, 0x9e, 0x44));
                 m_table->setItem(row, 2, score);
                 m_table->scrollToBottom();

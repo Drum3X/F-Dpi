@@ -1,5 +1,7 @@
 #include "include/engine/dpi/DpiSupervisor.h"
 
+// Windows: winws as a child process. Linux: DpiSupervisorCore.cpp.
+#ifndef Q_OS_LINUX
 #include <QCoreApplication>
 #include <QDir>
 #include <QElapsedTimer>
@@ -68,7 +70,7 @@ namespace Engine {
                 onFinished(generation);
             });
 
-            if (!m_quiet) MW_show_log(QStringLiteral("[DPI] %1 %2").arg(QDir::toNativeSeparators(launch.program), Dpi::WindowsCommandLine(launch.arguments)));
+            if (!m_quiet) MW_show_log(QStringLiteral("[DPI] ") + Dpi::DisplayCommandLine(launch));
             m_process->start();
             if (!m_process->waitForStarted(5000)) {
                 startError = QCoreApplication::translate("Dpi", "winws could not be started: %1").arg(m_process->errorString());
@@ -176,3 +178,4 @@ namespace Engine {
         return hint.isEmpty() ? reason : QStringLiteral("%1\n\n%2").arg(hint, reason);
     }
 } // namespace Engine
+#endif // !Q_OS_LINUX
