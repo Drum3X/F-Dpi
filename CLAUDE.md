@@ -270,6 +270,7 @@ Notlar:
     - Doğrulandı (yönetici olmadan, 2026-10-24, `remember_enable=false`): TestNet'te ağa özel Socks, gerçek ağda genel Socks başladı; ayar kapalıyken hiçbir şey başlamadı.
   - Öğrenme: genel gruptan başlatılan profil `general_profile_id` olur. Ağa bağlı Özel gruptan o ağdayken başlatılan profil grubun `profile_id`'si olur.
   - Ayar: `network_auto_switch` (varsayılan açık).
+  - Çevrimdışı açılışta `network_start_on_launch` isteği ilk başarılı profil başlangıcına kadar bellekte korunur. Ağ sonradan gelince, `started_id` boş olsa da otomatik geçiş açıksa uygun profil başlar. Elle durdurma bekleyen isteği iptal eder; profil değişiminin iç durdurması iptal etmez. Aynı ağ kimliğiyle yeniden bağlanma ve ek ağ anahtarlarının gelmesi de hedefi yeniden değerlendirir. Başka profil bağlanırken gelen geçiş, bağlantı işlemi tamamlanınca uygulanır.
 - **UI:**
   - `GroupSectionBar`: grup sekmelerinin üstünde "Genel | Özel (Ağ Bazlı)" yuvarlak düğmeleri (`QTabBar#groupSections`, stili `ThemeManager`'da). Ana penceredeki splitter'da `tabWidget`'ın yerine ikisini içeren bir sütun koyar; sütun ebeveynsiz oluşturulur, yoksa splitter onu son bölme olarak ekler ve günlüklerin altına düşer.
   - Şu anki ağ durum çubuğunda (`GroupSectionBar::NewNetworkLabel`, Mixed ile Proxy arasında). "Otomatik geçiş" Tercihler → Ağlar sekmesinde.

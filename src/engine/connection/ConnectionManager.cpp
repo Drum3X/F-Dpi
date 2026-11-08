@@ -371,7 +371,10 @@ namespace Engine {
         const int rpcTimeoutMs = options.rpcTimeoutMs;
         const bool skipTests = options.skipTests;
 
-        if (manual) ++m_geoRetryToken;
+        if (manual) {
+            ++m_geoRetryToken;
+            if (!m_switchingProfile) emit manualStopRequested();
+        }
         const auto current = runningSnapshot();
         if (current == nullptr) {
             // A crashed profile waits for the restarted core with nothing running; a user stop cancels that.

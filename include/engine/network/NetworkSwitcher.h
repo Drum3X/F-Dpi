@@ -18,7 +18,8 @@ namespace Engine {
     // - Otherwise the general config runs: settings general_profile_id, else the first profile of the first general group.
     // - Neither: a running Custom profile (another network's) stops, without counting as a manual stop, so it comes back with
     //   its network; a remembered one does not start.
-    // It acts only while the user wants something running (a profile runs, or one is started and not stopped by hand), so it
+    // It acts only while the user wants something running (a profile runs, one is started and not stopped by hand, or an
+    // offline connect-on-launch is still pending), so it
     // never starts a connection the user turned off. Every start goes through ConnectionManager, which stops the other engine.
     // A running profile that uses network placeholders (%GATEWAY%...) is started again when their values change, even on
     // the same network: a phone hotspot hands out a new gateway on every connection.
@@ -52,7 +53,9 @@ namespace Engine {
         // The running profile's placeholders and their values when it started.
         int m_placeholderProfile = -1;
         QMap<QString, QString> m_placeholderValues;
-        QString m_lastKey;
+        // An offline launch must not lose the user's connect-on-launch intent before a network appears.
+        bool m_pendingLaunch = false;
+        bool m_pendingNetworkChange = false;
         bool m_started = false;
     };
 } // namespace Engine

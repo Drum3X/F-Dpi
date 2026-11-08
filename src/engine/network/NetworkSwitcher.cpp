@@ -44,6 +44,19 @@ namespace Engine {
     } // namespace
 
     NetworkSwitcher::NetworkSwitcher(ConnectionManager *connection, QObject *parent) : QObject(parent), m_connection(connection) {
+        connect(m_connection, &ConnectionManager::manualStopRequested, this, [this] {
+            m_pendingLaunch = false;
+            m_pendingNetworkChange = false;
+        });
+        connect(m_connection, &ConnectionManager::connectionStateChanged, this, [this](ConnectionState state) {
+            if (!m_pendingNetworkChange || state == ConnectionState::Connecting || state == ConnectionState::Stopping) return;
+            QMetaObject::invokeMethod(this, [this] {
+                if (!m_pendingNetworkChange) return;
+                m_pendingNetworkChange = false;
+                const auto network = Sys::NetworkMonitor::instance()->current();
+                if (network.connected()) apply(network.name);
+            }, Qt::QueuedConnection);
+        });
         connect(m_connection, &ConnectionManager::startFinished, this,
                 [this](quint64 serial, int profileId, Engine::StartOutcome outcome, const QString &) {
                     onStartFinished(serial, profileId, outcome);
@@ -57,12 +70,12 @@ namespace Engine {
         auto *monitor = Sys::NetworkMonitor::instance();
         monitor->start(true);
         const auto network = monitor->current();
-        m_lastKey = network.key;
         connect(monitor, &Sys::NetworkMonitor::networkChanged, this, &NetworkSwitcher::onNetworkChanged);
         if (network.connected()) {
             MW_show_log(QCoreApplication::translate("Network", "[Network] Connected to %1.").arg(network.name));
         }
         auto &settings = Configs::dataManager->settingsRepo;
+        m_pendingLaunch = settings->network_start_on_launch && !network.connected();
         const int remembered = settings->remember_enable && settings->remember_id >= 0 ? settings->remember_id : -1;
         if (!settings->network_start_on_launch && (!settings->network_auto_switch || remembered < 0)) return remembered;
         const int target = targetProfile(remembered);
@@ -109,10 +122,9 @@ namespace Engine {
         }
         // Offline: nothing to match, and the next network decides.
         if (!network.connected()) return;
-        if (network.key != m_lastKey) {
-            m_lastKey = network.key;
-            if (apply(network.name)) return;
-        }
+        // Re-evaluate even when the primary key is unchanged: the same network can reconnect,
+        // or acquire additional identity keys as Windows finishes identifying it.
+        if (apply(network.name)) return;
         restartForPlaceholders(network.name);
     }
 
@@ -121,7 +133,7 @@ namespace Engine {
         if (!settings->network_auto_switch || settings->prepare_exit) return false;
         // A manual stop clears started_id: the user turned the connection off, so a network change must not turn it on.
         const auto running = m_connection->runningSnapshot();
-        if (running == nullptr && settings->started_id < 0) return false;
+        if (running == nullptr && settings->started_id < 0 && !(m_pendingLaunch && settings->network_start_on_launch)) return false;
         const int target = targetProfile(running != nullptr ? running->id : settings->started_id);
         if (target < 0) {
             // Neither a Custom group for this network nor a general config: the Custom profile of the network left behind
@@ -134,7 +146,10 @@ namespace Engine {
             return false;
         }
         if (running != nullptr && running->id == target) return false;
-        if (m_connection->connectionState() == ConnectionState::Connecting) return false;
+        if (m_connection->connectionState() == ConnectionState::Connecting) {
+            m_pendingNetworkChange = true;
+            return false;
+        }
         MW_show_log(QCoreApplication::translate("Network", "[Network] %1: starting %2.").arg(why, networkSwitcherProfileName(target)));
         m_connection->start(StartRequest{target, false, m_connection->nextStartSerial()});
         return true;
@@ -158,6 +173,7 @@ namespace Engine {
 
     void NetworkSwitcher::onStartFinished(quint64, int profileId, Engine::StartOutcome outcome) {
         if (outcome != StartOutcome::Started) return;
+        m_pendingLaunch = false;
         const auto profile = Configs::dataManager->profilesRepo->GetProfile(profileId);
         if (profile == nullptr) return;
         // The placeholder values this start used, to notice when they change.

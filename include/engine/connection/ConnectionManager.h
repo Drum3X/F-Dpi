@@ -114,6 +114,9 @@ namespace Engine {
         bool restartPending() const;
 
     signals:
+        // Explicit user stop, including when no profile is running yet.
+        void manualStopRequested();
+
         // API; EngineHost relays them with Qt::DirectConnection. The types are unregistered.
         void startFinished(quint64 serial, int profileId, Engine::StartOutcome outcome, const QString &error);
 
